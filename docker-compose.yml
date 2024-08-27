@@ -1,0 +1,14 @@
+version: '1.0'
+
+networks:
+    frontend-network:
+    
+
+services:
+    ui:
+        build:
+            context: UI
+        ports:
+            - 8888:80
+        networks: 
+            - frontend-network
