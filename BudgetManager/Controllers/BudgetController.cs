@@ -8,17 +8,17 @@ namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TransactionController : ControllerBase
+    public class BudgetController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
 
-        public TransactionController(ITransactionService transactionService)
+        public BudgetController(ITransactionService transactionService)
         {
             _transactionService = transactionService;
         }
 
-        [HttpGet]
-        public IActionResult Get(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             try
             {
@@ -51,6 +51,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
+                Console.WriteLine("------------------------------------------------------");
                 var transaction = _transactionService.AddTransaction(dto);
                 return Created($"api/transactions/{transaction.Id}", transaction);
             }

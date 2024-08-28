@@ -1,14 +1,53 @@
 version: '1.0'
 
 networks:
-    frontend-network:
-    
+    frontendnetwork:
+    budgetnetwork:
 
 services:
     ui:
         build:
-            context: UI
+            context: /UI
         ports:
-            - 8888:80
+            - 8011:80
         networks: 
-            - frontend-network
+            - frontendnetwork
+ 
+    apigateway:
+        build:
+            context: /ApiGateway
+        ports:
+            - 8010:8080
+        networks:
+            - frontendnetwork
+            - budgetnetwork
+            
+            
+    budgetdb:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        environment:
+            - SA_PASSWORD=tHiSiS_NoT@PAsSW&d
+            - ACCEPT_EULA=Y
+        ports:
+            - 1433:1433
+        networks:
+            - budgetnetwork            
+    
+    budgetapi:
+        image: jluka26/budgetmanager:latest
+        build:
+            context: /BudgetManager
+        depends_on:
+            - budgetdb
+        environment:
+            - db_host=budgetdb
+            - db_name=BudgetDB
+            - db_password=tHiSiS_NoT@PAsSW&d
+            - db_port=1433
+            - ASPNETCORE_ENVIRONMENT=Development
+        networks:
+            - budgetnetwork
+      
+      
+
+        
