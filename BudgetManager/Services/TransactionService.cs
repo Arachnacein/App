@@ -69,7 +69,7 @@ namespace BudgetManager.Services
         {
             var existingTransaction = _repository.Get(id);
             if (existingTransaction == null)
-                throw new TransactionNotFoundException($"Transaction not found. Id:{id}.");
+                throw new NullPointerException($"Transaction not found. Id:{id}.");
             _repository.Delete(id);
         }
     }

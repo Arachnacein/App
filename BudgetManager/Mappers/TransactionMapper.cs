@@ -46,6 +46,7 @@ namespace BudgetManager.Mappers
         public Transaction Map(UpdateTransactionDto source)
         {
             var destination = new Transaction();
+            destination.Id = source.Id;
             destination.IncomeType = source.IncomeType;
             destination.Name = source.Name;
             destination.Description = source.Description;

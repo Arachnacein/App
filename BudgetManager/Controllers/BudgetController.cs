@@ -107,7 +107,7 @@ namespace BudgetManager.Controllers
                 _transactionService.DeleteTransaction(id);
                 return NoContent();
             }
-            catch(TransactionNotFoundException e)
+            catch(NullPointerException e)
             {
                 return Conflict(e.Message);
             }
