@@ -1,0 +1,26 @@
+﻿@page "/budget"
+@using UI.Models
+
+<PageTitle> Hello in budget site</PageTitle>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction"> Add transaction </MudButton>
+<MudPaper Class="pa-4 ma-4" Elevation="5">
+    <MudTable Items="@transactions" T="TransactionViewModel" Dense="true" Striped="true">
+        <HeaderContent>
+            <MudTh>Type</MudTh>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Date</MudTh>
+            <MudTh>Price</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.IncomeType</MudTd>
+            <MudTd>@context.Name</MudTd>
+            <MudTd>@context.Description</MudTd>
+            <MudTd>@context.Date</MudTd>
+            <MudTd>@context.Price</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager></MudTablePager>
+        </PagerContent>
+    </MudTable>
+</MudPaper>

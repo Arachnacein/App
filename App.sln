@@ -5,11 +5,11 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4FE69F5B-415F-4652-AD84-2297772FDB4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{4FDB5445-5DAC-4D9B-B4A9-0719300D8697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{4FDB5445-5DAC-4D9B-B4A9-0719300D8697}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{614D86D6-C3DD-4BD8-A597-52D8A6EB1044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{614D86D6-C3DD-4BD8-A597-52D8A6EB1044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetManager", "BudgetManager\BudgetManager.csproj", "{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetManager", "BudgetManager\BudgetManager.csproj", "{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
