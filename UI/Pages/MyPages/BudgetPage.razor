@@ -20,7 +20,8 @@
             <MudTd>@context.Date</MudTd>
             <MudTd>@context.Price</MudTd>
             <MudTd>
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => EditTransaction(context))">Edit</MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => EditTransaction(context))"/>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => DeleteTransaction(context))"/>
             </MudTd>
         </RowTemplate>
         <PagerContent>
