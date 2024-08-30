@@ -11,6 +11,7 @@
             <MudTh>Description</MudTh>
             <MudTh>Date</MudTh>
             <MudTh>Price</MudTh>
+            <MudTh>Options</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.IncomeType</MudTd>
@@ -18,6 +19,10 @@
             <MudTd>@context.Description</MudTd>
             <MudTd>@context.Date</MudTd>
             <MudTd>@context.Price</MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => EditTransaction(context))"/>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => DeleteTransaction(context))"/>
+            </MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager></MudTablePager>

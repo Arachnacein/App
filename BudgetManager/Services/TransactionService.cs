@@ -19,19 +19,19 @@ namespace BudgetManager.Services
             _transactionMapper = transactionMapper;
         }
 
-        public IEnumerable<TransactionDto> RetrieveTransactions()
+        public async Task<IEnumerable<TransactionDto>> RetrieveTransactions()
         {
-            var transactions = _repository.GetAll();
+            var transactions = await _repository.GetAll();
             return _transactionMapper.MapElements(transactions.ToList());
         }
-        public TransactionDto RetrieveTransaction(int id)
+        public async Task<TransactionDto> RetrieveTransaction(int id)
         {
-            var transaction = _repository.Get(id);
+            var transaction = await _repository.Get(id);
             if(transaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{id}.");
             return _transactionMapper.Map(transaction);
         }
-        public TransactionDto AddTransaction(AddTransactionDto transaction)
+        public async Task<TransactionDto> AddTransaction(AddTransactionDto transaction)
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
@@ -44,12 +44,12 @@ namespace BudgetManager.Services
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
             
             Transaction mappedTransaction = _transactionMapper.Map(transaction);
-            _repository.Add(mappedTransaction);
+            await _repository.Add(mappedTransaction);
 
             return _transactionMapper.Map(mappedTransaction);
 
         }
-        public void UpdateTransaction(UpdateTransactionDto transaction)
+        public async Task UpdateTransaction(UpdateTransactionDto transaction)
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
@@ -62,15 +62,15 @@ namespace BudgetManager.Services
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
 
             Transaction mappedTransaction = _transactionMapper.Map(transaction);
-            _repository.Update(mappedTransaction);
+            await _repository.Update(mappedTransaction);
         }
 
-        public void DeleteTransaction(int id)
+        public async Task DeleteTransaction(int id)
         {
-            var existingTransaction = _repository.Get(id);
+            var existingTransaction = await _repository.Get(id);
             if (existingTransaction == null)
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
-            _repository.Delete(id);
+            await _repository.Delete(id);
         }
     }
 }

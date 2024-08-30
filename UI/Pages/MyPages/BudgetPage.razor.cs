@@ -14,7 +14,7 @@ namespace UI.Pages.MyPages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            LoadTransactions();
+            await LoadTransactions();
         }
         private async Task LoadTransactions()
         {
@@ -36,8 +36,27 @@ namespace UI.Pages.MyPages
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters();
+            parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
             dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
+        }
+        private async Task EditTransaction(TransactionViewModel model)
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var parameters = new DialogParameters();
+            parameters[nameof(model)] = model;
+            parameters["Refresh"] = new Func<Task>(LoadTransactions);
+
+            dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
+        } 
+        private async Task DeleteTransaction(TransactionViewModel model)
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var parameters = new DialogParameters();
+            parameters[nameof(model)] = model;
+            parameters["Refresh"] = new Func<Task>(LoadTransactions);
+
+            dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
         }
     }
 }
