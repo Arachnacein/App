@@ -7,10 +7,11 @@ namespace UI.Components.Dialogs
     public partial class DeleteTransactionDialog
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        private TransactionViewModel DialogModel = new TransactionViewModel();
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
         [Parameter] public TransactionViewModel model { get; set; }
-        private TransactionViewModel DialogModel = new TransactionViewModel();
+        [Parameter] public Func<Task> Refresh { get; set; }
 
         protected override Task OnInitializedAsync()
         {
@@ -24,6 +25,8 @@ namespace UI.Components.Dialogs
             {
                 snackbar.Add("Transaction deleted successfully.", Severity.Success);
                 MudDialog.Cancel();
+                if (Refresh != null)
+                    await Refresh.Invoke();
             }
             else
                 snackbar.Add("Something went wrong", Severity.Error);

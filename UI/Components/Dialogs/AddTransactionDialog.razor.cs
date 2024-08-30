@@ -10,6 +10,7 @@ namespace UI.Components.Dialogs
         private TransactionViewModel DialogModel = new TransactionViewModel();
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
+        [Parameter] public Func<Task> Refresh {  get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -26,7 +27,10 @@ namespace UI.Components.Dialogs
                     snackbar.Add("Successfully added income", Severity.Success);
                 else
                     snackbar.Add("Successfully added expense", Severity.Success);
+
                 MudDialog.Cancel();
+                if (Refresh != null)
+                    await Refresh.Invoke();
             }
             else
             {

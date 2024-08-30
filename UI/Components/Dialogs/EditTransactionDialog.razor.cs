@@ -11,6 +11,7 @@ namespace UI.Components.Dialogs
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
         [Parameter] public TransactionViewModel model { get; set;}
+        [Parameter] public Func<Task> Refresh { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,6 +24,8 @@ namespace UI.Components.Dialogs
             {
                 snackbar.Add("Transaction edited successfully", Severity.Success);
                 MudDialog.Cancel();
+                if(Refresh != null) 
+                    await Refresh.Invoke();
             }
             else
                 snackbar.Add("Something went wrong", Severity.Warning);
