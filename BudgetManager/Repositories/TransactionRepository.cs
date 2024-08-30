@@ -12,30 +12,30 @@ namespace BudgetManager.Repositories
             _context = context;
         }
 
-        public IEnumerable<Transaction> GetAll()
+        public async Task<IEnumerable<Transaction>> GetAll()
         {
             return _context.Transactions;
         }
 
-        public Transaction Get(int id)
+        public async Task<Transaction> Get(int id)
         {
             return _context.Transactions.FirstOrDefault(t => t.Id == id);
         }
 
-        public Transaction Add(Transaction transaction)
+        public async Task<Transaction> Add(Transaction transaction)
         {
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
             return transaction;
         }
 
-        public void Update(Transaction transaction)
+        public async Task Update(Transaction transaction)
         {
             _context.Transactions.Update(transaction);
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var transaction = _context.Transactions.FirstOrDefault(x => x.Id == id);
             _context.Transactions.Remove(transaction);
@@ -45,10 +45,10 @@ namespace BudgetManager.Repositories
 
     public interface ITransactionRespository
     {
-        IEnumerable<Transaction> GetAll();
-        Transaction Get(int id);
-        Transaction Add(Transaction transaction);
-        void Update(Transaction transaction);
-        void Delete(int id);
+        Task<IEnumerable<Transaction>> GetAll();
+        Task<Transaction> Get(int id);
+        Task<Transaction> Add(Transaction transaction);
+        Task Update(Transaction transaction);
+        Task Delete(int id);
     }
 }

@@ -18,11 +18,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var transaction = _transactionService.RetrieveTransaction(id);
+                var transaction = await _transactionService.RetrieveTransaction(id);
                 return Ok(transaction);
             }
 
@@ -33,11 +33,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var transactions = _transactionService.RetrieveTransactions();
+                var transactions = await _transactionService.RetrieveTransactions();
                 return Ok(transactions);
             }
             catch(Exception e)
@@ -47,12 +47,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AddTransactionDto dto)
+        public async Task<IActionResult> Create(AddTransactionDto dto)
         {
             try
             {
-                Console.WriteLine("------------------------------------------------------");
-                var transaction = _transactionService.AddTransaction(dto);
+                var transaction = await _transactionService.AddTransaction(dto);
                 return Created($"api/transactions/{transaction.Id}", transaction);
             }
             catch(NullPointerException e)
@@ -74,11 +73,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(UpdateTransactionDto dto)
+        public async Task<IActionResult> Update(UpdateTransactionDto dto)
         {
             try
             {
-                _transactionService.UpdateTransaction(dto);
+                await _transactionService.UpdateTransaction(dto);
                 return NoContent();
             }
             catch (NullPointerException e)
@@ -100,11 +99,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                _transactionService.DeleteTransaction(id);
+                await _transactionService.DeleteTransaction(id);
                 return NoContent();
             }
             catch(NullPointerException e)
