@@ -39,5 +39,13 @@ namespace UI.Pages.MyPages
 
             dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
         }
+        private async Task EditTransaction(TransactionViewModel model)
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var parameters = new DialogParameters();
+            parameters[nameof(model)] = model;
+
+            dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
+        }       
     }
 }
