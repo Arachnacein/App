@@ -46,8 +46,4 @@ services:
             - db_port=1433
             - ASPNETCORE_ENVIRONMENT=Development
         networks:
-            - budgetnetwork
-      
-      
-
-        
+            - budgetnetwork        

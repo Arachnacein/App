@@ -10,5 +10,6 @@ namespace BudgetManager.Dto
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public double Price { get; set; }
+        public string Category { get; set; }
     }
 }

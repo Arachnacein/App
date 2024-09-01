@@ -33,12 +33,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Automatyczne zastosowanie migracji przy starcie aplikacji
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<TransactionDbContext>();
-    db.Database.Migrate();
-}
+//// Automatyczne zastosowanie migracji przy starcie aplikacji
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<TransactionDbContext>();
+//    db.Database.Migrate();
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
