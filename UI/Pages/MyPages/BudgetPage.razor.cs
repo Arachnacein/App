@@ -58,5 +58,14 @@ namespace UI.Pages.MyPages
 
             dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
         }
+
+        private void ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
+        {
+            //parses string into enum
+            dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
+        }
+
+
+
     }
 }
