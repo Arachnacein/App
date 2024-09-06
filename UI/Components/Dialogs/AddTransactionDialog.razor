@@ -3,15 +3,22 @@
         <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-3 pa-3"/>
         <MudTextField Label="Description" @bind-Value="DialogModel.Description" Class="ma-3 pa-3" />
 
-        <MudToggleIconButton @bind-Toggled="@DialogModel.IncomeType"
-                             Icon="@Icons.Material.Filled.RemoveCircleOutline" Color="@Color.Error" title=@(DialogModel.IncomeType ? "Income" : "Expense")
-                             ToggledIcon="@Icons.Material.Filled.AddCircleOutline" ToggledColor="@Color.Success"
-                             Class="ma-3 pa-3 " />
-        <span>@(DialogModel.IncomeType ? "Income" : "Expense")</span>
-        <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-3 pa-3" />
+        <MudStack Row="true" Spacing="7">
+            <MudToggleIconButton @bind-Toggled="@DialogModel.IncomeType"
+                                 Icon="@Icons.Material.Filled.RemoveCircleOutline" Color="@Color.Error" title=@(DialogModel.IncomeType ? "Income" : "Expense")
+                                 ToggledIcon="@Icons.Material.Filled.AddCircleOutline" ToggledColor="@Color.Success"
+                                 Class="ma-3 pa-3 " />
+            <span>@(DialogModel.IncomeType ? "Income" : "Expense")</span>
+            <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-3 pa-3" />
+        </MudStack>
                          
         <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Price" Class="ma-3 pa-3"></MudTextField>
-
+        <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined">
+            @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
+            {
+                <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
+            }
+        </MudSelect>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>

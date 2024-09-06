@@ -6,11 +6,11 @@ namespace UI.Components.Dialogs
 {
     public partial class AddTransactionDialog
     {
-        [CascadingParameter] MudDialogInstance MudDialog {  get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         private TransactionViewModel DialogModel = new TransactionViewModel();
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
-        [Parameter] public Func<Task> Refresh {  get; set; }
+        [Parameter] public Func<Task> Refresh { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,7 +21,7 @@ namespace UI.Components.Dialogs
         private async Task Submit()
         {
             var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/budget", DialogModel);
-            if(request.StatusCode == System.Net.HttpStatusCode.Created)
+            if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 if (DialogModel.IncomeType)
                     snackbar.Add("Successfully added income", Severity.Success);
@@ -40,7 +40,7 @@ namespace UI.Components.Dialogs
                     snackbar.Add("Failed while added expense", Severity.Warning);
             }
         }
-        private async Task Cancel() => MudDialog.Cancel();
 
+        private async Task Cancel() => MudDialog.Cancel();
     }
 }
