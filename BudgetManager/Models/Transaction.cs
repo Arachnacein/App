@@ -24,6 +24,8 @@ namespace BudgetManager.Models
 
         [Required]
         public double Price { get; set; }
+        [Required]
+        public TransactionCategoryEnum Category { get; set; }
 
     }
 }

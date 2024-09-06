@@ -14,6 +14,7 @@ namespace BudgetManager.Mappers
             destination.Description = source.Description;
             destination.Date = source.Date;
             destination.Price = source.Price;
+            destination.Category = source.Category;
 
             return destination;
         }
@@ -27,6 +28,7 @@ namespace BudgetManager.Mappers
             destination.Description = source.Description;
             destination.Date = source.Date;
             destination.Price = source.Price;
+            destination.Category = source.Category;
 
             return destination;
         }
@@ -39,6 +41,7 @@ namespace BudgetManager.Mappers
             destination.Description = source.Description;
             destination.Date = source.Date;
             destination.Price = source.Price;
+            destination.Category = source.Category;
 
             return destination;
         }
@@ -52,6 +55,7 @@ namespace BudgetManager.Mappers
             destination.Description = source.Description;
             destination.Date = source.Date;
             destination.Price = source.Price;
+            destination.Category = source.Category;
 
             return destination;
         }
