@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace UI.Models
+﻿namespace UI.Models
 {
     public enum TransactionCategoryEnum
     {

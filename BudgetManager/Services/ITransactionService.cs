@@ -9,6 +9,7 @@ namespace BudgetManager.Services
         Task<TransactionDto> AddTransaction(AddTransactionDto transaction);
         Task UpdateTransaction(UpdateTransactionDto transaction);
         Task DeleteTransaction(int id);
+        Task UpdateCategory(UpdateTransactionCategoryDto uc);
 
     }
 }
