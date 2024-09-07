@@ -40,17 +40,26 @@
                             Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
                 <MudDropZone T="TransactionViewModel" Identifier="Saves" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4">Saves</MudText>
+                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:forestgreen">Saves</MudText>
                  </MudDropZone>
                 <MudDropZone T="TransactionViewModel" Identifier="Fees" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4">Fees</MudText>
+                <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:darkred">Fees</MudText>
                 </MudDropZone>
                 <MudDropZone T="TransactionViewModel" Identifier="Entertainment" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4">Entertainment</MudText>
+                <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:dodgerblue">Entertainment</MudText>
                 </MudDropZone>
             </ChildContent>
             <ItemRenderer>
-                <MudPaper Elevation="25" Class="pa-4 my-4">@context.Name</MudPaper>
+            <MudPaper Elevation="25" Class="pa-2 my-2" MaxHeight="50px">
+                <MudGrid>
+                    <MudItem xs="8">
+                        <MudText Typo="Typo.body1">@context.Name</MudText>
+                    </MudItem>
+                    <MudItem xs="4" Class="text-align-right">
+                        <MudText Typo="Typo.body1">@context.Price</MudText>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
             </ItemRenderer>
         </MudDropContainer>
 
