@@ -4,7 +4,8 @@
 <PageTitle> Hello in budget site</PageTitle>
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction"> Add transaction </MudButton>
 <MudPaper Class="pa-4 ma-4" Elevation="5">
-    <MudTable Items="@transactions" T="TransactionViewModel" Dense="true" Striped="true">
+
+@*     <MudTable Items="@transactions" T="TransactionViewModel" Dense="true" Striped="true">
         <HeaderContent>
             <MudTh>Type</MudTh>
             <MudTh>Name</MudTh>
@@ -29,5 +30,49 @@
         <PagerContent>
             <MudTablePager></MudTablePager>
         </PagerContent>
-    </MudTable>
+    </MudTable> *@
+
+
+        <MudDropContainer   T="TransactionViewModel" 
+                            Items="transactions" 
+                            ItemsSelector="@((item,dropzone) => Enum.GetName(typeof(TransactionCategoryEnum), item.Category) == dropzone)" 
+                            ItemDropped="ItemUpdated" 
+                            Class="d-flex flex-wrap flex-grow-1">
+            <ChildContent>
+                <MudDropZone T="TransactionViewModel" Identifier="Saves" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:forestgreen">Saves</MudText>
+                 </MudDropZone>
+                <MudDropZone T="TransactionViewModel" Identifier="Fees" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:darkred">Fees</MudText>
+                </MudDropZone>
+                <MudDropZone T="TransactionViewModel" Identifier="Entertainment" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:dodgerblue">Entertainment</MudText>
+                </MudDropZone>
+            </ChildContent>
+            <ItemRenderer>
+            <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
+                    <ChildContent>
+                        <MudPaper Elevation="25" Class="pa-2 my-2">
+                            <MudGrid>
+                                <MudItem xs="8">
+                                    <MudText Typo="Typo.body1">@context.Name</MudText>
+                                </MudItem>
+                                <MudItem xs="4" Class="text-align-right">
+                                    <MudText Typo="Typo.body1">@context.Price</MudText>
+                                </MudItem>
+                            </MudGrid>
+                        </MudPaper>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.body2">@context.Date.Format()</MudText>
+                        <MudText Typo="Typo.body2">@context.Description</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+            </ItemRenderer>
+        </MudDropContainer>
+
+
+
+
+
 </MudPaper>

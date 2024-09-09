@@ -1,4 +1,5 @@
 ﻿using BudgetManager.Data;
+using BudgetManager.Dto;
 using BudgetManager.Models;
 
 namespace BudgetManager.Repositories
@@ -41,6 +42,13 @@ namespace BudgetManager.Repositories
             _context.Transactions.Remove(transaction);
             _context.SaveChanges();
         }
+
+        public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
+        {
+            var transaction = _context.Transactions.FirstOrDefault(x => x.Id == uc.Id);
+            transaction.Category = uc.Category;
+            _context.SaveChanges();
+        }
     }
 
     public interface ITransactionRespository
@@ -50,5 +58,7 @@ namespace BudgetManager.Repositories
         Task<Transaction> Add(Transaction transaction);
         Task Update(Transaction transaction);
         Task Delete(int id);
+
+        Task UpdateCategory(UpdateTransactionCategoryDto uc);
     }
 }

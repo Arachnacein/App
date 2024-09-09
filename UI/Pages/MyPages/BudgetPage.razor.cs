@@ -58,5 +58,13 @@ namespace UI.Pages.MyPages
 
             dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
         }
+        private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
+        {
+            //parses string into enum
+            dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
+
+            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/budget/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+        }
+
     }
 }

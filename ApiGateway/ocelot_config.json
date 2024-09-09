@@ -30,6 +30,24 @@
         }
       ],
       "DownstreamPathTemplate": "/api/budget/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/budget/UpdateCategory",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/budget/UpdateCategory",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     }
   ],
   "GlobalConfiguration": {

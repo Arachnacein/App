@@ -115,5 +115,27 @@ namespace BudgetManager.Controllers
                 return Conflict(e.Message);
             }
         }
+
+        [HttpPut("UpdateCategory")]
+        public async Task<IActionResult> UpdateCategory(UpdateTransactionCategoryDto dto)
+        {
+            try
+            {
+                await _transactionService.UpdateCategory(dto);
+                return NoContent();
+            }
+            catch(TransactionNotFoundException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch(BadValueException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch(Exception e)
+            {
+                return Conflict(e.Message);
+            }
+        }
     }
 }

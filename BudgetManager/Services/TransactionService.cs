@@ -72,5 +72,15 @@ namespace BudgetManager.Services
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
             await _repository.Delete(id);
         }
+
+        public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
+        {
+            var existingTransaction = _repository.Get(uc.Id);
+            if (existingTransaction == null)
+                throw new TransactionNotFoundException($"Transaction not found. Id:{uc.Id}");
+            if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
+                throw new BadValueException($"Category not found: {uc.Category}.");
+            await _repository.UpdateCategory(uc);
+        }
     }
 }
