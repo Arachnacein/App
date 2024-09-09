@@ -12,17 +12,14 @@
 <PageTitle>UI</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    <MudLayout>
+        <MudAppBar Elevation="35" Style="background-image: linear-gradient( 109.6deg,  rgba(43, 87, 173,1) 11.2%, rgba(102,51,153,1) 91.1% );">
+            <NavMenu />
+        </MudAppBar>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pt-4">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
 </div>
