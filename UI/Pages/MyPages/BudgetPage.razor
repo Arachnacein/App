@@ -2,55 +2,36 @@
 @using UI.Models
 
 <PageTitle> Hello in budget site</PageTitle>
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction"> Add transaction </MudButton>
-<MudPaper Class="pa-4 ma-4" Elevation="5">
-
-@*     <MudTable Items="@transactions" T="TransactionViewModel" Dense="true" Striped="true">
-        <HeaderContent>
-            <MudTh>Type</MudTh>
-            <MudTh>Name</MudTh>
-            <MudTh>Description</MudTh>
-            <MudTh>Date</MudTh>
-            <MudTh>Price</MudTh>
-            <MudTh>Category</MudTh>
-            <MudTh>Options</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@context.IncomeType</MudTd>
-            <MudTd>@context.Name</MudTd>
-            <MudTd>@context.Description</MudTd>
-            <MudTd>@context.Date</MudTd>
-            <MudTd>@context.Price</MudTd>
-            <MudTd>@context.Category</MudTd>
-            <MudTd>
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => EditTransaction(context))"/>
-                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Primary" IconSize="Size.Medium" OnClick="@(() => DeleteTransaction(context))"/>
-            </MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager></MudTablePager>
-        </PagerContent>
-    </MudTable> *@
-
-
-        <MudDropContainer   T="TransactionViewModel" 
-                            Items="transactions" 
-                            ItemsSelector="@((item,dropzone) => Enum.GetName(typeof(TransactionCategoryEnum), item.Category) == dropzone)" 
-                            ItemDropped="ItemUpdated" 
-                            Class="d-flex flex-wrap flex-grow-1">
+<MudTabs Class="pa-4 ma-4" Elevation="5" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" >
+    <MudTabPanel Text="Transactions" >
+        <MudStack AlignItems="AlignItems.Center" JustifyContent="Center">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction">
+                Add transaction
+            </MudButton>
+        </MudStack>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-3 pa-3 mt-10">
+            <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowLeft" OnClick="PreviousMonth" Size="Size.Large"></MudIconButton>
+            @CurrentDate.Month @CurrentDate.Year
+            <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" OnClick="NextMonth" Size="Size.Large"></MudIconButton>
+        </MudStack>
+        <MudDropContainer T="TransactionViewModel"
+                          Items="transactions"
+                          ItemsSelector="@((item,dropzone) => Enum.GetName(typeof(TransactionCategoryEnum), item.Category) == dropzone)"
+                          ItemDropped="ItemUpdated"
+                          Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
-                <MudDropZone T="TransactionViewModel" Identifier="Saves" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                <MudDropZone T="TransactionViewModel" Identifier="Saves" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1" AllowReorder="false">
                     <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:forestgreen">Saves</MudText>
-                 </MudDropZone>
-                <MudDropZone T="TransactionViewModel" Identifier="Fees" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                </MudDropZone>
+                <MudDropZone T="TransactionViewModel" Identifier="Fees" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1" AllowReorder="false">
                     <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:darkred">Fees</MudText>
                 </MudDropZone>
-                <MudDropZone T="TransactionViewModel" Identifier="Entertainment" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                <MudDropZone T="TransactionViewModel" Identifier="Entertainment" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1" AllowReorder="false">
                     <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:dodgerblue">Entertainment</MudText>
                 </MudDropZone>
             </ChildContent>
             <ItemRenderer>
-            <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
+                <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
                         <MudPaper Elevation="25" Class="pa-2 my-2">
                             <MudGrid>
@@ -70,9 +51,15 @@
                 </MudTooltip>
             </ItemRenderer>
         </MudDropContainer>
+    </MudTabPanel>
 
+    <MudTabPanel Text="Statistics"> 
+        <MudText>Content coming soon!</MudText>
+    </MudTabPanel>
 
+    <MudTabPanel Text="Tab3" Disabled="true">
+        <MudText>Hidden message</MudText>
+    </MudTabPanel>
 
-
-
-</MudPaper>
+</MudTabs>
+        

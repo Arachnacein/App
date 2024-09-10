@@ -10,9 +10,13 @@ namespace UI.Pages.MyPages
         private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public IDialogService dialogService { get; set; }
+        private DateTime CurrentDate;
+
 
         protected override async Task OnInitializedAsync()
         {
+            CurrentDate = DateTime.Now;
+
             await base.OnInitializedAsync();
             await LoadTransactions();
         }
@@ -21,6 +25,9 @@ namespace UI.Pages.MyPages
             try
             {
                 transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/budget");
+                transactions = transactions.OrderByDescending(x => x.Date)                
+                                           .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
+                                           .ToList();
                 StateHasChanged();
             }
             catch(HttpRequestException e)
@@ -66,5 +73,15 @@ namespace UI.Pages.MyPages
             await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/budget/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
         }
 
+        private async Task PreviousMonth()
+        {
+            CurrentDate = CurrentDate.AddMonths(-1);
+            await LoadTransactions();
+        }
+        private async Task NextMonth()
+        {
+            CurrentDate = CurrentDate.AddMonths(1);
+            await LoadTransactions();
+        }
     }
 }
