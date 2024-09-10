@@ -41,7 +41,8 @@ namespace UI.Pages.MyPages
         }
         private async Task AddTransaction()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
+
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
