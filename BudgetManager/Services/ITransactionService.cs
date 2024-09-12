@@ -1,4 +1,4 @@
-﻿using BudgetManager.Dto;
+﻿using BudgetManager.Dto.Transaction;
 
 namespace BudgetManager.Services
 {
@@ -10,6 +10,5 @@ namespace BudgetManager.Services
         Task UpdateTransaction(UpdateTransactionDto transaction);
         Task DeleteTransaction(int id);
         Task UpdateCategory(UpdateTransactionCategoryDto uc);
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Models;
-using System.ComponentModel.DataAnnotations;
 
-namespace BudgetManager.Dto
+namespace BudgetManager.Dto.Transaction
 {
     public class TransactionDto
     {

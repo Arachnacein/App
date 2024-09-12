@@ -1,6 +1,6 @@
 ﻿using BudgetManager.Models;
 
-namespace BudgetManager.Dto
+namespace BudgetManager.Dto.Transaction
 {
     public class AddTransactionDto
     {

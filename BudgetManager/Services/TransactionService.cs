@@ -1,4 +1,4 @@
-﻿using BudgetManager.Dto;
+﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Mappers;

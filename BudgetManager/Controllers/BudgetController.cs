@@ -1,6 +1,5 @@
-﻿using BudgetManager.Dto;
+﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Exceptions;
-using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,28 +106,6 @@ namespace BudgetManager.Controllers
                 return NoContent();
             }
             catch(NullPointerException e)
-            {
-                return Conflict(e.Message);
-            }
-            catch(Exception e)
-            {
-                return Conflict(e.Message);
-            }
-        }
-
-        [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory(UpdateTransactionCategoryDto dto)
-        {
-            try
-            {
-                await _transactionService.UpdateCategory(dto);
-                return NoContent();
-            }
-            catch(TransactionNotFoundException e)
-            {
-                return Conflict(e.Message);
-            }
-            catch(BadValueException e)
             {
                 return Conflict(e.Message);
             }

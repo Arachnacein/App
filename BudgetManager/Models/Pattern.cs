@@ -17,6 +17,7 @@ namespace BudgetManager.Models
 
         [Required]
         public double Value_Fees { get; set; }
+
         [Required]
         public double Value_Entertainment { get; set; }
 
