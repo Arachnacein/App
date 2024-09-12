@@ -9,7 +9,6 @@ namespace BudgetManager.Mappers
         {
             var destination = new TransactionDto();
             destination.Id = source.Id;
-            destination.IncomeType = source.IncomeType;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -23,7 +22,6 @@ namespace BudgetManager.Mappers
         {
             var destination = new Transaction();
             destination.Id = source.Id;
-            destination.IncomeType = source.IncomeType;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -36,7 +34,6 @@ namespace BudgetManager.Mappers
         public Transaction Map(AddTransactionDto source)
         {
             var destination = new Transaction();
-            destination.IncomeType = source.IncomeType;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -50,7 +47,6 @@ namespace BudgetManager.Mappers
         {
             var destination = new Transaction();
             destination.Id = source.Id;
-            destination.IncomeType = source.IncomeType;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;

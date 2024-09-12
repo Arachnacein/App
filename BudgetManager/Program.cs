@@ -21,7 +21,7 @@ var db_password = Environment.GetEnvironmentVariable("db_password");
 var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password={db_password};TrustServerCertificate=True;";
 
 
-builder.Services.AddDbContext<TransactionDbContext>(options =>
+builder.Services.AddDbContext<BudgetDbContext>(options =>
 {
     options.UseSqlServer(connString);
 });
@@ -37,7 +37,7 @@ var app = builder.Build();
 //automiatic migrations
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<TransactionDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<BudgetDbContext>();
     db.Database.Migrate();
 }
 

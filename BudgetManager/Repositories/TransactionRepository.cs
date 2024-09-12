@@ -6,9 +6,9 @@ namespace BudgetManager.Repositories
 {
     public class TransactionRepository : ITransactionRespository
     {
-        private readonly TransactionDbContext _context;
+        private readonly BudgetDbContext _context;
 
-        public TransactionRepository(TransactionDbContext context)
+        public TransactionRepository(BudgetDbContext context)
         {
             _context = context;
         }
@@ -42,7 +42,6 @@ namespace BudgetManager.Repositories
             _context.Transactions.Remove(transaction);
             _context.SaveChanges();
         }
-
         public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
         {
             var transaction = _context.Transactions.FirstOrDefault(x => x.Id == uc.Id);
