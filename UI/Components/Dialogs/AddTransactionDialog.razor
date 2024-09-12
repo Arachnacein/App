@@ -1,30 +1,28 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-3 pa-3" Style="width: 50%;"/>
-        <MudTextField Label="Description" @bind-Value="DialogModel.Description" Class="ma-3 pa-3" Style="width: 70%;"/>
+        <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-1 pa-1" Style="width: 50%;"/>
+        <MudTextField Label="Description" @bind-Value="DialogModel.Description" Class="ma-1 pa-1" Style="width: 70%;"/>
 
-        <MudStack Row="true" Spacing="4">
-            <MudStack Row="true">
+        <MudStack Row="true" Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
+            <MudStack Row="true" >
                 <MudToggleIconButton @bind-Toggled="@DialogModel.IncomeType"
                                      Icon="@Icons.Material.Filled.RemoveCircleOutline" Color="@Color.Error" title=@(DialogModel.IncomeType ? "Income" : "Expense")
                                      ToggledIcon="@Icons.Material.Filled.AddCircleOutline" ToggledColor="@Color.Success"
-                                     Class="ma-3 pa-3 " />
-                <span class="ma-3 pa-4 mt-auto ml-0">@(DialogModel.IncomeType ? "Income" : "Expense")</span>
+                                     Class="ma-2 pa-2 " />
+                <span class="ma-2 pa-2 mt-auto ml-0">@(DialogModel.IncomeType ? "Income" : "Expense")</span>
             </MudStack>
             <MudStack>
-                <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-3 pa-3 ml-8" Style="width: 70%;"/>
+                <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
             </MudStack>
         </MudStack>
-        <MudStack class="mx-auto" Style="width: 30%;">
-            <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Price" Class="ma-3 pa-3"></MudTextField>
-        </MudStack>
-        <MudStack class="mx-auto" Style="width: 50%;">
-            <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined">
-                @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
-                {
-                    <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
-                }
-            </MudSelect>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Price" Class="ma-2 pa-2"></MudTextField>
+                <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+                    @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
+                    {
+                        <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
+                    }
+                </MudSelect>
         </MudStack>
     </DialogContent>
     <DialogActions>
