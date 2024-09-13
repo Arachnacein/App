@@ -4,16 +4,7 @@
         <MudTextField Label="Description" @bind-Value="DialogModel.Description" Class="ma-1 pa-1" Style="width: 70%;"/>
 
         <MudStack Row="true" Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
-            <MudStack Row="true" >
-                <MudToggleIconButton @bind-Toggled="@DialogModel.IncomeType"
-                                     Icon="@Icons.Material.Filled.RemoveCircleOutline" Color="@Color.Error" title=@(DialogModel.IncomeType ? "Income" : "Expense")
-                                     ToggledIcon="@Icons.Material.Filled.AddCircleOutline" ToggledColor="@Color.Success"
-                                     Class="ma-2 pa-2 " />
-                <span class="ma-2 pa-2 mt-auto ml-0">@(DialogModel.IncomeType ? "Income" : "Expense")</span>
-            </MudStack>
-            <MudStack>
                 <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
-            </MudStack>
         </MudStack>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
                 <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Price" Class="ma-2 pa-2"></MudTextField>
