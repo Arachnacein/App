@@ -19,7 +19,7 @@ namespace UI.Components.Dialogs
         }
         private async Task Submit()
         {
-            var request = await httpClient.PutAsJsonAsync<TransactionViewModel>("/api/budget", DialogModel);
+            var request = await httpClient.PutAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 snackbar.Add("Transaction edited successfully", Severity.Success);

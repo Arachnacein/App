@@ -1,5 +1,6 @@
 ﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Exceptions;
+using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +8,11 @@ namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BudgetController : ControllerBase
+    public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
 
-        public BudgetController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService)
         {
             _transactionService = transactionService;
         }
@@ -110,6 +111,28 @@ namespace BudgetManager.Controllers
                 return Conflict(e.Message);
             }
             catch(Exception e)
+            {
+                return Conflict(e.Message);
+            }
+        }
+
+        [HttpPut("UpdateCategory")]
+        public async Task<IActionResult> UpdateCategory(UpdateTransactionCategoryDto dto)
+        {
+            try
+            {
+                await _transactionService.UpdateCategory(dto);
+                return NoContent();
+            }
+            catch (TransactionNotFoundException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch (BadValueException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch (Exception e)
             {
                 return Conflict(e.Message);
             }

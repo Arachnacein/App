@@ -14,19 +14,15 @@ namespace UI.Components.Dialogs
 
         protected override async Task OnInitializedAsync()
         {
-            DialogModel.IncomeType = true;
             DialogModel.Date = DateTime.Now;
         }
 
         private async Task Submit()
         {
-            var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/budget", DialogModel);
+            var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                if (DialogModel.IncomeType)
-                    snackbar.Add("Successfully added income", Severity.Success);
-                else
-                    snackbar.Add("Successfully added expense", Severity.Success);
+                    snackbar.Add("Successfully added transaction", Severity.Success);
 
                 MudDialog.Cancel();
                 if (Refresh != null)
@@ -34,10 +30,7 @@ namespace UI.Components.Dialogs
             }
             else
             {
-                if (DialogModel.IncomeType)
-                    snackbar.Add("Failed while adding income", Severity.Warning);
-                else
-                    snackbar.Add("Failed while added expense", Severity.Warning);
+                    snackbar.Add("Failed while adding transaction", Severity.Warning);
             }
         }
 

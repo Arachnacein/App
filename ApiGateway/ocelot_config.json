@@ -3,7 +3,7 @@
     // Budget WebAPI
     //Transactions
     {
-      "UpstreamPathTemplate": "/api/budget",
+      "UpstreamPathTemplate": "/api/transaction",
       "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -12,7 +12,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget",
+      "DownstreamPathTemplate": "/api/transaction",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/budget/{id}",
+      "UpstreamPathTemplate": "/api/transaction/{id}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -30,10 +30,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget/{id}"
+      "DownstreamPathTemplate": "/api/transaction/{id}"
     },
     {
-      "UpstreamPathTemplate": "/api/budget/UpdateCategory",
+      "UpstreamPathTemplate": "/api/transaction/UpdateCategory",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -42,7 +42,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget/UpdateCategory",
+      "DownstreamPathTemplate": "/api/transaction/UpdateCategory",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
