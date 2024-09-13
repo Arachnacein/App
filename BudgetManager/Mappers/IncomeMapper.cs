@@ -29,6 +29,7 @@ namespace BudgetManager.Mappers
         public Income Map(UpdateIncomeDto source)
         {
             Income destination = new Income();
+            destination.Id = source.Id;
             destination.Name = source.Name;
             destination.Amount = source.Amount;
             destination.Date = source.Date;

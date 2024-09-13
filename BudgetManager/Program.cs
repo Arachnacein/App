@@ -10,8 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITransactionRespository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService,  TransactionService>();
 
+builder.Services.AddScoped<IPatternRepository, PatternRepository>();
+builder.Services.AddScoped<IPatternService, PatternService>();
+
+builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
+builder.Services.AddScoped<IIncomeService, IncomeService>();
+
 //mappers
 builder.Services.AddScoped<ITransactionMapper, TransactionMapper>();
+builder.Services.AddScoped<IPatternMapper,  PatternMapper>();
+builder.Services.AddScoped<IIncomeMapper, IncomeMapper>();
 
 //db configuration
 var db_host = Environment.GetEnvironmentVariable("db_host");

@@ -1,6 +1,7 @@
 ﻿{
   "Routes": [
     // Budget WebAPI
+    //Transactions
     {
       "UpstreamPathTemplate": "/api/budget",
       "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
@@ -48,6 +49,68 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    },
+    //Incomes
+    {
+      "UpstreamPathTemplate": "/api/income",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/income/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income/{id}"
+    },
+    //Patterns
+    {
+      "UpstreamPathTemplate": "/api/pattern",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/pattern",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/pattern/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/pattern/{id}"
     }
   ],
   "GlobalConfiguration": {
