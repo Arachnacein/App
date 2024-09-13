@@ -20,7 +20,7 @@ namespace UI.Components.Dialogs
         }
         private async Task Submit()
         {
-            var request = await httpClient.DeleteAsync($"/api/budget/{DialogModel.Id}");
+            var request = await httpClient.DeleteAsync($"/api/transaction/{DialogModel.Id}");
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 snackbar.Add("Transaction deleted successfully.", Severity.Success);

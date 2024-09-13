@@ -20,7 +20,7 @@ namespace UI.Components.Dialogs
 
         private async Task Submit()
         {
-            var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/budget", DialogModel);
+            var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 if (DialogModel.IncomeType)

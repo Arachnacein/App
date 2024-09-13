@@ -24,7 +24,7 @@ namespace UI.Pages.MyPages
         {
             try
             {
-                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/budget");
+                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
                 transactions = transactions.OrderByDescending(x => x.Date)                
                                            .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
                                            .ToList();
@@ -71,7 +71,7 @@ namespace UI.Pages.MyPages
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
-            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/budget/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
         }
 
         private async Task PreviousMonth()
