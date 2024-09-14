@@ -14,5 +14,12 @@ namespace BudgetManager.Data
         public DbSet<Income> Incomes { get; set; }
         public DbSet<MonthPattern> MonthPatterns { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MonthPattern>()
+                .HasOne(x => x.Pattern)
+                .WithMany(p => p.MonthPatterns)
+                .HasForeignKey(f => f.PatternId);
+        }
     }
 }

@@ -9,11 +9,10 @@ namespace BudgetManager.Models
 
         [Required]
         public DateTime Date { get; set; }
-        
-        [Required]
-        public int Pattern_Id { get; set; }
 
-        ///
+
+        [Required]
+        public int PatternId { get; set; }
         public Pattern Pattern { get; set; }
     }
 }
