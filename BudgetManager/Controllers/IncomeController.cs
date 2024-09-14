@@ -1,4 +1,5 @@
-﻿using BudgetManager.Dto.Income;
+﻿using BudgetManager.Dto;
+using BudgetManager.Dto.Income;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.IncomeExceptions;
 using BudgetManager.Services;
@@ -114,6 +115,20 @@ namespace BudgetManager.Controllers
                 return Conflict(e.Message);
             }
             catch(Exception e)
+            {
+                return Conflict(e.Message);
+            }
+        }
+
+        [HttpGet("GetIncome")]
+        public async Task<IActionResult> GetIncome(MonthYearModel model)
+        {
+            try
+            {
+                var incomes = await _incomeService.RetrieveIncomes(model);
+                return Ok(incomes);
+            }
+            catch (Exception e)
             {
                 return Conflict(e.Message);
             }

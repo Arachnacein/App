@@ -1,4 +1,5 @@
 ﻿using BudgetManager.Data;
+using BudgetManager.Dto;
 using BudgetManager.Models;
 
 namespace BudgetManager.Repositories
@@ -39,10 +40,18 @@ namespace BudgetManager.Repositories
             _dbContext.Incomes.Remove(income);
             _dbContext.SaveChanges();
         }
+
+        public async Task<IEnumerable<Income>> Get(MonthYearModel model)
+        {
+            var incomes = _dbContext.Incomes.Where(x => x.Date.Month == model.Month &
+                                                        x.Date.Year == model.Year);
+            return incomes;
+        }
     }
     public interface IIncomeRepository
     {
         Task<Income> Get(int id);
+        Task<IEnumerable<Income>> Get(MonthYearModel model);
         Task<IEnumerable<Income>> GetAll();
         Task<Income> Add(Income income);
         Task Update(Income income);

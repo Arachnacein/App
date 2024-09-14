@@ -81,6 +81,18 @@
       ],
       "DownstreamPathTemplate": "/api/income/{id}"
     },
+    {
+      "UpstreamPathTemplate": "/api/income/GetIncome",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income/GetIncome"
+    },
     //Patterns
     {
       "UpstreamPathTemplate": "/api/pattern",

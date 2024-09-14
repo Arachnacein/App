@@ -1,4 +1,5 @@
-﻿using BudgetManager.Dto.Income;
+﻿using BudgetManager.Dto;
+using BudgetManager.Dto.Income;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.IncomeExceptions;
 using BudgetManager.Mappers;
@@ -63,6 +64,12 @@ namespace BudgetManager.Services
             if (income == null)
                 throw new IncomeNotFoundException($"Income not found. Id:{id}.");
             await _incomeRepository.Delete(income);
+        }
+
+        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(MonthYearModel model)
+        {
+            var incomes = await _incomeRepository.Get(model);
+            return _incomeMapper.MapElements(incomes.ToList());
         }
     }
 }

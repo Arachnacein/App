@@ -20,7 +20,7 @@ namespace BudgetManager.Services
             _patternRepository = patternRepository;
         }
 
-        public async Task<MonthPatternDto> Get(int id)
+        public async Task<MonthPatternDto> RetrieveMonthPattern(int id)
         {
             var monthPattern = await _monthPatternRepository.Get(id);
             if (monthPattern == null)
@@ -28,13 +28,13 @@ namespace BudgetManager.Services
             return _mapper.Map(monthPattern);
         }
 
-        public async Task<IEnumerable<MonthPatternDto>> GetAll()
+        public async Task<IEnumerable<MonthPatternDto>> RetrieveMonthPatterns()
         {
             var monthPatterns = await _monthPatternRepository.GetAll();
             return _mapper.MapElements(monthPatterns.ToList());
         }
 
-        public async Task<MonthPatternDto> Add(AddMonthPatternDto dto)
+        public async Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto)
         {
             var checkPatternExists = _patternRepository.Get(dto.PatternId);
             if (checkPatternExists == null)
@@ -49,7 +49,7 @@ namespace BudgetManager.Services
             return _mapper.Map(mappedMonthPattern);
         }
 
-        public async Task Update(UpdateMonthPatternDto dto)
+        public async Task UpdateMonthPattern(UpdateMonthPatternDto dto)
         {
             var monthPattern = await _monthPatternRepository.Get(dto.Id);
             if (monthPattern == null)
@@ -58,7 +58,7 @@ namespace BudgetManager.Services
             await _monthPatternRepository.Update(mappedMonthPattern);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteMonthPattern(int id)
         {
             var monthPattern = await _monthPatternRepository.Get(id);
             if (monthPattern == null)
@@ -66,7 +66,7 @@ namespace BudgetManager.Services
             await _monthPatternRepository.Delete(monthPattern);
         }
 
-        public async Task<Pattern> GetMonthPattern(MonthYearModel model)
+        public async Task<Pattern> RetrieveMonthPattern(MonthYearModel model)
         {
             var monthPattern = await _monthPatternRepository.Get(model);
             if (monthPattern == null)

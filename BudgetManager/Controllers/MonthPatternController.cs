@@ -22,7 +22,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPattern = await _monthPatternService.Get(id);
+                var monthPattern = await _monthPatternService.RetrieveMonthPattern(id);
                 return Ok(monthPattern);
             }
             catch(Exception e)
@@ -36,7 +36,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPatterns = await _monthPatternService.GetAll();
+                var monthPatterns = await _monthPatternService.RetrieveMonthPatterns();
                 return Ok(monthPatterns);
             }
             catch (Exception e)
@@ -50,7 +50,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthpattern = await _monthPatternService.Add(dto);
+                var monthpattern = await _monthPatternService.AddMonthPattern(dto);
                 return Created($"api/monthpatterns/{monthpattern.Id}", monthpattern);
             }
             catch(Exception e)
@@ -64,7 +64,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _monthPatternService.Update(dto);
+                await _monthPatternService.UpdateMonthPattern(dto);
                 return NoContent();
             }
             catch(Exception e)
@@ -78,7 +78,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _monthPatternService.Delete(id);
+                await _monthPatternService.DeleteMonthPattern(id);
                 return NoContent();
             }
             catch(Exception e)
@@ -92,7 +92,7 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var pattern = await _monthPatternService.GetMonthPattern(model);
+                var pattern = await _monthPatternService.RetrieveMonthPattern(model);
                 return Ok(pattern); 
             }
             catch(PatternNotFoundException e)
