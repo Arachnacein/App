@@ -40,6 +40,10 @@ namespace BudgetManager.Services
             if (checkPatternExists == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{dto.PatternId}.");
 
+            var exists = await _monthPatternRepository.CheckExists(new MonthYearModel { Month =  dto.Date.Month, Year = dto.Date.Year});
+            if (exists != 0)
+                throw new MonthPatternAlreadyExistsException($"Pattern for Month:{dto.Date.Month} and Year:{dto.Date.Year} already exists.");
+
             var mappedMonthPattern = _mapper.Map(dto);
             await _monthPatternRepository.Add(mappedMonthPattern);
             return _mapper.Map(mappedMonthPattern);

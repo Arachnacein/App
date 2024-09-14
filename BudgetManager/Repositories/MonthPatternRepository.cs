@@ -43,7 +43,16 @@ namespace BudgetManager.Repositories
 
         public async Task<MonthPattern> Get(MonthYearModel model)
         {
-            var result = _dbCotntext.MonthPatterns.FirstOrDefault(x => x.Date.Month == model.Month && x.Date.Year == model.Year);
+            var result = _dbCotntext.MonthPatterns.FirstOrDefault(x => x.Date.Month == model.Month &&
+                                                              x.Date.Year == model.Year);
+            return result;
+        }
+
+        public async Task<int> CheckExists(MonthYearModel model)
+        {
+            var result = _dbCotntext.MonthPatterns.Where(x => x.Date.Month == model.Month &&
+                                                              x.Date.Year == model.Year)
+                                                  .Count();
             return result;
         }
     }
@@ -51,6 +60,7 @@ namespace BudgetManager.Repositories
     {
         Task<MonthPattern> Get(int id);
         Task<MonthPattern> Get(MonthYearModel model);
+        Task<int> CheckExists(MonthYearModel model);
         Task<IEnumerable<MonthPattern>> GetAll();
         Task<MonthPattern> Add(MonthPattern pattern);
         Task Update(MonthPattern pattern);

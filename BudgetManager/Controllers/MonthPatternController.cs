@@ -98,6 +98,10 @@ namespace BudgetManager.Controllers
             catch(PatternNotFoundException e)
             {
                 return Conflict(e.Message);
+            }            
+            catch(MonthPatternAlreadyExistsException e)
+            {
+                return Conflict(e.Message);
             }
             catch(Exception e)
             {
