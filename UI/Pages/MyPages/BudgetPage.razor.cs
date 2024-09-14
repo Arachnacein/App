@@ -46,8 +46,17 @@ namespace UI.Pages.MyPages
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
+            await dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
         }
+
+        private async Task AddIncome()
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
+
+            var parameters = new DialogParameters();
+            await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);
+        }
+
         private async Task EditTransaction(TransactionViewModel model)
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
@@ -55,7 +64,7 @@ namespace UI.Pages.MyPages
             parameters[nameof(model)] = model;
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
+            await dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
         } 
         private async Task DeleteTransaction(TransactionViewModel model)
         {
@@ -64,7 +73,7 @@ namespace UI.Pages.MyPages
             parameters[nameof(model)] = model;
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
+            await dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
         }
         private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
         {

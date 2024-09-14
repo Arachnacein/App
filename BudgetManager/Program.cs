@@ -16,10 +16,14 @@ builder.Services.AddScoped<IPatternService, PatternService>();
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 
+builder.Services.AddScoped<IMonthPatternRepository, MonthPatternRepository>();
+builder.Services.AddScoped<IMonthPatternService, MonthPatternService>();
+
 //mappers
 builder.Services.AddScoped<ITransactionMapper, TransactionMapper>();
 builder.Services.AddScoped<IPatternMapper,  PatternMapper>();
 builder.Services.AddScoped<IIncomeMapper, IncomeMapper>();
+builder.Services.AddScoped<IMonthPatternMapper, MonthPatternMapper>();
 
 //db configuration
 var db_host = Environment.GetEnvironmentVariable("db_host");
@@ -32,6 +36,7 @@ var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Secur
 builder.Services.AddDbContext<BudgetDbContext>(options =>
 {
     options.UseSqlServer(connString);
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 

@@ -4,6 +4,7 @@ using BudgetManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetManager.Migrations
 {
     [DbContext(typeof(BudgetDbContext))]
-    partial class TransactionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913211255_AddFKMigration")]
+    partial class AddFKMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace BudgetManager.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PatternId")
+                    b.Property<int>("PatternId")
                         .HasColumnType("int");
 
                     b.Property<int>("Pattern_Id")
@@ -130,9 +133,13 @@ namespace BudgetManager.Migrations
 
             modelBuilder.Entity("BudgetManager.Models.MonthPattern", b =>
                 {
-                    b.HasOne("BudgetManager.Models.Pattern", null)
+                    b.HasOne("BudgetManager.Models.Pattern", "Pattern")
                         .WithMany("MonthPatterns")
-                        .HasForeignKey("PatternId");
+                        .HasForeignKey("PatternId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pattern");
                 });
 
             modelBuilder.Entity("BudgetManager.Models.Pattern", b =>
