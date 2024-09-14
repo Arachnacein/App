@@ -142,6 +142,18 @@
         }
       ],
       "DownstreamPathTemplate": "/api/monthpattern/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern"
     }
   ],
   "GlobalConfiguration": {

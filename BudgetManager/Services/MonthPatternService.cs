@@ -1,6 +1,8 @@
-﻿using BudgetManager.Dto.MonthPattern;
+﻿using BudgetManager.Dto;
+using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Exceptions.PatternExceptions;
 using BudgetManager.Mappers;
+using BudgetManager.Models;
 using BudgetManager.Repositories;
 
 namespace BudgetManager.Services
@@ -58,6 +60,19 @@ namespace BudgetManager.Services
             if (monthPattern == null)
                 throw new Exception($"Pattern not found exception. Id: {id}.");
             await _monthPatternRepository.Delete(monthPattern);
+        }
+
+        public async Task<Pattern> GetMonthPattern(MonthYearModel model)
+        {
+            var monthPattern = await _monthPatternRepository.Get(model);
+            if (monthPattern == null)
+                throw new PatternNotFoundException($"MonthPattern not found. Month: {model.Month}, year:{model.Year}.");
+
+            var pattern = await _patternRepository.Get(monthPattern.PatternId);
+            if(pattern == null)
+                throw new PatternNotFoundException($"Pattern not found. Id:{pattern.Id}.");
+
+            return pattern;
         }
     }
 }

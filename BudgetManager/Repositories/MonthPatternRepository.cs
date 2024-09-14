@@ -1,4 +1,5 @@
 ﻿using BudgetManager.Data;
+using BudgetManager.Dto;
 using BudgetManager.Models;
 
 namespace BudgetManager.Repositories
@@ -39,10 +40,17 @@ namespace BudgetManager.Repositories
             _dbCotntext.MonthPatterns.Remove(pattern);
             _dbCotntext.SaveChanges();
         }
+
+        public async Task<MonthPattern> Get(MonthYearModel model)
+        {
+            var result = _dbCotntext.MonthPatterns.FirstOrDefault(x => x.Date.Month == model.Month && x.Date.Year == model.Year);
+            return result;
+        }
     }
     public interface IMonthPatternRepository
     {
         Task<MonthPattern> Get(int id);
+        Task<MonthPattern> Get(MonthYearModel model);
         Task<IEnumerable<MonthPattern>> GetAll();
         Task<MonthPattern> Add(MonthPattern pattern);
         Task Update(MonthPattern pattern);

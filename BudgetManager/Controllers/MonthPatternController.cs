@@ -1,4 +1,6 @@
-﻿using BudgetManager.Dto.MonthPattern;
+﻿using BudgetManager.Dto;
+using BudgetManager.Dto.MonthPattern;
+using BudgetManager.Exceptions.PatternExceptions;
 using BudgetManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -82,6 +84,25 @@ namespace BudgetManager.Controllers
             catch(Exception e)
             {
                 return Conflict(e.Message);
+            }
+        }
+
+        [HttpGet("GetMonthPattern")]
+        public async Task<IActionResult> GetMonthPattern(MonthYearModel model)
+        {
+            try
+            {
+                var pattern = await _monthPatternService.GetMonthPattern(model);
+                return Ok(pattern); 
+            }
+            catch(PatternNotFoundException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch(Exception e)
+            {
+                return Conflict(e.Message);
+
             }
         }
     }
