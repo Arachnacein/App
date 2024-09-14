@@ -41,7 +41,7 @@ namespace UI.Pages.MyPages
         }
         private async Task AddTransaction()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
@@ -51,7 +51,7 @@ namespace UI.Pages.MyPages
 
         private async Task AddIncome()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
             await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);

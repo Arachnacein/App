@@ -1,17 +1,17 @@
-﻿<MudDialog>
+﻿<MudDialog style="padding-bottom:7px;">
     <DialogContent>
-        <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-1 pa-1" Style="width: 50%;" />
-
-        <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Amount" Class="ma-2 pa-2"></MudTextField>
-
-        <MudStack Row="true" Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
-            <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:90%;">
+            <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-1 pa-1" />
+            <MudTextField T="double" Label="Amount" @bind-Value="DialogModel.Amount" Class="ma-2 pa-2" />
+            <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" >
+                <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+            </MudStack>
         </MudStack>
-    
-    
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Submit</MudButton>
-        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+        <MudStack Row="true" Spacing="8" Class="mr-5">
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Submit</MudButton>
+            <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+        </MudStack>
     </DialogActions>
 </MudDialog>
