@@ -4,19 +4,33 @@
 <PageTitle> Hello in budget site</PageTitle>
 <MudTabs Class="pa-4 ma-4" Elevation="5" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" >
     <MudTabPanel Text="Transactions" >
-        <MudStack Row="true" Justify="Justify.FlexEnd" AlignItems="AlignItems.End">
-            <MudStack>
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction" Class="mr-auto">
-                    Add Transaction
-                </MudButton>
+        <MudStack  AlignItems="AlignItems.End">
+            <MudStack Row="true">
+                <MudStack>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction" Class="mr-auto">
+                        Add Transaction
+                    </MudButton>
+                </MudStack>
+                <MudStack>
+                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="AddIncome" Class="ml-auto mr-5">
+                        Add Income
+                    </MudButton>
+                </MudStack>
             </MudStack>
+     
             <MudStack>
-                <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="AddIncome" Class="ml-auto mr-5">
-                    Add Income
-                </MudButton>
+                <MudTooltip Placement="Placement.Left" ShowOnHover="true" Delay="150" Class="ma-1 mr-4 pa-2" RootStyle="width: 100%;">
+                    <ChildContent>
+                        <MudIcon Icon="@Icons.Material.Filled.Info" />
+                    </ChildContent>
+                    <TooltipContent> 
+                        <MudText Typo="Typo.body2">Pattern: @patternViewModel.Name</MudText>
+                        <MudText Typo="Typo.body2">Saves: @patternViewModel.Value_Saves %</MudText>
+                        <MudText Typo="Typo.body2">Fees: @patternViewModel.Value_Fees %</MudText>
+                        <MudText Typo="Typo.body2">Entertainment: @patternViewModel.Value_Entertainment %</MudText>
+                    </TooltipContent>
+                </MudTooltip>
             </MudStack>
-            <MudFlexBreak />
-            <MudIcon Icon="@Icons.Material.Filled.Info" />
         </MudStack>
 
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-1 pa-1 mt-2">
