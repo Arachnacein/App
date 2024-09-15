@@ -46,6 +46,7 @@ namespace BudgetManager.Repositories
         {
             var transaction = _context.Transactions.FirstOrDefault(x => x.Id == uc.Id);
             transaction.Category = uc.Category;
+            _context.Update(transaction);
             _context.SaveChanges();
         }
     }
