@@ -82,7 +82,7 @@
       "DownstreamPathTemplate": "/api/income/{id}"
     },
     {
-      "UpstreamPathTemplate": "/api/income/GetIncome",
+      "UpstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -91,7 +91,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/income/GetIncome"
+      "DownstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}"
     },
     //Patterns
     {
@@ -156,7 +156,7 @@
       "DownstreamPathTemplate": "/api/monthpattern/{id}"
     },
     {
-      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern",
+      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -165,7 +165,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern"
+      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}"
     }
   ],
   "GlobalConfiguration": {

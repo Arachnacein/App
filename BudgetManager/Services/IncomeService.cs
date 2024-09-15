@@ -66,8 +66,9 @@ namespace BudgetManager.Services
             await _incomeRepository.Delete(income);
         }
 
-        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(MonthYearModel model)
+        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(int month, int year)
         {
+            var model = new MonthYearModel { Month = month, Year = year };
             var incomes = await _incomeRepository.Get(model);
             return _incomeMapper.MapElements(incomes.ToList());
         }

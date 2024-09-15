@@ -88,11 +88,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet("GetMonthPattern")]
-        public async Task<IActionResult> GetMonthPattern(MonthYearModel model)
+        public async Task<IActionResult> GetMonthPattern([FromQuery] int month, [FromQuery] int year)
         {
             try
             {
-                var pattern = await _monthPatternService.RetrieveMonthPattern(model);
+                var pattern = await _monthPatternService.RetrieveMonthPattern(month, year);
                 return Ok(pattern); 
             }
             catch(PatternNotFoundException e)

@@ -66,8 +66,9 @@ namespace BudgetManager.Services
             await _monthPatternRepository.Delete(monthPattern);
         }
 
-        public async Task<Pattern> RetrieveMonthPattern(MonthYearModel model)
+        public async Task<Pattern> RetrieveMonthPattern(int month, int year)
         {
+            var model = new MonthYearModel { Month = month, Year = year };
             var monthPattern = await _monthPatternRepository.Get(model);
             if (monthPattern == null)
                 throw new PatternNotFoundException($"MonthPattern not found. Month: {model.Month}, year:{model.Year}.");

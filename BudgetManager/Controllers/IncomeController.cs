@@ -121,11 +121,11 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet("GetIncome")]
-        public async Task<IActionResult> GetIncome(MonthYearModel model)
+        public async Task<IActionResult> GetIncome([FromQuery] int month, [FromQuery] int year)
         {
             try
             {
-                var incomes = await _incomeService.RetrieveIncomes(model);
+                var incomes = await _incomeService.RetrieveIncomes(month, year);
                 return Ok(incomes);
             }
             catch (Exception e)
