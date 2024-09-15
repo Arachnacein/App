@@ -10,21 +10,33 @@ namespace UI.Pages.MyPages
         private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public IDialogService dialogService { get; set; }
+        [Inject] public ISnackbar snackbar { get; set; }
         private DateTime CurrentDate;
+        private PatternViewModel patternViewModel = null;
+        private List<IncomeViewModel> incomes;
 
+        private PatternValuesModel patternValuesModel = new PatternValuesModel();
 
         protected override async Task OnInitializedAsync()
         {
             CurrentDate = DateTime.Now;
 
             await base.OnInitializedAsync();
+            await RefreshData();
+        }
+
+        private async Task RefreshData()
+        { 
             await LoadTransactions();
+            await LoadMonthPatterns();
+            await LoadMonthIncome();
+            await CalculatePatternValues();
         }
         private async Task LoadTransactions()
         {
             try
             {
-                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/budget");
+                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
                 transactions = transactions.OrderByDescending(x => x.Date)                
                                            .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
                                            .ToList();
@@ -41,12 +53,19 @@ namespace UI.Pages.MyPages
         }
         private async Task AddTransaction()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
+            await dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
+        }
+        private async Task AddIncome()
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var parameters = new DialogParameters();
+            await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);
         }
         private async Task EditTransaction(TransactionViewModel model)
         {
@@ -55,7 +74,7 @@ namespace UI.Pages.MyPages
             parameters[nameof(model)] = model;
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
+            await dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
         } 
         private async Task DeleteTransaction(TransactionViewModel model)
         {
@@ -64,25 +83,87 @@ namespace UI.Pages.MyPages
             parameters[nameof(model)] = model;
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
 
-            dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
+            await dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
         }
         private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
         {
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
-            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/budget/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
         }
-
         private async Task PreviousMonth()
         {
             CurrentDate = CurrentDate.AddMonths(-1);
-            await LoadTransactions();
+            await ResetModel(patternValuesModel);
+            await RefreshData();
         }
         private async Task NextMonth()
         {
             CurrentDate = CurrentDate.AddMonths(1);
-            await LoadTransactions();
+            await ResetModel(patternValuesModel);
+            await RefreshData();
+        }
+        private async Task LoadMonthPatterns()
+        {
+            // pobrać pattern na dany miesiąc
+            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
+            if(patternResponse != null)
+                patternViewModel = patternResponse;
+        }
+        private async Task LoadMonthIncome()
+        {
+            //pobrac income z danego miesiąca
+            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?month={CurrentDate.Month}&year={CurrentDate.Year}");
+            incomes = incomeList;
+        }
+        private async Task CalculatePatternValues()
+        {
+            //obliczyć i wyświetlić statystyki dla poszczególnych kolumn
+            if(patternViewModel != null)
+            {
+                var incomesTotal = incomes.Sum(x => x.Amount);
+                patternValuesModel.TotalValueSaves = incomesTotal * patternViewModel.Value_Saves * 0.01d;
+                patternValuesModel.TotalValueFees = incomesTotal * patternViewModel.Value_Fees * 0.01d;
+                patternValuesModel.TotalValueEntertainment = incomesTotal * patternViewModel.Value_Entertainment * 0.01d;
+
+                transactions.ForEach(x =>
+                {
+                    switch (x.Category)
+                    {
+                        case TransactionCategoryEnum.Saves:
+                            patternValuesModel.ActualValueSaves += x.Price;
+                            break;
+                        case TransactionCategoryEnum.Fees:
+                            patternValuesModel.ActualValueFees += x.Price;
+                            break;
+                        case TransactionCategoryEnum.Entertainment:
+                            patternValuesModel.ActualValueEntertainment += x.Price;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+        }
+        private async Task ResetModel(PatternValuesModel model)
+        {
+            model.ActualValueSaves = 0;
+            model.ActualValueFees = 0;
+            model.ActualValueEntertainment = 0;
+            model.TotalValueSaves = 0;
+            model.TotalValueFees = 0;
+            model.TotalValueEntertainment = 0;
+        }
+        private class PatternValuesModel
+        {
+            public double ActualValueSaves { get; set; }
+            public double ActualValueFees { get; set; }
+            public double ActualValueEntertainment { get; set; }
+            public double TotalValueSaves { get; set; }
+            public double TotalValueFees { get; set; }
+            public double TotalValueEntertainment { get; set; }
+
         }
     }
 }

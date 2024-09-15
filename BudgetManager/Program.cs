@@ -10,8 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITransactionRespository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService,  TransactionService>();
 
+builder.Services.AddScoped<IPatternRepository, PatternRepository>();
+builder.Services.AddScoped<IPatternService, PatternService>();
+
+builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
+builder.Services.AddScoped<IIncomeService, IncomeService>();
+
+builder.Services.AddScoped<IMonthPatternRepository, MonthPatternRepository>();
+builder.Services.AddScoped<IMonthPatternService, MonthPatternService>();
+
 //mappers
 builder.Services.AddScoped<ITransactionMapper, TransactionMapper>();
+builder.Services.AddScoped<IPatternMapper,  PatternMapper>();
+builder.Services.AddScoped<IIncomeMapper, IncomeMapper>();
+builder.Services.AddScoped<IMonthPatternMapper, MonthPatternMapper>();
 
 //db configuration
 var db_host = Environment.GetEnvironmentVariable("db_host");
@@ -21,9 +33,10 @@ var db_password = Environment.GetEnvironmentVariable("db_password");
 var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password={db_password};TrustServerCertificate=True;";
 
 
-builder.Services.AddDbContext<TransactionDbContext>(options =>
+builder.Services.AddDbContext<BudgetDbContext>(options =>
 {
     options.UseSqlServer(connString);
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 
@@ -37,7 +50,7 @@ var app = builder.Build();
 //automiatic migrations
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<TransactionDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<BudgetDbContext>();
     db.Database.Migrate();
 }
 

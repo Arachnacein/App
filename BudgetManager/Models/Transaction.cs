@@ -7,9 +7,6 @@ namespace BudgetManager.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public bool IncomeType { get; set; }
-
         [MinLength(5)]
         [MaxLength(15)]
         [Required]

@@ -13,12 +13,15 @@ namespace BudgetManager.Models
         public string Name { get; set; }
 
         [Required]
-        public double Value_Entertainment { get; set; }
-
-        [Required]
         public double Value_Saves { get; set; }
 
         [Required]
         public double Value_Fees { get; set; }
+
+        [Required]
+        public double Value_Entertainment { get; set; }
+
+        ///
+        public ICollection<MonthPattern> MonthPatterns { get; set; }
     }
 }

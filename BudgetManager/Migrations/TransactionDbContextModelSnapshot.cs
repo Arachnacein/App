@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetManager.Migrations
 {
-    [DbContext(typeof(TransactionDbContext))]
+    [DbContext(typeof(BudgetDbContext))]
     partial class TransactionDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -21,6 +21,81 @@ namespace BudgetManager.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BudgetManager.Models.Income", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Incomes");
+                });
+
+            modelBuilder.Entity("BudgetManager.Models.MonthPattern", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PatternId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Pattern_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatternId");
+
+                    b.ToTable("MonthPatterns");
+                });
+
+            modelBuilder.Entity("BudgetManager.Models.Pattern", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<double>("Value_Entertainment")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Value_Fees")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Value_Saves")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Patterns");
+                });
 
             modelBuilder.Entity("BudgetManager.Models.Transaction", b =>
                 {
@@ -40,9 +115,6 @@ namespace BudgetManager.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("IncomeType")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -54,6 +126,18 @@ namespace BudgetManager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BudgetManager.Models.MonthPattern", b =>
+                {
+                    b.HasOne("BudgetManager.Models.Pattern", null)
+                        .WithMany("MonthPatterns")
+                        .HasForeignKey("PatternId");
+                });
+
+            modelBuilder.Entity("BudgetManager.Models.Pattern", b =>
+                {
+                    b.Navigation("MonthPatterns");
                 });
 #pragma warning restore 612, 618
         }

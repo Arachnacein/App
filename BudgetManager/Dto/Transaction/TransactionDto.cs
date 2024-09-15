@@ -1,12 +1,10 @@
 ﻿using BudgetManager.Models;
-using System.ComponentModel.DataAnnotations;
 
-namespace BudgetManager.Dto
+namespace BudgetManager.Dto.Transaction
 {
     public class TransactionDto
     {
         public int Id { get; set; }
-        public bool IncomeType { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public DateTime Date { get; set; }

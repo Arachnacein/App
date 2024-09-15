@@ -1,4 +1,4 @@
-﻿using BudgetManager.Dto;
+﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Services;
@@ -8,11 +8,11 @@ namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BudgetController : ControllerBase
+    public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
 
-        public BudgetController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService)
         {
             _transactionService = transactionService;
         }
@@ -124,15 +124,15 @@ namespace BudgetManager.Controllers
                 await _transactionService.UpdateCategory(dto);
                 return NoContent();
             }
-            catch(TransactionNotFoundException e)
+            catch (TransactionNotFoundException e)
             {
                 return Conflict(e.Message);
             }
-            catch(BadValueException e)
+            catch (BadValueException e)
             {
                 return Conflict(e.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Conflict(e.Message);
             }

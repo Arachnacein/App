@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetManager.Migrations
 {
-    [DbContext(typeof(TransactionDbContext))]
+    [DbContext(typeof(BudgetDbContext))]
     [Migration("20240901212326_InitialCreate")]
     partial class InitialCreate
     {

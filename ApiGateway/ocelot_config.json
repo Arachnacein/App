@@ -1,8 +1,9 @@
 ﻿{
   "Routes": [
     // Budget WebAPI
+    //Transactions
     {
-      "UpstreamPathTemplate": "/api/budget",
+      "UpstreamPathTemplate": "/api/transaction",
       "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -11,7 +12,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget",
+      "DownstreamPathTemplate": "/api/transaction",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
@@ -20,7 +21,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/budget/{id}",
+      "UpstreamPathTemplate": "/api/transaction/{id}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -29,10 +30,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget/{id}"
+      "DownstreamPathTemplate": "/api/transaction/{id}"
     },
     {
-      "UpstreamPathTemplate": "/api/budget/UpdateCategory",
+      "UpstreamPathTemplate": "/api/transaction/UpdateCategory",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -41,13 +42,130 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/budget/UpdateCategory",
+      "DownstreamPathTemplate": "/api/transaction/UpdateCategory",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    },
+    //Incomes
+    {
+      "UpstreamPathTemplate": "/api/income",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/income/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}"
+    },
+    //Patterns
+    {
+      "UpstreamPathTemplate": "/api/pattern",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/pattern",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/pattern/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/pattern/{id}"
+    },
+    //MonthPatterns
+    {
+      "UpstreamPathTemplate": "/api/monthpattern",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/monthpattern",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/monthpattern/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/monthpattern/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}"
     }
   ],
   "GlobalConfiguration": {
