@@ -71,7 +71,7 @@ namespace BudgetManager.Services
             var model = new MonthYearModel { Month = month, Year = year };
             var monthPattern = await _monthPatternRepository.Get(model);
             if (monthPattern == null)
-                throw new PatternNotFoundException($"MonthPattern not found. Month: {model.Month}, year:{model.Year}.");
+                return new Pattern { Id = -1};
 
             var pattern = await _patternRepository.Get(monthPattern.PatternId);
             if(pattern == null)
