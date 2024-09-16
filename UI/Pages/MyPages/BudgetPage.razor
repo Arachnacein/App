@@ -24,10 +24,17 @@
                         <MudIcon Icon="@Icons.Material.Filled.Info" />
                     </ChildContent>
                     <TooltipContent> 
-                        <MudText Typo="Typo.body2">Pattern: @patternViewModel.Name</MudText>
-                        <MudText Typo="Typo.body2">Saves: @patternViewModel.Value_Saves %</MudText>
-                        <MudText Typo="Typo.body2">Fees: @patternViewModel.Value_Fees %</MudText>
-                        <MudText Typo="Typo.body2">Entertainment: @patternViewModel.Value_Entertainment %</MudText>
+                        @if(patternViewModel.Id == 0)
+                        {
+                            <MudText Typo="Typo.body2"> No pattern</MudText>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.body2">Pattern: @patternViewModel.Name</MudText>
+                            <MudText Typo="Typo.body2">Saves: @patternViewModel.Value_Saves %</MudText>
+                            <MudText Typo="Typo.body2">Fees: @patternViewModel.Value_Fees %</MudText>
+                            <MudText Typo="Typo.body2">Entertainment: @patternViewModel.Value_Entertainment %</MudText>
+                        }
                     </TooltipContent>
                 </MudTooltip>
             </MudStack>

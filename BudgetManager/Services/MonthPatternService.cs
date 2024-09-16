@@ -1,5 +1,6 @@
 ﻿using BudgetManager.Dto;
 using BudgetManager.Dto.MonthPattern;
+using BudgetManager.Dto.Pattern;
 using BudgetManager.Exceptions.PatternExceptions;
 using BudgetManager.Mappers;
 using BudgetManager.Models;
@@ -11,13 +12,15 @@ namespace BudgetManager.Services
     {
         private readonly IMonthPatternRepository _monthPatternRepository;
         private readonly IPatternRepository _patternRepository;
-        private readonly IMonthPatternMapper _mapper;
+        private readonly IMonthPatternMapper _monthPatternMapper;
+        private readonly IPatternMapper _patternMapper;
 
-        public MonthPatternService(IMonthPatternRepository repository, IMonthPatternMapper mapper, IPatternRepository patternRepository)
+        public MonthPatternService(IMonthPatternRepository repository, IMonthPatternMapper mapper, IPatternRepository patternRepository, IPatternMapper patternMapper)
         {
             _monthPatternRepository = repository;
-            _mapper = mapper;
+            _monthPatternMapper = mapper;
             _patternRepository = patternRepository;
+            _patternMapper = patternMapper;
         }
 
         public async Task<MonthPatternDto> RetrieveMonthPattern(int id)
@@ -25,13 +28,13 @@ namespace BudgetManager.Services
             var monthPattern = await _monthPatternRepository.Get(id);
             if (monthPattern == null)
                 throw new Exception($"Pattern not found exception. Id: {id}.");
-            return _mapper.Map(monthPattern);
+            return _monthPatternMapper.Map(monthPattern);
         }
 
         public async Task<IEnumerable<MonthPatternDto>> RetrieveMonthPatterns()
         {
             var monthPatterns = await _monthPatternRepository.GetAll();
-            return _mapper.MapElements(monthPatterns.ToList());
+            return _monthPatternMapper.MapElements(monthPatterns.ToList());
         }
 
         public async Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto)
@@ -44,9 +47,9 @@ namespace BudgetManager.Services
             if (exists != 0)
                 throw new MonthPatternAlreadyExistsException($"Pattern for Month:{dto.Date.Month} and Year:{dto.Date.Year} already exists.");
 
-            var mappedMonthPattern = _mapper.Map(dto);
+            var mappedMonthPattern = _monthPatternMapper.Map(dto);
             await _monthPatternRepository.Add(mappedMonthPattern);
-            return _mapper.Map(mappedMonthPattern);
+            return _monthPatternMapper.Map(mappedMonthPattern);
         }
 
         public async Task UpdateMonthPattern(UpdateMonthPatternDto dto)
@@ -54,7 +57,7 @@ namespace BudgetManager.Services
             var monthPattern = await _monthPatternRepository.Get(dto.Id);
             if (monthPattern == null)
                 throw new Exception($"Pattern not found exception. Id: {dto.Id}.");
-            var mappedMonthPattern = _mapper.Map(dto);
+            var mappedMonthPattern = _monthPatternMapper.Map(dto);
             await _monthPatternRepository.Update(mappedMonthPattern);
         }
 
@@ -66,18 +69,18 @@ namespace BudgetManager.Services
             await _monthPatternRepository.Delete(monthPattern);
         }
 
-        public async Task<Pattern> RetrieveMonthPattern(int month, int year)
+        public async Task<PatternDto> RetrieveMonthPattern(int month, int year)
         {
             var model = new MonthYearModel { Month = month, Year = year };
             var monthPattern = await _monthPatternRepository.Get(model);
             if (monthPattern == null)
-                return new Pattern { Id = -1};
+                return new PatternDto { Id = -1 };
 
             var pattern = await _patternRepository.Get(monthPattern.PatternId);
             if(pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{pattern.Id}.");
 
-            return pattern;
+            return _patternMapper.Map(pattern);
         }
     }
 }
