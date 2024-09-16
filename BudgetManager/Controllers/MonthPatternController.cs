@@ -94,11 +94,11 @@ namespace BudgetManager.Controllers
             {
                 var pattern = await _monthPatternService.RetrieveMonthPattern(month, year);
                 return Ok(pattern); 
-            }
+            }            
             catch(PatternNotFoundException e)
             {
                 return Conflict(e.Message);
-            }            
+            }              
             catch(MonthPatternAlreadyExistsException e)
             {
                 return Conflict(e.Message);

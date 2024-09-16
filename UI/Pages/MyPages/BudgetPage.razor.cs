@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.Net;
 using UI.Components.Dialogs;
 using UI.Models;
 
@@ -12,7 +13,7 @@ namespace UI.Pages.MyPages
         [Inject] public IDialogService dialogService { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
         private DateTime CurrentDate;
-        private PatternViewModel patternViewModel = null;
+        private PatternViewModel patternViewModel;
         private List<IncomeViewModel> incomes;
 
         private PatternValuesModel patternValuesModel = new PatternValuesModel();
@@ -106,20 +107,17 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthPatterns()
         {
-            // pobrać pattern na dany miesiąc
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
-            if(patternResponse != null)
+            if(patternResponse.Id != -1)
                 patternViewModel = patternResponse;
         }
         private async Task LoadMonthIncome()
         {
-            //pobrac income z danego miesiąca
             var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
         private async Task CalculatePatternValues()
         {
-            //obliczyć i wyświetlić statystyki dla poszczególnych kolumn
             if(patternViewModel != null)
             {
                 var incomesTotal = incomes.Sum(x => x.Amount);
@@ -154,6 +152,12 @@ namespace UI.Pages.MyPages
             model.TotalValueSaves = 0;
             model.TotalValueFees = 0;
             model.TotalValueEntertainment = 0;
+
+            patternViewModel.Id = 0;
+            patternViewModel.Name = "";
+            patternViewModel.Value_Saves = 0;
+            patternViewModel.Value_Fees = 0;
+            patternViewModel.Value_Entertainment = 0;
         }
         private class PatternValuesModel
         {

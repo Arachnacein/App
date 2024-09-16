@@ -1,6 +1,5 @@
-﻿using BudgetManager.Dto;
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Models;
+﻿using BudgetManager.Dto.MonthPattern;
+using BudgetManager.Dto.Pattern;
 
 namespace BudgetManager.Services
 {
@@ -11,6 +10,6 @@ namespace BudgetManager.Services
         Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto);
         Task UpdateMonthPattern(UpdateMonthPatternDto dto);
         Task DeleteMonthPattern(int id);
-        Task<Pattern> RetrieveMonthPattern(int month, int year);
+        Task<PatternDto> RetrieveMonthPattern(int month, int year);
     }
 }
