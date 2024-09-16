@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System.Net;
 using UI.Components.Dialogs;
 using UI.Models;
 
@@ -92,6 +91,8 @@ namespace UI.Pages.MyPages
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
             await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+            await ResetModel(patternValuesModel);
+            await RefreshData();
         }
         private async Task PreviousMonth()
         {
