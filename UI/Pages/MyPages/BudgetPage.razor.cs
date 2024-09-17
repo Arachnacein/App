@@ -26,7 +26,8 @@ namespace UI.Pages.MyPages
         }
 
         private async Task RefreshData()
-        { 
+        {
+            await ResetModel(patternValuesModel);
             await LoadTransactions();
             await LoadMonthPatterns();
             await LoadMonthIncome();
@@ -56,7 +57,7 @@ namespace UI.Pages.MyPages
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
-            parameters["Refresh"] = new Func<Task>(LoadTransactions);
+            parameters["Refresh"] = new Func<Task>(RefreshData);
 
             await dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
         }
@@ -67,43 +68,31 @@ namespace UI.Pages.MyPages
             var parameters = new DialogParameters();
             await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);
         }
-        private async Task EditTransaction(TransactionViewModel model)
+        private async Task EditDeleteTransaction(TransactionViewModel model)
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small };
             var parameters = new DialogParameters();
             parameters[nameof(model)] = model;
-            parameters["Refresh"] = new Func<Task>(LoadTransactions);
+            parameters["Refresh"] = new Func<Task>(RefreshData);
 
-            await dialogService.ShowAsync<EditTransactionDialog>("Edit transaction", parameters, options);
+            await dialogService.ShowAsync<EditDeleteTransactionDialog>($"{model.Name}", parameters, options);
         } 
-        private async Task DeleteTransaction(TransactionViewModel model)
-        {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
-            var parameters = new DialogParameters();
-            parameters[nameof(model)] = model;
-            parameters["Refresh"] = new Func<Task>(LoadTransactions);
-
-            await dialogService.ShowAsync<DeleteTransactionDialog>("Delete transaction", parameters, options);
-        }
         private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
         {
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
             await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
-            await ResetModel(patternValuesModel);
             await RefreshData();
         }
         private async Task PreviousMonth()
         {
             CurrentDate = CurrentDate.AddMonths(-1);
-            await ResetModel(patternValuesModel);
             await RefreshData();
         }
         private async Task NextMonth()
         {
             CurrentDate = CurrentDate.AddMonths(1);
-            await ResetModel(patternValuesModel);
             await RefreshData();
         }
         private async Task LoadMonthPatterns()
@@ -154,11 +143,14 @@ namespace UI.Pages.MyPages
             model.TotalValueFees = 0;
             model.TotalValueEntertainment = 0;
 
-            patternViewModel.Id = 0;
-            patternViewModel.Name = "";
-            patternViewModel.Value_Saves = 0;
-            patternViewModel.Value_Fees = 0;
-            patternViewModel.Value_Entertainment = 0;
+            if(patternViewModel != null)
+            {
+                patternViewModel.Id = 0;
+                patternViewModel.Name = "";
+                patternViewModel.Value_Saves = 0;
+                patternViewModel.Value_Fees = 0;
+                patternViewModel.Value_Entertainment = 0;
+            }
         }
         private class PatternValuesModel
         {

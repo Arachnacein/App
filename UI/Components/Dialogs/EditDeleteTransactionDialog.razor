@@ -1,0 +1,25 @@
+﻿<MudDialog Style="height:515px;">
+    <DialogContent>
+        <MudTabs Class="ma-2 pa-2" Elevation="5" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true">
+            <MudTabPanel Text="Edit">
+                <MudTextField Label="Name" @bind-Value="DialogModel.Name" Class="ma-1 pa-1" />
+                <MudTextField Label="Description" @bind-Value="DialogModel.Description" Class="ma-1 pa-1" />
+                <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-1 pa-1" />
+                <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center">
+                    <MudTextField T="double" Label="Price" @bind-Value="DialogModel.Price" Class="ma-1 pa-1"></MudTextField>
+                    <MudButton OnClick="Edit" Variant="Variant.Filled" Color="Color.Primary" style="height:80%;">Confirm</MudButton>
+                </MudStack>
+            </MudTabPanel>
+            <MudTabPanel Text="Delete">
+                <MudText Class="ma-1 pa-1">Are you sure you want delete this transaction?</MudText>
+                <MudText Class="ma-1 pa-1"> Name: @DialogModel.Name</MudText>
+                <MudText Class="ma-1 pa-1"> Date: @DialogModel.Date.Format()</MudText>
+                <MudText Class="ma-1 pa-1"> Price: @DialogModel.Price</MudText>
+                <MudButton Class="ma-2 pa-2 float-end"  OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary">Delete</MudButton>
+            </MudTabPanel>
+        </MudTabs>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
