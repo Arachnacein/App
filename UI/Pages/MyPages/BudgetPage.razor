@@ -45,6 +45,7 @@
             @CurrentDate.GetMonthName() @CurrentDate.Year
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" OnClick="NextMonth" Size="Size.Large"></MudIconButton>
         </MudStack>
+
         <MudDropContainer T="TransactionViewModel"
                           Items="transactions"
                           ItemsSelector="@((item,dropzone) => Enum.GetName(typeof(TransactionCategoryEnum), item.Category) == dropzone)"
@@ -94,7 +95,7 @@
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
-                        <MudPaper Elevation="25" Class="pa-2 my-2">
+                        <MudPaper Elevation="25" Class="pa-2 my-2" @onclick="() => EditDeleteTransaction(context)">
                             <MudGrid>
                                 <MudItem xs="8">
                                     <MudText Typo="Typo.body1">@context.Name</MudText>
