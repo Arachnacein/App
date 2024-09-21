@@ -25,12 +25,8 @@ namespace UI.Components.Dialogs
             patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>("/api/pattern");
             if (patterns == null)
                 snackbar.Add("Error while getting patterns.", Severity.Warning);
-
         }
-        private async Task AddPattern()
-        {
 
-        }
         private async Task AcceptPattern()
         {
             //add pattern api
