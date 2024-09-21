@@ -1,6 +1,6 @@
 ﻿namespace UI.Pages.MyPages
 {
-    public partial class OptionsPage
+    public partial class OptionPage
     {
     }
 }
