@@ -2,6 +2,26 @@
 
 
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-2" Elevation="5">
-    <MudText Typo="Typo.h4">Patterns Page</MudText>
+<MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+    <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
+    <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true" >
+        <MudTabPanel Text="Overwiew">
+            //dodac tabele o stałej wysokości scrollable, z opcjami onclick delete i edit (jeśli był)
+        </MudTabPanel>
+        <MudTabPanel Text="Add Pattern">
+            <MudPaper>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                    <MudStack Class="ma-2 pa-2">
+                        <MudTextField T="string" Label="Name" @bind-Value=model.Name></MudTextField>
+                    </MudStack>
+                    <MudStack Class="ma-2 pa-2">
+                        <MudTextField T="double" Label="Saves" @bind-Value=model.Value_Saves></MudTextField>
+                        <MudTextField T="double" Label="Fees" @bind-Value=model.Value_Fees></MudTextField>
+                        <MudTextField T="double" Label="Entertainment" @bind-Value=model.Value_Entertainment></MudTextField>
+                    </MudStack>
+                </MudStack>
+            <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2"> Add pattern</MudButton>
+            </MudPaper>
+        </MudTabPanel>
+    </MudTabs>
 </MudPaper>
