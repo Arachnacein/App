@@ -1,0 +1,21 @@
+﻿@using UI.Models
+<MudDialog>
+    <DialogContent>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudStack>
+                <MudSelect T="PatternViewModel" @bind-Value="model" Placeholder="Choose pattern" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+                    @foreach (var item in patterns)
+                    {
+                        <MudSelectItem Value="@item">@item.Name (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudStack>
+            <MudStack>
+                <MudButton OnClick="AddPattern"><MudIcon Icon="@Icons.Material.Filled.AddBox"></MudIcon></MudButton>
+            </MudStack>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="AcceptPattern" Variant="Variant.Filled" Color="Color.Tertiary">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
