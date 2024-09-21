@@ -66,6 +66,7 @@ namespace UI.Pages.MyPages
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
+            parameters["Refresh"] = new Func<Task>(RefreshData);
             await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);
         }
         private async Task EditDeleteTransaction(TransactionViewModel model)
