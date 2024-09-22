@@ -11,5 +11,6 @@ namespace BudgetManager.Services
         Task UpdateMonthPattern(UpdateMonthPatternDto dto);
         Task DeleteMonthPattern(int id);
         Task<PatternDto> RetrieveMonthPattern(int month, int year);
+        Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns();
     }
 }

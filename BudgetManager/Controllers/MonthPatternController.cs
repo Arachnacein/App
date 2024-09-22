@@ -109,5 +109,19 @@ namespace BudgetManager.Controllers
 
             }
         }
+
+        [HttpGet("GetAllWithPattern")]
+        public async Task<IActionResult> GetAllWithPattern()
+        {
+            try
+            {
+                var monthPatterns = await _monthPatternService.RetrievePatterns();
+                return Ok(monthPatterns);
+            }
+            catch (Exception e)
+            {
+                return Conflict(e.Message);
+            }
+        }
     }
 }

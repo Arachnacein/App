@@ -1,0 +1,42 @@
+﻿@page "/options/pattern"
+@using UI.Models
+
+<UI.Components.OptionNavigationComponent />
+<MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+    <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
+    <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true">
+        <MudTabPanel Text="Overwiew">
+            <MudTable T="MonthPatternViewModel" Items="@patterns" FixedHeader="true" FixedFooter="true" Dense="true" Height="250px;" Striped="true" Class="ma-2 pa-2">
+                <HeaderContent>
+                    <MudTh>Date</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>% Saves </MudTh>
+                    <MudTh>% Fees</MudTh>
+                    <MudTh>% Entertainment</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Month">@context.Date.Month/@context.Date.Year</MudTd>
+                    <MudTd DataLabel="Name">@context.Pattern.Name</MudTd>
+                    <MudTd DataLabel="Saves">@context.Pattern.Value_Saves</MudTd>
+                    <MudTd DataLabel="Fees">@context.Pattern.Value_Fees</MudTd>
+                    <MudTd DataLabel="Entertainment">@context.Pattern.Value_Entertainment</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudTabPanel>
+        <MudTabPanel Text="Add Pattern">
+            <MudPaper>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                    <MudStack Class="ma-2 pa-2">
+                        <MudTextField T="string" Label="Name" @bind-Value=model.Name></MudTextField>
+                    </MudStack>
+                    <MudStack Class="ma-2 pa-2">
+                        <MudTextField T="double" Label="Saves" @bind-Value=model.Value_Saves></MudTextField>
+                        <MudTextField T="double" Label="Fees" @bind-Value=model.Value_Fees></MudTextField>
+                        <MudTextField T="double" Label="Entertainment" @bind-Value=model.Value_Entertainment></MudTextField>
+                    </MudStack>
+                </MudStack>
+            <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2"> Add pattern</MudButton>
+            </MudPaper>
+        </MudTabPanel>
+    </MudTabs>
+</MudPaper>

@@ -82,5 +82,32 @@ namespace BudgetManager.Services
 
             return _patternMapper.Map(pattern);
         }
+
+        public async Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns()
+        {
+            var monthpattern = await _monthPatternRepository.GetAll();
+            monthpattern = monthpattern.ToList();//avoid reading two entities in the same time
+            var patterns = await _patternRepository.GetAll();
+
+            var result = monthpattern.Join(patterns,
+                                            monthpattern => monthpattern.PatternId,
+                                            pattern => pattern.Id,
+                                            (monthpattern, pattern) => new FullMonthPatternDto
+                                            {
+                                                Id = monthpattern.Id,
+                                                Date = monthpattern.Date,
+                                                Pattern = new PatternDto
+                                                {
+                                                    Id = pattern.Id,
+                                                    Name = pattern.Name,
+                                                    Value_Saves = pattern.Value_Saves,
+                                                    Value_Fees = pattern.Value_Fees,
+                                                    Value_Entertainment = pattern.Value_Entertainment
+                                                }
+                                            }
+                                           ).OrderBy(x => x.Date)
+                                            .ToList();
+            return result;
+        }
     }
 }
