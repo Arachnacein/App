@@ -86,10 +86,11 @@ namespace BudgetManager.Services
         public async Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns()
         {
             var monthpattern = await _monthPatternRepository.GetAll();
+            monthpattern = monthpattern.ToList();//avoid reading two entities in the same time
             var patterns = await _patternRepository.GetAll();
 
             var result = monthpattern.Join(patterns,
-                                            monthpattern => monthpattern.Id,
+                                            monthpattern => monthpattern.PatternId,
                                             pattern => pattern.Id,
                                             (monthpattern, pattern) => new FullMonthPatternDto
                                             {
@@ -104,7 +105,7 @@ namespace BudgetManager.Services
                                                     Value_Entertainment = pattern.Value_Entertainment
                                                 }
                                             }
-                                           );
+                                           ).ToList();
             return result;
         }
     }

@@ -166,6 +166,24 @@
         }
       ],
       "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/monthpattern/GetAllWithPattern",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/monthpattern/GetAllWithPattern",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     }
   ],
   "GlobalConfiguration": {
