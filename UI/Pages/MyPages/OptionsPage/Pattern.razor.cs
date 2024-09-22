@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using UI.Models;
 
@@ -10,11 +9,11 @@ namespace UI.Pages.MyPages.OptionsPage
         [Inject] public HttpClient httpClient { get; set; }
         [Inject]public ISnackbar snackbar { get; set; }
         private PatternViewModel model = new PatternViewModel();
-        private List<PatternViewModel> patterns = new List<PatternViewModel>();
+        private List<MonthPatternViewModel> patterns = new List<MonthPatternViewModel>();
 
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            return base.OnInitializedAsync();
+            await LoadPatterns();
         }
         private async Task AddPattern()
         {
@@ -26,7 +25,7 @@ namespace UI.Pages.MyPages.OptionsPage
         }
         private async Task LoadPatterns()
         {
-
+            patterns = await httpClient.GetFromJsonAsync<List<MonthPatternViewModel>>("/api/monthpattern/GetAllWithPattern");
         }
     }
 }
