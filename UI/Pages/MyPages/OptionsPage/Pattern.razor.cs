@@ -10,6 +10,7 @@ namespace UI.Pages.MyPages.OptionsPage
         [Inject] public HttpClient httpClient { get; set; }
         [Inject]public ISnackbar snackbar { get; set; }
         private PatternViewModel model = new PatternViewModel();
+        private List<PatternViewModel> patterns = new List<PatternViewModel>();
 
         protected override Task OnInitializedAsync()
         {
@@ -22,6 +23,10 @@ namespace UI.Pages.MyPages.OptionsPage
                 snackbar.Add("Successfully added new pattern.", Severity.Success);
             else
                 snackbar.Add("Something went wrong", Severity.Error);
+        }
+        private async Task LoadPatterns()
+        {
+
         }
     }
 }

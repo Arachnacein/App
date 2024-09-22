@@ -1,12 +1,26 @@
 ﻿@page "/options/pattern"
 
-
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
     <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
-    <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true" >
+    <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true">
         <MudTabPanel Text="Overwiew">
-            //dodac tabele o stałej wysokości scrollable, z opcjami onclick delete i edit (jeśli był)
+            @* //dodac tabele o stałej wysokości scrollable, z opcjami onclick delete i edit (jeśli był) *@
+            <MudTable Items="@patterns">
+                <HeaderContent>
+                    <MudTh>Date</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>% Saves </MudTh>
+                    <MudTh>% Fees</MudTh>
+                    <MudTh>% Entertainment</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Saves">@context.Value_Saves</MudTd>
+                    <MudTd DataLabel="Fees">@context.Value_Fees</MudTd>
+                    <MudTd DataLabel="Entertainment">@context.Value_Entertainment</MudTd>
+                </RowTemplate>
+            </MudTable>
         </MudTabPanel>
         <MudTabPanel Text="Add Pattern">
             <MudPaper>
