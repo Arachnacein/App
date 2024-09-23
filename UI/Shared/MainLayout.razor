@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
-<MudThemeProvider />
+@inject GlobalInfoClass _globalClass;
+
+<MudThemeProvider IsDarkMode="_globalClass.IsDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider 
     FullWidth="true"

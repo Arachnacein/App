@@ -1,6 +1,17 @@
 ﻿@page "/options/settings"
+@inject GlobalInfoClass _globalClass;
+@inject NavigationManager Navigation
 
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5">
-    <MudText Typo="Typo.h4">Settings Page</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">Settings Page</MudText>
+    <MudDivider/>
+    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <MudText>Dark theme</MudText>
+        <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary" Class="ma-4"
+                            T="bool" Label="Toggle Light/Dark Mode" @onclick="Refresh"/>
+    </MudStack>
 </MudPaper>
+@code{
+    private void Refresh() => Navigation.NavigateTo("/options/settings");
+}
