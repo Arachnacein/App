@@ -105,7 +105,7 @@ namespace BudgetManager.Services
                                                     Value_Entertainment = pattern.Value_Entertainment
                                                 }
                                             }
-                                           ).OrderBy(x => x.Date)
+                                           ).OrderByDescending(x => x.Date)
                                             .ToList();
             return result;
         }
