@@ -1,24 +1,67 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
+@using UI.Models
 
 <PageTitle>Home</PageTitle>
 <MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
     <MudPaper Class="pa-2 ma-2 mt-5" Elevation="30" Style="width:80%;">
-        <MudCarousel TData="object" Style="height:200px;" ShowArrows="true" ShowBullets="true" AutoCycle="true" EnableSwipeGesture="true">
-            <MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary">
-                <div class="d-flex" style="height:100%">
-                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
-                </div>
-            </MudCarouselItem>
-            <MudCarouselItem Transition="Transition.Custom" Color="@Color.Secondary">
-                <div class="d-flex" style="height:100%">
-                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
-                </div>
-            </MudCarouselItem>
-            <MudCarouselItem Transition="Transition.Slide">
-                <div class="d-flex" style="height:100%">
-                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
-                </div>
-            </MudCarouselItem>
+        <MudCarousel TData="object" Style="min-height:435px;" AutoCycleTime="TimeSpan.FromSeconds(7)"   ShowArrows="true" ShowBullets="true" AutoCycle="true" EnableSwipeGesture="true">
+            @foreach (var item in carouselContentList)
+            {
+                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
+                    <MudCard>
+                        <MudCardMedia Image="@item.ImageUrl" />
+                        <MudCardContent>
+                            <MudText>@item.Header</MudText>
+                            <MudText Typo="Typo.body2">@item.Description</MudText>
+                        </MudCardContent>
+                        @if(item.IsActionContent)
+                        {
+                            <MudCardActions>
+                                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@( async () => await OpenLink(item.ActionUrl))">@item.ActionText</MudButton>
+                            </MudCardActions>
+                        }
+                    </MudCard>
+                </MudCarouselItem>
+            }
         </MudCarousel>
+        To Do motivation
+
+        To Do architecture
+
+        To Do tools and frameworks
     </MudPaper>
 </MudStack>
+
+@code
+{
+    List<CarouselContentModel> carouselContentList = new List<CarouselContentModel>
+    {
+        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/tree.jpg", 
+                                  Header = "Welcome in budget App!",
+                                  Description = "Application will help you control your expenses and save money.",
+                                  IsActionContent = false },
+
+        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/mountains.jpg",
+                                  Header = "You can add your monthly incomes and expenses.", 
+                                  Description = "System will automatically divide them according to the given pattern.",
+                                  IsActionContent = true,
+                                  ActionText = "Learn more about Blazor",
+                                  ActionUrl = "https://mudblazor.com/docs/overview"},
+
+        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/chameleon.jpg",
+                                  Header = "You can check your budget statistics.", 
+                                  Description = "There are monthly, yearly and other unconventional statistics. e.g. On which days do you do more shopping? Even or odd?",
+                                  IsActionContent = true,
+                                  ActionText = "Learn about budget",
+                                  ActionUrl = "https://stooq.pl/q/?s=xaupln"},
+
+        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/window.jpg",
+                                  Header = "With this app you can create goals for which you save money.",
+                                  Description = "You set the transaction as a deposit and link it to a goal, and the app continuously analyzes and displays your progress towards achieving the goal.",
+                                  IsActionContent = false}
+    };
+
+    private async Task OpenLink(string url) => Navigation.NavigateTo(url, true);
+    
+}
