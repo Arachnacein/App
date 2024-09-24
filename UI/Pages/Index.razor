@@ -1,9 +1,24 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
+    <MudPaper Class="pa-2 ma-2 mt-5" Elevation="30" Style="width:80%;">
+        <MudCarousel TData="object" Style="height:200px;" ShowArrows="true" ShowBullets="true" AutoCycle="true" EnableSwipeGesture="true">
+            <MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary">
+                <div class="d-flex" style="height:100%">
+                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="Transition.Custom" Color="@Color.Secondary">
+                <div class="d-flex" style="height:100%">
+                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="Transition.Slide">
+                <div class="d-flex" style="height:100%">
+                    <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
+                </div>
+            </MudCarouselItem>
+        </MudCarousel>
+    </MudPaper>
+</MudStack>
