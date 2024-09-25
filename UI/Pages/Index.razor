@@ -4,33 +4,76 @@
 
 <PageTitle>Home</PageTitle>
 <MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
-    <MudPaper Class="pa-2 ma-2 mt-5" Elevation="30" Style="width:80%;">
-        <MudCarousel TData="object" Style="min-height:435px;" AutoCycleTime="TimeSpan.FromSeconds(7)"   ShowArrows="true" ShowBullets="true" AutoCycle="true" EnableSwipeGesture="true">
-            @foreach (var item in carouselContentList)
-            {
-                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-                    <MudCard>
-                        <MudCardMedia Image="@item.ImageUrl" />
-                        <MudCardContent>
-                            <MudText>@item.Header</MudText>
-                            <MudText Typo="Typo.body2">@item.Description</MudText>
-                        </MudCardContent>
-                        @if(item.IsActionContent)
-                        {
-                            <MudCardActions>
-                                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@( async () => await OpenLink(item.ActionUrl))">@item.ActionText</MudButton>
-                            </MudCardActions>
-                        }
-                    </MudCard>
-                </MudCarouselItem>
-            }
-        </MudCarousel>
-        To Do motivation
-
-        To Do architecture
-
-        To Do tools and frameworks
+    <MudPaper Class="pa-2 ma-2 mt-5 shadow" Elevation="30" Style="width:80%;">
+        <MudStack>
+            <MudCarousel TData="object" Style="height:525px;" AutoCycleTime="TimeSpan.FromSeconds(7)" ShowArrows="true" ShowBullets="true" AutoCycle="true" EnableSwipeGesture="true">
+                @foreach (var item in carouselContentList)
+                {
+                    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary" Style="border-radius:5px;">
+                        <MudCard Class=" pa-2 mb-5 ma-1">
+                            <MudCardMedia Image="@item.ImageUrl" Class="ma-2" />
+                            <MudCardContent Class="mb-5">
+                                <MudText>@item.Header</MudText>
+                                <MudText Typo="Typo.body2">@item.Description</MudText>
+                            </MudCardContent>
+                            @if (item.IsActionContent)
+                            {
+                                <MudCardActions>
+                                    <MudButton Variant="Variant.Text" Color="Color.Tertiary" Size="Size.Small" OnClick="@( async () => await OpenLink(item.ActionUrl))">@item.ActionText</MudButton>
+                                </MudCardActions>
+                            }
+                        </MudCard> 
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudStack>
     </MudPaper>
+        <MudStack Style="width:100%;" Justify="Justify.Center" AlignItems="AlignItems.Center">
+            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
+                <h3>Motivation</h3>
+                <MudDivider Class="my-3" Style="width:25%;" />
+                <MudText Style="text-indent:30px;" Class="ma-5">
+                    <img src="/Images/notes.jpg" width="30%;" height="30%;" style="float:right;margin-left:15px;border-radius:15px;"/>
+                    Since I started working, I noticed that it’s worth dividing income into specific categories. I divided them into savings, daily expenses, and those related to entertainment. This allowed for clear budget management, and the savings generated helped build a financial safety net. In the beginning, I would write this down on paper. In fact, long before I started working, I would note my expenses on sheets of paper, which often got lost. That's why I decided to switch to electronic record-keeping. I chose Excel spreadsheets for this. However, I didn't really like it due to its clunky appearance and lack of functionalities I wanted.
+                </MudText>
+                <MudSpacer/>
+            <MudText Style="text-indent:30px;" Class="ma-5">
+                    In the meantime, I decided to start designing my own application. It was supposed to automate processes that I previously had to calculate and managed manually. Additionally, I wanted it to be simple to use and have the functionalities I required. The great thing is that I can design and implement features myself. Without much hesitation, I began creating this application.
+                </MudText>
+            </MudPaper>
+
+            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
+                <h3>Architecture</h3>
+                <MudDivider Class="my-3" Style="width:30%;"/>
+                <MudText Style="text-indent:30px;">
+                    <img src="/Images/microservices.jpg" width="15%;" height="15%;" style="float:right;margin-left:15px;border-radius:15px;" />
+                    The architecture used in this application is based on Clean Architecture, which has become the standard for writing WebAPIs. It involves separating business logic from databases and user interfaces. This creates a layered structure where each layer communicates with the others in a defined way.
+                </MudText>
+                <MudText Style="text-indent:30px;">
+                    Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. These modules are connected by an API Gateway, which routes requests between the modules.
+                </MudText>
+
+            </MudPaper>
+
+            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
+                <h3>Tools and frameworks</h3>
+                <MudDivider Class="my-3" Style="width:40%;"/>
+                <MudList T="string" >
+                <MudListItem>Visual Studio</MudListItem>
+                <MudListItem>Docker Desctop</MudListItem>
+                    <MudListItem> Sql Server Management Studio</MudListItem>
+                    <MudListItem> Postman</MudListItem>
+                </MudList>
+                <MudList T="string">
+                    <MudListItem> Mudblazor</MudListItem>
+                    <MudListItem>Entity Framework</MudListItem>
+                </MudList>
+                <MudList T="string">
+                    <MudListItem>CQRS</MudListItem>
+                    <MudListItem>Dapper</MudListItem>
+                </MudList>
+            </MudPaper>
+        </MudStack>
 </MudStack>
 
 @code
