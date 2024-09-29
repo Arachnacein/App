@@ -11,6 +11,8 @@ namespace UI.Components.Dialogs
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
+        private TransactionViewModelValidator TransactionValidator { get; } = new TransactionViewModelValidator();
+        private MudForm Form;
 
         protected override async Task OnInitializedAsync()
         {
@@ -19,6 +21,10 @@ namespace UI.Components.Dialogs
 
         private async Task Submit()
         {
+            await Form.Validate();
+            if (!Form.IsValid)
+                return;
+
             var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {

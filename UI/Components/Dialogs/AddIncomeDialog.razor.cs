@@ -12,7 +12,8 @@ namespace UI.Components.Dialogs
         [Inject] public IDialogService dialogService { get; set; }
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
-
+        private IncomeViewModelValidation IncomeValidator { get; } = new IncomeViewModelValidation();
+        MudForm Form;
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,6 +22,10 @@ namespace UI.Components.Dialogs
 
         private async Task Submit()
         {
+            await Form.Validate();
+            if (!Form.IsValid)
+                return;
+
             //check if pattern for this month exists
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={DialogModel.Date.Value.Month}&year={DialogModel.Date.Value.Year}");
             if (patternResponse.Id != -1)
