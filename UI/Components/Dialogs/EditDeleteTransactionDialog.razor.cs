@@ -13,6 +13,8 @@ namespace UI.Components.Dialogs
         [Inject] public ISnackbar snackbar { get; set; }
 
         private TransactionViewModel DialogModel = new TransactionViewModel();
+        private TransactionViewModelValidator TransactionValidator { get; } = new TransactionViewModelValidator();
+        MudForm Form;
 
         protected override Task OnInitializedAsync()
         {
@@ -34,6 +36,10 @@ namespace UI.Components.Dialogs
         }
         private async Task Edit()
         {
+            await Form.Validate();
+            if (!Form.IsValid)
+                return;
+
             var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
