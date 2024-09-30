@@ -10,4 +10,8 @@
   Additionally, I wanted it to be simple to use and include the functionalities I needed. The best part is that I can design and implement features myself. 
   Without much hesitation, I began creating this application.
 </p>
-<img src="">
+<br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fba767e5-cd58-4c3d-8f9b-715de93393d7" style="border-radius:15px;">
+</p>
+
