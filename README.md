@@ -15,3 +15,10 @@
   <img src="https://github.com/user-attachments/assets/fba767e5-cd58-4c3d-8f9b-715de93393d7" style="border-radius:15px;">
 </p>
 
+<h2 align="center"> Architecture </h2>
+
+<p align="center">
+  The architecture used in this application is based on Clean Architecture, which has become the standard for developing WebAPIs. 
+  It separates business logic from databases and user interfaces, creating a layered structure where each layer communicates with the others in a well-defined manner.
+                
+</p>
