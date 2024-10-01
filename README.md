@@ -7,7 +7,7 @@
 </p>
 <p align="">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the meantime, I decided to start designing my own application. It was supposed to automate the processes I previously had to calculate and manage manually.
-  Additionally, I wanted it to be simple to use and include the functionalities I needed. The best part is that I can design and implement features myself. 
+  Additionally, I wanted it to be simple to use and include the functionalities I needed. The best part is that I can design and implement features by myself. 
   Without much hesitation, I began creating this application.
 </p>
 <br>
