@@ -20,5 +20,8 @@
 <p align="center">
   The architecture used in this application is based on Clean Architecture, which has become the standard for developing WebAPIs. 
   It separates business logic from databases and user interfaces, creating a layered structure where each layer communicates with the others in a well-defined manner.
-                
+   <br>
+  Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. These modules 
+  are connected by an API Gateway, which routes requests between the modules. My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice. Currently, the application has three microservices: 
+  budgetapi, apigateway, and GUI. 
 </p>
