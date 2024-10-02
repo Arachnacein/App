@@ -37,5 +37,18 @@ namespace UI.Components.Dialogs
                 snackbar.Add("Something went wrong", Severity.Error);
         }
         private async Task Cancel() => MudDialogInstance.Cancel();
+        private async Task Delete()
+        {
+            var request = await httpClient.DeleteAsync($"/api/income/{Model.Id}");
+            if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                snackbar.Add("Income deleted successfully", Severity.Success);
+                MudDialogInstance.Cancel();
+                if (Refresh != null)
+                    await Refresh.Invoke();
+            }
+            else
+                snackbar.Add("Something went wrong", Severity.Error);
+        }
     }
 }

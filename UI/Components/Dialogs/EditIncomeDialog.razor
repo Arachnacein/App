@@ -6,7 +6,8 @@
             <MudDatePicker @bind-Date="@Model.Date"/>
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Confirm</MudButton>
+            <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" Class="mr-10">Delete</MudButton>
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Confirm</MudButton>
             <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
         </DialogActions>
     </MudDialog>
