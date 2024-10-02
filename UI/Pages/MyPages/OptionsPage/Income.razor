@@ -1,0 +1,25 @@
+﻿@page "/options/income"
+@using UI.Models
+
+
+<UI.Components.OptionNavigationComponent />
+<MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+    <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
+    <MudTable T="IncomeViewModel" Items="incomes" Dense="true" Height="300px;" Striped="true">
+        <HeaderContent>
+            <MudTh> Name </MudTh>
+            <MudTh Style="text-align:center"> Amount </MudTh>
+            <MudTh Style="text-align:center"> Date </MudTh>
+            <MudTh Style="text-align:center"> Options </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name" Style="padding-left:15px;">@context.Name</MudTd>
+            <MudTd DataLabel="Amount" Style="text-align:center">@context.Amount</MudTd>
+            <MudTd DataLabel="Date" Style="text-align:center">@context.Date.Format()</MudTd>
+            <MudTd DataLabel="Options" Style="text-align:center">
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
+                               OnClick="@( async () => await EditIncome(context))" />
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>

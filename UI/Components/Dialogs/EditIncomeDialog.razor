@@ -1,0 +1,14 @@
+﻿<MudForm Model="@Model" @ref="@Form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
+    <MudDialog>
+        <DialogContent>
+            <MudTextField @bind-Value="@Model.Name" For="@(() => Model.Name)"></MudTextField>
+            <MudTextField @bind-Value="@Model.Amount" For="@(() => Model.Amount)"></MudTextField>
+            <MudDatePicker @bind-Date="@Model.Date"/>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" Class="mr-10">Delete</MudButton>
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Confirm</MudButton>
+            <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>
