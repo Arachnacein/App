@@ -20,7 +20,7 @@ namespace BudgetManager.Repositories
 
         public async Task<IEnumerable<Income>> GetAll()
         {
-            return _dbContext.Incomes;
+            return _dbContext.Incomes.OrderByDescending(x => x.Date);
         }
 
         public async Task<Income> Add(Income income)
