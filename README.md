@@ -28,13 +28,26 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The architecture used in this application is based on Clean Architecture, which has become the standard for developing WebAPIs. 
   It separates business logic from databases and user interfaces, creating a layered structure where each layer communicates with the others in a well-defined manner.
    <br>
-  Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. Thesemodules 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. Thesemodules 
   are connected by an API Gateway, which routes requests between the modules. 
   My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice. Currently, the application has three microservices: 
   budgetapi, apigateway, and GUI. In the future, microservices responsible for the calendar and payments will be added.
-  
 </p>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3df263dc-c8b6-472e-9d22-79521cbb3045">
 </p>
+<br><br>
+<h2 align="center"> Screenshots </h2><br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a37be03e-b789-47ad-8fca-eb0721aff4e1" style="width:450px;height:450px;">
+  <img src="https://github.com/user-attachments/assets/19aff8be-b687-4ad6-bfb1-1c7948409e1a" style="width:450px;height:450px;">
+  <img src="https://github.com/user-attachments/assets/ee76c1dc-6edd-4b90-9c1b-5c33003d6ddf" style="width:70%;height:70%;">
+</p>
 
+<h2 align="center"> Milestones </h2>
+<p>
+  * I am currently changing the logic by introducing the CQRS architectural pattern. <br>
+  * Then I plan to implement a statistics functionality.<br>
+  * Next is going to be a calendar with notifications.
+</p>
