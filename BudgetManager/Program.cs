@@ -2,6 +2,7 @@ using BudgetManager.Data;
 using BudgetManager.Mappers;
 using BudgetManager.Repositories;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,7 @@ builder.Services.AddDbContext<BudgetDbContext>(options =>
 
 
 // Add services to the container.
+builder.Services.AddMediatR(typeof(Mediator));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
