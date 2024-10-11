@@ -2,6 +2,7 @@
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Features.Transactions.Commands;
+using BudgetManager.Features.Transactions.Queries;
 using BudgetManager.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +42,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var transactions = await _transactionService.RetrieveTransactions();
-                return Ok(transactions);
+                var query = new RetrieveTransactionsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch(Exception e)
             {
