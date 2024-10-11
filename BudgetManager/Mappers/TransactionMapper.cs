@@ -1,8 +1,19 @@
 ﻿using BudgetManager.Dto.Transaction;
+using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Models;
 
 namespace BudgetManager.Mappers
 {
+    public interface ITransactionMapper
+    {
+        TransactionDto Map(Transaction source);
+        AddTransactionDto Map(SaveTransactionCommand command);
+        Transaction Map(TransactionDto source);
+        Transaction Map(AddTransactionDto source);
+        Transaction Map(UpdateTransactionDto source);
+        ICollection<TransactionDto> MapElements(ICollection<Transaction> source);
+        ICollection<Transaction> MapElements(ICollection<TransactionDto> source);
+    }
     public class TransactionMapper : ITransactionMapper
     {
         public TransactionDto Map(Transaction source)
@@ -14,6 +25,17 @@ namespace BudgetManager.Mappers
             destination.Date = source.Date;
             destination.Price = source.Price;
             destination.Category = source.Category;
+
+            return destination;
+        }
+        public AddTransactionDto Map(SaveTransactionCommand command)
+        {
+            var destination = new AddTransactionDto();
+            destination.Name = command.Name;
+            destination.Description = command.Description;
+            destination.Date = command.Date;
+            destination.Price = command.Price;
+            destination.Category = command.Category;
 
             return destination;
         }
@@ -55,6 +77,9 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
+
+
+
         public ICollection<TransactionDto> MapElements(ICollection<Transaction> source)
         {
             List<TransactionDto> destination = new List<TransactionDto>();
@@ -74,14 +99,5 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-    }
-    public interface ITransactionMapper
-    {
-        TransactionDto Map(Transaction source);
-        Transaction Map(TransactionDto source);
-        Transaction Map(AddTransactionDto source);
-        Transaction Map(UpdateTransactionDto source);
-        ICollection<TransactionDto> MapElements(ICollection<Transaction> source);
-        ICollection<Transaction> MapElements(ICollection<TransactionDto> source);
     }
 }

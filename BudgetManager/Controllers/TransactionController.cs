@@ -1,7 +1,9 @@
 ﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.TransactionExceptions;
+using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -11,10 +13,12 @@ namespace BudgetManager.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+        private readonly IMediator _mediator;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IMediator mediator)
         {
             _transactionService = transactionService;
+            _mediator = mediator;
         }
 
         [HttpGet("{id}")]
@@ -47,12 +51,13 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddTransactionDto dto)
+        public async Task<IActionResult> Create([FromBody] AddTransactionDto dto)
         {
             try
             {
-                var transaction = await _transactionService.AddTransaction(dto);
-                return Created($"api/transactions/{transaction.Id}", transaction);
+                var command = new SaveTransactionCommand(dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+                var response = await _mediator.Send(command);        
+                return Created($"api/transactions/{response.Id}", response);
             }
             catch(NullPointerException e)
             {
