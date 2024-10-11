@@ -42,7 +42,8 @@ builder.Services.AddDbContext<BudgetDbContext>(options =>
 
 
 // Add services to the container.
-builder.Services.AddMediatR(typeof(Mediator));
+builder.Services.AddMediatR(config => 
+                    config.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
