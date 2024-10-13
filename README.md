@@ -48,6 +48,7 @@
 <h2 align="center"> Milestones </h2>
 <p>
   * I am currently changing the logic by introducing the CQRS architectural pattern. <br>
+  * Then I plan implement ERROR CODES ecosystem.<br>
   * Then I plan to implement a statistics functionality.<br>
   * Next is going to be a calendar with notifications.<br>
   * And then payment feature.
