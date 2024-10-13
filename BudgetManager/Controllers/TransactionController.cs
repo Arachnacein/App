@@ -111,7 +111,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _transactionService.DeleteTransaction(id);
+                var command = new DeleteTransactionCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(NullPointerException e)
