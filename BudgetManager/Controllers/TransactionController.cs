@@ -80,11 +80,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateTransactionDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateTransactionDto dto)
         {
             try
             {
-                await _transactionService.UpdateTransaction(dto);
+                var command = new UpdateTransactionCommand(dto.Id, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (NullPointerException e)
