@@ -27,8 +27,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var transaction = await _transactionService.RetrieveTransaction(id);
-                return Ok(transaction);
+                var query = new RetrieveTransactionQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
 
             catch (Exception e)
@@ -80,11 +81,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateTransactionDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateTransactionDto dto)
         {
             try
             {
-                await _transactionService.UpdateTransaction(dto);
+                var command = new UpdateTransactionCommand(dto.Id, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (NullPointerException e)
@@ -110,7 +112,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _transactionService.DeleteTransaction(id);
+                var command = new DeleteTransactionCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(NullPointerException e)
@@ -124,11 +127,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory(UpdateTransactionCategoryDto dto)
+        public async Task<IActionResult> UpdateCategory([FromBody] UpdateTransactionCategoryDto dto)
         {
             try
             {
-                await _transactionService.UpdateCategory(dto);
+                var command = new UpdateCategoryCommand(dto.Id, dto.Category);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (TransactionNotFoundException e)

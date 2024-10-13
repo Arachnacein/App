@@ -8,6 +8,8 @@ namespace BudgetManager.Mappers
     {
         TransactionDto Map(Transaction source);
         AddTransactionDto Map(SaveTransactionCommand command);
+        UpdateTransactionDto Map(UpdateTransactionCommand command);
+        UpdateTransactionCategoryDto Map(UpdateCategoryCommand command);
         Transaction Map(TransactionDto source);
         Transaction Map(AddTransactionDto source);
         Transaction Map(UpdateTransactionDto source);
@@ -28,6 +30,7 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
+
         public AddTransactionDto Map(SaveTransactionCommand command)
         {
             var destination = new AddTransactionDto();
@@ -35,6 +38,27 @@ namespace BudgetManager.Mappers
             destination.Description = command.Description;
             destination.Date = command.Date;
             destination.Price = command.Price;
+            destination.Category = command.Category;
+
+            return destination;
+        }
+
+        public UpdateTransactionDto Map(UpdateTransactionCommand command)
+        {
+            var destination = new UpdateTransactionDto();
+            destination.Id = command.Id;
+            destination.Name = command.Name;
+            destination.Description = command.Description;
+            destination.Date = command.Date;
+            destination.Price = command.Price;
+            destination.Category = command.Category;
+
+            return destination;
+        }
+        public UpdateTransactionCategoryDto Map(UpdateCategoryCommand command)
+        {
+            var destination = new UpdateTransactionCategoryDto();
+            destination.Id = command.Id;
             destination.Category = command.Category;
 
             return destination;
@@ -77,8 +101,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
-
 
         public ICollection<TransactionDto> MapElements(ICollection<Transaction> source)
         {
