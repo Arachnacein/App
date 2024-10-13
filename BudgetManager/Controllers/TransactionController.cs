@@ -27,8 +27,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var transaction = await _transactionService.RetrieveTransaction(id);
-                return Ok(transaction);
+                var query = new RetrieveTransactionQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
 
             catch (Exception e)
