@@ -15,12 +15,10 @@ namespace BudgetManager.Features.Transactions.Commands
     public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand>
     {
         private readonly ITransactionService _transactionService;
-        private readonly ITransactionMapper _transactionMapper;
 
         public DeleteTransactionCommandHandler(ITransactionService transactionService, ITransactionMapper transactionMapper)
         {
             _transactionService = transactionService;
-            _transactionMapper = transactionMapper;
         }
         public async Task Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
         {

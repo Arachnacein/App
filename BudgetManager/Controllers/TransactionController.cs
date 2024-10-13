@@ -126,11 +126,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory(UpdateTransactionCategoryDto dto)
+        public async Task<IActionResult> UpdateCategory([FromBody] UpdateTransactionCategoryDto dto)
         {
             try
             {
-                await _transactionService.UpdateCategory(dto);
+                var command = new UpdateCategoryCommand(dto.Id, dto.Category);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (TransactionNotFoundException e)
