@@ -86,11 +86,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateIncomeDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateIncomeDto dto)
         {
             try
             {
-                await _incomeService.UpdateIncome(dto);
+                var command = new UpdateIncomeCommand(dto.Id, dto.Name, dto.Amount, dto.Date);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (BadStringLengthException e)
