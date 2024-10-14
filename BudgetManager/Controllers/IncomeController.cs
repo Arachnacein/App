@@ -2,6 +2,7 @@
 using BudgetManager.Dto.Income;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.IncomeExceptions;
+using BudgetManager.Features.Incomes.Commands;
 using BudgetManager.Features.Incomes.Queries;
 using BudgetManager.Services;
 using MediatR;
@@ -57,12 +58,14 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddIncomeDto dto)
+        public async Task<IActionResult> Create([FromBody] AddIncomeDto dto)
         {
             try
             {
-                var income = await _incomeService.AddIncome(dto);
-                return Created($"api/incomes/{income.Id}", income);
+                var command = new SaveIncomeCommand(dto.Name, dto.Amount, dto.Date);
+                var result = await _mediator.Send(command);
+
+                return Created($"api/incomes/{result.Id}", result);
             }
             catch(BadStringLengthException e)
             {
