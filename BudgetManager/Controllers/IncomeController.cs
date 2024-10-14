@@ -117,7 +117,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _incomeService.DeleteIncome(id);
+                var command = new DeleteIncomeCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(IncomeNotFoundException e)
