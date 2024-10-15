@@ -1,7 +1,9 @@
 ﻿using BudgetManager.Dto.Pattern;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Features.Patterns.Queries;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -11,10 +13,12 @@ namespace BudgetManager.Controllers
     public class PatternController : ControllerBase
     {
         private readonly IPatternService _patternService;
+        private readonly IMediator _mediator;
 
-        public PatternController(IPatternService patternService)
+        public PatternController(IPatternService patternService, IMediator mediator)
         {
             _patternService = patternService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -22,8 +26,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var pattern = await _patternService.RetrievePatterns();
-                return Ok(pattern);
+                var query = new RetrievePatternsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch(Exception e)
             {
