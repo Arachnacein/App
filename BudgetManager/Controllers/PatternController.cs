@@ -41,8 +41,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var patterns = await _patternService.RetrievePattern(id);
-                return Ok(patterns);
+                var query = new RetrievePatternQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (Exception e)
             {
