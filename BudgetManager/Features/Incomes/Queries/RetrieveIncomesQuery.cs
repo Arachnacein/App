@@ -29,6 +29,7 @@ namespace BudgetManager.Features.Incomes.Queries
                                 Amount = income.Amount,
                                 Date = income.Date
                             })
+                            .OrderByDescending(x => x.Date)
                             .ToListAsync(cancellationToken);
             return result;
         }

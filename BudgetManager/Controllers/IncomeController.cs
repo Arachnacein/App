@@ -1,5 +1,4 @@
-﻿using BudgetManager.Dto;
-using BudgetManager.Dto.Income;
+﻿using BudgetManager.Dto.Income;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.IncomeExceptions;
 using BudgetManager.Features.Incomes.Commands;
@@ -136,8 +135,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var incomes = await _incomeService.RetrieveIncomes(month, year);
-                return Ok(incomes);
+                var query = new RetrieveMonthIncomeQuery(month, year);
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch (Exception e)
             {

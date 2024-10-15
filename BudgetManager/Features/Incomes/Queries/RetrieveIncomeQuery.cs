@@ -7,7 +7,7 @@ namespace BudgetManager.Features.Incomes.Queries
 {
     public record RetrieveIncomeQuery : IRequest<IncomeDto>
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         public RetrieveIncomeQuery(int id)
         {
             Id = id;
