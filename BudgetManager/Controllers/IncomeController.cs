@@ -1,8 +1,10 @@
-﻿using BudgetManager.Dto;
-using BudgetManager.Dto.Income;
+﻿using BudgetManager.Dto.Income;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.IncomeExceptions;
+using BudgetManager.Features.Incomes.Commands;
+using BudgetManager.Features.Incomes.Queries;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -12,10 +14,12 @@ namespace BudgetManager.Controllers
     public class IncomeController : ControllerBase
     {
         private readonly IIncomeService _incomeService;
+        private readonly IMediator _mediator;
 
-        public IncomeController(IIncomeService incomeService)
+        public IncomeController(IIncomeService incomeService, IMediator mediator)
         {
             _incomeService = incomeService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -23,8 +27,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var incomes = await _incomeService.RetrieveIncomes();
-                return Ok(incomes);
+                var query = new RetrieveIncomesQuery();
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch(Exception e)
             {
@@ -37,8 +42,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var incomes = await _incomeService.RetrieveIncomes();
-                return Ok(incomes);
+                var query = new RetrieveIncomeQuery(id);
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch (IncomeNotFoundException e)
             {
@@ -51,12 +57,14 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddIncomeDto dto)
+        public async Task<IActionResult> Create([FromBody] AddIncomeDto dto)
         {
             try
             {
-                var income = await _incomeService.AddIncome(dto);
-                return Created($"api/incomes/{income.Id}", income);
+                var command = new SaveIncomeCommand(dto.Name, dto.Amount, dto.Date);
+                var result = await _mediator.Send(command);
+
+                return Created($"api/incomes/{result.Id}", result);
             }
             catch(BadStringLengthException e)
             {
@@ -77,11 +85,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateIncomeDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateIncomeDto dto)
         {
             try
             {
-                await _incomeService.UpdateIncome(dto);
+                var command = new UpdateIncomeCommand(dto.Id, dto.Name, dto.Amount, dto.Date);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch (BadStringLengthException e)
@@ -107,7 +116,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _incomeService.DeleteIncome(id);
+                var command = new DeleteIncomeCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(IncomeNotFoundException e)
@@ -125,8 +135,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var incomes = await _incomeService.RetrieveIncomes(month, year);
-                return Ok(incomes);
+                var query = new RetrieveMonthIncomeQuery(month, year);
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch (Exception e)
             {

@@ -1,8 +1,21 @@
 ﻿using BudgetManager.Dto.Income;
+using BudgetManager.Features.Incomes.Commands;
 using BudgetManager.Models;
 
 namespace BudgetManager.Mappers
 {
+    public interface IIncomeMapper
+    {
+        Income Map(IncomeDto source);
+        Income Map(AddIncomeDto source);
+        Income Map(UpdateIncomeDto source);
+        AddIncomeDto Map(SaveIncomeCommand command);
+        UpdateIncomeDto Map(UpdateIncomeCommand command);
+
+        IncomeDto Map(Income source);
+        ICollection<IncomeDto> MapElements(ICollection<Income> source);
+        ICollection<Income> MapElements(ICollection<IncomeDto> source);
+    }
     public class IncomeMapper : IIncomeMapper
     {
         public Income Map(IncomeDto source)
@@ -47,6 +60,25 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
+        public AddIncomeDto Map(SaveIncomeCommand command)
+        {
+            var destination = new AddIncomeDto();
+            destination.Name = command.Name;
+            destination.Amount = command.Amount;
+            destination.Date = command.Date;
+
+            return destination;
+        }   
+        public UpdateIncomeDto Map(UpdateIncomeCommand command)
+        {
+            var destination = new UpdateIncomeDto();
+            destination.Id = command.Id;
+            destination.Name = command.Name;
+            destination.Amount = command.Amount;
+            destination.Date = command.Date;
+
+            return destination;
+        }
 
         public ICollection<IncomeDto> MapElements(ICollection<Income> source)
         {
@@ -65,14 +97,5 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-    }
-    public interface IIncomeMapper
-    {
-        Income Map(IncomeDto source);
-        Income Map(AddIncomeDto source);
-        Income Map(UpdateIncomeDto source);
-        IncomeDto Map(Income source);
-        ICollection<IncomeDto> MapElements(ICollection<Income> source);
-        ICollection<Income> MapElements(ICollection<IncomeDto> source);
     }
 }
