@@ -1,7 +1,10 @@
 ﻿using BudgetManager.Dto.Pattern;
 using BudgetManager.Exceptions;
 using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Features.Patterns.Commands;
+using BudgetManager.Features.Patterns.Queries;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -11,10 +14,12 @@ namespace BudgetManager.Controllers
     public class PatternController : ControllerBase
     {
         private readonly IPatternService _patternService;
+        private readonly IMediator _mediator;
 
-        public PatternController(IPatternService patternService)
+        public PatternController(IPatternService patternService, IMediator mediator)
         {
             _patternService = patternService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -22,8 +27,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var pattern = await _patternService.RetrievePatterns();
-                return Ok(pattern);
+                var query = new RetrievePatternsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch(Exception e)
             {
@@ -36,8 +42,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var patterns = await _patternService.RetrievePattern(id);
-                return Ok(patterns);
+                var query = new RetrievePatternQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (Exception e)
             {
@@ -46,12 +53,13 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddPatternDto dto)
+        public async Task<IActionResult> Create([FromBody] AddPatternDto dto)
         {
             try
             {
-                var pattern = await _patternService.AddPattern(dto);
-                return Created($"api/patterns/{pattern.Id}", pattern);
+                var command = new SavePatternCommand(dto.Name, dto.Value_Saves, dto.Value_Fees, dto.Value_Entertainment);
+                var response = await _mediator.Send(command);
+                return Created($"api/patterns/{response.Id}", response);
             }
             catch(ArgumentNullException e)
             {
@@ -76,7 +84,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _patternService.DeletePattern(id);
+                var command = new DeletePatternCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(PatternNotFoundException e)
