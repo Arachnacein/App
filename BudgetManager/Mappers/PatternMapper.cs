@@ -1,9 +1,18 @@
 ﻿using BudgetManager.Dto.Pattern;
+using BudgetManager.Features.Patterns.Commands;
 using BudgetManager.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BudgetManager.Mappers
 {
+    public interface IPatternMapper
+    {
+        PatternDto Map(Pattern source);
+        Pattern Map(PatternDto source);
+        Pattern Map(AddPatternDto source);
+        AddPatternDto Map(SavePatternCommand command);
+        ICollection<PatternDto> MapeElements(ICollection<Pattern> source);
+        ICollection<Pattern> MapeElements(ICollection<PatternDto> source);
+    }
     public class PatternMapper : IPatternMapper
     {
         public PatternDto Map(Pattern source)
@@ -40,6 +49,18 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
+
+        public AddPatternDto Map(SavePatternCommand command)
+        {
+            var destination = new AddPatternDto();
+            destination.Name = command.Name;
+            destination.Value_Fees = command.Value_Fees;
+            destination.Value_Saves = command.Value_Saves;
+            destination.Value_Entertainment = command.Value_Entertainment;
+
+            return destination;
+        }
+
         public ICollection<PatternDto> MapeElements(ICollection<Pattern> source)
         {
             List<PatternDto> destination = new List<PatternDto>();
@@ -57,13 +78,5 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-    }
-    public interface IPatternMapper
-    {
-        PatternDto Map(Pattern source);
-        Pattern Map(PatternDto source);
-        Pattern Map(AddPatternDto source);
-        ICollection<PatternDto> MapeElements(ICollection<Pattern> source);
-        ICollection<Pattern> MapeElements(ICollection<PatternDto> source);
     }
 }
