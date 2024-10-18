@@ -1,7 +1,8 @@
-﻿using BudgetManager.Dto;
-using BudgetManager.Dto.MonthPattern;
+﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Features.MonthPatterns.Queries;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -11,10 +12,12 @@ namespace BudgetManager.Controllers
     public class MonthPatternController : ControllerBase
     {
         private readonly IMonthPatternService _monthPatternService;
+        private readonly IMediator _mediator;
 
-        public MonthPatternController(IMonthPatternService monthPatternService)
+        public MonthPatternController(IMonthPatternService monthPatternService, IMediator mediator)
         {
             _monthPatternService = monthPatternService;
+            _mediator = mediator;
         }
 
         [HttpGet("{id}")]
@@ -36,8 +39,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPatterns = await _monthPatternService.RetrieveMonthPatterns();
-                return Ok(monthPatterns);
+                var query = new RetrieveMonthPatternsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (Exception e)
             {
