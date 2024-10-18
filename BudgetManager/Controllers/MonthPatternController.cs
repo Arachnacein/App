@@ -101,8 +101,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var pattern = await _monthPatternService.RetrieveMonthPattern(month, year);
-                return Ok(pattern); 
+                var query = new RetrieveMonthPatternByMonthAndByYearQuery(month, year);
+                var result = await _mediator.Send(query);
+                return Ok(result); 
             }            
             catch(PatternNotFoundException e)
             {
