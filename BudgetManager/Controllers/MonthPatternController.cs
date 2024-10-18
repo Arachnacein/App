@@ -1,5 +1,6 @@
 ﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Features.MonthPatterns.Queries;
 using BudgetManager.Services;
 using MediatR;
@@ -51,12 +52,13 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddMonthPatternDto dto)
+        public async Task<IActionResult> Create([FromBody] AddMonthPatternDto dto)
         {
             try
             {
-                var monthpattern = await _monthPatternService.AddMonthPattern(dto);
-                return Created($"api/monthpatterns/{monthpattern.Id}", monthpattern);
+                var command = new SaveMonthPatternCommand(dto.Date, dto.PatternId);
+                var response = await _mediator.Send(command);
+                return Created($"api/monthpatterns/{response.Id}", response);
             }
             catch(Exception e)
             {
