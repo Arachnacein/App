@@ -11,6 +11,7 @@ namespace BudgetManager.Mappers
         MonthPattern Map(UpdateMonthPatternDto source);
         MonthPatternDto Map(MonthPattern source);
         AddMonthPatternDto Map(SaveMonthPatternCommand command);
+        UpdateMonthPatternDto Map(UpdateMonthPatternCommand command);
         ICollection<MonthPatternDto> MapElements(ICollection<MonthPattern> source);
         ICollection<MonthPattern> MapElements(ICollection<MonthPatternDto> source);
     }
@@ -59,6 +60,16 @@ namespace BudgetManager.Mappers
         public AddMonthPatternDto Map(SaveMonthPatternCommand command)
         {
             var destination = new AddMonthPatternDto();
+            destination.PatternId = command.PatternId;
+            destination.Date = command.Date;
+
+            return destination;
+        }
+
+        public UpdateMonthPatternDto Map(UpdateMonthPatternCommand command)
+        {
+            var destination = new UpdateMonthPatternDto();
+            destination.Id = command.Id;
             destination.PatternId = command.PatternId;
             destination.Date = command.Date;
 

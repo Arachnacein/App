@@ -67,11 +67,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateMonthPatternDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateMonthPatternDto dto)
         {
             try
             {
-                await _monthPatternService.UpdateMonthPattern(dto);
+                var command = new UpdateMonthPatternCommand(dto.Id, dto.Date, dto.PatternId);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(Exception e)
