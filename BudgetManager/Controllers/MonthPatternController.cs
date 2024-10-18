@@ -86,7 +86,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _monthPatternService.DeleteMonthPattern(id);
+                var command = new DeleteMonthPatternCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(Exception e)
