@@ -25,8 +25,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPattern = await _monthPatternService.RetrieveMonthPattern(id);
-                return Ok(monthPattern);
+                var query = new RetrieveMonthPatternQuery(id);
+                var reponse = await _mediator.Send(query);
+                return Ok(reponse);
             }
             catch(Exception e)
             {
