@@ -125,8 +125,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPatterns = await _monthPatternService.RetrievePatterns();
-                return Ok(monthPatterns);
+                var query = new GetAllWithPatternQuery();
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch (Exception e)
             {
