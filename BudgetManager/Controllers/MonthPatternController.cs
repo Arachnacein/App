@@ -1,7 +1,9 @@
-﻿using BudgetManager.Dto;
-using BudgetManager.Dto.MonthPattern;
+﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Features.MonthPatterns.Commands;
+using BudgetManager.Features.MonthPatterns.Queries;
 using BudgetManager.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
@@ -11,10 +13,12 @@ namespace BudgetManager.Controllers
     public class MonthPatternController : ControllerBase
     {
         private readonly IMonthPatternService _monthPatternService;
+        private readonly IMediator _mediator;
 
-        public MonthPatternController(IMonthPatternService monthPatternService)
+        public MonthPatternController(IMonthPatternService monthPatternService, IMediator mediator)
         {
             _monthPatternService = monthPatternService;
+            _mediator = mediator;
         }
 
         [HttpGet("{id}")]
@@ -22,8 +26,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPattern = await _monthPatternService.RetrieveMonthPattern(id);
-                return Ok(monthPattern);
+                var query = new RetrieveMonthPatternQuery(id);
+                var reponse = await _mediator.Send(query);
+                return Ok(reponse);
             }
             catch(Exception e)
             {
@@ -36,8 +41,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPatterns = await _monthPatternService.RetrieveMonthPatterns();
-                return Ok(monthPatterns);
+                var query = new RetrieveMonthPatternsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (Exception e)
             {
@@ -46,12 +52,13 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddMonthPatternDto dto)
+        public async Task<IActionResult> Create([FromBody] AddMonthPatternDto dto)
         {
             try
             {
-                var monthpattern = await _monthPatternService.AddMonthPattern(dto);
-                return Created($"api/monthpatterns/{monthpattern.Id}", monthpattern);
+                var command = new SaveMonthPatternCommand(dto.Date, dto.PatternId);
+                var response = await _mediator.Send(command);
+                return Created($"api/monthpatterns/{response.Id}", response);
             }
             catch(Exception e)
             {
@@ -60,11 +67,12 @@ namespace BudgetManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateMonthPatternDto dto)
+        public async Task<IActionResult> Update([FromBody] UpdateMonthPatternDto dto)
         {
             try
             {
-                await _monthPatternService.UpdateMonthPattern(dto);
+                var command = new UpdateMonthPatternCommand(dto.Id, dto.Date, dto.PatternId);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(Exception e)
@@ -78,7 +86,8 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                await _monthPatternService.DeleteMonthPattern(id);
+                var command = new DeleteMonthPatternCommand(id);
+                await _mediator.Send(command);
                 return NoContent();
             }
             catch(Exception e)
@@ -92,8 +101,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var pattern = await _monthPatternService.RetrieveMonthPattern(month, year);
-                return Ok(pattern); 
+                var query = new RetrieveMonthPatternByMonthAndByYearQuery(month, year);
+                var result = await _mediator.Send(query);
+                return Ok(result); 
             }            
             catch(PatternNotFoundException e)
             {
@@ -115,8 +125,9 @@ namespace BudgetManager.Controllers
         {
             try
             {
-                var monthPatterns = await _monthPatternService.RetrievePatterns();
-                return Ok(monthPatterns);
+                var query = new GetAllWithPatternQuery();
+                var result = await _mediator.Send(query);
+                return Ok(result);
             }
             catch (Exception e)
             {

@@ -1,10 +1,23 @@
 ﻿using BudgetManager.Dto.MonthPattern;
+using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Models;
 
 namespace BudgetManager.Mappers
 {
+    public interface IMonthPatternMapper
+    {
+        MonthPattern Map(MonthPatternDto source);
+        MonthPattern Map(AddMonthPatternDto source);
+        MonthPattern Map(UpdateMonthPatternDto source);
+        MonthPatternDto Map(MonthPattern source);
+        AddMonthPatternDto Map(SaveMonthPatternCommand command);
+        UpdateMonthPatternDto Map(UpdateMonthPatternCommand command);
+        ICollection<MonthPatternDto> MapElements(ICollection<MonthPattern> source);
+        ICollection<MonthPattern> MapElements(ICollection<MonthPatternDto> source);
+    }
     public class MonthPatternMapper : IMonthPatternMapper
     {
+
         public MonthPattern Map(MonthPatternDto source)
         {
             var destination = new MonthPattern();
@@ -44,6 +57,25 @@ namespace BudgetManager.Mappers
             return destination;
         }
 
+        public AddMonthPatternDto Map(SaveMonthPatternCommand command)
+        {
+            var destination = new AddMonthPatternDto();
+            destination.PatternId = command.PatternId;
+            destination.Date = command.Date;
+
+            return destination;
+        }
+
+        public UpdateMonthPatternDto Map(UpdateMonthPatternCommand command)
+        {
+            var destination = new UpdateMonthPatternDto();
+            destination.Id = command.Id;
+            destination.PatternId = command.PatternId;
+            destination.Date = command.Date;
+
+            return destination;
+        }
+
         public ICollection<MonthPatternDto> MapElements(ICollection<MonthPattern> source)
         {
             List<MonthPatternDto> destination = new List<MonthPatternDto>();
@@ -61,14 +93,5 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-    }
-    public interface IMonthPatternMapper
-    {
-        MonthPattern Map(MonthPatternDto source);
-        MonthPattern Map(AddMonthPatternDto source);
-        MonthPattern Map(UpdateMonthPatternDto source);
-        MonthPatternDto Map(MonthPattern source);
-        ICollection<MonthPatternDto> MapElements(ICollection<MonthPattern> source);
-        ICollection<MonthPattern> MapElements(ICollection<MonthPatternDto> source);
     }
 }
