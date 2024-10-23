@@ -1,0 +1,49 @@
+﻿<MudStack>
+    <MudText> Saves balance: @SavesBalance</MudText>
+    <MudText> Total expenses: @TotalExpenses</MudText>
+    <MudText> Average expenses: @AverageExpenses </MudText>
+    <MudText> Total saves: @TotalSaves</MudText>
+    <MudText> Average saves: @AverageSaves</MudText>
+</MudStack>
+<MudStack>
+    <!-- category distribution average-->
+    <MudBlazor.Charts.Donut></MudBlazor.Charts.Donut>
+    
+    <!-- category distribution every month-->
+    <MudBlazor.Charts.Bar></MudBlazor.Charts.Bar>
+
+</MudStack>
+<MudStack>
+    <h1>Trends {last month} vs {month before last month}</h1> <!-- lasg month vs 3 month before? TO DO::-->
+    <h3>Saves: +3%</h3>
+    <h3>Fees: -10%</h3>
+    <h3>Entertainment: +15%</h3>
+</MudStack>
+
+
+@code{
+    public double SavesBalance { get; set; }
+    public double TotalExpenses { get; set; }
+    public double AverageExpenses { get; set; }
+    public double TotalSaves { get; set; }
+    public double AverageSaves { get; set; }
+
+    public List<CategoryChartData> MyProperty { get; set; }
+
+
+    public class CategoryChartData
+    {
+        public DateTime Date { get; set; }
+        public int SavesTransactionsCount { get; set; }
+        public int FeesTransactionsCount { get; set; }
+        public int EntertainmentTransactionsCount { get; set; }
+
+        public CategoryChartData(int savesTransactionsCount, int feesTransactionsCount, int entertainmentTransactionsCount, DateTime date)
+        {
+            SavesTransactionsCount = savesTransactionsCount;
+            FeesTransactionsCount = feesTransactionsCount;
+            EntertainmentTransactionsCount = entertainmentTransactionsCount;
+            Date = date;
+        }
+    }
+}
