@@ -2,10 +2,10 @@
 <MudDialog>
     <DialogContent>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-            <MudSelect T="PatternViewModel" @bind-Value="model" Placeholder="Choose pattern" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+            <MudSelect T="PatternViewModel" @bind-Value="model" ToStringFunc="(x => x.Name)" Placeholder="Choose pattern" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
                 @foreach (var item in patterns)
                 {
-                    <MudSelectItem Value="@item">@item.Name (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
+                    <MudSelectItem T="PatternViewModel" Value="@item">@item.Name (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
                 }
             </MudSelect>
         </MudStack>
