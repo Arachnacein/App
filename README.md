@@ -52,6 +52,7 @@
   * Then I plan implement ERROR CODES ecosystem.<br>
   * Internationalization.<br>
   * Healtch check.<br>
+  * Tests. Somewhere here.<br>
   * Then I want to implement saving goals feature. <br>
   * Next is going to be a calendar with notifications.<br>
   * And then payment feature.
