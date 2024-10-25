@@ -39,7 +39,7 @@ namespace BudgetManager.Services
 
         public async Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto)
         {
-            var checkPatternExists = _patternRepository.Get(dto.PatternId);
+            var checkPatternExists = await _patternRepository.Get(dto.PatternId);
             if (checkPatternExists == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{dto.PatternId}.");
 
@@ -56,7 +56,7 @@ namespace BudgetManager.Services
         {
             var monthPattern = await _monthPatternRepository.Get(dto.Id);
             if (monthPattern == null)
-                throw new Exception($"Pattern not found exception. Id: {dto.Id}.");
+                throw new MonthPatternNotFoundException($"Pattern not found exception. Id: {dto.Id}.");
             var mappedMonthPattern = _monthPatternMapper.Map(dto);
             await _monthPatternRepository.Update(mappedMonthPattern);
         }
@@ -65,7 +65,7 @@ namespace BudgetManager.Services
         {
             var monthPattern = await _monthPatternRepository.Get(id);
             if (monthPattern == null)
-                throw new Exception($"Pattern not found exception. Id: {id}.");
+                throw new MonthPatternNotFoundException($"MonthPattern not found exception. Id: {id}.");
             await _monthPatternRepository.Delete(monthPattern);
         }
 
