@@ -22,11 +22,10 @@ namespace BudgetManager.Features.Incomes.Queries
             _dbContext = dbContext;
         }
 
-        public Task<IncomeDto> Handle(RetrieveIncomeQuery request, CancellationToken cancellationToken)
+        public async Task<IncomeDto> Handle(RetrieveIncomeQuery request, CancellationToken cancellationToken)
         {
-            var query = $"SELECT * FROM BudgetDB.dbo.Incomes WHERE Id = {request.Id}";
-            var result = _dbContext.Incomes
-                            .FromSqlRaw(query)
+            var query = await _dbContext.Incomes
+                            .Where(x => x.Id == request.Id)
                             .Select(income => new IncomeDto
                             {
                                 Id = income.Id,
@@ -35,7 +34,8 @@ namespace BudgetManager.Features.Incomes.Queries
                                 Date = income.Date
                             })
                             .FirstOrDefaultAsync(cancellationToken);
-            return result;
+
+            return query;
         }
     }
 }

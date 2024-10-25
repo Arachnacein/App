@@ -23,9 +23,8 @@ namespace BudgetManager.Features.MonthPatterns.Queries
 
         public async Task<MonthPatternDto> Handle(RetrieveMonthPatternQuery request, CancellationToken cancellationToken)
         {
-            var query = $"SELECT * FROM BudgetDB.dbo.MonthPatterns WHERE Id = {request.Id}";
-            var repsonse = await _dbContext.MonthPatterns
-                                    .FromSqlRaw(query)
+            var query = await _dbContext.MonthPatterns
+                                    .Where(x => x.Id == request.Id)
                                     .Select(mp => new MonthPatternDto
                                     {
                                         Id = mp.Id,
@@ -33,7 +32,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
                                         Date = mp.Date
                                     })
                                     .FirstOrDefaultAsync(cancellationToken);
-            return repsonse;
+            return query;
         }
     }
 }
