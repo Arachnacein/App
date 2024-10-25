@@ -2,6 +2,7 @@ using BudgetManager.Data;
 using BudgetManager.Mappers;
 using BudgetManager.Repositories;
 using BudgetManager.Services;
+using BudgetManager.Utils;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,6 +65,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandling>();
 
 app.UseHttpsRedirection();
 
