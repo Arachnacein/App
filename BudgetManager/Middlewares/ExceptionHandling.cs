@@ -1,4 +1,8 @@
 ﻿using BudgetManager.Exceptions;
+using BudgetManager.Exceptions.IncomeExceptions;
+using BudgetManager.Exceptions.PatternExceptions;
+using BudgetManager.Exceptions.TransactionExceptions;
+using System.Text.Json;
 
 namespace BudgetManager.Utils
 {
@@ -36,7 +40,7 @@ namespace BudgetManager.Utils
             {
                 case NullPointerException:
                         statusCode = StatusCodes.Status409Conflict;
-                        message = "Data not found.";
+                        message = "Object is Null.";
                     break;
                 case BadStringLengthException:
                         statusCode = StatusCodes.Status409Conflict;
@@ -45,6 +49,22 @@ namespace BudgetManager.Utils
                 case BadValueException:
                         statusCode = StatusCodes.Status409Conflict;
                         message = "Invalid value provided.";
+                    break;                
+                case TransactionNotFoundException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "Transaction not found.";
+                    break;               
+                case PatternNotFoundException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "Pattern not found.";
+                    break;                 
+                case IncomeNotFoundException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "Income not found.";
+                    break;                
+                case MonthPatternAlreadyExistsException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "Month pattern already exists.";
                     break;
                 default:
                         statusCode = StatusCodes.Status500InternalServerError;
@@ -54,7 +74,9 @@ namespace BudgetManager.Utils
 
             context.Response.StatusCode = statusCode;
             _logger.LogError(exception, message);
-            return context.Response.WriteAsync(new { error = message }.ToString());
+            var result = JsonSerializer.Serialize(new { error = message });
+
+            return context.Response.WriteAsync(result);
         }
     }
 }

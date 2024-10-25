@@ -39,7 +39,7 @@ namespace BudgetManager.Services
 
         public async Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto)
         {
-            var checkPatternExists = _patternRepository.Get(dto.PatternId);
+            var checkPatternExists = await _patternRepository.Get(dto.PatternId);
             if (checkPatternExists == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{dto.PatternId}.");
 
