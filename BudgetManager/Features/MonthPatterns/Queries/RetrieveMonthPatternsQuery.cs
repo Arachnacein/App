@@ -18,9 +18,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
 
         public async Task<IEnumerable<MonthPatternDto>> Handle(RetrieveMonthPatternsQuery request, CancellationToken cancellationToken)
         {
-            var query = "SELECT * FROM BudgetDB.dbo.MonthPatterns";
-            var response = await _dbContext.MonthPatterns
-                                .FromSqlRaw(query)
+            var query = await _dbContext.MonthPatterns
                                 .Select(mp => new MonthPatternDto
                                 {
                                     Id = mp.Id,
@@ -28,7 +26,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
                                     Date = mp.Date
                                 })
                                 .ToListAsync(cancellationToken);
-            return response;
+            return query;
         }
     }
 }

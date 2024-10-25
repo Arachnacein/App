@@ -36,27 +36,23 @@ namespace BudgetManager.Features.MonthPatterns.Queries
             if (!monthPatternExists)
                 return new PatternDto { Id = -1 };
 
-            var query = 
-              "SELECT p.Id, p.Name, p.Value_Saves, p.Value_Fees, p.Value_Entertainment" +
-              " FROM [BudgetDB].[dbo].[Patterns] p" +
-              " INNER JOIN [BudgetDB].[dbo].[MonthPatterns] mp ON p.Id = mp.PatternId "+
-              $" WHERE MONTH(mp.Date) = {request.Month}"+
-              $" AND YEAR(mp.Date) = {request.Year}";
+            var pattern = await _dbContext.MonthPatterns
+                                .Where(x => x.Date.Month == request.Month &&
+                                            x.Date.Year == request.Year)
+                                .Select(x => x.Pattern)
+                                .FirstOrDefaultAsync(cancellationToken);
 
-            var response = await _dbContext.Patterns
-                            .FromSqlRaw(query)
-                            .FirstOrDefaultAsync(cancellationToken);
 
-            if (response == null)
-                throw new PatternNotFoundException($"Pattern not found. Id:{response.Id}.");
+            if (pattern == null)
+                throw new PatternNotFoundException($"Pattern not found. Id:{pattern.Id}.");
 
             return new PatternDto
             {
-                Id = response.Id,
-                Name = response.Name,
-                Value_Saves = response.Value_Saves,
-                Value_Fees = response.Value_Fees,
-                Value_Entertainment = response.Value_Entertainment
+                Id = pattern.Id,
+                Name = pattern.Name,
+                Value_Saves = pattern.Value_Saves,
+                Value_Fees = pattern.Value_Fees,
+                Value_Entertainment = pattern.Value_Entertainment
             };
 
         }

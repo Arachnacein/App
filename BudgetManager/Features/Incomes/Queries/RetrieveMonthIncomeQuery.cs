@@ -25,9 +25,8 @@ namespace BudgetManager.Features.Incomes.Queries
 
         public async Task<IEnumerable<IncomeDto>> Handle(RetrieveMonthIncomeQuery request, CancellationToken cancellationToken)
         {
-            var query = $"SELECT * FROM BudgetDB.dbo.Incomes WHERE MONTH(Date) = {request.Month} AND YEAR(Date) = {request.Year}";
             var result = await _dbContext.Incomes
-                                .FromSqlRaw(query)
+                                .Where(x => x.Date.Month == request.Month && x.Date.Year == request.Year)
                                 .Select(income => new IncomeDto
                                 {
                                     Id = income.Id,

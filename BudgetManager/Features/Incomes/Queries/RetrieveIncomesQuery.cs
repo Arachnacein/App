@@ -19,9 +19,7 @@ namespace BudgetManager.Features.Incomes.Queries
 
         public async Task<IEnumerable<IncomeDto>> Handle(RetrieveIncomesQuery request, CancellationToken cancellationToken)
         {
-            var query = "SELECT * FROM BudgetDB.dbo.Incomes";
-            var result = await _dbContext.Incomes
-                            .FromSqlRaw(query)
+            var query = await _dbContext.Incomes
                             .Select(income => new IncomeDto
                             {
                                 Id = income.Id,
@@ -31,7 +29,7 @@ namespace BudgetManager.Features.Incomes.Queries
                             })
                             .OrderByDescending(x => x.Date)
                             .ToListAsync(cancellationToken);
-            return result;
+            return query;
         }
     }
 }

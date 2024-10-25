@@ -19,9 +19,7 @@ namespace BudgetManager.Features.Transactions.Queries
 
         public async Task<IEnumerable<TransactionDto>> Handle(RetrieveTransactionsQuery request, CancellationToken cancellationToken)
         {
-            var query = "SELECT * FROM BudgetDB.dbo.Transactions";
-            var response = await _dbContext.Transactions
-                                .FromSqlRaw(query)
+            var transactions = await _dbContext.Transactions
                                 .Select(transaction => new TransactionDto
                                 {
                                     Id = transaction.Id,
@@ -32,7 +30,7 @@ namespace BudgetManager.Features.Transactions.Queries
                                     Category = transaction.Category
                                 })
                                 .ToListAsync(cancellationToken);
-            return response;
+            return transactions;
         }
     }
 }

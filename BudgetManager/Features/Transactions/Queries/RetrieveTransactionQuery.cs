@@ -24,9 +24,8 @@ namespace BudgetManager.Features.Transactions.Queries
 
         public async Task<TransactionDto> Handle(RetrieveTransactionQuery request, CancellationToken cancellationToken)
         {
-            var query = $"SELECT * FROM BudgetDB.dbo.Transactions WHERE Id = {request.Id}";
-            var response = await _dbContext.Transactions
-                                    .FromSqlRaw(query)
+            var transaction = await _dbContext.Transactions
+                                    .Where(x => x.Id == request.Id)
                                     .Select(transaction => new TransactionDto
                                     {
                                         Id = transaction.Id,
@@ -38,10 +37,10 @@ namespace BudgetManager.Features.Transactions.Queries
                                     })
                                     .FirstOrDefaultAsync(cancellationToken);
 
-            if(response == null)
-                throw new ArgumentNullException(nameof(response));
+            if(transaction == null)
+                throw new ArgumentNullException(nameof(transaction));
 
-            return response;
+            return transaction;
         }
     }
 }

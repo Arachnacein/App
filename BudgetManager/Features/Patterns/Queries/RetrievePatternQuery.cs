@@ -23,9 +23,8 @@ namespace BudgetManager.Features.Patterns.Queries
 
         public async Task<PatternDto> Handle(RetrievePatternQuery request, CancellationToken cancellationToken)
         {
-            var query = $"SELECT * FROM BudgetDB.dbo.Patterns WHERE Id = {request.Id}";
-            var response = await _dbContext.Patterns
-                                .FromSqlRaw(query)
+            var query = await _dbContext.Patterns
+                                .Where(x => x.Id == request.Id)
                                 .Select(pattern => new PatternDto
                                 {
                                     Id = pattern.Id,
@@ -35,7 +34,7 @@ namespace BudgetManager.Features.Patterns.Queries
                                     Value_Entertainment = pattern.Value_Entertainment
                                 })
                                 .FirstOrDefaultAsync(cancellationToken);
-            return response;
+            return query;
         }
     }
 }

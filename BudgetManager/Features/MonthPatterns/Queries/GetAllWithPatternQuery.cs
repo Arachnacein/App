@@ -19,22 +19,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
 
         public async Task<IEnumerable<FullMonthPatternDto>> Handle(GetAllWithPatternQuery request, CancellationToken cancellationToken)
         {
-            var query =
-                "SELECT" +
-                " mp.Id AS MonthPatternID, " +
-                " mp.Date, " +
-                " mp.PatternId AS MonthPatterPatternID," +
-                " p.Id AS PatternID, " +
-                " p.Name, " +
-                " p.Value_Saves, " +
-                " p.Value_Fees, " +
-                " p.Value_Entertainment" +
-                " FROM BudgetDB.dbo.MonthPatterns mp" +
-                " INNER JOIN BudgetDB.dbo.Patterns p" +
-                " ON mp.PatternId = p.Id";
-
-            var response = await _dbContext.MonthPatterns
-                            .FromSqlRaw(query)
+            var query = await _dbContext.MonthPatterns
                             .Select(mp => new FullMonthPatternDto
                             {
                                 Id = mp.Id,
@@ -50,7 +35,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
                             })
                             .OrderByDescending(x => x.Date)
                             .ToListAsync(cancellationToken);
-            return response;
+            return query;
         }
     }
 }
