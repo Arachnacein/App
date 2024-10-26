@@ -2,6 +2,7 @@
 using MudBlazor;
 using UI.Components.Dialogs;
 using UI.Models;
+using UI.Models.ViewModels;
 
 namespace UI.Pages.MyPages
 {
@@ -152,16 +153,6 @@ namespace UI.Pages.MyPages
                 patternViewModel.Value_Fees = 0;
                 patternViewModel.Value_Entertainment = 0;
             }
-        }
-        private class PatternValuesModel
-        {
-            public double ActualValueSaves { get; set; }
-            public double ActualValueFees { get; set; }
-            public double ActualValueEntertainment { get; set; }
-            public double TotalValueSaves { get; set; }
-            public double TotalValueFees { get; set; }
-            public double TotalValueEntertainment { get; set; }
-
         }
     }
 }

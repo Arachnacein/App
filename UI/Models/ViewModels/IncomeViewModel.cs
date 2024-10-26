@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace UI.Models
+namespace UI.Models.ViewModels
 {
     public class IncomeViewModel
     {
@@ -12,7 +12,7 @@ namespace UI.Models
 
     internal class IncomeViewModelValidation : AbstractValidator<IncomeViewModel>
     {
-        public IncomeViewModelValidation() 
+        public IncomeViewModelValidation()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name field can't be empty.")

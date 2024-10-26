@@ -1,5 +1,6 @@
 ﻿@page "/budget"
-@using UI.Models
+@using UI.Models;
+@using UI.Models.ViewModels
 
 <PageTitle> Hello in budget site</PageTitle>
 <MudTabs Class="pa-4 ma-4" Elevation="5" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" >
@@ -52,45 +53,21 @@
                           ItemDropped="ItemUpdated"
                           Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
-                <MudDropZone T="TransactionViewModel" Identifier="Saves" Class="rounded mud-background-gray pa-3 ma-4 flex-grow-1" AllowReorder="false" Style="width: 25%;height: 500px;">
-                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:forestgreen">
-                        Saves   @($"{(patternValuesModel.ActualValueSaves / patternValuesModel.TotalValueSaves * 100):0.00}%")
-                         <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
-                            <MudProgressLinear Value="@patternValuesModel.ActualValueSaves" Max="@patternValuesModel.TotalValueSaves" 
-                                               Rounded="true" Size="Size.Medium" Class="rounded-progress"
-                                               Style="height: 20px;" Color="Color.Success" />
-                            <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
-                                 @patternValuesModel.ActualValueSaves / @patternValuesModel.TotalValueSaves
-                            </MudText>
-                        </MudPaper>
-                        </MudText>
-                </MudDropZone>
-                <MudDropZone T="TransactionViewModel" Identifier="Fees" Class="rounded mud-background-gray pa-3 ma-3 flex-grow-1" AllowReorder="false" Style="width: 25%;height: 500px;">
-                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:darkred">
-                        Fees @($"{(patternValuesModel.ActualValueFees / patternValuesModel.TotalValueFees * 100):0.00}%")
-                        <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
-                            <MudProgressLinear Value="@patternValuesModel.ActualValueFees" Max="@patternValuesModel.TotalValueFees" 
-                                               Rounded="true" Size="Size.Medium" Class="rounded-progress"
-                                               Style="height: 20px;" Color="Color.Error"/>
-                            <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
-                                 @patternValuesModel.ActualValueFees / @patternValuesModel.TotalValueFees 
-                            </MudText>
-                        </MudPaper>
-                    </MudText>
-                </MudDropZone>
-                <MudDropZone T="TransactionViewModel" Identifier="Entertainment" Class="rounded mud-background-gray pa-3 ma-4 flex-grow-1" AllowReorder="false" Style="width: 25%;height: 500px;">
-                    <MudText Typo="Typo.h6" Class="mb-4" Style="text-align:center;color:dodgerblue">
-                        Entertainment @($"{(patternValuesModel.ActualValueEntertainment / patternValuesModel.TotalValueEntertainment * 100):0.00}%")
-                        <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
-                            <MudProgressLinear Value="@patternValuesModel.ActualValueEntertainment" Max="@patternValuesModel.TotalValueEntertainment" 
-                                               Rounded="true" Size="Size.Medium" Class="rounded-progress"
-                                               Style="height: 20px;" Color="Color.Info"/>
-                            <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
-                                 @patternValuesModel.ActualValueEntertainment / @patternValuesModel.TotalValueEntertainment 
-                            </MudText>
-                        </MudPaper>
-                    </MudText>
-                </MudDropZone>
+                <UI.Components.BudgetTransactionDropZone 
+                                Title="Saves" Identifier="Saves"
+                                ActualValue="patternValuesModel.ActualValueSaves"
+                                TotalValue="patternValuesModel.TotalValueSaves"
+                                TitleColor="Color.Success" Color="forestgreen" />        
+                <UI.Components.BudgetTransactionDropZone 
+                                Title="Fees" Identifier="Fees"
+                                ActualValue="patternValuesModel.ActualValueFees"
+                                TotalValue="patternValuesModel.TotalValueFees"
+                                TitleColor="Color.Error" Color="darkred" />            
+                <UI.Components.BudgetTransactionDropZone 
+                                Title="Entertainment" Identifier="Entertainment"
+                                ActualValue="patternValuesModel.ActualValueEntertainment"
+                                TotalValue="patternValuesModel.TotalValueEntertainment"
+                                TitleColor="Color.Info" Color="dodgerblue" />
             </ChildContent>
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">

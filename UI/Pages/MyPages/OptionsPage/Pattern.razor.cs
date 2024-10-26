@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using UI.Components.Dialogs;
-using UI.Models;
+using UI.Models.ViewModels;
 
 namespace UI.Pages.MyPages.OptionsPage
 {
