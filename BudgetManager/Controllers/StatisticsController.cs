@@ -22,5 +22,13 @@ namespace BudgetManager.Controllers
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+
+        [HttpGet("GetTotalSaves")]
+        public async Task<IActionResult> GetTotalSaves()
+        {
+            var query = new RetrieveTotalSavesQuery();
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }

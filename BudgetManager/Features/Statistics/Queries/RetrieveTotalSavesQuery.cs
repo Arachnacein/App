@@ -1,0 +1,27 @@
+﻿using BudgetManager.Data;
+using BudgetManager.Models;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
+namespace BudgetManager.Features.Statistics.Queries
+{
+    public record RetrieveTotalSavesQuery : IRequest<double>
+    {
+    }
+    public class RetrieveTotalSavesQueryHandler : IRequestHandler<RetrieveTotalSavesQuery, double>
+    {
+        private readonly BudgetDbContext _dbContext;
+        public RetrieveTotalSavesQueryHandler(BudgetDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task<double> Handle(RetrieveTotalSavesQuery request, CancellationToken cancellationToken)
+        {
+            var totalSaves = await _dbContext.Transactions
+                                    .Where(x => x.Category == TransactionCategoryEnum.Saves)
+                                    .SumAsync(x => x.Price);
+            return totalSaves;
+        }
+    }
+}
