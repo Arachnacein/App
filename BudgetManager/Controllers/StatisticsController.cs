@@ -30,5 +30,12 @@ namespace BudgetManager.Controllers
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+        [HttpGet("GetAverageExpenses")]
+        public async Task<IActionResult> GetAverageExpenses()
+        {
+            var query = new RetrieveAverageExpenses();
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }

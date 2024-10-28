@@ -1,10 +1,13 @@
-﻿<MudStack>
-    <MudText> Total expenses: @TotalExpensesProp</MudText>
-    <MudText> Total saves: @TotalSavesProp</MudText>
+﻿<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
+    <MudStack Row="true">
+        <MudText> Total saves: @TotalSavesProp</MudText>
+        <MudText> Total expenses: @TotalExpensesProp</MudText>
+    </MudStack>
+    <MudStack Row="true">
+        <MudText> Average expenses: @AverageExpensesProp </MudText>
+        <MudText> Average saves: @AverageSavesProp</MudText>
+    </MudStack>
 
-    <MudText> Saves balance: @SavesBalance</MudText>
-    <MudText> Average expenses: @AverageExpenses </MudText>
-    <MudText> Average saves: @AverageSaves</MudText>
 </MudStack>
 <MudStack>
     <!-- category distribution average-->
@@ -23,11 +26,6 @@
 
 
 @code{
-    public double SavesBalance { get; set; }
-    public double TotalExpenses { get; set; }
-    public double AverageExpenses { get; set; }
-    public double TotalSaves { get; set; }
-    public double AverageSaves { get; set; }
 
     public List<CategoryChartData> MyProperty { get; set; }
 
