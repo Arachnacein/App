@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using UI.Models;
 
 namespace UI.Components
 {
@@ -12,6 +14,10 @@ namespace UI.Components
         private double Total3MonthsSavesProp { get; set; }
         private double AverageExpensesProp { get; set; }
         private double AverageSavesProp { get; set; }
+        private CategoriesDistributionModel CategoriesDistribution { get; set; }
+
+   
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,6 +27,7 @@ namespace UI.Components
             await GetAverageSaves();
             await GetThreeMonthsSaves();
             await GetThreeMonthsExpenses();
+            await GetCategoriesDistribution();
         }
         private async Task GetTotalExpenses()
         {
@@ -50,6 +57,12 @@ namespace UI.Components
         private async Task GetThreeMonthsExpenses()
         {
             Total3MonthsExpensesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsExpenses");
+            StateHasChanged();
+        }       
+        
+        private async Task GetCategoriesDistribution()
+        {
+            CategoriesDistribution = await httpClient.GetFromJsonAsync<CategoriesDistributionModel>("/api/statistics/GetCategoriesDistribution");
             StateHasChanged();
         }
     }

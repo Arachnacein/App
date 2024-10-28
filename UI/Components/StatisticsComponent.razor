@@ -11,11 +11,13 @@
         <MudText> Average saves: @AverageSavesProp</MudText>
         <MudText> Average expenses: @AverageExpensesProp </MudText>
     </MudStack>    
-
 </MudStack>
 <MudStack>
-    <!-- category distribution average-->
-    <MudBlazor.Charts.Donut></MudBlazor.Charts.Donut>
+    <!-- category distribution -->
+    <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()" 
+              InputLabels="@CategoriesDistribution.GetPropertyNames()"
+              Width="200" Height="200" />
+    
     
     <!-- category distribution every month-->
     <MudBlazor.Charts.Bar></MudBlazor.Charts.Bar>
@@ -27,26 +29,3 @@
     <h3>Fees: -10%</h3>
     <h3>Entertainment: +15%</h3>
 </MudStack>
-
-
-@code{
-
-    public List<CategoryChartData> MyProperty { get; set; }
-
-
-    public class CategoryChartData
-    {
-        public DateTime Date { get; set; }
-        public int SavesTransactionsCount { get; set; }
-        public int FeesTransactionsCount { get; set; }
-        public int EntertainmentTransactionsCount { get; set; }
-
-        public CategoryChartData(int savesTransactionsCount, int feesTransactionsCount, int entertainmentTransactionsCount, DateTime date)
-        {
-            SavesTransactionsCount = savesTransactionsCount;
-            FeesTransactionsCount = feesTransactionsCount;
-            EntertainmentTransactionsCount = entertainmentTransactionsCount;
-            Date = date;
-        }
-    }
-}

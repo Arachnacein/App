@@ -22,7 +22,7 @@ namespace BudgetManager.Features.Statistics.Queries
             var threeMonthsAgo = lastClosedMonth.AddMonths(-2);
 
             var expenses = await _dbContext.Transactions
-                                .Where(x => x.Category != TransactionCategoryEnum.Saves)
+                                .Where(x => x.Category != Models.TransactionCategoryEnum.Saves)
                                 .Where(x => x.Date >= threeMonthsAgo && x.Date <= lastClosedMonth.AddMonths(1))
                                 .SumAsync(x => x.Price, cancellationToken);
             return expenses;

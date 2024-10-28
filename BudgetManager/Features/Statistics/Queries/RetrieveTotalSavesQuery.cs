@@ -19,7 +19,7 @@ namespace BudgetManager.Features.Statistics.Queries
         public async Task<double> Handle(RetrieveTotalSavesQuery request, CancellationToken cancellationToken)
         {
             var totalSaves = await _dbContext.Transactions
-                                    .Where(x => x.Category == TransactionCategoryEnum.Saves)
+                                    .Where(x => x.Category == Models.TransactionCategoryEnum.Saves)
                                     .SumAsync(x => x.Price);
             return totalSaves;
         }
