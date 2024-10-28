@@ -16,6 +16,7 @@ namespace UI.Components
             await GetTotalExpenses();
             await GetTotalSaves();
             await GetAverageExpenses();
+            await GetAverageSaves();
         }
         private async Task GetTotalExpenses()
         {
@@ -30,6 +31,11 @@ namespace UI.Components
         private async Task GetAverageExpenses()
         {
             AverageExpensesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageExpenses");
+            StateHasChanged();
+        }
+        private async Task GetAverageSaves()
+        {
+            AverageSavesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageSaves");
             StateHasChanged();
         }
     }

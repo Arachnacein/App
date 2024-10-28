@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Features.Statistics.Queries
 {
-    public record RetrieveAverageExpenses : IRequest<double>
+    public record RetrieveAverageExpensesQuery : IRequest<double>
     {
     }
-    public class RetrieveAverageExpensesHandler : IRequestHandler<RetrieveAverageExpenses, double>
+    public class RetrieveAverageExpensesQueryHandler : IRequestHandler<RetrieveAverageExpensesQuery, double>
     {
         private readonly BudgetDbContext _dbContext;
-        public RetrieveAverageExpensesHandler(BudgetDbContext dbContext)
+        public RetrieveAverageExpensesQueryHandler(BudgetDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<double> Handle(RetrieveAverageExpenses request, CancellationToken cancellationToken)
+        public async Task<double> Handle(RetrieveAverageExpensesQuery request, CancellationToken cancellationToken)
         {
             var averagExpenses = await _dbContext.Transactions
                                         .Where(x => x.Category != TransactionCategoryEnum.Saves)
