@@ -20,6 +20,7 @@ namespace UI.Components
             await GetAverageExpenses();
             await GetAverageSaves();
             await GetThreeMonthsSaves();
+            await GetThreeMonthsExpenses();
         }
         private async Task GetTotalExpenses()
         {
@@ -41,10 +42,14 @@ namespace UI.Components
             AverageSavesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageSaves");
             StateHasChanged();
         }        
-        
         private async Task GetThreeMonthsSaves()
         {
             Total3MonthsSavesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsSaves");
+            StateHasChanged();
+        }        
+        private async Task GetThreeMonthsExpenses()
+        {
+            Total3MonthsExpensesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsExpenses");
             StateHasChanged();
         }
     }

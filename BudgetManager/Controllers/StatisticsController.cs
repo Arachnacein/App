@@ -53,6 +53,14 @@ namespace BudgetManager.Controllers
             var query = new RetrieveThreeMonthsSavesQuery();
             var response = await _mediator.Send(query);
             return Ok(response);
+        }        
+        
+        [HttpGet("GetThreeMonthsExpenses")]
+        public async Task<IActionResult> GetThreeMonthsExpenses()
+        {
+            var query = new RetrieveThreeMonthsExpensesQuery();
+            var response = await _mediator.Send(query);
+            return Ok(response);
         }
     }
 }
