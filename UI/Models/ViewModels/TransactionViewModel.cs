@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace UI.Models
+namespace UI.Models.ViewModels
 {
     public class TransactionViewModel
     {

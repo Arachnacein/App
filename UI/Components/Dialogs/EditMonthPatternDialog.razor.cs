@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using UI.Models;
+using UI.Models.ViewModels;
 
 namespace UI.Components.Dialogs
 {
