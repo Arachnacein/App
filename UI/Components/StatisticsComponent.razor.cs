@@ -8,6 +8,8 @@ namespace UI.Components
         [Inject] HttpClient httpClient { get; set; }
         private double TotalExpensesProp { get; set; }
         private double TotalSavesProp { get; set; }
+        private double Total3MonthsExpensesProp { get; set; }
+        private double Total3MonthsSavesProp { get; set; }
         private double AverageExpensesProp { get; set; }
         private double AverageSavesProp { get; set; }
 
@@ -17,6 +19,7 @@ namespace UI.Components
             await GetTotalSaves();
             await GetAverageExpenses();
             await GetAverageSaves();
+            await GetThreeMonthsSaves();
         }
         private async Task GetTotalExpenses()
         {
@@ -36,6 +39,12 @@ namespace UI.Components
         private async Task GetAverageSaves()
         {
             AverageSavesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageSaves");
+            StateHasChanged();
+        }        
+        
+        private async Task GetThreeMonthsSaves()
+        {
+            Total3MonthsSavesProp = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsSaves");
             StateHasChanged();
         }
     }
