@@ -51,6 +51,7 @@
   * Next I plan to implement a statistics functionality.<br>
   * Then I plan implement ERROR CODES ecosystem.<br>
   * Internationalization.<br>
+  * Login. <br>
   * Healtch check.<br>
   * Tests. Somewhere here.<br>
   * Then I want to implement saving goals feature. <br>
