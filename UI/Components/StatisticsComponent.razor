@@ -1,18 +1,18 @@
 ﻿<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
     <MudStack Row="true">
-        <MudText> Total saves: @TotalSavesProp</MudText>
-        <MudText> Total expenses: @TotalExpensesProp</MudText>
+        <MudText> Total saves: @TotalSaves</MudText>
+        <MudText> Total expenses: @TotalExpenses</MudText>
     </MudStack>
     <MudStack Row="true">
-        <MudText> Total saves last 3 months: @Total3MonthsSavesProp</MudText>
-        <MudText> Total expenses last 3 months: @Total3MonthsExpensesProp </MudText>
+        <MudText> Total saves last 3 months: @Total3MonthsSaves</MudText>
+        <MudText> Total expenses last 3 months: @Total3MonthsExpenses </MudText>
     </MudStack>
     <MudStack Row="true">
-        <MudText> Average saves: @AverageSavesProp</MudText>
-        <MudText> Average expenses: @AverageExpensesProp </MudText>
+        <MudText> Average saves: @AverageSaves</MudText>
+        <MudText> Average expenses: @AverageExpenses </MudText>
     </MudStack>    
 </MudStack>
-<MudStack>
+<MudStack Row="true" Spacing="10" AlignItems="AlignItems.Center" Justify="Justify.Center">
     <!-- category distribution -->
     <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()" 
               InputLabels="@CategoriesDistribution.GetPropertyNames()"
@@ -20,7 +20,8 @@
     
     
     <!-- category distribution every month-->
-    <MudBlazor.Charts.Bar></MudBlazor.Charts.Bar>
+    <MudChart ChartType="ChartType.StackedBar" ChartSeries="@Series" XAxisLabels="@XaxisLabels"
+              Width="100%" Height="250" />
 
 </MudStack>
 <MudStack>

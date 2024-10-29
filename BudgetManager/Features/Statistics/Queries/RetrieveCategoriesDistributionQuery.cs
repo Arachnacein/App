@@ -38,10 +38,4 @@ namespace BudgetManager.Features.Statistics.Queries
             return categoriesModel;
         }
     }
-    public class CategoriesModel
-    {
-        public double Saves { get; set; }
-        public double Fees { get; set; }
-        public double Enterntainment { get; set; }
-    }
 }
