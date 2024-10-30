@@ -31,6 +31,7 @@ namespace UI.Components
             await GetThreeMonthsSaves();
             await GetThreeMonthsExpenses();
             await GetCategoriesDistribution();
+            await GetMonthlyCategoriesDistribution();
         }
         private async Task GetTotalExpenses()
         {

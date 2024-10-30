@@ -39,9 +39,9 @@ namespace BudgetManager.Features.Statistics.Queries
                     {
                         Month = date.Month,
                         Year = date.Year,
-                        Saves = transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Saves) / totalTransactionsInMonthAmount * 100,
-                        Fees = transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Fees) / totalTransactionsInMonthAmount * 100,
-                        Enterntainment = transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Entertainment) / totalTransactionsInMonthAmount * 100
+                        Saves = (double)transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Saves) / totalTransactionsInMonthAmount * 100,
+                        Fees = (double)transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Fees) / totalTransactionsInMonthAmount * 100,
+                        Enterntainment = (double)transactionsInMonth.Count(x => x.Category == TransactionCategoryEnum.Entertainment) / totalTransactionsInMonthAmount * 100
                     });
 
                 }
