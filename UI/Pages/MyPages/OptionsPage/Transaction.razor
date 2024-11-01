@@ -1,0 +1,36 @@
+﻿@page "/options/transaction"
+@using UI.Models;
+@using UI.Models.ViewModels
+
+<UI.Components.OptionNavigationComponent />
+<MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+    <MudText Align="Align.Center" Class="mb-5 bg-opacity-10 mt-2 ma-1">Transactions</MudText>
+    <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
+        <MudStack>
+            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">Rows: @transactionCounter</MudText>
+        </MudStack>
+        <MudStack>
+            <MudTextField @bind-Value="searchPhrase" Label="Search" Adornment="Adornment.End" 
+                          AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" 
+                          Variant="Variant.Outlined" style="width:250px;" />
+        </MudStack>
+    </MudStack>
+
+    <MudTable T="TransactionViewModel" Items="@filteredTransactions" FixedHeader="true"
+              FixedFooter="true" Dense="true" Height="300px;" Striped="true">
+        <HeaderContent>
+            <MudTh Style="text-align:center">Name</MudTh>
+            <MudTh Style="text-align:center">Date</MudTh>
+            <MudTh Style="text-align:center">Price </MudTh>
+            <MudTh Style="text-align:center">Category</MudTh>
+            <MudTh Style="text-align:center">Description</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Date">@context.Date.ShortFormat()</MudTd>
+            <MudTd DataLabel="Price" Style="text-align:center">@context.Price</MudTd>
+            <MudTd DataLabel="Category" Style="text-align:center">@context.Category</MudTd>
+            <MudTd DataLabel="Description" Style="text-align:center">@context.Description</MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>
