@@ -47,10 +47,10 @@
 
 <h2 align="center"> Milestones </h2>
 <p>
-  * I am currently changing the logic by introducing the CQRS architectural pattern. <br>
-  * Next I plan to implement a statistics functionality.<br>
+  + I am currently changing the logic by introducing the CQRS architectural pattern. <br>
+  + Next I plan to implement a statistics functionality.<br>
   * Then I plan implement ERROR CODES ecosystem.<br>
-* Search Field. <br>
+  * Search Field. <br>
   * Internationalization.<br>
   * Login. <br>
   * Healtch check.<br>
