@@ -49,8 +49,7 @@
 <p>
   + I am currently changing the logic by introducing the CQRS architectural pattern. <br>
   + Next I plan to implement a statistics functionality.<br>
-  * Then I plan implement ERROR CODES ecosystem.<br>
-  * Search Field. <br>
+  * Search Fields for transactions and incomes. <br>
   * Internationalization.<br>
   * Login. <br>
   * Healtch check.<br>
