@@ -1,52 +1,35 @@
-﻿<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center">
-    <MudStack Row="true">
-        <MudText> Total saves: @TotalSavesProp</MudText>
-        <MudText> Total expenses: @TotalExpensesProp</MudText>
+﻿<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="3">
+    <MudStack Row="true" Spacing="2">
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Total saves:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@TotalSaves</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">Total expenses:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@TotalExpenses</MudText>
     </MudStack>
-    <MudStack Row="true">
-        <MudText> Total saves last 3 months: @Total3MonthsSavesProp</MudText>
-        <MudText> Total expenses last 3 months: @Total3MonthsExpensesProp </MudText>
+    <MudStack Row="true" Spacing="2">
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Total saves last 3 months:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@Total3MonthsSaves</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2" >Total expenses last 3 months:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@Total3MonthsExpenses</MudText>
     </MudStack>
-    <MudStack Row="true">
-        <MudText> Average saves: @AverageSavesProp</MudText>
-        <MudText> Average expenses: @AverageExpensesProp </MudText>
-    </MudStack>    
-
-</MudStack>
-<MudStack>
-    <!-- category distribution average-->
-    <MudBlazor.Charts.Donut></MudBlazor.Charts.Donut>
-    
-    <!-- category distribution every month-->
-    <MudBlazor.Charts.Bar></MudBlazor.Charts.Bar>
-
-</MudStack>
-<MudStack>
-    <h1>Trends {last month} vs {month before last month}</h1> <!-- lasg month vs 3 month before? TO DO::-->
-    <h3>Saves: +3%</h3>
-    <h3>Fees: -10%</h3>
-    <h3>Entertainment: +15%</h3>
+    <MudStack Row="true" Spacing="2">
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Average saves:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@AverageSaves</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">Average expenses:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@AverageExpenses</MudText>
+    </MudStack>
 </MudStack>
 
+<MudStack Row="true" Spacing="6" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-4">
+    <!-- Category distribution chart -->
+    <MudPaper Width="25%" Height="330px" Elevation="3" Class="mud-pa-2">
+        <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()"
+                  InputLabels="@CategoriesDistribution.GetPropertyNames()"
+                  Width="70%" Height="70%" LegendPosition="Position.Bottom" Class="ma-2 pa-2 mt-8" />
+    </MudPaper>
 
-@code{
-
-    public List<CategoryChartData> MyProperty { get; set; }
-
-
-    public class CategoryChartData
-    {
-        public DateTime Date { get; set; }
-        public int SavesTransactionsCount { get; set; }
-        public int FeesTransactionsCount { get; set; }
-        public int EntertainmentTransactionsCount { get; set; }
-
-        public CategoryChartData(int savesTransactionsCount, int feesTransactionsCount, int entertainmentTransactionsCount, DateTime date)
-        {
-            SavesTransactionsCount = savesTransactionsCount;
-            FeesTransactionsCount = feesTransactionsCount;
-            EntertainmentTransactionsCount = entertainmentTransactionsCount;
-            Date = date;
-        }
-    }
-}
+    <!-- Monthly category distribution chart -->
+    <MudPaper Width="70%" Height="330px" Elevation="3" Class="mud-pa-2">
+        <MudChart ChartType="ChartType.StackedBar" ChartSeries="@Series" XAxisLabels="@XaxisLabels"
+                  Width="80%" Height="30%" LegendPosition="Position.Right" Class="ma-2 pa-2"/>
+    </MudPaper>
+</MudStack>

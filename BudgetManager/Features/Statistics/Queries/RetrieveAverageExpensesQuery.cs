@@ -19,7 +19,7 @@ namespace BudgetManager.Features.Statistics.Queries
         public async Task<double> Handle(RetrieveAverageExpensesQuery request, CancellationToken cancellationToken)
         {
             var averagExpenses = await _dbContext.Transactions
-                                        .Where(x => x.Category != TransactionCategoryEnum.Saves)
+                                        .Where(x => x.Category != Models.TransactionCategoryEnum.Saves)
                                         .AverageAsync(x => x.Price, cancellationToken);
 
             return Math.Round(averagExpenses,2);

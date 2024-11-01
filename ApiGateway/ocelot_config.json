@@ -293,6 +293,42 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    },
+    {
+      "UpstreamPathTemplate": "/api/statistics/GetCategoriesDistribution",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/statistics/GetCategoriesDistribution",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/statistics/GetMonthlyCategoriesDistribution",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/statistics/GetMonthlyCategoriesDistribution",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     }
   ],
   "GlobalConfiguration": {
