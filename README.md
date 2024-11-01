@@ -45,16 +45,43 @@
   <img src="https://github.com/user-attachments/assets/ee76c1dc-6edd-4b90-9c1b-5c33003d6ddf" style="width:70%;height:70%;">
 </p>
 
+
 <h2 align="center"> Milestones </h2>
 <p>
-  + I am currently changing the logic by introducing the CQRS architectural pattern. <br>
-  + Next I plan to implement a statistics functionality.<br>
-  * Search Fields for transactions and incomes. <br>
-  * Internationalization.<br>
-  * Login. <br>
-  * Healtch check.<br>
-  * Tests. Somewhere here.<br>
-  * Then I want to implement saving goals feature. <br>
-  * Next is going to be a calendar with notifications.<br>
-  * And then payment feature.
+  🔜 Search Fields for transactions and incomes. <br>
+  * Add Internationalization.<br>
+  * Add Login. <br>
+  * Add Healtch checks.<br>
+  * Add Unit Tests.<br>
+  * Add saving goals feature. <br>
+  * Add calendar with notifications.<br>
+  * Add payment feature. <br>
+  ✅ Add a statistics functionality.<br>
+  ✅ Change logic by introducing the CQRS architectural pattern. <br>
+  ✅ Add income preview. <br>
+  ✅ Add patterns preview. <br>
+  ✅ Add forms validators. <br>
+  ✅ Add dark theme. <br>
+  ✅ Add main page carousel. <br>
+  ✅ Add dialogs. <br>
+  ✅ Add budget gui page. <br>
+  ✅ Add income api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Add transactions api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Add patterns and monthpatterns api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Set project architecture.<br>
 </p>
+
+
+<div align="center">
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/121405754-b4f48f80-c95d-11eb-8893-fc325bde617f.png" alt=".NET Core" title=".NET Core"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="REST" title="REST"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" alt="Git" title="Git"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/117207330-263ba280-adf4-11eb-9b97-0ac5b40bc3be.png" alt="Docker" title="Docker"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108374-8da61ba1-99ec-41d7-80b8-fb2f7c0a4948.png" alt="GitHub" title="GitHub"/></code>
+	<code><img width="50" src="https://github.com/marwin1991/profile-technology-icons/assets/19180175/3b371807-db7c-45b4-8720-c0cfc901680a" alt="MSSQL" title="MSSQL"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192109061-e138ca71-337c-4019-8d42-4792fdaa7128.png" alt="Postman" title="Postman"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" alt="HTML" title="HTML"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183898674-75a4a1b1-f960-4ea9-abcb-637170a00a75.png" alt="CSS" title="CSS"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/121405384-444d7300-c95d-11eb-959f-913020d3bf90.png" alt="C#" title="C#"/></code>
+	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/186884150-05e9ff6d-340e-4802-9533-2c3f02363ee3.png" alt="Windows" title="Windows"/></code>
+</div>
