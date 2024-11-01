@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using UI.Components.Dialogs;
 using UI.Extensions;
 using UI.Models.ViewModels;
 
@@ -9,6 +10,7 @@ namespace UI.Pages.MyPages.OptionsPage
     {
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
+        [Inject] public IDialogService dialogService { get; set; }
         private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         private List<TransactionViewModel> filteredTransactions = new List<TransactionViewModel>();
         
@@ -54,6 +56,16 @@ namespace UI.Pages.MyPages.OptionsPage
             }
             transactionCounter = filteredTransactions.Count();
             StateHasChanged();
+        }
+        private async Task EditOptions(TransactionViewModel model)
+        {
+            var parameters = new DialogParameters();
+            parameters[nameof(model)] = model;
+            parameters["Refresh"] = new Func<Task>(LoadTransactions);
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+
+            dialogService.Show<EditDeleteTransactionDialog>($"Options", parameters, options);
+
         }
     }
 }

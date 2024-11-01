@@ -24,6 +24,7 @@
             <MudTh Style="text-align:center">Price </MudTh>
             <MudTh Style="text-align:center">Category</MudTh>
             <MudTh Style="text-align:center">Description</MudTh>
+            <MudTh Style="text-align:center">Options</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Name">@context.Name</MudTd>
@@ -31,6 +32,10 @@
             <MudTd DataLabel="Price" Style="text-align:center">@context.Price</MudTd>
             <MudTd DataLabel="Category" Style="text-align:center">@context.Category</MudTd>
             <MudTd DataLabel="Description" Style="text-align:center">@context.Description</MudTd>
+            <MudTd DataLabel="Options">
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
+                               OnClick="@(() => EditOptions(context))"></MudIconButton>
+            </MudTd>
         </RowTemplate>
     </MudTable>
 </MudPaper>
