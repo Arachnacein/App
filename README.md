@@ -45,7 +45,7 @@
   <img src="https://github.com/user-attachments/assets/ee76c1dc-6edd-4b90-9c1b-5c33003d6ddf" style="width:70%;height:70%;">
 </p>
 
-
+<br>
 <h2 align="center"> Milestones </h2>
 <p>
   🔜 Search Fields for transactions and incomes. <br>
@@ -71,7 +71,8 @@
   ✅ Set project architecture.<br>
 </p>
 
-
+<br>
+<h2 align="center"> Tech stack </h2>
 <div align="center">
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/121405754-b4f48f80-c95d-11eb-8893-fc325bde617f.png" alt=".NET Core" title=".NET Core"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="REST" title="REST"/></code>
