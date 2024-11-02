@@ -48,14 +48,14 @@
 <br>
 <h2 align="center"> Milestones </h2>
 <p>
-  🔜 Search Fields for transactions and incomes. <br>
-  * Add Internationalization.<br>
+  🔜 Add Internationalization.<br>
   * Add Login. <br>
   * Add Healtch checks.<br>
   * Add Unit Tests.<br>
   * Add saving goals feature. <br>
   * Add calendar with notifications.<br>
   * Add payment feature. <br>
+  ✅ Search Fields for transactions and incomes. <br>
   ✅ Add a statistics functionality.<br>
   ✅ Change logic by introducing the CQRS architectural pattern. <br>
   ✅ Add income preview. <br>
