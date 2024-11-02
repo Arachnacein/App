@@ -5,10 +5,10 @@
 
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
+    <MudText Align="Align.Center" Class="mb-5">Manage Incomes</MudText>
     <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
         <MudStack>
-            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">Rows: @transactionCounter</MudText>
+            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">Rows: @IncomesCounter</MudText>
         </MudStack>
         <MudStack>
             <MudTextField @bind-Value="searchPhrase" Label="Search" Adornment="Adornment.End"
@@ -16,7 +16,7 @@
                           Variant="Variant.Outlined" style="width:250px;" />
         </MudStack>
     </MudStack>
-    <MudTable T="IncomeViewModel" Items="incomes" Dense="true" Height="300px;" Striped="true">
+    <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Height="300px;" Striped="true">
         <HeaderContent>
             <MudTh> Name </MudTh>
             <MudTh Style="text-align:center"> Amount </MudTh>
