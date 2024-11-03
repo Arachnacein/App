@@ -69,6 +69,7 @@
   ✅ Add transactions api (controllers, services, respositories, mappers ect.). <br>
   ✅ Add patterns and monthpatterns api (controllers, services, respositories, mappers ect.). <br>
   ✅ Set project architecture.<br>
+  ❔❔ Mobile app. <br>
 </p>
 
 <br>
