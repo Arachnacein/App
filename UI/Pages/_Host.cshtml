@@ -33,6 +33,18 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script>
+        window.blazorCulture = {
+            get: () => window.localStorage['BlazorCulture'],
+            set: (value) => window.localStorage['BlazorCulture'] = value
+        };
 
+        (function () {
+            const culture = window.blazorCulture.get();
+            if (culture) {
+                document.cookie = `.AspNetCore.Culture=c=${culture}|uic=${culture}; path=/`;
+            }
+        })();
+    </script>
 </body>
 </html>
