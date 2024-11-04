@@ -15,4 +15,18 @@
     <PackageReference Include="MudBlazor.ThemeManager" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Localizations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\InternationalizationIcons\france.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\germany.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\italy.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\poland.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\spain.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\united-kingdom.png" />
+    <None Include="wwwroot\Images\InternationalizationIcons\united-states.png" />
+  </ItemGroup>
+
 </Project>
