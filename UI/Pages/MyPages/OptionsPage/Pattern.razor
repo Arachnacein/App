@@ -1,46 +1,48 @@
 ﻿@page "/options/pattern"
 @using UI.Models;
 @using UI.Models.ViewModels
+@inject IStringLocalizer<Pattern> Localizer
 
+<PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Align="Align.Center" Class="mb-5">Manage Patterns</MudText>
+    <MudText Align="Align.Center" Class="mb-5">@Localizer["Header"]</MudText>
     <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true">
-        <MudTabPanel Text="Overwiew">
+        <MudTabPanel Text="@Localizer["OverwiewHeader"]" >
             <MudTable T="MonthPatternViewModel" Items="@patterns" FixedHeader="true" 
                       FixedFooter="true" Dense="true" Height="300px;" Striped="true">
                 <HeaderContent>
-                    <MudTh Style="text-align:center">Date</MudTh>
-                    <MudTh Style="text-align:center">Name</MudTh>
-                    <MudTh Style="text-align:center">% Saves </MudTh>
-                    <MudTh Style="text-align:center">% Fees</MudTh>
-                    <MudTh Style="text-align:center">% Entertainment</MudTh>
-                    <MudTh Style="text-align:center">Options</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Saves%"]</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Fees%"]</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Entertainment%"]</MudTh>
+                    <MudTh Style="text-align:center">@Localizer["Options"]</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Month" >@context.Date.Month/@context.Date.Year</MudTd>
-                    <MudTd DataLabel="Name">@context.Pattern.Name</MudTd>
-                    <MudTd DataLabel="Saves" Style="text-align:center">@context.Pattern.Value_Saves</MudTd>
-                    <MudTd DataLabel="Fees" Style="text-align:center">@context.Pattern.Value_Fees</MudTd>
-                    <MudTd DataLabel="Entertainment" Style="text-align:center">@context.Pattern.Value_Entertainment</MudTd>
-                    <MudTd DataLabel="Options"><MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
+                    <MudTd DataLabel="@Localizer["Month"]" >@context.Date.Month/@context.Date.Year</MudTd>
+                    <MudTd DataLabel="@Localizer["Name"]">@context.Pattern.Name</MudTd>
+                    <MudTd DataLabel="@Localizer["Saves"]" Style="text-align:center">@context.Pattern.Value_Saves</MudTd>
+                    <MudTd DataLabel="@Localizer["Fees"]" Style="text-align:center">@context.Pattern.Value_Fees</MudTd>
+                    <MudTd DataLabel="@Localizer["Entertainment"]" Style="text-align:center">@context.Pattern.Value_Entertainment</MudTd>
+                    <MudTd DataLabel="@Localizer["Options"]"><MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
                                                     OnClick="@( async () => await EditMonthPattern(context))"></MudIconButton></MudTd>
                 </RowTemplate>
             </MudTable>
         </MudTabPanel>
-        <MudTabPanel Text="Add Pattern">
+        <MudTabPanel Text="@Localizer["AddPattern"]">
             <MudPaper>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
                     <MudStack Class="ma-2 pa-2">
-                        <MudTextField T="string" Label="Name" @bind-Value=model.Name></MudTextField>
+                        <MudTextField T="string" Label="@Localizer["Name"]" @bind-Value=model.Name></MudTextField>
                     </MudStack>
                     <MudStack Class="ma-2 pa-2">
-                        <MudTextField T="double" Label="Saves" @bind-Value=model.Value_Saves></MudTextField>
-                        <MudTextField T="double" Label="Fees" @bind-Value=model.Value_Fees></MudTextField>
-                        <MudTextField T="double" Label="Entertainment" @bind-Value=model.Value_Entertainment></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Saves"]" @bind-Value=model.Value_Saves></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Fees"]" @bind-Value=model.Value_Fees></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=model.Value_Entertainment></MudTextField>
                     </MudStack>
                 </MudStack>
-            <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2"> Add pattern</MudButton>
+            <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2">@Localizer["ButtonSubmit"]</MudButton>
             </MudPaper>
         </MudTabPanel>
     </MudTabs>
