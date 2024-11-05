@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 
 namespace UI.Pages
@@ -13,11 +14,18 @@ namespace UI.Pages
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         private readonly ILogger<ErrorModel> _logger;
+        private readonly IStringLocalizer<ErrorModel> _localizer;
 
-        public ErrorModel(ILogger<ErrorModel> logger)
+        public ErrorModel(ILogger<ErrorModel> logger, IStringLocalizer<ErrorModel> localizer)
         {
             _logger = logger;
+            _localizer = localizer;
         }
+
+        public string Title => _localizer["Title"];
+        public string Error => _localizer["Error"];
+        public string ErrorContent => _localizer["ErrorContent"];
+
 
         public void OnGet()
         {
