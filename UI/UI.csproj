@@ -26,8 +26,4 @@
     <None Include="wwwroot\Images\InternationalizationIcons\united-states.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\Components\" />
-  </ItemGroup>
-
 </Project>
