@@ -1,8 +1,9 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
 @using UI.Models
+@inject IStringLocalizer<Index> Localizer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>@Localizer["Title"]</PageTitle>
 <MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
     <MudPaper Class="pa-2 ma-2 mt-5 shadow" Elevation="30" Style="width:80%;">
         <MudStack>

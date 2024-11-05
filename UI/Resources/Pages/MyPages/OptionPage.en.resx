@@ -117,43 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddIncome" xml:space="preserve">
-    <value>Add Income</value>
-  </data>
-  <data name="AddTransaction" xml:space="preserve">
-    <value>Add Transaction</value>
-  </data>
-  <data name="Entertainment" xml:space="preserve">
-    <value>Entertainment</value>
-  </data>
-  <data name="EntertainmentText" xml:space="preserve">
-    <value>Entertainment</value>
-  </data>
-  <data name="Fees" xml:space="preserve">
-    <value>Fees</value>
-  </data>
-  <data name="FeesText" xml:space="preserve">
-    <value>Fees</value>
-  </data>
-  <data name="NoPattern" xml:space="preserve">
-    <value>No pattern</value>
-  </data>
-  <data name="PatternText" xml:space="preserve">
-    <value>Pattern</value>
-  </data>
-  <data name="Saves" xml:space="preserve">
-    <value>Saves</value>
-  </data>
-  <data name="Savestext" xml:space="preserve">
-    <value>Saves</value>
-  </data>
-  <data name="Statistics" xml:space="preserve">
-    <value>Statistics</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Budget</value>
-  </data>
-  <data name="Transactions" xml:space="preserve">
-    <value>Transactions</value>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
   </data>
 </root>

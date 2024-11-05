@@ -147,7 +147,10 @@
   <data name="Statistics" xml:space="preserve">
     <value>Statystyki</value>
   </data>
-  <data name="Transactions" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
     <value>Panel wydatków</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Wydatki</value>
   </data>
 </root>
