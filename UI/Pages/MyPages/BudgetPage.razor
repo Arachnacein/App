@@ -1,20 +1,21 @@
 ﻿@page "/budget"
 @using UI.Models;
 @using UI.Models.ViewModels
+@inject IStringLocalizer<BudgetPage> Localizer
 
 <PageTitle> Hello in budget site</PageTitle>
 <MudTabs Class="pa-4 ma-4" Elevation="5" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" >
-    <MudTabPanel Text="Transactions" >
+    <MudTabPanel Text="@Localizer["Transactions"]" >
         <MudStack  AlignItems="AlignItems.End">
             <MudStack Row="true">
                 <MudStack>
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTransaction" Class="mr-auto">
-                        Add Transaction
+                        @Localizer["AddTransaction"]
                     </MudButton>
                 </MudStack>
                 <MudStack>
                     <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="AddIncome" Class="ml-auto mr-5">
-                        Add Income
+                        @Localizer["AddIncome"]
                     </MudButton>
                 </MudStack>
             </MudStack>
@@ -27,14 +28,14 @@
                     <TooltipContent> 
                         @if(patternViewModel.Id == 0)
                         {
-                            <MudText Typo="Typo.body2"> No pattern</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["NoPattern"]}</MudText>
                         }
                         else
                         {
-                            <MudText Typo="Typo.body2">Pattern: @patternViewModel.Name</MudText>
-                            <MudText Typo="Typo.body2">Saves: @patternViewModel.Value_Saves %</MudText>
-                            <MudText Typo="Typo.body2">Fees: @patternViewModel.Value_Fees %</MudText>
-                            <MudText Typo="Typo.body2">Entertainment: @patternViewModel.Value_Entertainment %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["PatternText"]: @patternViewModel.Name</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["SavesText"]: @patternViewModel.Value_Saves %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["FeesText"]: @patternViewModel.Value_Fees %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["EntertainmentText"]: @patternViewModel.Value_Entertainment %</MudText>
                         }
                     </TooltipContent>
                 </MudTooltip>
@@ -54,17 +55,17 @@
                           Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
                 <UI.Components.BudgetTransactionDropZone 
-                                Title="Saves" Identifier="Saves"
+                                Title="@Localizer["Saves"]" Identifier="Saves"
                                 ActualValue="patternValuesModel.ActualValueSaves"
                                 TotalValue="patternValuesModel.TotalValueSaves"
                                 TitleColor="Color.Success" Color="forestgreen" />        
                 <UI.Components.BudgetTransactionDropZone 
-                                Title="Fees" Identifier="Fees"
+                                Title="@Localizer["Fees"]" Identifier="Fees"
                                 ActualValue="patternValuesModel.ActualValueFees"
                                 TotalValue="patternValuesModel.TotalValueFees"
                                 TitleColor="Color.Error" Color="darkred" />            
                 <UI.Components.BudgetTransactionDropZone 
-                                Title="Entertainment" Identifier="Entertainment"
+                                Title="@Localizer["Entertainment"]" Identifier="Entertainment"
                                 ActualValue="patternValuesModel.ActualValueEntertainment"
                                 TotalValue="patternValuesModel.TotalValueEntertainment"
                                 TitleColor="Color.Info" Color="dodgerblue" />
@@ -92,7 +93,7 @@
         </MudDropContainer>
     </MudTabPanel>
 
-    <MudTabPanel Text="Statistics"> 
+    <MudTabPanel Text="@Localizer["Statistics"]"> 
         <UI.Components.StatisticsComponent />
     </MudTabPanel>
 
