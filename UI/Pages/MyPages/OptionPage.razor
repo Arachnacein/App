@@ -1,4 +1,5 @@
 ﻿@page "/options"
+@inject IStringLocalizer<OptionPage> Localizer
 
-<PageTitle> Options </PageTitle>
+<PageTitle> @Localizer["Options"] </PageTitle>
 <UI.Components.OptionNavigationComponent />

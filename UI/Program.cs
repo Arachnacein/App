@@ -1,18 +1,26 @@
+using Microsoft.AspNetCore.Mvc.Razor;
 using MudBlazor.Services;
 using UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+builder.Services.AddRazorPages()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization();
 builder.Services.AddMudServices();
 builder.Services.AddServerSideBlazor();
-
 builder.Services.AddSingleton<GlobalInfoClass>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });
 
 var app = builder.Build();
+
+var cultures = new[] { "pl", "en" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(cultures.First())
+                                    .AddSupportedCultures(cultures)
+                                    .AddSupportedUICultures(cultures);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -23,11 +31,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseRequestLocalization(localizationOptions);
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

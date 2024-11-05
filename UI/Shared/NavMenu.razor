@@ -1,9 +1,24 @@
-﻿<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%;">
+﻿@inject IStringLocalizer<NavMenu> Localizer
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%;">
     <MudStack Row="true" Justify="Justify.FlexStart">
-        <NavLink href="" class="nav-main-menu-item"><MudButton StartIcon="@Icons.Material.Filled.Home" IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> Home</MudButton></NavLink>
-        <NavLink href="/budget" class="nav-main-menu-item"><MudButton IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> Budget </MudButton></NavLink>
+        <NavLink href="" class="nav-main-menu-item"><MudButton StartIcon="@Icons.Material.Filled.Home" IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary">@Localizer["Home"]</MudButton></NavLink>
+        <NavLink href="/budget" class="nav-main-menu-item"><MudButton IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> @Localizer["Budget"] </MudButton></NavLink>
     </MudStack>
     <MudStack Row="true" Justify="Justify.FlexEnd">
+        <MudMenu Icon="@Icons.Material.Filled.Language" Size="Size.Large" Color="Color.Secondary"
+                 ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+            <MudMenuItem OnClick="SetEnglish">
+                <MudImage Src="Images/InternationalizationIcons/united-kingdom.png" Width="38" Height="30" />
+                @Localizer["English"]
+            </MudMenuItem>
+            <MudMenuItem OnClick="SetPolish">
+                <MudImage Src="Images/InternationalizationIcons/poland.png" Width="38" Height="30" />
+                @Localizer["Polish"]
+            </MudMenuItem>
+        </MudMenu>
         <NavLink href="/options" class="nav-main-menu-item"><MudIconButton Icon="@Icons.Material.Filled.Settings" IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"></MudIconButton></NavLink>
     </MudStack>
 </MudStack>
+
+@* Icons from https://www.flaticon.com/packs/international-flags *@

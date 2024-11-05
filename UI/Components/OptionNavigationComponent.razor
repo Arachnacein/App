@@ -1,19 +1,20 @@
-﻿<MudDrawer Open="true" Anchor="Anchor.Left" Elevation="2" Variant="DrawerVariant.Mini">
+﻿@inject IStringLocalizer<OptionNavigationComponent> Localizer
+<MudDrawer Open="true" Anchor="Anchor.Left" Elevation="2" Variant="DrawerVariant.Mini">
     <MudNavMenu>
         <MudNavLink Href="/options/profile" Icon="@Icons.Material.Filled.Person">
-            Profile
+            @Localizer["Profile"]
         </MudNavLink>
         <MudNavLink Href="/options/income" Icon="@Icons.Material.Filled.ViewList">
-            Incomes
+            @Localizer["Incomes"]
         </MudNavLink>
         <MudNavLink Href="/options/transaction" Icon="@Icons.Material.Filled.ViewList">
-            Transactions
+            @Localizer["Transactions"]
         </MudNavLink>
         <MudNavLink Href="/options/pattern" Icon="@Icons.Material.Filled.ViewList">
-            Patterns
+            @Localizer["Patterns"]
         </MudNavLink>        
         <MudNavLink Href="/options/settings" Icon="@Icons.Material.Filled.Settings">
-            Settings
+            @Localizer["Settings"]
         </MudNavLink>
     </MudNavMenu>
 </MudDrawer>
