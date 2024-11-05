@@ -1,33 +1,34 @@
 ﻿@page "/options/income"
 @using UI.Models;
 @using UI.Models.ViewModels
+@inject IStringLocalizer<Income> Localizer
 
-
+<PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Align="Align.Center" Class="mb-5">Manage Incomes</MudText>
+    <MudText Align="Align.Center" Class="mb-5">@Localizer["Header"]</MudText>
     <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
         <MudStack>
-            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">Rows: @IncomesCounter</MudText>
+            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @IncomesCounter</MudText>
         </MudStack>
         <MudStack>
-            <MudTextField @bind-Value="searchPhrase" Label="Search" Adornment="Adornment.End"
+            <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
                           AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
                           Variant="Variant.Outlined" style="width:250px;" />
         </MudStack>
     </MudStack>
     <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Height="300px;" Striped="true">
         <HeaderContent>
-            <MudTh> Name </MudTh>
-            <MudTh Style="text-align:center"> Amount </MudTh>
-            <MudTh Style="text-align:center"> Date </MudTh>
-            <MudTh Style="text-align:center"> Options </MudTh>
+            <MudTh> @Localizer["Name"] </MudTh>
+            <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>
+            <MudTh Style="text-align:center"> @Localizer["Date"] </MudTh>
+            <MudTh Style="text-align:center"> @Localizer["Options"]</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Name" Style="padding-left:15px;">@context.Name</MudTd>
-            <MudTd DataLabel="Amount" Style="text-align:center">@context.Amount</MudTd>
-            <MudTd DataLabel="Date" Style="text-align:center">@context.Date.Format()</MudTd>
-            <MudTd DataLabel="Options" Style="text-align:center">
+            <MudTd DataLabel="@Localizer["Name"]" Style="padding-left:15px;">@context.Name</MudTd>
+            <MudTd DataLabel="@Localizer["Amount"]" Style="text-align:center">@context.Amount</MudTd>
+            <MudTd DataLabel="@Localizer["Date"]" Style="text-align:center">@context.Date.Format()</MudTd>
+            <MudTd DataLabel="@Localizer["Options"]" Style="text-align:center">
                 <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
                                OnClick="@( async () => await EditIncome(context))" />
             </MudTd>
