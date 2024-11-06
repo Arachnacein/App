@@ -117,20 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Amount" xml:space="preserve">
-    <value>Amount</value>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="Header" xml:space="preserve">
-    <value>Manage incomes</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Found</value>
@@ -139,6 +142,9 @@
     <value>Search</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Incomes</value>
+    <value>Expenses</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Manage expenses</value>
   </data>
 </root>
