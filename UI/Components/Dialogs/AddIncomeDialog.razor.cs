@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -12,7 +13,9 @@ namespace UI.Components.Dialogs
         [Inject] public IDialogService dialogService { get; set; }
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
-        private IncomeViewModelValidation IncomeValidator { get; } = new IncomeViewModelValidation();
+        [Inject] public IStringLocalizer<AddIncomeDialog> Localizer { get; set; }
+        [Inject] public IncomeViewModelValidation IncomeValidator { get; set; }
+
         MudForm Form;
 
         protected override async Task OnInitializedAsync()

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace UI.Models.ViewModels
 {
@@ -10,19 +11,19 @@ namespace UI.Models.ViewModels
         public DateTime? Date { get; set; }
     }
 
-    internal class IncomeViewModelValidation : AbstractValidator<IncomeViewModel>
+    public class IncomeViewModelValidation : AbstractValidator<IncomeViewModel>
     {
-        public IncomeViewModelValidation()
+        public IncomeViewModelValidation(IStringLocalizer<IncomeViewModelValidation> localizer)
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name field can't be empty.")
-                .MinimumLength(5).WithMessage("Name should be at least 5 characters long.")
-                .MaximumLength(50).WithMessage("Name should be less than 50 characters.");
+                .NotEmpty().WithMessage(localizer["NameFieldEmpty"])
+                .MinimumLength(5).WithMessage(localizer["NameMinLength"])
+                .MaximumLength(50).WithMessage(localizer["NameMaxLength"]);
 
             RuleFor(x => x.Amount)
-                .NotEmpty().WithMessage("Price field can't be empty.")
-                .GreaterThanOrEqualTo(0d).WithMessage("Amount na't be lower than 0.")
-                .Must(amount => !double.IsNaN(amount) && !double.IsInfinity(amount)).WithMessage("Amount must be a valid number.");
+                .NotEmpty().WithMessage(localizer["AmountFieldEmpty"])
+                .GreaterThanOrEqualTo(0d).WithMessage(localizer["AmountMinValue"])
+                .Must(amount => !double.IsNaN(amount) && !double.IsInfinity(amount)).WithMessage(localizer["AmountValidNumber"]);
         }
     }
 }

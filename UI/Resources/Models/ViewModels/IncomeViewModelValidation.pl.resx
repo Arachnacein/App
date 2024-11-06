@@ -117,49 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddIncome" xml:space="preserve">
-    <value>Dodaj wpływ</value>
+  <data name="AmountFieldEmpty" xml:space="preserve">
+    <value>Pole 'kwota' nie może być puste.</value>
   </data>
-  <data name="AddNewIncome" xml:space="preserve">
-    <value>Nowy wpływ</value>
+  <data name="AmountMinValue" xml:space="preserve">
+    <value>Kwota powinna być większa niż 0.</value>
   </data>
-  <data name="AddNewTransaction" xml:space="preserve">
-    <value>Nowy wydatek</value>
+  <data name="AmountValidNumber" xml:space="preserve">
+    <value>Kwota musi być poprawną wartością.</value>
   </data>
-  <data name="AddTransaction" xml:space="preserve">
-    <value>Dodaj wydatek</value>
+  <data name="NameFieldEmpty" xml:space="preserve">
+    <value>Pole 'nazwa' nie może być puste.</value>
   </data>
-  <data name="Entertainment" xml:space="preserve">
-    <value>Rozrywka</value>
+  <data name="NameMaxLength" xml:space="preserve">
+    <value>Pole 'nazwa' powinno być ktrótsze niż 50 znaków.</value>
   </data>
-  <data name="EntertainmentText" xml:space="preserve">
-    <value>Rozrywka</value>
-  </data>
-  <data name="Fees" xml:space="preserve">
-    <value>Codzienne</value>
-  </data>
-  <data name="FeesText" xml:space="preserve">
-    <value>Codzienne</value>
-  </data>
-  <data name="NoPattern" xml:space="preserve">
-    <value>Brak wzoru</value>
-  </data>
-  <data name="PatternText" xml:space="preserve">
-    <value>Podział</value>
-  </data>
-  <data name="Saves" xml:space="preserve">
-    <value>Oszczędności</value>
-  </data>
-  <data name="SavesText" xml:space="preserve">
-    <value>Oszczędności</value>
-  </data>
-  <data name="Statistics" xml:space="preserve">
-    <value>Statystyki</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Panel wydatków</value>
-  </data>
-  <data name="Transactions" xml:space="preserve">
-    <value>Wydatki</value>
+  <data name="NameMinLength" xml:space="preserve">
+    <value>Pople 'nazwa' powinno być dłuższe niż 5 znaków.</value>
   </data>
 </root>
