@@ -138,10 +138,13 @@
   <data name="NoPattern" xml:space="preserve">
     <value>Brak wzoru</value>
   </data>
+  <data name="PatternText" xml:space="preserve">
+    <value>Podział</value>
+  </data>
   <data name="Saves" xml:space="preserve">
     <value>Oszczędności</value>
   </data>
-  <data name="Savestext" xml:space="preserve">
+  <data name="SavesText" xml:space="preserve">
     <value>Oszczędności</value>
   </data>
   <data name="Statistics" xml:space="preserve">
