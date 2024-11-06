@@ -4,6 +4,6 @@
     {
         public double Saves { get; set; }
         public double Fees { get; set; }
-        public double Enterntainment { get; set; }
+        public double Entertainment { get; set; }
     }
 }

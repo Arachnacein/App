@@ -100,8 +100,9 @@ namespace UI.Pages.MyPages
         private async Task LoadMonthPatterns()
         {
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
-            if(patternResponse.Id != -1)
+            if (patternResponse.Id != -1)
                 patternViewModel = patternResponse;
+            else patternViewModel.Id = 0;
         }
         private async Task LoadMonthIncome()
         {

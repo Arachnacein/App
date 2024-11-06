@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
+using System.Reflection;
+using UI.Components;
 using UI.Models;
 
 namespace UI.Extensions
@@ -8,26 +11,26 @@ namespace UI.Extensions
         public static double[] ToArray(this CategoriesDistributionModel model)
         {
             if(model != null)
-                return new double[] { model.Saves, model.Fees, model.Enterntainment };
+                return new double[] { model.Saves, model.Fees, model.Entertainment };
             else return new double[] { 1,1,98 };
         }
 
-        public static string[] GetPropertyNames(this CategoriesDistributionModel model)
+        public static string[] GetPropertyNames(this CategoriesDistributionModel model, IStringLocalizer localizer)
         {
             if (model != null)
             {
                 var tab = model.GetType()
                     .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Select(prop => prop.Name + " ")
+                    .Select(prop => localizer[prop.Name] + " ")
                     .ToArray();
 
                 tab[0] +=  Math.Round(model.Saves, 2).ToString() + "%";
                 tab[1] += Math.Round(model.Fees, 2).ToString() + "%";
-                tab[2] += Math.Round(model.Enterntainment, 2).ToString() + "%";
+                tab[2] += Math.Round(model.Entertainment, 2).ToString() + "%";
 
                 return tab;
             }
-            else return new string[] { "Invalid data" };
+            else return new string[] { localizer["InvalidData"] };
         }
     }
 }

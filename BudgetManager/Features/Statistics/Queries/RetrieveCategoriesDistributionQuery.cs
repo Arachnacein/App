@@ -32,7 +32,7 @@ namespace BudgetManager.Features.Statistics.Queries
             {
                 Saves = (categoryCount.FirstOrDefault(x => x.Category == Models.TransactionCategoryEnum.Saves)?.Count ?? 0) / (double)totalTransactionAmount * 100,
                 Fees = (categoryCount.FirstOrDefault(x => x.Category == Models.TransactionCategoryEnum.Fees)?.Count ?? 0) / (double)totalTransactionAmount * 100,
-                Enterntainment = (categoryCount.FirstOrDefault(x => x.Category == Models.TransactionCategoryEnum.Entertainment)?.Count ?? 0) / (double)totalTransactionAmount * 100,
+                Entertainment = (categoryCount.FirstOrDefault(x => x.Category == Models.TransactionCategoryEnum.Entertainment)?.Count ?? 0) / (double)totalTransactionAmount * 100,
             };
 
             return categoriesModel;
