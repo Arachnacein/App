@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
 @using UI.Models
-@inject IStringLocalizer<Index> Localizer
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <MudStack Justify="Justify.Center" AlignItems="AlignItems.Center">
@@ -31,33 +30,33 @@
     </MudPaper>
         <MudStack Style="width:100%;" Justify="Justify.Center" AlignItems="AlignItems.Center">
             <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-                <h3>Motivation</h3>
+                <h3>@Localizer["Motivation"]</h3>
                 <MudDivider Class="my-3" Style="width:25%;" />
                 <MudText Style="text-indent:30px;" Class="ma-5">
                     <img src="/Images/notes.jpg" width="30%;" height="30%;" style="float:right;margin-left:15px;border-radius:15px;"/>
-                    Since I started working, I noticed that it’s worth dividing income into specific categories. I divided them into savings, daily expenses, and those related to entertainment. This allowed for clear budget management, and the savings generated helped build a financial safety net. In the beginning, I would write this down on paper. In fact, long before I started working, I would note my expenses on sheets of paper, which often got lost. That's why I decided to switch to electronic record-keeping. I chose Excel spreadsheets for this. However, I didn't really like it due to its clunky appearance and lack of functionalities I wanted.
+                    @Localizer["motivation_1st"]
                 </MudText>
                 <MudSpacer/>
             <MudText Style="text-indent:30px;" Class="ma-5">
-                    In the meantime, I decided to start designing my own application. It was supposed to automate processes that I previously had to calculate and managed manually. Additionally, I wanted it to be simple to use and have the functionalities I required. The great thing is that I can design and implement features myself. Without much hesitation, I began creating this application.
+                    @Localizer["motivation_2nd"]
                 </MudText>
             </MudPaper>
 
             <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-                <h3>Architecture</h3>
+            <h3>@Localizer["Architecture"]</h3>
                 <MudDivider Class="my-3" Style="width:30%;"/>
                 <MudText Style="text-indent:30px;">
                     <img src="/Images/microservices.jpg" width="15%;" height="15%;" style="float:right;margin-left:15px;border-radius:15px;" />
-                    The architecture used in this application is based on Clean Architecture, which has become the standard for writing WebAPIs. It involves separating business logic from databases and user interfaces. This creates a layered structure where each layer communicates with the others in a defined way.
+                    @Localizer["architecture_1st"]
                 </MudText>
                 <MudText Style="text-indent:30px;">
-                    Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. These modules are connected by an API Gateway, which routes requests between the modules.
+                    @Localizer["architecture_2nd"]
                 </MudText>
 
             </MudPaper>
 
             <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-                <h3>Tools and frameworks</h3>
+                <h3>@Localizer["ToolsFrameworks"]</h3>
                 <MudDivider Class="my-3" Style="width:40%;"/>
                 <MudList T="string" >
                 <MudListItem>Visual Studio</MudListItem>
@@ -79,32 +78,50 @@
 
 @code
 {
-    List<CarouselContentModel> carouselContentList = new List<CarouselContentModel>
+    [Inject] IStringLocalizer<Index> Localizer { get; set; }
+    List<CarouselContentModel> carouselContentList = new List<CarouselContentModel>();
+
+    protected override async Task OnInitializedAsync()
     {
-        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/tree.jpg", 
-                                  Header = "Welcome in budget App!",
-                                  Description = "Application will help you control your expenses and save money.",
-                                  IsActionContent = false },
+        await InitCarousel();
+    }
 
-        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/mountains.jpg",
-                                  Header = "You can add your monthly incomes and expenses.", 
-                                  Description = "System will automatically divide them according to the given pattern.",
-                                  IsActionContent = true,
-                                  ActionText = "Learn more about Blazor",
-                                  ActionUrl = "https://mudblazor.com/docs/overview"},
+    private async Task InitCarousel()
+    {
 
-        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/chameleon.jpg",
-                                  Header = "You can check your budget statistics.", 
-                                  Description = "There are monthly, yearly and other unconventional statistics. e.g. On which days do you do more shopping? Even or odd?",
-                                  IsActionContent = true,
-                                  ActionText = "Learn about budget",
-                                  ActionUrl = "https://stooq.pl/q/?s=xaupln"},
-
-        new CarouselContentModel{ ImageUrl = "Images/CarouselImages/window.jpg",
-                                  Header = "With this app you can create goals for which you save money.",
-                                  Description = "You set the transaction as a deposit and link it to a goal, and the app continuously analyzes and displays your progress towards achieving the goal.",
-                                  IsActionContent = false}
-    };
+        carouselContentList.Add(new CarouselContentModel
+            {
+                ImageUrl = "Images/CarouselImages/tree.jpg",
+                Header = Localizer["Item1Header"],
+                Description = Localizer["Item1Description"],
+                IsActionContent = false
+            });
+        carouselContentList.Add(new CarouselContentModel
+            {
+                ImageUrl = "Images/CarouselImages/mountains.jpg",
+                Header = Localizer["Item2Header"],
+                Description = Localizer["Item2Description"],
+                IsActionContent = true,
+                ActionText = Localizer["Item2ActionText"],
+                ActionUrl = "https://mudblazor.com/docs/overview"
+            });
+        carouselContentList.Add(new CarouselContentModel
+            {
+                ImageUrl = "Images/CarouselImages/chameleon.jpg",
+                Header = Localizer["Item3Header"],
+                Description = Localizer["Item3Description"],
+                IsActionContent = true,
+                ActionText = Localizer["Item3ActionText"],
+                ActionUrl = "https://stooq.pl/q/?s=xaupln"
+            });
+        carouselContentList.Add(new CarouselContentModel
+            {
+                ImageUrl = "Images/CarouselImages/window.jpg",
+                Header = Localizer["Item4Header"],
+                Description = Localizer["Item4Description"],
+                IsActionContent = false
+            });
+    }
 
     private async Task OpenLink(string url) => Navigation.NavigateTo(url, true);
     
