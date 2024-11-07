@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -13,6 +14,7 @@ namespace UI.Components.Dialogs
         [Inject] public ISnackbar snackbar { get; set; }
 
         [Inject] public TransactionViewModelValidator TransactionValidator { get; set; }
+        [Inject] public IStringLocalizer<EditDeleteTransactionDialog> Localizer { get; set; }
         private TransactionViewModel DialogModel = new TransactionViewModel();
         MudForm Form;
 
@@ -26,13 +28,13 @@ namespace UI.Components.Dialogs
             var request = await httpClient.DeleteAsync($"/api/transaction/{DialogModel.Id}");
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
-                snackbar.Add("Transaction deleted successfully.", Severity.Success);
+                snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
                 MudDialog.Cancel();
                 if (Refresh != null)
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);
         }
         private async Task Edit()
         {
@@ -43,13 +45,13 @@ namespace UI.Components.Dialogs
             var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
-                snackbar.Add("Transaction edited successfully.", Severity.Success);
+                snackbar.Add(Localizer["SuccessEditSnackbar"], Severity.Success);
                 MudDialog.Cancel();
                 if (Refresh != null)
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
         }
         private async Task Cancel() => MudDialog.Cancel();
     }
