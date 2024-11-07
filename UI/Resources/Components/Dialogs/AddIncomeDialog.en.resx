@@ -123,13 +123,22 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ChoosePattern" xml:space="preserve">
+    <value>Choose pattern for {0}/{1}</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
+  </data>
+  <data name="FailAddSnacbar" xml:space="preserve">
+    <value>Something went wrong</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="SuccessAddSnackbar" xml:space="preserve">
+    <value>Successfully added new income</value>
   </data>
 </root>

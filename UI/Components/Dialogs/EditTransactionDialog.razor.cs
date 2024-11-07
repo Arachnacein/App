@@ -28,7 +28,7 @@ namespace UI.Components.Dialogs
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add("Something went wrong", Severity.Warning);
+                snackbar.Add("Something went wrong", Severity.Error);
         }
         private async Task Cancel() => MudDialog.Cancel();
     }

@@ -117,58 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPattern" xml:space="preserve">
-    <value>Add pattern</value>
+  <data name="Confirm" xml:space="preserve">
+    <value>Zatwierdź</value>
   </data>
-  <data name="ButtonSubmit" xml:space="preserve">
-    <value>Add</value>
+  <data name="ErrorGettingPatterns" xml:space="preserve">
+    <value>Coś poszło nie tak</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
+  <data name="FailSnackbar" xml:space="preserve">
+    <value>Coś poszło nie tak</value>
   </data>
-  <data name="EditPatternDialogHeader" xml:space="preserve">
-    <value>Edit pattern for {0}/{1}</value>
+  <data name="Placeholder" xml:space="preserve">
+    <value>Wybierz wzór</value>
   </data>
-  <data name="Entertainment" xml:space="preserve">
-    <value>Entertainment</value>
+  <data name="PleaseChoosePattern" xml:space="preserve">
+    <value>Proszę wybrać wzór</value>
   </data>
-  <data name="Entertainment%" xml:space="preserve">
-    <value>Entertainment (%)</value>
-  </data>
-  <data name="FailAddSnackbar" xml:space="preserve">
-    <value>Something went wrong</value>
-  </data>
-  <data name="Fees" xml:space="preserve">
-    <value>Fees</value>
-  </data>
-  <data name="Fees%" xml:space="preserve">
-    <value>Fees (%)</value>
-  </data>
-  <data name="Header" xml:space="preserve">
-    <value>Manage patterns</value>
-  </data>
-  <data name="Month" xml:space="preserve">
-    <value>Month</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="OverwiewHeader" xml:space="preserve">
-    <value>Overwiew</value>
-  </data>
-  <data name="Saves" xml:space="preserve">
-    <value>Saves</value>
-  </data>
-  <data name="Saves%" xml:space="preserve">
-    <value>Saves (%)</value>
-  </data>
-  <data name="SuccessAddSnackbar" xml:space="preserve">
-    <value>Successfully added new pattern</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Patterns</value>
+  <data name="SuccessSnackbar" xml:space="preserve">
+    <value>Pomyślnie wybrano wzór</value>
   </data>
 </root>

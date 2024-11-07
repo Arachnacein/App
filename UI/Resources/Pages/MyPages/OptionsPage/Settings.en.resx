@@ -120,6 +120,9 @@
   <data name="Header" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
   </data>

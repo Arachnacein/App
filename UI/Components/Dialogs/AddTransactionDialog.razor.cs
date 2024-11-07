@@ -38,7 +38,7 @@ namespace UI.Components.Dialogs
             }
             else
             {
-                snackbar.Add(Localizer["FailedSnackbar"], Severity.Warning);
+                snackbar.Add(Localizer["FailedSnackbar"], Severity.Error);
             }
         }
 

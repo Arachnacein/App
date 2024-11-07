@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -10,6 +11,8 @@ namespace UI.Components.Dialogs
         [Parameter] public Func<Task> Refresh {  get; set; }
         [Parameter] public IncomeViewModel DialogModel { get; set; }
         [Inject] public HttpClient httpClient { get; set; }
+        [Inject] public IStringLocalizer<PatternDialog> Localizer { get; set; }
+
         [Inject] public ISnackbar snackbar { get; set; }
         PatternViewModel model = new PatternViewModel();
 
@@ -24,7 +27,7 @@ namespace UI.Components.Dialogs
         {
             patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>("/api/pattern");
             if (patterns == null)
-                snackbar.Add("Error while getting patterns.", Severity.Warning);
+                snackbar.Add(Localizer["ErrorGettingPatterns"], Severity.Error);
         }
 
         private async Task AcceptPattern()
@@ -36,13 +39,16 @@ namespace UI.Components.Dialogs
                 PatternId = model.Id
             };
             if (model.Id == null)
-                snackbar.Add("Please choose pattern", Severity.Warning);
+                snackbar.Add(Localizer["PleaseChoosePattern"], Severity.Warning);
 
             var addPatternRequest = await httpClient.PostAsJsonAsync("/api/monthpattern",requestBody);
             if (addPatternRequest.StatusCode != System.Net.HttpStatusCode.Created)
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailSnackbar"], Severity.Error);
             else
+            {
+                snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
                 MudDialogInstance.Cancel();
+            }
         }
     }
 }

@@ -123,13 +123,22 @@
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
+  <data name="ChoosePattern" xml:space="preserve">
+    <value>Wybierz wzór dla {0}/{1}</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Data</value>
+  </data>
+  <data name="FailAddSnacbar" xml:space="preserve">
+    <value>Coś poszło nie tak</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Zatwierdź</value>
+  </data>
+  <data name="SuccessAddSnackbar" xml:space="preserve">
+    <value>Pomyślnie dodano nowy wpływ</value>
   </data>
 </root>
