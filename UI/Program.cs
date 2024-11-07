@@ -13,7 +13,8 @@ builder.Services.AddRazorPages()
 builder.Services.AddMudServices();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<GlobalInfoClass>();
-builder.Services.AddTransient<IncomeViewModelValidation>();
+builder.Services.AddTransient<IncomeViewModelValidator>();
+builder.Services.AddTransient<TransactionViewModelValidator>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });

@@ -12,8 +12,8 @@ namespace UI.Components.Dialogs
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
 
+        [Inject] public TransactionViewModelValidator TransactionValidator { get; set; }
         private TransactionViewModel DialogModel = new TransactionViewModel();
-        private TransactionViewModelValidator TransactionValidator { get; } = new TransactionViewModelValidator();
         MudForm Form;
 
         protected override Task OnInitializedAsync()

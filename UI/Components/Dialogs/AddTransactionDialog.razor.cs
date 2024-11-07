@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -11,7 +12,8 @@ namespace UI.Components.Dialogs
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
-        private TransactionViewModelValidator TransactionValidator { get; } = new TransactionViewModelValidator();
+        [Inject] public IStringLocalizer<AddTransactionDialog> Localizer { get; set; }
+        [Inject] public TransactionViewModelValidator TransactionValidator { get; set; }
         private MudForm Form;
 
         protected override async Task OnInitializedAsync()
@@ -28,7 +30,7 @@ namespace UI.Components.Dialogs
             var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                    snackbar.Add("Successfully added transaction", Severity.Success);
+                snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
 
                 MudDialog.Cancel();
                 if (Refresh != null)
@@ -36,7 +38,7 @@ namespace UI.Components.Dialogs
             }
             else
             {
-                    snackbar.Add("Failed while adding transaction", Severity.Warning);
+                snackbar.Add(Localizer["FailedSnackbar"], Severity.Warning);
             }
         }
 

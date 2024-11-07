@@ -13,7 +13,7 @@ namespace UI.Components.Dialogs
         [Inject] private HttpClient httpClient {  get; set; }
         [Inject] private ISnackbar snackbar { get; set; }
         [Inject] public IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
-        [Inject] public IncomeViewModelValidation IncomeValidator { get; set; }
+        [Inject] public IncomeViewModelValidator IncomeValidator { get; set; }
         private IncomeViewModel Model = new IncomeViewModel();
 
         private MudForm Form;

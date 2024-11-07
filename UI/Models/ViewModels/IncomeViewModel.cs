@@ -11,9 +11,9 @@ namespace UI.Models.ViewModels
         public DateTime? Date { get; set; }
     }
 
-    public class IncomeViewModelValidation : AbstractValidator<IncomeViewModel>
+    public class IncomeViewModelValidator : AbstractValidator<IncomeViewModel>
     {
-        public IncomeViewModelValidation(IStringLocalizer<IncomeViewModelValidation> localizer)
+        public IncomeViewModelValidator(IStringLocalizer<IncomeViewModelValidator> localizer)
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage(localizer["NameFieldEmpty"])
