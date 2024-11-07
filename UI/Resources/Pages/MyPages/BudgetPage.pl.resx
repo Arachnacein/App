@@ -120,6 +120,12 @@
   <data name="AddIncome" xml:space="preserve">
     <value>Dodaj wpływ</value>
   </data>
+  <data name="AddNewIncome" xml:space="preserve">
+    <value>Nowy wpływ</value>
+  </data>
+  <data name="AddNewTransaction" xml:space="preserve">
+    <value>Nowy wydatek</value>
+  </data>
   <data name="AddTransaction" xml:space="preserve">
     <value>Dodaj wydatek</value>
   </data>
@@ -138,10 +144,13 @@
   <data name="NoPattern" xml:space="preserve">
     <value>Brak wzoru</value>
   </data>
+  <data name="PatternText" xml:space="preserve">
+    <value>Podział</value>
+  </data>
   <data name="Saves" xml:space="preserve">
     <value>Oszczędności</value>
   </data>
-  <data name="Savestext" xml:space="preserve">
+  <data name="SavesText" xml:space="preserve">
     <value>Oszczędności</value>
   </data>
   <data name="Statistics" xml:space="preserve">

@@ -117,7 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Architecture" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="architecture_1st" xml:space="preserve">
+    <value>The architecture used in this application is based on Clean Architecture, which has become the standard for writing WebAPIs. It involves separating business logic from databases and user interfaces. This creates a layered structure where each layer communicates with the others in a defined way.</value>
+  </data>
+  <data name="architecture_2nd" xml:space="preserve">
+    <value>Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. These modules are connected by an API Gateway, which routes requests between the modules.</value>
+  </data>
+  <data name="Item1Description" xml:space="preserve">
+    <value>Application will help you control your expenses and save money.</value>
+  </data>
+  <data name="Item1Header" xml:space="preserve">
+    <value>Welcome in budget App!</value>
+  </data>
+  <data name="Item2ActionText" xml:space="preserve">
+    <value>Learn more about Blazor</value>
+  </data>
+  <data name="Item2Description" xml:space="preserve">
+    <value>System will automatically divide them according to the given pattern.</value>
+  </data>
+  <data name="Item2Header" xml:space="preserve">
+    <value>You can add your monthly incomes and expenses.</value>
+  </data>
+  <data name="Item3ActionText" xml:space="preserve">
+    <value>Learn about managing budget</value>
+  </data>
+  <data name="Item3Description" xml:space="preserve">
+    <value>There are monthly, yearly and other unconventional statistics. e.g. On which days do you do more shopping? Even or odd?</value>
+  </data>
+  <data name="Item3Header" xml:space="preserve">
+    <value>You can check your budget statistics.</value>
+  </data>
+  <data name="Item4Description" xml:space="preserve">
+    <value>You set the expense as a deposit and link it to a goal, and the app continuously analyzes and displays your progress towards achieving the goal.</value>
+  </data>
+  <data name="Item4Header" xml:space="preserve">
+    <value>With this app you can create goals for which you save money.</value>
+  </data>
+  <data name="Motivation" xml:space="preserve">
+    <value>Motivation</value>
+  </data>
+  <data name="motivation_1st" xml:space="preserve">
+    <value>Since I started working, I noticed that it’s worth dividing income into specific categories. I divided them into savings, daily expenses, and those related to entertainment. This allowed for clear budget management, and the savings generated helped build a financial safety net. In the beginning, I would write this down on paper. In fact, long before I started working, I would note my expenses on sheets of paper, which often got lost. That's why I decided to switch to electronic record-keeping. I chose Excel spreadsheets for this. However, I didn't really like it due to its clunky appearance and lack of functionalities I wanted.</value>
+  </data>
+  <data name="motivation_2nd" xml:space="preserve">
+    <value>In the meantime, I decided to start designing my own application. It was supposed to automate processes that I previously had to calculate and managed manually. Additionally, I wanted it to be simple to use and have the functionalities I required. The great thing is that I can design and implement features myself. Without much hesitation, I began creating this application.</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="ToolsFrameworks" xml:space="preserve">
+    <value>Tools and frameworks</value>
   </data>
 </root>

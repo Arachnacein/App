@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -12,7 +13,9 @@ namespace UI.Components.Dialogs
         [Inject] public IDialogService dialogService { get; set; }
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
-        private IncomeViewModelValidation IncomeValidator { get; } = new IncomeViewModelValidation();
+        [Inject] public IStringLocalizer<AddIncomeDialog> Localizer { get; set; }
+        [Inject] public IncomeViewModelValidator IncomeValidator { get; set; }
+
         MudForm Form;
 
         protected override async Task OnInitializedAsync()
@@ -33,13 +36,13 @@ namespace UI.Components.Dialogs
                 var request = await httpClient.PostAsJsonAsync<IncomeViewModel>("/api/income", DialogModel);
                 if (request.StatusCode == System.Net.HttpStatusCode.Created)
                 {
-                    snackbar.Add("Successfully added new income", Severity.Success);
+                    snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
                     MudDialog.Cancel();
                     if(Refresh != null) 
                         await Refresh.Invoke();
                 }
                 else
-                    snackbar.Add("Failed while adding income", Severity.Warning);
+                    snackbar.Add(Localizer["FailAddSnacbar"], Severity.Error);
             }
             else
             {
@@ -48,7 +51,7 @@ namespace UI.Components.Dialogs
                 parameters[nameof(DialogModel)] = DialogModel;
                 parameters["Refresh"] = new Func<Task>(Refresh);
 
-                await dialogService.ShowAsync<PatternDialog>($"Choose pattern for {DialogModel.Date.Value.Month}/{DialogModel.Date.Value.Year}", parameters, options);
+                await dialogService.ShowAsync<PatternDialog>(Localizer["ChoosePattern", DialogModel.Date.Value.Month, DialogModel.Date.Value.Year], parameters, options);
             }
         }
 

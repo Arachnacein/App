@@ -1,15 +1,17 @@
 ﻿@page "/options/settings"
 @inject GlobalInfoClass _globalClass;
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Settings> Localizer
 
+<PageTitle> @Localizer["PageTitle"] </PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5">
-    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">Settings Page</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
     <MudDivider/>
     <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-        <MudText>Theme</MudText>
+        <MudText>@Localizer["Theme"]</MudText>
         <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary" Class="ma-4"
-                            T="bool" Label="Toggle Light/Dark Mode" @onclick="Refresh"/>
+                            T="bool" Label="@Localizer["ToggleText"]" @onclick="Refresh"/>
     </MudStack>
 </MudPaper>
 @code{

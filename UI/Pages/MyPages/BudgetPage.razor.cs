@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Components.Dialogs;
 using UI.Models;
@@ -12,6 +13,7 @@ namespace UI.Pages.MyPages
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public IDialogService dialogService { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
+        [Inject] public IStringLocalizer<BudgetPage> Localizer { get; set; }
         private DateTime CurrentDate;
         private PatternViewModel patternViewModel;
         private List<IncomeViewModel> incomes;
@@ -60,7 +62,7 @@ namespace UI.Pages.MyPages
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(RefreshData);
 
-            await dialogService.ShowAsync<AddTransactionDialog>("Add new transaction", parameters, options);
+            await dialogService.ShowAsync<AddTransactionDialog>(Localizer["AddNewTransaction"], parameters, options);
         }
         private async Task AddIncome()
         {
@@ -68,7 +70,7 @@ namespace UI.Pages.MyPages
 
             var parameters = new DialogParameters();
             parameters["Refresh"] = new Func<Task>(RefreshData);
-            await dialogService.ShowAsync<AddIncomeDialog>("Add new income", parameters, options);
+            await dialogService.ShowAsync<AddIncomeDialog>(Localizer["AddNewIncome"], parameters, options);
         }
         private async Task EditDeleteTransaction(TransactionViewModel model)
         {
@@ -100,8 +102,9 @@ namespace UI.Pages.MyPages
         private async Task LoadMonthPatterns()
         {
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
-            if(patternResponse.Id != -1)
+            if (patternResponse.Id != -1)
                 patternViewModel = patternResponse;
+            else patternViewModel.Id = 0;
         }
         private async Task LoadMonthIncome()
         {

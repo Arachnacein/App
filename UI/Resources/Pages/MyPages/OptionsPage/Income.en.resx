@@ -123,6 +123,9 @@
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="EditTitle" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>Manage incomes</value>
   </data>
@@ -133,7 +136,7 @@
     <value>Options</value>
   </data>
   <data name="Rows" xml:space="preserve">
-    <value>Rows</value>
+    <value>Found</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>

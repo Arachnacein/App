@@ -1,14 +1,14 @@
 ﻿<MudForm Model="@Model" @ref="@Form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog>
         <DialogContent>
-            <MudTextField @bind-Value="@Model.Name" For="@(() => Model.Name)"></MudTextField>
-            <MudTextField @bind-Value="@Model.Amount" For="@(() => Model.Amount)"></MudTextField>
-            <MudDatePicker @bind-Date="@Model.Date"/>
+            <MudTextField Label="@Localizer["Name"]" @bind-Value="@Model.Name" For="@(() => Model.Name)" Class="ma-2 pa-2"></MudTextField>
+            <MudTextField Label="@Localizer["Amount"]"  @bind-Value="@Model.Amount" For="@(() => Model.Amount)" Class="ma-2 pa-2"></MudTextField>
+            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="@Model.Date" Class="ma-2 pa-2"/>
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" Class="mr-10">Delete</MudButton>
-            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Confirm</MudButton>
-            <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+            <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" Class="mr-10 ma-2 pa-2">@Localizer["Delete"]</MudButton>
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary" Class="ma-2 pa-2">@Localizer["Submit"]</MudButton>
+            <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary" Class="ma-2 pa-2">@Localizer["Cancel"]</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

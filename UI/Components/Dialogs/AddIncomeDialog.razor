@@ -2,17 +2,17 @@
     <MudDialog style="padding-bottom:7px;">
         <DialogContent>
             <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:90%;">
-                <MudTextField Label="Name" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1" />
-                <MudTextField T="double" Label="Amount" @bind-Value="DialogModel.Amount" For="@(() => DialogModel.Amount)" Class="ma-2 pa-2" />
+                <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1" />
+                <MudTextField T="double" Label="@Localizer["Amount"]" @bind-Value="DialogModel.Amount" For="@(() => DialogModel.Amount)" Class="ma-2 pa-2" />
                 <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" >
-                    <MudDatePicker Label="Calendar" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+                    <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
                 </MudStack>
             </MudStack>
         </DialogContent>
         <DialogActions>
             <MudStack Row="true" Spacing="8" Class="mr-5">
-                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Submit</MudButton>
-                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">@Localizer["Submit"]</MudButton>
+                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
             </MudStack>
         </DialogActions>
     </MudDialog>

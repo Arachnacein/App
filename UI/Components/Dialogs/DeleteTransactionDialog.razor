@@ -1,12 +1,12 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudText>Are you sure you want delete this transaction?</MudText>
-        <MudText> Name: @DialogModel.Name</MudText>
-        <MudText> Date: @DialogModel.Date</MudText>
-        <MudText> Price: @DialogModel.Price</MudText>
+        <MudText>@Localizer["HeaderQuestion"]</MudText>
+        <MudText>@Localizer["Name"]: @DialogModel.Name</MudText>
+        <MudText>@Localizer["Date"]: @DialogModel.Date</MudText>
+        <MudText>@Localizer["Price"]: @DialogModel.Price</MudText>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
-        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
+        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
     </DialogActions>
 </MudDialog>

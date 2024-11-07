@@ -123,6 +123,9 @@
   <data name="Date" xml:space="preserve">
     <value>Data</value>
   </data>
+  <data name="EditTitle" xml:space="preserve">
+    <value>Edycja</value>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>Zarządzanie wpływami</value>
   </data>

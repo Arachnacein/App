@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -11,8 +12,10 @@ namespace UI.Components.Dialogs
         [Parameter] public Func<Task> Refresh {  get; set; }
         [Inject] private HttpClient httpClient {  get; set; }
         [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] public IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
+        [Inject] public IncomeViewModelValidator IncomeValidator { get; set; }
         private IncomeViewModel Model = new IncomeViewModel();
-        private IncomeViewModelValidation IncomeValidator { get; } = new IncomeViewModelValidation();
+
         private MudForm Form;
 
         protected override async Task OnInitializedAsync()
@@ -28,13 +31,13 @@ namespace UI.Components.Dialogs
             var request = await httpClient.PutAsJsonAsync<IncomeViewModel>("/api/income",Model);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
-                snackbar.Add("Income updated successfully", Severity.Success);
+                snackbar.Add(Localizer["SuccessUpdateSnackbar"], Severity.Success);
                 MudDialogInstance.Cancel();
                 if(Refresh != null) 
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
         }
         private async Task Cancel() => MudDialogInstance.Cancel();
         private async Task Delete()
@@ -42,13 +45,13 @@ namespace UI.Components.Dialogs
             var request = await httpClient.DeleteAsync($"/api/income/{Model.Id}");
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
-                snackbar.Add("Income deleted successfully", Severity.Success);
+                snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
                 MudDialogInstance.Cancel();
                 if (Refresh != null)
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
         }
     }
 }

@@ -21,9 +21,9 @@ namespace UI.Pages.MyPages.OptionsPage
         {
             var request = await httpClient.PostAsJsonAsync<PatternViewModel>("/api/pattern", model);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
-                snackbar.Add("Successfully added new pattern.", Severity.Success);
+                snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
             else
-                snackbar.Add("Something went wrong", Severity.Error);
+                snackbar.Add(Localizer["FailAddSnackbar"], Severity.Error);
         }
         private async Task LoadMonthPatterns()
         {
@@ -37,7 +37,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters["Refresh"] = new Func<Task>(LoadMonthPatterns);
             var options = new DialogOptions { CloseOnEscapeKey = true };
 
-            dialogService.Show<EditMonthPatternDialog>($"Edit pattern for {contextModel.Date.Month}/{contextModel.Date.Year}", parameters, options);
+            dialogService.Show<EditMonthPatternDialog>(Localizer["EditPatternDialogHeader", contextModel.Date.Month, contextModel.Date.Year], parameters, options);
         }
     }
 }

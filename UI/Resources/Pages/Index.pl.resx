@@ -117,7 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Architecture" xml:space="preserve">
+    <value>Architektura</value>
+  </data>
+  <data name="architecture_1st" xml:space="preserve">
+    <value>Architektura użyta w tej aplikacji opiera się na Clean Architecture, która stała się standardem przy tworzeniu WebAPI. Polega ona na oddzieleniu logiki biznesowej od baz danych i interfejsów użytkownika. Tworzy to warstwową strukturę, w której każda warstwa komunikuje się z pozostałymi w określony sposób.</value>
+  </data>
+  <data name="architecture_2nd" xml:space="preserve">
+    <value>Dodatkowo aplikacja jest zbudowana w oparciu o architekturę rozproszoną, a dokładniej mikroserwisy. Jest podzielona na moduły, takie jak API odpowiedzialne za logikę biznesową związaną z transakcjami i budżetowaniem oraz graficzny interfejs użytkownika. Moduły te są połączone za pomocą API Gateway, który przekierowuje żądania między modułami.</value>
+  </data>
+  <data name="Item1Description" xml:space="preserve">
+    <value>Aplikacja pomoże Ci kontrolować wydatki i dzięi temu oszczędzać pieniądze.</value>
+  </data>
+  <data name="Item1Header" xml:space="preserve">
+    <value>Witaj w aplikacji do zarządzania budżetem!</value>
+  </data>
+  <data name="Item2ActionText" xml:space="preserve">
+    <value>Dowiedz się więcej o Blazor.</value>
+  </data>
+  <data name="Item2Description" xml:space="preserve">
+    <value>System automatycznie podzieli je zgodnie z określonym wzorem.</value>
+  </data>
+  <data name="Item2Header" xml:space="preserve">
+    <value>Tu możesz dodawać swoje miesięczne dochody i wydatki.</value>
+  </data>
+  <data name="Item3ActionText" xml:space="preserve">
+    <value>Dowiedz się więcej o pieniądzach i szczędzaniu</value>
+  </data>
+  <data name="Item3Description" xml:space="preserve">
+    <value>Dostępne są statystyki miesięczne, roczne oraz inne nietypowe statystyki, np. W które dni robisz więcej zakupów? Parzyste czy nieparzyste?</value>
+  </data>
+  <data name="Item3Header" xml:space="preserve">
+    <value>W aplikacji możesz sprawdzać statystyki swojego budżetu.</value>
+  </data>
+  <data name="Item4Description" xml:space="preserve">
+    <value>Możeszdodać  wydatek jako wpłatę i złączyć ją z celem, a aplikacja na bieżąco przeanalizuje i wyświetli Twój postęp w osiąganiu celu.</value>
+  </data>
+  <data name="Item4Header" xml:space="preserve">
+    <value>Dzięki tej aplikacji możesz tworzyć cele, na które oszczędzasz pieniądze.</value>
+  </data>
+  <data name="Motivation" xml:space="preserve">
+    <value>Motywacja</value>
+  </data>
+  <data name="motivation_1st" xml:space="preserve">
+    <value>Od kiedy zacząłem pracować, zauważyłem, że warto dzielić dochody na konkretne kategorie. Podzieliłem je na oszczędności, codzienne wydatki oraz te związane z rozrywką. Dzięki temu możliwe było jasne zarządzanie budżetem, a wygenerowane oszczędności pomogły zbudować finansową poduszkę bezpieczeństwa. Na początku zapisywałem to na kartkach papieru. W rzeczywistości, jeszcze przed rozpoczęciem pracy, notowałem swoje wydatki na kartkach, które często się gubiły. Dlatego postanowiłem przejść na elektroniczny sposób zapisu. Wybrałem do tego arkusze Excela. Jednak ten sposób niezbyt mi odpowiadał ze względu na mało przejrzysty wygląd i brak funkcjonalności, których potrzebowałem.</value>
+  </data>
+  <data name="motivation_2nd" xml:space="preserve">
+    <value>W międzyczasie postanowiłem zacząć projektować własną aplikację. Miała ona zautomatyzować procesy, które wcześniej musiałem obliczać i zarządzać ręcznie. Dodatkowo chciałem, żeby była prosta w obsłudze i miała funkcje, których potrzebowałem. Najlepsze jest to, że mogę sam zaprojektować i wdrożyć potrzebne funkcjonalności. Bez większych wahań przystąpiłem do tworzenia tej aplikacji.</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Strona główna</value>
+  </data>
+  <data name="ToolsFrameworks" xml:space="preserve">
+    <value>Narzędzia i biblioteki</value>
   </data>
 </root>

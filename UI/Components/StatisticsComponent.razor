@@ -1,20 +1,20 @@
 ﻿<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="3">
     <MudStack Row="true" Spacing="2">
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Total saves:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">@Localizer["TotalSaves"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@TotalSaves</MudText>
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">Total expenses:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">@Localizer["TotalExpenses"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@TotalExpenses</MudText>
     </MudStack>
     <MudStack Row="true" Spacing="2">
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Total saves last 3 months:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">@Localizer["Total3MonthsSaves"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@Total3MonthsSaves</MudText>
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2" >Total expenses last 3 months:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2" >@Localizer["Total3MonthsExpenses"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@Total3MonthsExpenses</MudText>
     </MudStack>
     <MudStack Row="true" Spacing="2">
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">Average saves:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-mr-2">@Localizer["AverageSaves"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Success">@AverageSaves</MudText>
-        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">Average expenses:</MudText>
+        <MudText Typo="Typo.h6" Class="mud-mb-0 mud-ml-4 mud-mr-2">@Localizer["AverageExpenses"]:</MudText>
         <MudText Typo="Typo.h6" Class="mud-mb-0" Color="Color.Secondary">@AverageExpenses</MudText>
     </MudStack>
 </MudStack>
@@ -23,7 +23,7 @@
     <!-- Category distribution chart -->
     <MudPaper Width="25%" Height="330px" Elevation="3" Class="mud-pa-2">
         <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()"
-                  InputLabels="@CategoriesDistribution.GetPropertyNames()"
+                  InputLabels="@CategoriesDistribution.GetPropertyNames(Localizer)"
                   Width="70%" Height="70%" LegendPosition="Position.Bottom" Class="ma-2 pa-2 mt-8" />
     </MudPaper>
 
