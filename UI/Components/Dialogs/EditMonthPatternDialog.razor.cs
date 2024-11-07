@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -11,6 +12,7 @@ namespace UI.Components.Dialogs
         [Parameter] public Func<Task> Refresh { get; set; }
         [Inject] public HttpClient httpClient { get; set; }
         [Inject] public ISnackbar snackbar { get; set; }
+        [Inject] public IStringLocalizer<EditMonthPatternDialog> Localizer { get; set; }
         PatternViewModel patternModel = new PatternViewModel();
         List<PatternViewModel> patterns = new List<PatternViewModel>();
         
@@ -24,7 +26,7 @@ namespace UI.Components.Dialogs
         {
             patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>("/api/pattern");
             if (patterns == null)
-                snackbar.Add("Error while getting patterns.", Severity.Warning);
+                snackbar.Add(Localizer["GettingPatternsError"], Severity.Warning);
         }
         private async Task Submit()
         {
@@ -38,13 +40,13 @@ namespace UI.Components.Dialogs
             var request = await httpClient.PutAsJsonAsync("/api/monthpattern", updateModel);
             if(request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
-                snackbar.Add($"Pattern for {contextModel.Date.Month}/{contextModel.Date.Year} updated successfully", Severity.Success);
+                snackbar.Add(Localizer["SuccessEditSnackbar", contextModel.Date.Month, contextModel.Date.Year], Severity.Success);
                 DialogInstance.Cancel();
                 if (Refresh != null)
                     await Refresh.Invoke();
             }
             else
-                snackbar.Add($"Error while updating pattern for {contextModel.Date.Month}/{contextModel.Date.Year}", Severity.Error);
+                snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
         }
         private async Task Cancel() => DialogInstance.Cancel();
     }

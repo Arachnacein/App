@@ -5,7 +5,8 @@
     <DialogContent>
         <MudText @bind-vale="contextModel.Pattern.Name" />
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:75%;">
-            <MudSelect T="PatternViewModel" @bind-Value="patternModel" Placeholder="Choose pattern" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+            <MudSelect T="PatternViewModel" @bind-Value="patternModel" Placeholder="@Localizer["Placeholder"]" 
+                       Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
                 @foreach (var item in patterns)
                 {
                     <MudSelectItem Value="@item">@item.Name (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
@@ -14,7 +15,7 @@
         </MudStack>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
-        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
+        <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
     </DialogActions>
 </MudDialog>
