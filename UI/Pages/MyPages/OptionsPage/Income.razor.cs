@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Components.Dialogs;
 using UI.Extensions;
@@ -10,6 +11,7 @@ namespace UI.Pages.MyPages.OptionsPage
     {
         [Inject] HttpClient httpClient {  get; set; }
         [Inject] IDialogService dialogService { get; set; }
+        [Inject] IStringLocalizer<Income> Localizer { get; set; }
         private List<IncomeViewModel> incomes = new List<IncomeViewModel>();
         private List<IncomeViewModel> filteredIncomes = new List<IncomeViewModel>();
         private string _searchPhrase = string.Empty;
@@ -46,7 +48,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters[nameof(model)] = model;
             parameters["Refresh"] = new Func<Task>(LoadIncomes);
 
-            await dialogService.ShowAsync<EditIncomeDialog>("Edit", parameters, options);
+            await dialogService.ShowAsync<EditIncomeDialog>(Localizer["EditTitle"], parameters, options);
         }
         private void FilterIncomes()
         {
