@@ -1,5 +1,4 @@
 ﻿using BudgetManager.Data;
-using BudgetManager.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +20,7 @@ namespace BudgetManager.Features.Statistics.Queries
             var totalSaves = await _dbContext.Transactions
                                     .Where(x => x.Category == Models.TransactionCategoryEnum.Saves)
                                     .SumAsync(x => x.Price);
-            return totalSaves;
+            return Math.Round(totalSaves,2);
         }
     }
 }

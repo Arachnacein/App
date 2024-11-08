@@ -7,16 +7,14 @@ namespace UI.Components.Dialogs
 {
     public partial class PatternDialog
     {
-        [CascadingParameter] MudDialogInstance MudDialogInstance { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialogInstance { get; set; }
         [Parameter] public Func<Task> Refresh {  get; set; }
         [Parameter] public IncomeViewModel DialogModel { get; set; }
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public IStringLocalizer<PatternDialog> Localizer { get; set; }
-
-        [Inject] public ISnackbar snackbar { get; set; }
-        PatternViewModel model = new PatternViewModel();
-
-        List<PatternViewModel> patterns  = new List<PatternViewModel>();
+        [Inject] private IStringLocalizer<PatternDialog> Localizer { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        private PatternViewModel model = new PatternViewModel();
+        private List<PatternViewModel> patterns  = new List<PatternViewModel>();
 
         protected override async Task OnInitializedAsync()
         {

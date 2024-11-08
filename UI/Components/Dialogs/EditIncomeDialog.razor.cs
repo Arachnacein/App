@@ -7,13 +7,13 @@ namespace UI.Components.Dialogs
 {
     public partial class EditIncomeDialog
     {
-        [CascadingParameter] MudDialogInstance MudDialogInstance { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialogInstance { get; set; }
         [Parameter] public IncomeViewModel model { get; set; }
         [Parameter] public Func<Task> Refresh {  get; set; }
-        [Inject] private HttpClient httpClient {  get; set; }
         [Inject] private ISnackbar snackbar { get; set; }
-        [Inject] public IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
-        [Inject] public IncomeViewModelValidator IncomeValidator { get; set; }
+        [Inject] private IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
+        [Inject] private HttpClient httpClient {  get; set; }
+        [Inject] private IncomeViewModelValidator IncomeValidator { get; set; }
         private IncomeViewModel Model = new IncomeViewModel();
 
         private MudForm Form;

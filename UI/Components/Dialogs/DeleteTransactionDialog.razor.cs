@@ -7,13 +7,13 @@ namespace UI.Components.Dialogs
 {
     public partial class DeleteTransactionDialog
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        private TransactionViewModel DialogModel = new TransactionViewModel();
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IStringLocalizer<DeleteTransactionDialog> Localizer { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public TransactionViewModel model { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<DeleteTransactionDialog> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        private TransactionViewModel DialogModel = new TransactionViewModel();
 
         protected override Task OnInitializedAsync()
         {

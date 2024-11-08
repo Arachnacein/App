@@ -8,12 +8,11 @@ namespace UI.Pages.MyPages.OptionsPage
 {
     public partial class Transaction
     {
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IDialogService dialogService { get; set; }
+        [Inject] private IDialogService dialogService { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         private List<TransactionViewModel> filteredTransactions = new List<TransactionViewModel>();
-        
         private string _searchPhrase = string.Empty;
         public string searchPhrase //This is for dynamic filtering
         {

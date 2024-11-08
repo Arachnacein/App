@@ -1,29 +1,25 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using UI.Models;
 
 namespace UI.Components
 {
     public partial class StatisticsComponent
     {
-        [Inject] HttpClient httpClient { get; set; }
-        [Inject] IStringLocalizer<StatisticsComponent> Localizer { get; set; }
+        [Inject] private IStringLocalizer<StatisticsComponent> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        private CategoriesDistributionModel CategoriesDistribution { get; set; }
+        private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
+        private List<ChartSeries> Series = new List<ChartSeries>();
+        private string[] XaxisLabels = { };
         private double TotalExpenses { get; set; }
         private double TotalSaves { get; set; }
         private double Total3MonthsExpenses { get; set; }
         private double Total3MonthsSaves { get; set; }
         private double AverageExpenses { get; set; }
         private double AverageSaves { get; set; }
-        private CategoriesDistributionModel CategoriesDistribution { get; set; }
-        private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
-        private List<ChartSeries> Series = new List<ChartSeries>();
-        string[] XaxisLabels = { };
-
-
 
         protected override async Task OnInitializedAsync()
         {

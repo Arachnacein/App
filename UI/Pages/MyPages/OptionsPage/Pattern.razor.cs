@@ -7,9 +7,9 @@ namespace UI.Pages.MyPages.OptionsPage
 {
     public partial class Pattern
     {
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IDialogService dialogService { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IDialogService dialogService { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private PatternViewModel model = new PatternViewModel();
         private List<MonthPatternViewModel> patterns = new List<MonthPatternViewModel>();
 

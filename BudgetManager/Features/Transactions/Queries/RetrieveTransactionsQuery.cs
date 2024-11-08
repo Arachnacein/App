@@ -29,6 +29,7 @@ namespace BudgetManager.Features.Transactions.Queries
                                     Price = transaction.Price,
                                     Category = transaction.Category
                                 })
+                                .OrderByDescending(x => x.Date)
                                 .ToListAsync(cancellationToken);
             return transactions;
         }

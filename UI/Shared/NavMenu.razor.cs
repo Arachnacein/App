@@ -5,8 +5,8 @@ namespace UI.Shared
 {
     public partial class NavMenu
     {
-        [Inject] NavigationManager NavManager { get; set; }
-        [Inject] IJSRuntime JSRuntime { get; set; }
+        [Inject] private NavigationManager NavManager { get; set; }
+        [Inject] private IJSRuntime JSRuntime { get; set; }
 
         private async void SetPolish() => await SetCulture("pl-PL");
         private async void SetEnglish() => await SetCulture("en-UK");
