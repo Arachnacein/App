@@ -81,8 +81,8 @@
   * Add calendar with notifications.<br>
   * Add payment feature. <br> 
   ✅ Add Internationalization.<br>
-  ✅ Search Fields for transactions and incomes. <br>
-  ✅ Add a statistics functionality.<br>
+  ✅ Add searching fields for transactions and incomes. <br>
+  ✅ Add statistics summary.<br>
   ✅ Change logic by introducing the CQRS architectural pattern. <br>
   ✅ Add income preview. <br>
   ✅ Add patterns preview. <br>
