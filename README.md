@@ -33,43 +33,26 @@
   My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice. Currently, the application has three microservices: 
   budgetapi, apigateway, and GUI. In the future, microservices responsible for the calendar and payments will be added.
 </p>
-
+<br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3df263dc-c8b6-472e-9d22-79521cbb3045">
 </p>
+<br>
+<p align="">
+	Currently, I am working on the login and authorization feature. After that, the architecture will look like the picture below
+</p>
+<br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/46566b8f-2f54-47b3-9e57-0544eed7f787">
+</p>
+
+
 <br><br>
 <h2 align="center"> Screenshots </h2><br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a37be03e-b789-47ad-8fca-eb0721aff4e1" style="width:450px;height:450px;">
   <img src="https://github.com/user-attachments/assets/19aff8be-b687-4ad6-bfb1-1c7948409e1a" style="width:450px;height:450px;">
   <img src="https://github.com/user-attachments/assets/ee76c1dc-6edd-4b90-9c1b-5c33003d6ddf" style="width:70%;height:70%;">
-</p>
-
-<br>
-<h2 align="center"> Milestones </h2>
-<p>
-  🔜 Add Internationalization.<br>
-  * Add Login. <br>
-  * Add Healtch checks.<br>
-  * Add Unit Tests.<br>
-  * Add saving goals feature. <br>
-  * Add calendar with notifications.<br>
-  * Add payment feature. <br>
-  ✅ Search Fields for transactions and incomes. <br>
-  ✅ Add a statistics functionality.<br>
-  ✅ Change logic by introducing the CQRS architectural pattern. <br>
-  ✅ Add income preview. <br>
-  ✅ Add patterns preview. <br>
-  ✅ Add forms validators. <br>
-  ✅ Add dark theme. <br>
-  ✅ Add main page carousel. <br>
-  ✅ Add dialogs. <br>
-  ✅ Add budget gui page. <br>
-  ✅ Add income api (controllers, services, respositories, mappers ect.). <br>
-  ✅ Add transactions api (controllers, services, respositories, mappers ect.). <br>
-  ✅ Add patterns and monthpatterns api (controllers, services, respositories, mappers ect.). <br>
-  ✅ Set project architecture.<br>
-  ❔❔ Mobile app. <br>
 </p>
 
 <br>
@@ -87,3 +70,32 @@
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/121405384-444d7300-c95d-11eb-959f-913020d3bf90.png" alt="C#" title="C#"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/186884150-05e9ff6d-340e-4802-9533-2c3f02363ee3.png" alt="Windows" title="Windows"/></code>
 </div>
+
+<br>
+<h2 align="center"> Milestones </h2>
+<p>
+  🔜 Add Login nad authorization. <br>
+  * Add Healtch checks.<br>
+  * Add Unit Tests.<br>
+  * Add saving goals feature. <br>
+  * Add calendar with notifications.<br>
+  * Add payment feature. <br> 
+  ✅ Add Internationalization.<br>
+  ✅ Search Fields for transactions and incomes. <br>
+  ✅ Add a statistics functionality.<br>
+  ✅ Change logic by introducing the CQRS architectural pattern. <br>
+  ✅ Add income preview. <br>
+  ✅ Add patterns preview. <br>
+  ✅ Add forms validators. <br>
+  ✅ Add dark theme. <br>
+  ✅ Add main page carousel. <br>
+  ✅ Add dialogs. <br>
+  ✅ Add budget gui page. <br>
+  ✅ Add income api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Add transactions api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Add patterns and monthpatterns api (controllers, services, respositories, mappers ect.). <br>
+  ✅ Set project architecture.<br>
+  ❔❔ Mobile app. <br>
+</p>
+
+
