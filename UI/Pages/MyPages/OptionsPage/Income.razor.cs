@@ -9,9 +9,9 @@ namespace UI.Pages.MyPages.OptionsPage
 {
     public partial class Income
     {
-        [Inject] HttpClient httpClient {  get; set; }
-        [Inject] IDialogService dialogService { get; set; }
-        [Inject] IStringLocalizer<Income> Localizer { get; set; }
+        [Inject] private IDialogService dialogService { get; set; }
+        [Inject] private IStringLocalizer<Income> Localizer { get; set; }
+        [Inject] private HttpClient httpClient {  get; set; }
         private List<IncomeViewModel> incomes = new List<IncomeViewModel>();
         private List<IncomeViewModel> filteredIncomes = new List<IncomeViewModel>();
         private string _searchPhrase = string.Empty;

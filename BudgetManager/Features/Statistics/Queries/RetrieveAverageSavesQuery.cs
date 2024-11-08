@@ -1,5 +1,4 @@
 ﻿using BudgetManager.Data;
-using BudgetManager.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

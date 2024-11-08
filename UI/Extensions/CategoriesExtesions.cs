@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using System.Reflection;
-using UI.Components;
 using UI.Models;
 
 namespace UI.Extensions

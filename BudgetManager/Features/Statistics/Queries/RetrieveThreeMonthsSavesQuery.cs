@@ -1,5 +1,4 @@
 ﻿using BudgetManager.Data;
-using BudgetManager.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +24,7 @@ namespace BudgetManager.Features.Statistics.Queries
                                 .Where(x => x.Category == Models.TransactionCategoryEnum.Saves)
                                 .Where(x => x.Date >= threeMonthsAgo && x.Date <= lastClosedMonth.AddMonths(1))
                                 .SumAsync(x => x.Price, cancellationToken);
-            return saves;
+            return Math.Round(saves, 2);
         }
     }
 }

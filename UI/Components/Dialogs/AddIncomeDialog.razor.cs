@@ -9,14 +9,13 @@ namespace UI.Components.Dialogs
     {
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Func<Task> Refresh {  get; set; }
+        [Inject] private IDialogService dialogService { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<AddIncomeDialog> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        [Inject] private IncomeViewModelValidator IncomeValidator { get; set; }
         private IncomeViewModel DialogModel = new IncomeViewModel();
-        [Inject] public IDialogService dialogService { get; set; }
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IStringLocalizer<AddIncomeDialog> Localizer { get; set; }
-        [Inject] public IncomeViewModelValidator IncomeValidator { get; set; }
-
-        MudForm Form;
+        private MudForm Form;
 
         protected override async Task OnInitializedAsync()
         {
@@ -54,7 +53,6 @@ namespace UI.Components.Dialogs
                 await dialogService.ShowAsync<PatternDialog>(Localizer["ChoosePattern", DialogModel.Date.Value.Month, DialogModel.Date.Value.Year], parameters, options);
             }
         }
-
         private async Task Cancel() => MudDialog.Cancel();
     }
 }

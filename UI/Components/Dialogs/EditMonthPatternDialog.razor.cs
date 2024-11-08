@@ -7,14 +7,14 @@ namespace UI.Components.Dialogs
 {
     public partial class EditMonthPatternDialog
     {
-        [CascadingParameter] public MudDialogInstance DialogInstance { get; set; }
+        [CascadingParameter] private MudDialogInstance DialogInstance { get; set; }
         [Parameter] public MonthPatternViewModel contextModel { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IStringLocalizer<EditMonthPatternDialog> Localizer { get; set; }
-        PatternViewModel patternModel = new PatternViewModel();
-        List<PatternViewModel> patterns = new List<PatternViewModel>();
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<EditMonthPatternDialog> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        private PatternViewModel patternModel = new PatternViewModel();
+        private List<PatternViewModel> patterns = new List<PatternViewModel>();
         
 
         protected override async Task OnInitializedAsync()

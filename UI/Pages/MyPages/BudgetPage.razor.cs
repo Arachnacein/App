@@ -9,15 +9,14 @@ namespace UI.Pages.MyPages
 {
     public partial class BudgetPage
     {
-        private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public IDialogService dialogService { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
-        [Inject] public IStringLocalizer<BudgetPage> Localizer { get; set; }
+        [Inject] private IDialogService dialogService { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<BudgetPage> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private DateTime CurrentDate;
         private PatternViewModel patternViewModel;
         private List<IncomeViewModel> incomes;
-
+        private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         private PatternValuesModel patternValuesModel = new PatternValuesModel();
 
         protected override async Task OnInitializedAsync()

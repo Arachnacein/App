@@ -29,7 +29,6 @@ namespace UI.Models.ViewModels
                 .NotEmpty().WithMessage(localizer["PriceFieldEmpty"])
                 .GreaterThanOrEqualTo(0d).WithMessage(localizer["PriceCorrectValue"])
                 .Must(price => !double.IsNaN(price) && !double.IsInfinity(price)).WithMessage(localizer["PriceCorrectValue"]);
-
         }
     }
 }

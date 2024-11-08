@@ -1,8 +1,6 @@
 ﻿using BudgetManager.Data;
-using BudgetManager.Dto;
 using BudgetManager.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Features.Statistics.Queries
 {

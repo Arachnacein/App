@@ -8,13 +8,13 @@ namespace UI.Components.Dialogs
     public partial class AddTransactionDialog
     {
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
-        private TransactionViewModel DialogModel = new TransactionViewModel();
-        [Inject] public HttpClient httpClient { get; set; }
-        [Inject] public ISnackbar snackbar { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
-        [Inject] public IStringLocalizer<AddTransactionDialog> Localizer { get; set; }
-        [Inject] public TransactionViewModelValidator TransactionValidator { get; set; }
+        [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<AddTransactionDialog> Localizer { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
+        [Inject] private TransactionViewModelValidator TransactionValidator { get; set; }
         private MudForm Form;
+        private TransactionViewModel DialogModel = new TransactionViewModel();
 
         protected override async Task OnInitializedAsync()
         {
@@ -41,7 +41,6 @@ namespace UI.Components.Dialogs
                 snackbar.Add(Localizer["FailedSnackbar"], Severity.Error);
             }
         }
-
         private async Task Cancel() => MudDialog.Cancel();
     }
 }
