@@ -17,5 +17,17 @@ namespace UI.Shared
             await JSRuntime.InvokeVoidAsync("blazorCulture.set", culture);
             NavManager.NavigateTo(uri, forceLoad: true);
         }
+        private async Task LogIn()
+        {
+
+        }
+        private async Task LogOut()
+        {
+
+        }
+        private async Task Register()
+        {
+
+        }
     }
 }
