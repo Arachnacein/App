@@ -50,10 +50,10 @@ services:
             - budgetnetwork
     
     identityapi:
+        image: jluka26/identitymanager:latest
         build:
             context: /IdentityManager
-        ports:
-            - 8000:80
+
         networks:
             - keycloaknetwork
             - frontendnetwork

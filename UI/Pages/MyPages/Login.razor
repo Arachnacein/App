@@ -1,0 +1,6 @@
+﻿@page "/login"
+<MudPaper Class="ma-2 pa-2" Elevation="30">
+    <MudTextField @bind-Value="Username" Label="Username" Class="ma-2 pa-2" />
+    <MudTextField @bind-Value="Password" Label="Password" InputType="InputType.Password" Class="ma-2 pa-2" />
+    <MudButton OnClick="LogIn" Class="ma-2 pa-2">Login</MudButton>
+</MudPaper>

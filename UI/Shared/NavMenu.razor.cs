@@ -19,7 +19,7 @@ namespace UI.Shared
         }
         private async Task LogIn()
         {
-
+             Navigation.NavigateTo("/login", false);
         }
         private async Task LogOut()
         {
