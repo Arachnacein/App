@@ -3,6 +3,7 @@ version: '1.0'
 networks:
     frontendnetwork:
     budgetnetwork:
+    keycloaknetwork:
 
 services:
     ui:
@@ -46,4 +47,46 @@ services:
             - db_port=1433
             - ASPNETCORE_ENVIRONMENT=Development
         networks:
-            - budgetnetwork        
+            - budgetnetwork
+    
+    identityapi:
+        build:
+            context: /IdentityManager
+        ports:
+            - 8000:80
+        networks:
+            - keycloaknetwork
+            - frontendnetwork
+    
+    keycloak-db:
+        image: postgres:13
+        environment:
+            - POSTGRES_DB=keycloak
+            - POSTGRES_USER=keycloak
+            - POSTGRES_PASSWORD=keycloakpasswd123
+        volumes:
+            - keycloak-db-data:/var/lib/postgresql/data
+        networks:
+            - keycloaknetwork
+    
+    keycloak:
+        image: quay.io/keycloak/keycloak:latest
+        environment:
+            - KEYCLOAK_ADMIN=admin
+            - KEYCLOAK_ADMIN_PASSWORD=admin
+            - DB_VENDOR=postgres
+            - DB_ADDR=keycloak-db
+            - DB_DATABASE=keycloak
+            - DB_USER=keycloak
+            - DB_PASSWORD=keycloakpasswd123
+            - KEYCLOAK_FRONTEND_URL=http://localhost:8050
+        command: start-dev --hostname-strict=false
+        depends_on:
+            - keycloak-db
+        ports:
+            - 8050:8080
+        networks:
+          - keycloaknetwork
+
+volumes:
+  keycloak-db-data:
