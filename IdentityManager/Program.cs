@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
-                    opt.Authority = "http://keycloak:8080/realms/IdentityRealm";
+                    opt.Authority = "http://keycloak:8080/realms/AppRealm";
                     opt.Audience = "identityapi";
                     opt.RequireHttpsMetadata = false;
                 });

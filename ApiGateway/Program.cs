@@ -12,7 +12,7 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "http://keycloak:8080/realms/IdentityRealm"; 
+        options.Authority = "http://keycloak:8080/realms/AppRealm"; 
         options.Audience = "apigateway"; 
         options.RequireHttpsMetadata = false;
     });
