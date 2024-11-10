@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetManager", "BudgetManager\BudgetManager.csproj", "{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManager", "IdentityManager\IdentityManager.csproj", "{1405785D-6E57-4923-A0AE-10DC0F3745D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1405785D-6E57-4923-A0AE-10DC0F3745D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1405785D-6E57-4923-A0AE-10DC0F3745D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1405785D-6E57-4923-A0AE-10DC0F3745D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1405785D-6E57-4923-A0AE-10DC0F3745D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{4FDB5445-5DAC-4D9B-B4A9-0719300D8697} = {4FE69F5B-415F-4652-AD84-2297772FDB4D}
 		{614D86D6-C3DD-4BD8-A597-52D8A6EB1044} = {4FE69F5B-415F-4652-AD84-2297772FDB4D}
 		{DFCD7D3F-ED91-4CEF-938D-9AD56E10B188} = {4FE69F5B-415F-4652-AD84-2297772FDB4D}
+		{1405785D-6E57-4923-A0AE-10DC0F3745D9} = {4FE69F5B-415F-4652-AD84-2297772FDB4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CC4BEBA-048E-467D-9CA9-DB90775B49C9}
