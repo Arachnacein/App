@@ -17,6 +17,7 @@ builder.Services.AddSingleton<GlobalInfoClass>();
 builder.Services.AddSingleton<UserSessionService>();
 builder.Services.AddTransient<IncomeViewModelValidator>();
 builder.Services.AddTransient<TransactionViewModelValidator>();
+builder.Services.AddTransient<RegistrationViewModelValidator>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });

@@ -32,7 +32,7 @@ namespace UI.Shared
         }
         private async Task Register()
         {
-            
+            Navigation.NavigateTo("/register", false);
         }        
         private async Task CheckToken()
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
@@ -10,6 +11,7 @@ namespace UI.Pages.MyPages
     public partial class Login
     {
         [Inject] private ISnackbar snackbar { get; set; }
+        [Inject] private IStringLocalizer<Login> Localizer { get; set; }
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
         [Inject] private HttpClient httpClient {  get; set; }
         private string Username { get; set; }
@@ -45,12 +47,12 @@ namespace UI.Pages.MyPages
 
                 UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId);
 
-                snackbar.Add("Zalogowano pomyslnie", Severity.Success);
+                snackbar.Add(Localizer["LoInSuccess"], Severity.Success);
                 Navigation.NavigateTo("/",false);
             }
             else
             {
-                snackbar.Add("cos nie tak", Severity.Warning);
+                snackbar.Add(Localizer["LonIgError"], Severity.Warning);
             }
         }
     }

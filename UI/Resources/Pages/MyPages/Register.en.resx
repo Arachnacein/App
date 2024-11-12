@@ -117,28 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Account</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
   </data>
-  <data name="Budget" xml:space="preserve">
-    <value>Budget</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="InvalidForm" xml:space="preserve">
+    <value>Invalid data</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
   </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="Polish" xml:space="preserve">
-    <value>Polish</value>
+  <data name="RegisterSuccess" xml:space="preserve">
+    <value>Registration successful</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Sign up</value>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
   </data>
 </root>

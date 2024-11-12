@@ -1,0 +1,33 @@
+﻿@page "/register"
+@using UI.Models.ViewModels
+@inject ISnackbar Snackbar
+
+<MudContainer Class="d-flex align-items-center justify-center" Style="min-height: 100vh; padding-top: 50px;">
+    <MudPaper Class="ma-auto pa-6 d-flex flex-column align-items-center justify-center" Elevation="25" Style="width: 350px;">
+        <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center">@Localizer["SignUp"]</MudText>
+
+        <MudForm Model="RegistrationModel" @ref="Form" Validation="RegistrationModelValidator.ValidateValue()" ValidationDelay="0">
+            <MudTextField @bind-Value="RegistrationModel.FirstName" Label="@Localizer["FirstName"]" 
+                For="@(() => RegistrationModel.FirstName)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+
+            <MudTextField @bind-Value="RegistrationModel.LastName" Label="@Localizer["LastName"]"
+                For="@(() => RegistrationModel.LastName)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+
+            <MudTextField @bind-Value="RegistrationModel.Email" Label="@Localizer["Email"]"
+                For="@(() => RegistrationModel.Email)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" />
+
+            <MudTextField @bind-Value="RegistrationModel.Password" Label="@Localizer["Password"]" InputType="InputType.Password"
+                          For="@(() => RegistrationModel.Password)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+
+            <MudTextField @bind-Value="RegistrationModel.ConfirmPassword" Label="@Localizer["ConfirmPassword"]" InputType="InputType.Password"
+                          For="@(() => RegistrationModel.ConfirmPassword)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ma-2 mt-4 px-6">@Localizer["SignUp"]</MudButton>
+        </MudForm>
+    </MudPaper>
+</MudContainer>
