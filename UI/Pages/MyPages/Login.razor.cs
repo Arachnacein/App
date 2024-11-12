@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MudBlazor;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
+using UI.Extensions;
 
 namespace UI.Pages.MyPages
 {
@@ -30,6 +32,18 @@ namespace UI.Pages.MyPages
                 var token = json.RootElement.GetProperty("access_token").GetString();
 
                 await localStorage.SetAsync("access_token", token);
+
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadJwtToken(token);
+
+                var roles = jwtToken.GetUserRolesFromToken();
+                var name = jwtToken.Claims.FirstOrDefault(x => x.Type == "given_name")?.Value;
+                var surname = jwtToken.Claims.FirstOrDefault(x => x.Type == "surname")?.Value;
+                var username = jwtToken.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
+                var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
+                var userId = Guid.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "userId")?.Value);
+
+                UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId);
 
                 snackbar.Add("Zalogowano pomyslnie", Severity.Success);
                 Navigation.NavigateTo("/",false);
