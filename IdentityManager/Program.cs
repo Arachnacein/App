@@ -1,3 +1,4 @@
+using IdentityManager.Middlewares;
 using IdentityManager.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -23,6 +24,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
+app.UseMiddleware<ExceptionHandling>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

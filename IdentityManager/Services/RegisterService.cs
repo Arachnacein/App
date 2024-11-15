@@ -1,4 +1,6 @@
-﻿using IdentityManager.Models;
+﻿using IdentityManager.Exceptions;
+using IdentityManager.Models;
+using IdentityManager.Models.Enums;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -18,6 +20,12 @@ namespace IdentityManager.Services
             var adminToken = await GetAdminToken();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
+
+            if (await UsernameExists(model.Username))
+            {
+                Console.WriteLine($"throwed exception username already exists. code:{(int)ErrorCodesEnum.UsernameAlreadyExists}");
+                throw new CustomException((int)ErrorCodesEnum.UsernameAlreadyExists, "Username already exists.");
+            }
 
             var requestBody = new
             {
@@ -57,19 +65,48 @@ namespace IdentityManager.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                var err = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Failed to get admin token. Response: {err}");
-                return null;
+                var error = await response.Content.ReadAsStringAsync();
+                throw new CustomException((int)ErrorCodesEnum.AdminTokenFetchFailed, "Failed to fetch admin token.");
             }
 
             var responseData = await response.Content.ReadAsStringAsync();
             var json = JsonDocument.Parse(responseData);
             return json.RootElement.GetProperty("access_token").GetString();
         }
+        public async Task<bool> UsernameExists(string username)
+        {
+            var adminToken = await GetAdminToken();
+            if (string.IsNullOrEmpty(adminToken))
+                return false;
+
+            var request = new HttpRequestMessage(HttpMethod.Get, 
+                                        $"http://keycloak:8080/admin/realms/AppRealm/users?username={username}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"failed to check if user exists. response: {error}");
+                return false;
+            }
+
+            var responseData = await response.Content.ReadAsStringAsync();
+            var users = JsonSerializer.Deserialize<List<object>>(responseData); // Deserialize to a list of users
+
+            return users?.Any() ?? false; // if exists -> true
+        }        
+        public async Task<bool> EmailExists(string username)
+        {
+            throw new NotImplementedException();
+        }
     }
     public interface IRegisterService
     {
         Task<bool> Register(RegistrationModel model);
         Task<string> GetAdminToken();
+        Task<bool> UsernameExists(string username);
+        Task<bool> EmailExists(string email);
     }
 }

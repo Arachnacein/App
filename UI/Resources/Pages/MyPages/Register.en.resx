@@ -123,6 +123,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Error_1001" xml:space="preserve">
+    <value>Username already exists</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Text.Json;
+using UI.Models;
 using UI.Models.ViewModels;
 
 namespace UI.Pages.MyPages
@@ -19,7 +21,6 @@ namespace UI.Pages.MyPages
 
             if (Form.IsValid)
             {
-                // send data to api
                 var requestBody = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("firstname", RegistrationModel.FirstName),
@@ -37,7 +38,11 @@ namespace UI.Pages.MyPages
                     Navigation.NavigateTo("/", false);
                 }
                 else
-                    Snackbar.Add(Localizer["RegisterFail"], Severity.Error);
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(responseContent);
+                    Snackbar.Add(Localizer[$"Error_{errorResponse.ErrorCode}"], Severity.Warning);
+                }
             }
             else
                 Snackbar.Add(Localizer["InvalidForm"], Severity.Warning);
