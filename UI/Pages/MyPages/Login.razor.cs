@@ -47,12 +47,12 @@ namespace UI.Pages.MyPages
 
                 UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId);
 
-                snackbar.Add(Localizer["LoInSuccess"], Severity.Success);
+                snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
                 Navigation.NavigateTo("/",false);
             }
             else
             {
-                snackbar.Add(Localizer["LonIgError"], Severity.Warning);
+                snackbar.Add(Localizer["LogInError"], Severity.Warning);
             }
         }
     }

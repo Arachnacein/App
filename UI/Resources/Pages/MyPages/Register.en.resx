@@ -135,10 +135,16 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="RegisterFail" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
   <data name="RegisterSuccess" xml:space="preserve">
-    <value>Registration successful</value>
+    <value>Signing up successful</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign Up</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

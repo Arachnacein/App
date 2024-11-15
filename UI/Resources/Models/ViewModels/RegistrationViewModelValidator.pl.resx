@@ -171,4 +171,16 @@
   <data name="PasswordUppercase" xml:space="preserve">
     <value>Hasło musi zawierać conajmniej jedną wielką literę.</value>
   </data>
+  <data name="UsernameFieldEmpty" xml:space="preserve">
+    <value>Pole nie może być puste.</value>
+  </data>
+  <data name="UsernameMaxLength" xml:space="preserve">
+    <value>Nazwa użytkownika musi być krótsza niż 30 znaków.</value>
+  </data>
+  <data name="UsernameMinLength" xml:space="preserve">
+    <value>Nazwa użytkownika musi zawierać conajmniej 3 znaki.</value>
+  </data>
+  <data name="UsernameSpecialCharacters" xml:space="preserve">
+    <value>Nazwa użtkownika nie może zawierać znaków specjalnych.</value>
+  </data>
 </root>

@@ -171,4 +171,16 @@
   <data name="PasswordUppercase" xml:space="preserve">
     <value>Password must contain at least one uppercase letter.</value>
   </data>
+  <data name="UsernameFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
+  </data>
+  <data name="UsernameMaxLength" xml:space="preserve">
+    <value>Username must be shorter than 30 characters.</value>
+  </data>
+  <data name="UsernameMinLength" xml:space="preserve">
+    <value>Username must be longer than 3 characters.</value>
+  </data>
+  <data name="UsernameSpecialCharacters" xml:space="preserve">
+    <value>Username cannot contain special characters.</value>
+  </data>
 </root>

@@ -15,6 +15,10 @@
                 For="@(() => RegistrationModel.LastName)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
 
+            <MudTextField @bind-Value="RegistrationModel.Username" Label="@Localizer["Username"]"
+                For="@(() => RegistrationModel.Username)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Face" />
+
             <MudTextField @bind-Value="RegistrationModel.Email" Label="@Localizer["Email"]"
                 For="@(() => RegistrationModel.Email)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" />

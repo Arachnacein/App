@@ -7,6 +7,7 @@ namespace UI.Models.ViewModels
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Username {  get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
@@ -24,6 +25,12 @@ namespace UI.Models.ViewModels
                 .NotEmpty().WithMessage(localizer["LastNameFieldEmpty"])
                 .MinimumLength(2).WithMessage(localizer["LastNameMinLength"])
                 .MaximumLength(50).WithMessage(localizer["LastNameMaxLength"]);
+
+            RuleFor(x => x.Username)
+                .NotEmpty().WithMessage(localizer["UsernameFieldEmpty"])
+                .MinimumLength(3).WithMessage(localizer["UsernameMinLength"])
+                .MaximumLength(30).WithMessage(localizer["UsernameMaxLength"])
+                .Matches("^[a-zA-Z0-9]*$").WithMessage(localizer["UsernameSpecialCharacters"]);
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage(localizer["EmailFieldEmpty"])
