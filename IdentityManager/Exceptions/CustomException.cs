@@ -1,6 +1,4 @@
-﻿using IdentityManager.Models.Enums;
-
-namespace IdentityManager.Exceptions
+﻿namespace IdentityManager.Exceptions
 {
     public class CustomException : Exception
     {

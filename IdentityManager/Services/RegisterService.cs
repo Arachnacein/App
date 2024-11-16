@@ -22,10 +22,10 @@ namespace IdentityManager.Services
                 return false;
 
             if (await UsernameExists(model.Username))
-            {
-                Console.WriteLine($"throwed exception username already exists. code:{(int)ErrorCodesEnum.UsernameAlreadyExists}");
                 throw new CustomException((int)ErrorCodesEnum.UsernameAlreadyExists, "Username already exists.");
-            }
+
+            if (await EmailExists(model.Email))
+                throw new CustomException((int)ErrorCodesEnum.EmailAlreadyExists, "Email already exists.");
 
             var requestBody = new
             {
@@ -36,10 +36,9 @@ namespace IdentityManager.Services
                 enabled = true,
                 credentials = new[] {new { type = "password", value = model.Password, temporary = false }}
             };
-            var jsonContent = new StringContent(
-                                     JsonSerializer.Serialize(requestBody),
-                                     System.Text.Encoding.UTF8,
-                                     "application/json");
+            var jsonContent = new StringContent(JsonSerializer.Serialize(requestBody),
+                                                 System.Text.Encoding.UTF8,
+                                                 "application/json");
             var request = new HttpRequestMessage(HttpMethod.Post, "http://keycloak:8080/admin/realms/AppRealm/users")
             {
                 Content = jsonContent
@@ -88,18 +87,35 @@ namespace IdentityManager.Services
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"failed to check if user exists. response: {error}");
-                return false;
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User with username '{username}' not found.");
             }
 
             var responseData = await response.Content.ReadAsStringAsync();
-            var users = JsonSerializer.Deserialize<List<object>>(responseData); // Deserialize to a list of users
+            var users = JsonSerializer.Deserialize<List<object>>(responseData);
 
             return users?.Any() ?? false; // if exists -> true
         }        
-        public async Task<bool> EmailExists(string username)
+        public async Task<bool> EmailExists(string email)
         {
-            throw new NotImplementedException();
+            var adminToken = await GetAdminToken();
+            if (string.IsNullOrEmpty(adminToken))
+                return false;
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                            $"http://keycloak:8080/admin/realms/AppRealm/users?email={email}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User with email '{email}'not found.");
+            }
+
+            var responseData = await response.Content.ReadAsStringAsync();
+            var users = JsonSerializer.Deserialize<List<object>>(responseData); 
+
+            return users?.Any() ?? false; // if exists -> true
         }
     }
     public interface IRegisterService

@@ -1,6 +1,4 @@
-﻿using IdentityManager.Exceptions;
-using IdentityManager.Models;
-using IdentityManager.Models.Enums;
+﻿using IdentityManager.Models;
 using IdentityManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +18,8 @@ namespace IdentityManager.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public async Task<IActionResult> Register([FromForm] RegistrationModel model)
         {
-                var result = await _registerService.Register(model);
-                return Ok("User registered successfully.");
+            var result = await _registerService.Register(model);
+            return Ok();
         }
     }
 }

@@ -123,8 +123,14 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Error_1000" xml:space="preserve">
+    <value>Błąd wewnętrzny</value>
+  </data>
   <data name="Error_1001" xml:space="preserve">
     <value>Nazwa użytkownika już istnieje</value>
+  </data>
+  <data name="Error_1002" xml:space="preserve">
+    <value>Email jest już zajęty</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Imię</value>
