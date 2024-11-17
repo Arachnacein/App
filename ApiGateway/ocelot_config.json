@@ -21,7 +21,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/transaction/{id}",
+      "UpstreamPathTemplate": "/api/transaction/{id}/user/{userId}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -30,7 +30,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/transaction/{id}"
+      "DownstreamPathTemplate": "/api/transaction/{id}/user/{userId}"
     },
     {
       "UpstreamPathTemplate": "/api/transaction/UpdateCategory",

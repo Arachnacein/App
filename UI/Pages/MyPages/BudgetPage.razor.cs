@@ -39,10 +39,13 @@ namespace UI.Pages.MyPages
         {
             try
             {
-                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
-                transactions = transactions.OrderByDescending(x => x.Date)                
-                                           .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
-                                           .ToList();
+                if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                    return;
+
+                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
+                transactions = transactions.OrderByDescending(x => x.Date)
+                                       .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
+                                       .ToList();
                 StateHasChanged();
             }
             catch(HttpRequestException e)
@@ -82,10 +85,19 @@ namespace UI.Pages.MyPages
         } 
         private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+            
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
-            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", 
+                                                                            new UpdateTransactionCategoryViewModel 
+                                                                            {
+                                                                                Id = dropItem.Item.Id, 
+                                                                                UserId = UserSessionService.UserId, 
+                                                                                Category = dropItem.Item.Category 
+                                                                            });
             await RefreshData();
         }
         private async Task PreviousMonth()

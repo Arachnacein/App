@@ -7,10 +7,12 @@ namespace BudgetManager.Features.Transactions.Queries
 {
     public record RetrieveTransactionQuery : IRequest<TransactionDto>
     {
-        public int Id { get; set; }
-        public RetrieveTransactionQuery(int id)
+        public int Id { get; init; }
+        public Guid UserId { get; init; }
+        public RetrieveTransactionQuery(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class RetrieveTransactionQueryHandler : IRequestHandler<RetrieveTransactionQuery, TransactionDto>
@@ -25,10 +27,11 @@ namespace BudgetManager.Features.Transactions.Queries
         public async Task<TransactionDto> Handle(RetrieveTransactionQuery request, CancellationToken cancellationToken)
         {
             var transaction = await _dbContext.Transactions
-                                    .Where(x => x.Id == request.Id)
+                                    .Where(x => x.Id == request.Id && x.UserId == request.UserId)
                                     .Select(transaction => new TransactionDto
                                     {
                                         Id = transaction.Id,
+                                        UserId = transaction.UserId,
                                         Name = transaction.Name,
                                         Description = transaction.Description,
                                         Date = transaction.Date,

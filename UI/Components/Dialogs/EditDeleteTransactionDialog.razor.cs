@@ -24,7 +24,13 @@ namespace UI.Components.Dialogs
         }
         private async Task Delete()
         {
-            var request = await httpClient.DeleteAsync($"/api/transaction/{DialogModel.Id}");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            var request = await httpClient.DeleteAsync($"/api/transaction/{DialogModel.Id}/user/{UserSessionService.UserId}");
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
@@ -41,7 +47,15 @@ namespace UI.Components.Dialogs
             if (!Form.IsValid)
                 return;
 
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            DialogModel.UserId = UserSessionService.UserId;
             var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction", DialogModel);
+            
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 snackbar.Add(Localizer["SuccessEditSnackbar"], Severity.Success);

@@ -27,6 +27,13 @@ namespace UI.Components.Dialogs
             if (!Form.IsValid)
                 return;
 
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            DialogModel.UserId = UserSessionService.UserId;
             var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
             {
@@ -37,9 +44,7 @@ namespace UI.Components.Dialogs
                     await Refresh.Invoke();
             }
             else
-            {
                 snackbar.Add(Localizer["FailedSnackbar"], Severity.Error);
-            }
         }
         private async Task Cancel() => MudDialog.Cancel();
     }

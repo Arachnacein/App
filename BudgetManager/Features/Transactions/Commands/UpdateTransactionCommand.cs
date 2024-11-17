@@ -5,16 +5,17 @@ using MediatR;
 
 namespace BudgetManager.Features.Transactions.Commands
 {
-    public class UpdateTransactionCommand : IRequest    
+    public record UpdateTransactionCommand : IRequest    
     {
         public int Id { get; init; }
+        public Guid UserId { get; init; }
         public string Name { get; init; }
         public string? Description { get; init; }
         public DateTime Date { get; init; }
         public double Price { get; init; }
         public TransactionCategoryEnum Category { get; set; }
 
-        public UpdateTransactionCommand(int id, string name, string? description, DateTime date, double price, TransactionCategoryEnum category)
+        public UpdateTransactionCommand(int id, Guid userId, string name, string? description, DateTime date, double price, TransactionCategoryEnum category)
         {
             Id = id;
             Name = name;
@@ -22,6 +23,7 @@ namespace BudgetManager.Features.Transactions.Commands
             Date = date;
             Price = price;
             Category = category;
+            UserId = userId;
         }
     }
 

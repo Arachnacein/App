@@ -35,7 +35,10 @@ namespace UI.Pages.MyPages.OptionsPage
         }
         private async Task LoadTransactions()
         {
-            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+
+            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
             filteredTransactions = transactions;
             StateHasChanged();
         }

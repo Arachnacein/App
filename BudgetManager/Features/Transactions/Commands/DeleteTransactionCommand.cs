@@ -4,10 +4,10 @@ using MediatR;
 
 namespace BudgetManager.Features.Transactions.Commands
 {
-    public class DeleteTransactionCommand : IRequest
+    public record DeleteTransactionCommand : IRequest
     {
         public int Id { get; init; }
-        public Guid UserId { get; set; }
+        public Guid UserId { get; init; }
         public DeleteTransactionCommand(int id, Guid userId)
         {
             Id = id;
