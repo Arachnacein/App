@@ -55,9 +55,9 @@ namespace BudgetManager.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, Guid userId)
         {
-            var command = new DeleteTransactionCommand(id);
+            var command = new DeleteTransactionCommand(id, userId);
             await _mediator.Send(command);
             return NoContent();
         }

@@ -4,11 +4,11 @@ namespace BudgetManager.Services
 {
     public interface ITransactionService
     {
-        Task<IEnumerable<TransactionDto>> RetrieveTransactions();
-        Task<TransactionDto> RetrieveTransaction(int id);
+        Task<IEnumerable<TransactionDto>> RetrieveTransactions(Guid userId);
+        Task<TransactionDto> RetrieveTransaction(int id, Guid userId);
         Task<TransactionDto> AddTransaction(AddTransactionDto transaction);
         Task UpdateTransaction(UpdateTransactionDto transaction);
-        Task DeleteTransaction(int id);
+        Task DeleteTransaction(int id, Guid userId);
         Task UpdateCategory(UpdateTransactionCategoryDto uc);
     }
 }

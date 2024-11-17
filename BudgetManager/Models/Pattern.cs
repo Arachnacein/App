@@ -7,6 +7,9 @@ namespace BudgetManager.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        public Guid UserId { get; set; }
+
         [MinLength(3)]
         [MaxLength(50)]
         [Required]

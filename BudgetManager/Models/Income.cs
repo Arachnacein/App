@@ -8,6 +8,9 @@ namespace BudgetManager.Models
         public int Id { get; set; }
 
         [Required]
+        public Guid UserId { get; set; }
+
+        [Required]
         [MinLength(3)]
         [MaxLength(50)]
         public string Name { get; set; }
