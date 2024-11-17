@@ -117,28 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Account</value>
-  </data>
-  <data name="Budget" xml:space="preserve">
-    <value>Budget</value>
-  </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Zaloguj się</value>
   </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="LogInError" xml:space="preserve">
+    <value>Coś poszło nie tak</value>
   </data>
-  <data name="Polish" xml:space="preserve">
-    <value>Polish</value>
+  <data name="LogInSuccess" xml:space="preserve">
+    <value>Zalogowano pomyślnie</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Hasło</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Sign up</value>
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
   </data>
 </root>

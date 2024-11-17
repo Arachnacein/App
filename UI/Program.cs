@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using MudBlazor.Services;
 using UI;
 using UI.Models.ViewModels;
+using UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,10 @@ builder.Services.AddRazorPages()
 builder.Services.AddMudServices();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<GlobalInfoClass>();
+builder.Services.AddSingleton<UserSessionService>();
 builder.Services.AddTransient<IncomeViewModelValidator>();
 builder.Services.AddTransient<TransactionViewModelValidator>();
+builder.Services.AddTransient<RegistrationViewModelValidator>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });

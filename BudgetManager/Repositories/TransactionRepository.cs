@@ -13,14 +13,14 @@ namespace BudgetManager.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Transaction>> GetAll()
+        public async Task<IEnumerable<Transaction>> GetAll(Guid userId)
         {
-            return _context.Transactions;
+            return _context.Transactions.Where(x => x.UserId == userId);
         }
 
-        public async Task<Transaction> Get(int id)
+        public async Task<Transaction> Get(int id, Guid userId)
         {
-            return _context.Transactions.FirstOrDefault(t => t.Id == id);
+            return _context.Transactions.FirstOrDefault(t => t.Id == id && t.UserId == userId);
         }
 
         public async Task<Transaction> Add(Transaction transaction)
@@ -53,8 +53,8 @@ namespace BudgetManager.Repositories
 
     public interface ITransactionRespository
     {
-        Task<IEnumerable<Transaction>> GetAll();
-        Task<Transaction> Get(int id);
+        Task<IEnumerable<Transaction>> GetAll(Guid userId);
+        Task<Transaction> Get(int id, Guid userId);
         Task<Transaction> Add(Transaction transaction);
         Task Update(Transaction transaction);
         Task Delete(int id);

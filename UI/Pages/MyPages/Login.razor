@@ -1,0 +1,11 @@
+﻿@page "/login"
+<MudPaper Class="ma-auto pa-6 d-flex flex-column align-items-center justify-center" Elevation="25" Style="width: 350px;">
+    <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center">@Localizer["LogIn"]</MudText>
+    <MudTextField @bind-Value="Username" Label="@Localizer["username"]" Variant="Variant.Outlined" Class="ma-2 pa-1" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+    <MudTextField @bind-Value="Password" Label="@Localizer["password"]" InputType="InputType.Password" Variant="Variant.Outlined" Class="ma-2 pa-1" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+
+    <MudStack Row="true" Justify="Justify.Center" Spacing="2" Class="mt-4">
+        <MudButton OnClick="LogIn" Variant="Variant.Filled" Color="Color.Primary" Class="px-6">@Localizer["LogIn"]</MudButton>
+        <MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Secondary" Class="px-6">@Localizer["Register"]</MudButton>
+    </MudStack>
+</MudPaper>

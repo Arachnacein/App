@@ -6,6 +6,8 @@
         <NavLink href="/budget" class="nav-main-menu-item"><MudButton IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> @Localizer["Budget"] </MudButton></NavLink>
     </MudStack>
     <MudStack Row="true" Justify="Justify.FlexEnd" Class="mr-5">
+        <MudButton OnClick="CheckToken">CHECK TOKEN</MudButton>@* develop option *@
+
         <MudMenu Icon="@Icons.Material.Filled.Language" Size="Size.Large" Color="Color.Secondary"
                   AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
             <MudMenuItem OnClick="SetEnglish">
@@ -20,22 +22,29 @@
         <NavLink href="/options" class="nav-main-menu-item"><MudIconButton Icon="@Icons.Material.Filled.Settings" IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"></MudIconButton></NavLink>
         <MudMenu Icon="@Icons.Material.Filled.AccountCircle" Size="Size.Large" Color="Color.Secondary"
                  AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
-            <MudMenuItem Href="/options/account">
-                @Localizer["Account"]
-                <MudIcon Icon="@Icons.Material.Filled.Person"/>
-            </MudMenuItem>
-            <MudMenuItem OnClick="LogIn">
-                @Localizer["LogIn"]
-                <MudIcon Icon="@Icons.Material.Filled.Login"/>
-            </MudMenuItem>            
-            <MudMenuItem OnClick="LogOut">
-                @Localizer["LogOut"]
-                <MudIcon Icon="@Icons.Material.Filled.Logout"/>
-            </MudMenuItem>            
-            <MudMenuItem OnClick="Register">
-                @Localizer["Register"]
-                <MudIcon Icon="@Icons.Material.Filled.PersonAddAlt1"/>
-            </MudMenuItem>
+            @if(UserSessionService.IsUserLoggedIn())
+            {
+                <MudMenuItem Href="/options/account">
+                    @* @Localizer["Account"] *@
+                    [ @UserSessionService.Username ]
+                    <MudIcon Icon="@Icons.Material.Filled.Person"/>
+                </MudMenuItem>
+                <MudMenuItem OnClick="LogOut">
+                    @Localizer["LogOut"]
+                    <MudIcon Icon="@Icons.Material.Filled.Logout"/>
+                </MudMenuItem>
+            }
+            else
+            {
+                <MudMenuItem OnClick="LogIn">
+                    @Localizer["LogIn"]
+                    <MudIcon Icon="@Icons.Material.Filled.Login"/>
+                </MudMenuItem>            
+                <MudMenuItem OnClick="Register">
+                    @Localizer["Register"]
+                    <MudIcon Icon="@Icons.Material.Filled.PersonAddAlt1"/>
+                </MudMenuItem>
+            }
         </MudMenu>
     </MudStack>
 </MudStack>

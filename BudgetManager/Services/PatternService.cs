@@ -35,8 +35,10 @@ namespace BudgetManager.Services
         {
             if (dto == null)
                 throw new ArgumentNullException($"Object is null.");
-            if (dto.Name.Length < 5)
-                throw new BadStringLengthException($"Name have incorrect length. Should be more than 5 characters.");
+            if (dto.Name.Length < 3)
+                throw new BadStringLengthException($"Name have incorrect length. Should be more than 3 characters.");
+            if (dto.Name.Length > 50)
+                throw new BadStringLengthException($"Name have incorrect length. Should be less than 50 characters.");
             if (dto.Value_Fees < 0d || dto.Value_Fees > 100d)
                 throw new BadValueException($"Fees Value should be more than 0 and less than 100. ({dto.Value_Fees})");            
             if (dto.Value_Saves < 0d || dto.Value_Saves > 100d)

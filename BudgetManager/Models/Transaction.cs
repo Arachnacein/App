@@ -7,13 +7,16 @@ namespace BudgetManager.Models
         [Key]
         public int Id { get; set; }
 
-        [MinLength(5)]
-        [MaxLength(15)]
+        [Required]
+        public Guid UserId { get; set; }
+
+        [MinLength(3)]
+        [MaxLength(30)]
         [Required]
         public string Name { get; set; }
 
-        [MinLength(5)]
-        [MaxLength(50)]
+        [MinLength(3)]
+        [MaxLength(150)]
         public string? Description { get; set; }
 
         [Required]

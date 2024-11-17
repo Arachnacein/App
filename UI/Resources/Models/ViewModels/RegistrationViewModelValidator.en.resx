@@ -117,28 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Account</value>
+  <data name="ConfirmPasswordFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
   </data>
-  <data name="Budget" xml:space="preserve">
-    <value>Budget</value>
+  <data name="EmailFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
   </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
+  <data name="EmailInvalid" xml:space="preserve">
+    <value>Email is invalid.</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="EmailMaxLength" xml:space="preserve">
+    <value>Email must be shorter than 100 characters.</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="FirstNameFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
   </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="FirstNameMaxLength" xml:space="preserve">
+    <value>First name must be shorter than 50 characters.</value>
   </data>
-  <data name="Polish" xml:space="preserve">
-    <value>Polish</value>
+  <data name="FirstNameMinLength" xml:space="preserve">
+    <value>First name must be longer than 2 characters.</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Sign up</value>
+  <data name="LastNameFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
+  </data>
+  <data name="LastNameMaxLength" xml:space="preserve">
+    <value>Last name must be shorter than 50 characters.</value>
+  </data>
+  <data name="LastNameMinLength" xml:space="preserve">
+    <value>Last name must be longer than 2 characters.</value>
+  </data>
+  <data name="PasswordDigit" xml:space="preserve">
+    <value>Password must contain at least one digit.</value>
+  </data>
+  <data name="PasswordFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
+  </data>
+  <data name="PasswordLowercase" xml:space="preserve">
+    <value>Password must contain at least one lowercase letter.</value>
+  </data>
+  <data name="PasswordMaxLength" xml:space="preserve">
+    <value>Password must be shorter than 100 characters.</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Password must be longer than 8 characters.</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  <data name="PasswordSpecial" xml:space="preserve">
+    <value>Password must contain at least one special character</value>
+  </data>
+  <data name="PasswordUppercase" xml:space="preserve">
+    <value>Password must contain at least one uppercase letter.</value>
+  </data>
+  <data name="UsernameFieldEmpty" xml:space="preserve">
+    <value>Field cannot be empty.</value>
+  </data>
+  <data name="UsernameMaxLength" xml:space="preserve">
+    <value>Username must be shorter than 30 characters.</value>
+  </data>
+  <data name="UsernameMinLength" xml:space="preserve">
+    <value>Username must be longer than 3 characters.</value>
+  </data>
+  <data name="UsernameSpecialCharacters" xml:space="preserve">
+    <value>Username cannot contain special characters.</value>
   </data>
 </root>

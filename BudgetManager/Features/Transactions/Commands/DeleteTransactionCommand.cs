@@ -7,9 +7,11 @@ namespace BudgetManager.Features.Transactions.Commands
     public class DeleteTransactionCommand : IRequest
     {
         public int Id { get; init; }
-        public DeleteTransactionCommand(int id)
+        public Guid UserId { get; set; }
+        public DeleteTransactionCommand(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand>
@@ -25,7 +27,7 @@ namespace BudgetManager.Features.Transactions.Commands
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _transactionService.DeleteTransaction(request.Id);
+            await _transactionService.DeleteTransaction(request.Id, request.UserId);
         }
     }
 }

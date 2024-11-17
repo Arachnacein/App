@@ -19,14 +19,14 @@ namespace BudgetManager.Services
             _transactionMapper = transactionMapper;
         }
 
-        public async Task<IEnumerable<TransactionDto>> RetrieveTransactions()
+        public async Task<IEnumerable<TransactionDto>> RetrieveTransactions(Guid userId)
         {
-            var transactions = await _repository.GetAll();
+            var transactions = await _repository.GetAll(userId);
             return _transactionMapper.MapElements(transactions.ToList());
         }
-        public async Task<TransactionDto> RetrieveTransaction(int id)
+        public async Task<TransactionDto> RetrieveTransaction(int id, Guid userId)
         {
-            var transaction = await _repository.Get(id);
+            var transaction = await _repository.Get(id, userId);
             if(transaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{id}.");
             return _transactionMapper.Map(transaction);
@@ -35,11 +35,11 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 5 || transaction.Name.Length > 15)
-                throw new BadStringLengthException("Name have incorrect length. Should be more than 5 and less than 15.");
+            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+                throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if(!transaction.Description.IsNullOrEmpty())
-            if (transaction.Description.Length < 5 || transaction.Description.Length > 50)
-                throw new BadStringLengthException("Description have incorrect length. Should be more than 5 and less than 50.");
+            if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+                throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
             
@@ -53,11 +53,11 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 5 || transaction.Name.Length > 15)
-                throw new BadStringLengthException("Name have incorrect length. Should be more than 5 and less than 15.");
+            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+                throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if (!transaction.Description.IsNullOrEmpty())
-                if (transaction.Description.Length < 5 || transaction.Description.Length > 50)
-                    throw new BadStringLengthException("Description have incorrect length. Should be more than 5 and less than 50.");
+                if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+                    throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
 
@@ -65,9 +65,9 @@ namespace BudgetManager.Services
             await _repository.Update(mappedTransaction);
         }
 
-        public async Task DeleteTransaction(int id)
+        public async Task DeleteTransaction(int id, Guid userId)
         {
-            var existingTransaction = await _repository.Get(id);
+            var existingTransaction = await _repository.Get(id, userId);
             if (existingTransaction == null)
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
             await _repository.Delete(id);
@@ -75,7 +75,7 @@ namespace BudgetManager.Services
 
         public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
         {
-            var existingTransaction = _repository.Get(uc.Id);
+            var existingTransaction = _repository.Get(uc.Id, uc.UserId);
             if (existingTransaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{uc.Id}");
             if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
