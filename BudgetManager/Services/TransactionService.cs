@@ -35,11 +35,11 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 5 || transaction.Name.Length > 15)
-                throw new BadStringLengthException("Name have incorrect length. Should be more than 5 and less than 15.");
+            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+                throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if(!transaction.Description.IsNullOrEmpty())
-            if (transaction.Description.Length < 5 || transaction.Description.Length > 50)
-                throw new BadStringLengthException("Description have incorrect length. Should be more than 5 and less than 50.");
+            if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+                throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
             
@@ -53,11 +53,11 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 5 || transaction.Name.Length > 15)
-                throw new BadStringLengthException("Name have incorrect length. Should be more than 5 and less than 15.");
+            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+                throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if (!transaction.Description.IsNullOrEmpty())
-                if (transaction.Description.Length < 5 || transaction.Description.Length > 50)
-                    throw new BadStringLengthException("Description have incorrect length. Should be more than 5 and less than 50.");
+                if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+                    throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
 
