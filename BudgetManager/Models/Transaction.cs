@@ -7,13 +7,13 @@ namespace BudgetManager.Models
         [Key]
         public int Id { get; set; }
 
-        [MinLength(3)]
-        [MaxLength(30)]
+        [MinLength(5)]
+        [MaxLength(15)]
         [Required]
         public string Name { get; set; }
 
-        [MinLength(3)]
-        [MaxLength(150)]
+        [MinLength(5)]
+        [MaxLength(50)]
         public string? Description { get; set; }
 
         [Required]

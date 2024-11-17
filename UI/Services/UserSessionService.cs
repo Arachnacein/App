@@ -17,7 +17,7 @@
             Name = name;
             Surname = surname;
             Username = username;
-            Email = email;
+            this.Email = email;
             UserId = userId;
         }
 
