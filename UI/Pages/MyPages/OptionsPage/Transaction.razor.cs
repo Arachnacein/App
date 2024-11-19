@@ -66,7 +66,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
             var options = new DialogOptions { CloseOnEscapeKey = true };
 
-            dialogService.Show<EditDeleteTransactionDialog>($"Options", parameters, options);
+            dialogService.Show<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
 
         }
     }

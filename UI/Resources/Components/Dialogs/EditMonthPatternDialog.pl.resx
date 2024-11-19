@@ -126,6 +126,9 @@
   <data name="GettingPatternsError" xml:space="preserve">
     <value>Błąd ponierania wzorów</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Musisz się zalogować</value>
+  </data>
   <data name="Placeholder" xml:space="preserve">
     <value>Wybierz wzór</value>
   </data>

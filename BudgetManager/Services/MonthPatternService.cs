@@ -3,7 +3,6 @@ using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Dto.Pattern;
 using BudgetManager.Exceptions.PatternExceptions;
 using BudgetManager.Mappers;
-using BudgetManager.Models;
 using BudgetManager.Repositories;
 
 namespace BudgetManager.Services
@@ -39,7 +38,7 @@ namespace BudgetManager.Services
 
         public async Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto)
         {
-            var checkPatternExists = await _patternRepository.Get(dto.PatternId);
+            var checkPatternExists = await _patternRepository.Get(dto.PatternId, dto.UserId);
             if (checkPatternExists == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{dto.PatternId}.");
 
@@ -69,25 +68,25 @@ namespace BudgetManager.Services
             await _monthPatternRepository.Delete(monthPattern);
         }
 
-        public async Task<PatternDto> RetrieveMonthPattern(int month, int year)
+        public async Task<PatternDto> RetrieveMonthPattern(int month, int year, Guid userId)
         {
             var model = new MonthYearModel { Month = month, Year = year };
             var monthPattern = await _monthPatternRepository.Get(model);
             if (monthPattern == null)
                 return new PatternDto { Id = -1 };
 
-            var pattern = await _patternRepository.Get(monthPattern.PatternId);
+            var pattern = await _patternRepository.Get(monthPattern.PatternId, userId);
             if(pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{pattern.Id}.");
 
             return _patternMapper.Map(pattern);
         }
 
-        public async Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns()
+        public async Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns(Guid userId)
         {
             var monthpattern = await _monthPatternRepository.GetAll();
             monthpattern = monthpattern.ToList();//avoid reading two entities in the same time
-            var patterns = await _patternRepository.GetAll();
+            var patterns = await _patternRepository.GetAll(userId);
 
             var result = monthpattern.Join(patterns,
                                             monthpattern => monthpattern.PatternId,

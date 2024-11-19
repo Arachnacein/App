@@ -113,7 +113,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/pattern/{id}",
+      "UpstreamPathTemplate": "/api/pattern/{id}/user/{userId}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -122,7 +122,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/pattern/{id}"
+      "DownstreamPathTemplate": "/api/pattern/{id}/user/{userId}"
     },
     //MonthPatterns
     {

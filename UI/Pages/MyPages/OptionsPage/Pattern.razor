@@ -34,12 +34,12 @@
             <MudPaper>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
                     <MudStack Class="ma-2 pa-2">
-                        <MudTextField T="string" Label="@Localizer["Name"]" @bind-Value=model.Name></MudTextField>
+                        <MudTextField T="string" Label="@Localizer["Name"]" @bind-Value=Model.Name></MudTextField>
                     </MudStack>
                     <MudStack Class="ma-2 pa-2">
-                        <MudTextField T="double" Label="@Localizer["Saves"]" @bind-Value=model.Value_Saves></MudTextField>
-                        <MudTextField T="double" Label="@Localizer["Fees"]" @bind-Value=model.Value_Fees></MudTextField>
-                        <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=model.Value_Entertainment></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Saves"]" @bind-Value=Model.Value_Saves></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Fees"]" @bind-Value=Model.Value_Fees></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=Model.Value_Entertainment></MudTextField>
                     </MudStack>
                 </MudStack>
             <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2">@Localizer["ButtonSubmit"]</MudButton>

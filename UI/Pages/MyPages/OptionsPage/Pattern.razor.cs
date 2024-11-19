@@ -10,7 +10,7 @@ namespace UI.Pages.MyPages.OptionsPage
         [Inject] private ISnackbar snackbar { get; set; }
         [Inject] private IDialogService dialogService { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
-        private PatternViewModel model = new PatternViewModel();
+        private PatternViewModel Model = new PatternViewModel();
         private List<MonthPatternViewModel> patterns = new List<MonthPatternViewModel>();
 
         protected override async Task OnInitializedAsync()
@@ -19,7 +19,11 @@ namespace UI.Pages.MyPages.OptionsPage
         }
         private async Task AddPattern()
         {
-            var request = await httpClient.PostAsJsonAsync<PatternViewModel>("/api/pattern", model);
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+            
+            Model.UserId = UserSessionService.UserId;
+            var request = await httpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", Model);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
                 snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
             else

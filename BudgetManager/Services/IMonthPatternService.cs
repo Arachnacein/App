@@ -10,7 +10,7 @@ namespace BudgetManager.Services
         Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto);
         Task UpdateMonthPattern(UpdateMonthPatternDto dto);
         Task DeleteMonthPattern(int id);
-        Task<PatternDto> RetrieveMonthPattern(int month, int year);
-        Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns();
+        Task<PatternDto> RetrieveMonthPattern(int month, int year, Guid userId);
+        Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns(Guid userId);
     }
 }

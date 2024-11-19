@@ -12,14 +12,14 @@ namespace BudgetManager.Repositories
             _dbContext = context;
         }
 
-        public async Task<Pattern> Get(int id)
+        public async Task<Pattern> Get(int id, Guid userId)
         {
-            return _dbContext.Patterns.FirstOrDefault(x => x.Id == id);
+            return _dbContext.Patterns.FirstOrDefault(x => x.Id == id && x.UserId == userId);
         }
 
-        public async Task<IEnumerable<Pattern>> GetAll()
+        public async Task<IEnumerable<Pattern>> GetAll(Guid userId)
         {
-            return  _dbContext.Patterns; 
+            return  _dbContext.Patterns.Where(x => x.UserId == userId); 
         }
         public async Task<Pattern> Add(Pattern pattern)
         {
@@ -28,9 +28,9 @@ namespace BudgetManager.Repositories
             return pattern;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int id, Guid userId)
         {
-            var pattern = _dbContext.Patterns.FirstOrDefault(x => x.Id == id);
+            var pattern = _dbContext.Patterns.FirstOrDefault(x => x.Id == id && x.UserId == userId);
             _dbContext.Patterns.Remove(pattern);
             _dbContext.SaveChanges();
         }
@@ -38,9 +38,9 @@ namespace BudgetManager.Repositories
     }
     public interface IPatternRepository
     {
-        Task<IEnumerable<Pattern>> GetAll();
-        Task<Pattern> Get(int id);
+        Task<IEnumerable<Pattern>> GetAll(Guid userId);
+        Task<Pattern> Get(int id, Guid userId);
         Task<Pattern> Add(Pattern pattern);
-        Task Delete(int id);
+        Task Delete(int id, Guid userId);
     }
 }

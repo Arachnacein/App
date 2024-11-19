@@ -147,6 +147,9 @@
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opcje</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Kwota</value>
   </data>

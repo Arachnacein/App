@@ -129,6 +129,9 @@
   <data name="GettingPatternsError" xml:space="preserve">
     <value>Error while getting patterns</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>You must be signed in to perform this action</value>
+  </data>
   <data name="Placeholder" xml:space="preserve">
     <value>Choose pattern</value>
   </data>
