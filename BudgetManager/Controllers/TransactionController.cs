@@ -1,6 +1,4 @@
 ﻿using BudgetManager.Dto.Transaction;
-using BudgetManager.Exceptions;
-using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Features.Transactions.Queries;
 using BudgetManager.Services;
@@ -22,18 +20,18 @@ namespace BudgetManager.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{id}/user/{userId}")]
+        public async Task<IActionResult> GetById(int id, Guid userId)
         {
-            var query = new RetrieveTransactionQuery(id);
+            var query = new RetrieveTransactionQuery(id, userId);
             var response = await _mediator.Send(query);
             return Ok(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] Guid userId)
         {
-            var query = new RetrieveTransactionsQuery();
+            var query = new RetrieveTransactionsQuery(userId);
             var response = await _mediator.Send(query);
             return Ok(response);
         }
@@ -41,7 +39,7 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddTransactionDto dto)
         {
-            var command = new SaveTransactionCommand(dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+            var command = new SaveTransactionCommand(dto.Name, dto.Description, dto.Date, dto.Price, dto.Category, dto.UserId);
             var response = await _mediator.Send(command);        
             return Created($"api/transactions/{response.Id}", response);
         }
@@ -49,12 +47,12 @@ namespace BudgetManager.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateTransactionDto dto)
         {
-            var command = new UpdateTransactionCommand(dto.Id, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+            var command = new UpdateTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
             await _mediator.Send(command);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/user/{userId}")]
         public async Task<IActionResult> Delete(int id, Guid userId)
         {
             var command = new DeleteTransactionCommand(id, userId);
@@ -65,7 +63,7 @@ namespace BudgetManager.Controllers
         [HttpPut("UpdateCategory")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateTransactionCategoryDto dto)
         {
-            var command = new UpdateCategoryCommand(dto.Id, dto.Category);
+            var command = new UpdateCategoryCommand(dto.Id, dto.UserId, dto.Category);
             await _mediator.Send(command);
             return NoContent();
         }

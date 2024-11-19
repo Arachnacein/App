@@ -19,6 +19,12 @@ namespace UI.Components.Dialogs
         }
         private async Task Submit()
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add("You must sign in");
+                return;
+            }
+
             var request = await httpClient.PutAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {

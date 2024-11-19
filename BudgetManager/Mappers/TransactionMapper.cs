@@ -22,6 +22,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new TransactionDto();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -34,6 +35,7 @@ namespace BudgetManager.Mappers
         public AddTransactionDto Map(SaveTransactionCommand command)
         {
             var destination = new AddTransactionDto();
+            destination.UserId = command.UserId;
             destination.Name = command.Name;
             destination.Description = command.Description;
             destination.Date = command.Date;
@@ -47,6 +49,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new UpdateTransactionDto();
             destination.Id = command.Id;
+            destination.UserId = command.UserId;
             destination.Name = command.Name;
             destination.Description = command.Description;
             destination.Date = command.Date;
@@ -59,6 +62,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new UpdateTransactionCategoryDto();
             destination.Id = command.Id;
+            destination.UserId = command.UserId;
             destination.Category = command.Category;
 
             return destination;
@@ -68,6 +72,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new Transaction();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -80,6 +85,7 @@ namespace BudgetManager.Mappers
         public Transaction Map(AddTransactionDto source)
         {
             var destination = new Transaction();
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;
@@ -93,6 +99,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new Transaction();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Description = source.Description;
             destination.Date = source.Date;

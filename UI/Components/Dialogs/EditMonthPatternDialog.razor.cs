@@ -24,15 +24,27 @@ namespace UI.Components.Dialogs
 
         private async Task LoadPatterns()
         {
-            patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>("/api/pattern");
+            if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
             if (patterns == null)
                 snackbar.Add(Localizer["GettingPatternsError"], Severity.Error);
         }
         private async Task Submit()
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
             var updateModel = new
             {
                 Id = contextModel.Id,
+                UserId = UserSessionService.UserId,
                 Date = contextModel.Date,
                 PatternId = patternModel.Id
             };

@@ -1,8 +1,6 @@
 ﻿using BudgetManager.Data;
-using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Dto.Pattern;
 using BudgetManager.Exceptions.PatternExceptions;
-using BudgetManager.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +8,12 @@ namespace BudgetManager.Features.MonthPatterns.Queries
 {
     public record RetrieveMonthPatternByMonthAndByYearQuery : IRequest<PatternDto>
     {
+        public Guid UserId { get; init; }
         public int Month { get; init; }
         public int Year { get; init; }
-        public RetrieveMonthPatternByMonthAndByYearQuery(int month, int year)
+        public RetrieveMonthPatternByMonthAndByYearQuery(Guid userId, int month, int year)
         {
+            UserId = userId;
             Month = month;
             Year = year;
         }
@@ -30,7 +30,8 @@ namespace BudgetManager.Features.MonthPatterns.Queries
         {
             var monthPatternExists = await _dbContext.MonthPatterns
                     .AnyAsync(mp => mp.Date.Month == request.Month && 
-                              mp.Date.Year == request.Year, 
+                                    mp.Date.Year == request.Year && 
+                                    mp.UserId == request.UserId, 
                               cancellationToken);
 
             if (!monthPatternExists)
@@ -38,7 +39,8 @@ namespace BudgetManager.Features.MonthPatterns.Queries
 
             var pattern = await _dbContext.MonthPatterns
                                 .Where(x => x.Date.Month == request.Month &&
-                                            x.Date.Year == request.Year)
+                                            x.Date.Year == request.Year && 
+                                            x.UserId == request.UserId)
                                 .Select(x => x.Pattern)
                                 .FirstOrDefaultAsync(cancellationToken);
 
@@ -49,6 +51,7 @@ namespace BudgetManager.Features.MonthPatterns.Queries
             return new PatternDto
             {
                 Id = pattern.Id,
+                UserId = pattern.UserId,
                 Name = pattern.Name,
                 Value_Saves = pattern.Value_Saves,
                 Value_Fees = pattern.Value_Fees,

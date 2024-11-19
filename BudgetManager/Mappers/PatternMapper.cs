@@ -19,6 +19,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new PatternDto();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Value_Fees = source.Value_Fees;
             destination.Value_Saves = source.Value_Saves;
@@ -31,6 +32,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new Pattern();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Value_Fees = source.Value_Fees;
             destination.Value_Saves = source.Value_Saves;
@@ -42,6 +44,7 @@ namespace BudgetManager.Mappers
         public Pattern Map(AddPatternDto source)
         {
             var destination = new Pattern();
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Value_Fees = source.Value_Fees;
             destination.Value_Saves = source.Value_Saves;
@@ -53,6 +56,7 @@ namespace BudgetManager.Mappers
         public AddPatternDto Map(SavePatternCommand command)
         {
             var destination = new AddPatternDto();
+            destination.UserId = command.UserId;
             destination.Name = command.Name;
             destination.Value_Fees = command.Value_Fees;
             destination.Value_Saves = command.Value_Saves;

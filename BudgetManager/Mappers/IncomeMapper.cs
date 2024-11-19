@@ -22,6 +22,7 @@ namespace BudgetManager.Mappers
         {
             Income destination = new Income();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Amount = source.Amount; 
             destination.Date = source.Date;
@@ -32,6 +33,7 @@ namespace BudgetManager.Mappers
         public Income Map(AddIncomeDto source)
         {
             Income destination = new Income();
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Amount = source.Amount;
             destination.Date = source.Date;
@@ -43,6 +45,7 @@ namespace BudgetManager.Mappers
         {
             Income destination = new Income();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Amount = source.Amount;
             destination.Date = source.Date;
@@ -54,6 +57,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new IncomeDto();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.Name = source.Name;
             destination.Amount = source.Amount;
             destination.Date = source.Date;
@@ -63,6 +67,7 @@ namespace BudgetManager.Mappers
         public AddIncomeDto Map(SaveIncomeCommand command)
         {
             var destination = new AddIncomeDto();
+            destination.UserId = command.UserId;
             destination.Name = command.Name;
             destination.Amount = command.Amount;
             destination.Date = command.Date;
@@ -73,6 +78,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new UpdateIncomeDto();
             destination.Id = command.Id;
+            destination.UserId = command.UserId;
             destination.Name = command.Name;
             destination.Amount = command.Amount;
             destination.Date = command.Date;

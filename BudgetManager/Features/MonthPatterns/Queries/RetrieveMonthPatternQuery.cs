@@ -8,9 +8,11 @@ namespace BudgetManager.Features.MonthPatterns.Queries
     public record RetrieveMonthPatternQuery : IRequest<MonthPatternDto>
     {
         public int Id { get; init; }
-        public RetrieveMonthPatternQuery(int id)
+        public Guid UserId { get; set; }
+        public RetrieveMonthPatternQuery(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class RetrieveMonthPatternQueryhandler : IRequestHandler<RetrieveMonthPatternQuery, MonthPatternDto>
@@ -24,10 +26,11 @@ namespace BudgetManager.Features.MonthPatterns.Queries
         public async Task<MonthPatternDto> Handle(RetrieveMonthPatternQuery request, CancellationToken cancellationToken)
         {
             var query = await _dbContext.MonthPatterns
-                                    .Where(x => x.Id == request.Id)
+                                    .Where(x => x.Id == request.Id && x.UserId == request.UserId)
                                     .Select(mp => new MonthPatternDto
                                     {
                                         Id = mp.Id,
+                                        UserId = mp.UserId,
                                         PatternId = mp.PatternId,
                                         Date = mp.Date
                                     })

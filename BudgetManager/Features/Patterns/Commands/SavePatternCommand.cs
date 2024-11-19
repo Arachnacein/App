@@ -7,12 +7,14 @@ namespace BudgetManager.Features.Patterns.Commands
 {
     public record SavePatternCommand : IRequest<PatternDto>
     {
+        public Guid UserId { get; init; }
         public string Name { get; init; }
         public double Value_Saves { get; init; }
         public double Value_Fees { get; init; }
         public double Value_Entertainment { get; init; }
-        public SavePatternCommand(string name, double value_Saves, double value_Fees, double value_Entertainment)
+        public SavePatternCommand(Guid userId, string name, double value_Saves, double value_Fees, double value_Entertainment)
         {
+            UserId = userId;
             Name = name;
             Value_Saves = value_Saves;
             Value_Fees = value_Fees;

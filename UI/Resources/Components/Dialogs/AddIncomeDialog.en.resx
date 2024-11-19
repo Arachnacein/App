@@ -132,6 +132,9 @@
   <data name="FailAddSnacbar" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>You must be signed in to perform this action</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

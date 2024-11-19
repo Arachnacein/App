@@ -6,13 +6,15 @@ namespace BudgetManager.Features.Incomes.Commands
 {
     public record UpdateIncomeCommand : IRequest
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public double Amount { get; set; }
-        public DateTime Date { get; set; }
-        public UpdateIncomeCommand(int id, string name, double amount, DateTime date)
+        public int Id { get; init; }
+        public Guid UserId { get; init; }
+        public string Name { get; init; }
+        public double Amount { get; init; }
+        public DateTime Date { get; init; }
+        public UpdateIncomeCommand(int id, Guid userId, string name, double amount, DateTime date)
         {
             Id = id;
+            UserId = userId;
             Name = name;
             Amount = amount;
             Date = date;

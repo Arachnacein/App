@@ -23,16 +23,27 @@ namespace UI.Components.Dialogs
 
         private async Task GetPatterns()
         {
-            patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>("/api/pattern");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
             if (patterns == null)
                 snackbar.Add(Localizer["ErrorGettingPatterns"], Severity.Error);
         }
 
         private async Task AcceptPattern()
         {
-            //add pattern api
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
             var requestBody = new
             {
+                UserId = UserSessionService.UserId,
                 Date = new DateTime(DialogModel.Date.Value.Year, DialogModel.Date.Value.Month, DialogModel.Date.Value.Day),
                 PatternId = model.Id
             };

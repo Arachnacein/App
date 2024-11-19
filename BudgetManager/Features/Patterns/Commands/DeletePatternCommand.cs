@@ -6,9 +6,11 @@ namespace BudgetManager.Features.Patterns.Commands
     public record DeletePatternCommand : IRequest
     {
         public int Id { get; init; }
-        public DeletePatternCommand(int id)
+        public Guid UserId { get; init; }
+        public DeletePatternCommand(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class DeletePatternCommandHandler : IRequestHandler<DeletePatternCommand>
@@ -24,7 +26,7 @@ namespace BudgetManager.Features.Patterns.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _patternService.DeletePattern(request.Id);
+            await _patternService.DeletePattern(request.Id, request.UserId);
         }
     }
 }

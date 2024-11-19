@@ -8,9 +8,11 @@ namespace BudgetManager.Features.Incomes.Queries
     public record RetrieveIncomeQuery : IRequest<IncomeDto>
     {
         public int Id { get; init; }
-        public RetrieveIncomeQuery(int id)
+        public Guid UserId { get; init; }
+        public RetrieveIncomeQuery(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class RetrieveIncomeQueryHandler : IRequestHandler<RetrieveIncomeQuery, IncomeDto>
@@ -25,10 +27,11 @@ namespace BudgetManager.Features.Incomes.Queries
         public async Task<IncomeDto> Handle(RetrieveIncomeQuery request, CancellationToken cancellationToken)
         {
             var query = await _dbContext.Incomes
-                            .Where(x => x.Id == request.Id)
+                            .Where(x => x.Id == request.Id && x.UserId == request.UserId)
                             .Select(income => new IncomeDto
                             {
                                 Id = income.Id,
+                                UserId = income.UserId,
                                 Name = income.Name,
                                 Amount = income.Amount,
                                 Date = income.Date

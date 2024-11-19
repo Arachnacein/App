@@ -6,9 +6,11 @@ namespace BudgetManager.Features.Incomes.Commands
     public record DeleteIncomeCommand : IRequest
     {
         public int Id { get; init; }
-        public DeleteIncomeCommand(int id)
+        public Guid UserId { get; init; }
+        public DeleteIncomeCommand(int id, Guid userId)
         {
             Id = id;
+            UserId = userId;
         }
     }
     public class DeleteIncomeCommandHandler : IRequestHandler<DeleteIncomeCommand>
@@ -24,7 +26,7 @@ namespace BudgetManager.Features.Incomes.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _incomeService.DeleteIncome(request.Id);
+            await _incomeService.DeleteIncome(request.Id, request.UserId);
         }
     }
 }

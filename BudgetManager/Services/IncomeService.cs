@@ -17,21 +17,18 @@ namespace BudgetManager.Services
             _incomeRepository = incomeRepository;
             _incomeMapper = incomeMapper;
         }
-
-        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes()
+        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(Guid userId)
         {
-            var incomes = await _incomeRepository.GetAll();
+            var incomes = await _incomeRepository.GetAll(userId);
             return _incomeMapper.MapElements(incomes.ToList());
         }
-
-        public async Task<IncomeDto> RetrieveIncome(int id)
+        public async Task<IncomeDto> RetrieveIncome(int id, Guid userId)
         {
-            var income = await _incomeRepository.Get(id);
+            var income = await _incomeRepository.Get(id, userId);
             if (income == null)
                 throw new IncomeNotFoundException($"Income not found. Id:{id}.");
             return _incomeMapper.Map(income);
         }
-
         public async Task<IncomeDto> AddIncome(AddIncomeDto income)
         {
             if (income == null)
@@ -57,19 +54,17 @@ namespace BudgetManager.Services
             var mappedIncome = _incomeMapper.Map(income);
             await _incomeRepository.Update(mappedIncome);
         }
-
-        public async Task DeleteIncome(int id)
+        public async Task DeleteIncome(int id, Guid userId)
         {
-            var income = await _incomeRepository.Get(id);
+            var income = await _incomeRepository.Get(id, userId);
             if (income == null)
                 throw new IncomeNotFoundException($"Income not found. Id:{id}.");
             await _incomeRepository.Delete(income);
         }
-
-        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(int month, int year)
+        public async Task<IEnumerable<IncomeDto>> RetrieveIncomes(int month, int year, Guid userId)
         {
             var model = new MonthYearModel { Month = month, Year = year };
-            var incomes = await _incomeRepository.Get(model);
+            var incomes = await _incomeRepository.Get(model, userId);
             return _incomeMapper.MapElements(incomes.ToList());
         }
     }

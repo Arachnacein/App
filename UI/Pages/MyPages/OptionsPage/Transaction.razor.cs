@@ -35,7 +35,10 @@ namespace UI.Pages.MyPages.OptionsPage
         }
         private async Task LoadTransactions()
         {
-            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+
+            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
             filteredTransactions = transactions;
             StateHasChanged();
         }
@@ -63,7 +66,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters["Refresh"] = new Func<Task>(LoadTransactions);
             var options = new DialogOptions { CloseOnEscapeKey = true };
 
-            dialogService.Show<EditDeleteTransactionDialog>($"Options", parameters, options);
+            dialogService.Show<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
 
         }
     }

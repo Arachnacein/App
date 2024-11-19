@@ -141,8 +141,14 @@
   <data name="FailEditSnackbar" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="MustSingIn" xml:space="preserve">
+    <value>You must be signed in to perform this action</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>

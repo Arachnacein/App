@@ -5,15 +5,17 @@ using MediatR;
 
 namespace BudgetManager.Features.Transactions.Commands
 {
-    public class UpdateCategoryCommand : IRequest
+    public record UpdateCategoryCommand : IRequest
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
+        public Guid UserId { get; init; }
         public TransactionCategoryEnum Category { get; set; }
 
-        public UpdateCategoryCommand(int id, TransactionCategoryEnum category)
+        public UpdateCategoryCommand(int id, Guid userId, TransactionCategoryEnum category)
         {
             Id = id;
             Category = category;
+            UserId = userId;
         }
     }
     public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand>

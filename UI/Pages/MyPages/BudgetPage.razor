@@ -25,7 +25,7 @@
                         <MudIcon Icon="@Icons.Material.Filled.Info" />
                     </ChildContent>
                     <TooltipContent> 
-                        @if(patternViewModel.Id == 0)
+                        @if (patternViewModel == null || patternViewModel.Id == 0)
                         {
                             <MudText Typo="Typo.body2">@Localizer["NoPattern"]</MudText>
                         }

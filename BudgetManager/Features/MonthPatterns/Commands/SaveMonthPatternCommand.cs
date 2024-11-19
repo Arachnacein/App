@@ -7,10 +7,12 @@ namespace BudgetManager.Features.MonthPatterns.Commands
 {
     public record SaveMonthPatternCommand : IRequest<MonthPatternDto>
     {
+        public Guid UserId { get; init; }
         public DateTime Date { get; init; }
         public int PatternId { get; init; }
-        public SaveMonthPatternCommand(DateTime date, int patternId)
+        public SaveMonthPatternCommand(Guid userId, DateTime date, int patternId)
         {
+            UserId = userId;
             Date = date;
             PatternId = patternId;
         }

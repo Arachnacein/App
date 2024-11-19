@@ -17,15 +17,15 @@ namespace BudgetManager.Services
             _patternRepository = patternRepository;
             _patternMapper = patternMapper;
         }
-        public async Task<IEnumerable<PatternDto>> RetrievePatterns()
+        public async Task<IEnumerable<PatternDto>> RetrievePatterns(Guid userId)
         {
-            var patterns =  await _patternRepository.GetAll();
+            var patterns =  await _patternRepository.GetAll(userId);
             return _patternMapper.MapeElements(patterns.ToList());
         }
 
-        public async Task<PatternDto> RetrievePattern(int id)
+        public async Task<PatternDto> RetrievePattern(int id, Guid userId)
         {
-            var pattern = await _patternRepository.Get(id);
+            var pattern = await _patternRepository.Get(id, userId);
             if (pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{id}");
             return _patternMapper.Map(pattern);
@@ -54,12 +54,12 @@ namespace BudgetManager.Services
             return _patternMapper.Map(mappedPattern);
         }
 
-        public async Task DeletePattern(int id)
+        public async Task DeletePattern(int id, Guid userId)
         {
-            var pattern = await _patternRepository.Get(id);
+            var pattern = await _patternRepository.Get(id, userId);
             if (pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{id}");
-            await _patternRepository.Delete(id);
+            await _patternRepository.Delete(id, userId);
         }
     }
 }

@@ -29,20 +29,23 @@ namespace UI.Pages.MyPages
 
         private async Task RefreshData()
         {
-            await ResetModel(patternValuesModel);
-            await LoadTransactions();
-            await LoadMonthPatterns();
-            await LoadMonthIncome();
-            await CalculatePatternValues();
+            if (UserSessionService != null && UserSessionService.UserId != Guid.Empty)
+            {
+                await ResetModel(patternValuesModel);
+                await LoadTransactions();
+                await LoadMonthPatterns();
+                await LoadMonthIncome();
+                await CalculatePatternValues();
+            }
         }
         private async Task LoadTransactions()
         {
             try
             {
-                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>("/api/transaction");
-                transactions = transactions.OrderByDescending(x => x.Date)                
-                                           .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
-                                           .ToList();
+                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
+                transactions = transactions.OrderByDescending(x => x.Date)
+                                       .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
+                                       .ToList();
                 StateHasChanged();
             }
             catch(HttpRequestException e)
@@ -82,10 +85,19 @@ namespace UI.Pages.MyPages
         } 
         private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+            
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
-            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", new UpdateTransactionCategoryViewModel {Id = dropItem.Item.Id, Category = dropItem.Item.Category });
+            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", 
+                                                                            new UpdateTransactionCategoryViewModel 
+                                                                            {
+                                                                                Id = dropItem.Item.Id, 
+                                                                                UserId = UserSessionService.UserId, 
+                                                                                Category = dropItem.Item.Category 
+                                                                            });
             await RefreshData();
         }
         private async Task PreviousMonth()
@@ -100,14 +112,25 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthPatterns()
         {
-            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
-            if (patternResponse.Id != -1)
-                patternViewModel = patternResponse;
-            else patternViewModel.Id = 0;
+            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
+            if (patternResponse == null || patternResponse.Id == -1)
+            {
+                patternViewModel = new PatternViewModel
+                {
+                    Id = 0,
+                    Name = string.Empty,
+                    Value_Saves = 0,
+                    Value_Fees = 0,
+                    Value_Entertainment = 0
+                };
+                return;
+            }
+            
+            patternViewModel = patternResponse;
         }
         private async Task LoadMonthIncome()
         {
-            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?month={CurrentDate.Month}&year={CurrentDate.Year}");
+            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
         private async Task CalculatePatternValues()

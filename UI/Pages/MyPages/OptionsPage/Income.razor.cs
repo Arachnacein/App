@@ -37,7 +37,10 @@ namespace UI.Pages.MyPages.OptionsPage
 
         private async Task LoadIncomes()
         {
-            incomes = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>("/api/income");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+
+            incomes = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income?userId={UserSessionService.UserId}");
             filteredIncomes = incomes;
             StateHasChanged();
         }

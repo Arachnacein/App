@@ -7,10 +7,12 @@ namespace BudgetManager.Features.Incomes.Queries
 {
     public record RetrieveMonthIncomeQuery : IRequest<IEnumerable<IncomeDto>>
     {
+        public Guid UserId { get; init; }
         public int Month { get; init; }
         public int Year { get; init; }
-        public RetrieveMonthIncomeQuery(int month, int year)
+        public RetrieveMonthIncomeQuery(Guid userId, int month, int year)
         {
+            UserId = userId;
             Month = month;
             Year = year;
         }
@@ -26,10 +28,13 @@ namespace BudgetManager.Features.Incomes.Queries
         public async Task<IEnumerable<IncomeDto>> Handle(RetrieveMonthIncomeQuery request, CancellationToken cancellationToken)
         {
             var result = await _dbContext.Incomes
-                                .Where(x => x.Date.Month == request.Month && x.Date.Year == request.Year)
+                                .Where(x => x.Date.Month == request.Month && 
+                                            x.Date.Year == request.Year && 
+                                            x.UserId == request.UserId)
                                 .Select(income => new IncomeDto
                                 {
                                     Id = income.Id,
+                                    UserId = income.UserId,
                                     Name = income.Name,
                                     Amount = income.Amount,
                                     Date = income.Date
