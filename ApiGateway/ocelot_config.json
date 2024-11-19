@@ -144,7 +144,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/monthpattern/{id}",
+      "UpstreamPathTemplate": "/api/monthpattern/{id}/user/{userId}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -153,10 +153,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/monthpattern/{id}"
+      "DownstreamPathTemplate": "/api/monthpattern/{id}/user/{userId}"
     },
     {
-      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}",
+      "UpstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}&userId={userId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -165,10 +165,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}"
+      "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}&userId={userId}"
     },
     {
-      "UpstreamPathTemplate": "/api/monthpattern/GetAllWithPattern",
+      "UpstreamPathTemplate": "/api/monthpattern/GetAllWithPattern?userId={userId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -177,7 +177,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/monthpattern/GetAllWithPattern",
+      "DownstreamPathTemplate": "/api/monthpattern/GetAllWithPattern?userId={userId}",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",

@@ -36,9 +36,15 @@ namespace UI.Components.Dialogs
         }
         private async Task Submit()
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
             var updateModel = new
             {
                 Id = contextModel.Id,
+                UserId = UserSessionService.UserId,
                 Date = contextModel.Date,
                 PatternId = patternModel.Id
             };

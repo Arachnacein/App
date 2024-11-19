@@ -31,7 +31,10 @@ namespace UI.Pages.MyPages.OptionsPage
         }
         private async Task LoadMonthPatterns()
         {
-            patterns = await httpClient.GetFromJsonAsync<List<MonthPatternViewModel>>("/api/monthpattern/GetAllWithPattern");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+
+            patterns = await httpClient.GetFromJsonAsync<List<MonthPatternViewModel>>($"/api/monthpattern/GetAllWithPattern?userId={UserSessionService.UserId}");
             StateHasChanged();
         }
         private async Task EditMonthPattern(MonthPatternViewModel contextModel)

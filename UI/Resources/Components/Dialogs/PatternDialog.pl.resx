@@ -126,6 +126,9 @@
   <data name="FailSnackbar" xml:space="preserve">
     <value>Coś poszło nie tak</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Musisz być zalgoowany</value>
+  </data>
   <data name="Placeholder" xml:space="preserve">
     <value>Wybierz wzór</value>
   </data>

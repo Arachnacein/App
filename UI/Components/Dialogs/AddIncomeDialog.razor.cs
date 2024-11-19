@@ -34,7 +34,10 @@ namespace UI.Components.Dialogs
             }
 
             //check if pattern for this month exists
-            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={DialogModel.Date.Value.Month}&year={DialogModel.Date.Value.Year}");
+            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>
+                (@$"/api/monthpattern/GetMonthPattern?month={DialogModel.Date.Value.Month}
+                                                    &year={DialogModel.Date.Value.Year}
+                                                    &userId={UserSessionService.UserId}");
             if (patternResponse.Id != -1)
             {
                 DialogModel.UserId = UserSessionService.UserId;

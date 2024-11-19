@@ -1,6 +1,7 @@
 ﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Models;
+using System.Diagnostics.Tracing;
 
 namespace BudgetManager.Mappers
 {
@@ -22,6 +23,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new MonthPattern();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.PatternId = source.PatternId;
             destination.Date = source.Date;
 
@@ -31,6 +33,7 @@ namespace BudgetManager.Mappers
         public MonthPattern Map(AddMonthPatternDto source)
         {
             var destination = new MonthPattern();
+            destination.UserId = source.UserId;
             destination.PatternId = source.PatternId;
             destination.Date = source.Date;
 
@@ -41,6 +44,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new MonthPattern();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.PatternId = source.PatternId;
             destination.Date = source.Date;
 
@@ -51,6 +55,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new MonthPatternDto();
             destination.Id = source.Id;
+            destination.UserId = source.UserId;
             destination.PatternId = source.PatternId;
             destination.Date = source.Date;
 
@@ -60,6 +65,7 @@ namespace BudgetManager.Mappers
         public AddMonthPatternDto Map(SaveMonthPatternCommand command)
         {
             var destination = new AddMonthPatternDto();
+            destination.UserId = command.UserId;
             destination.PatternId = command.PatternId;
             destination.Date = command.Date;
 
@@ -70,6 +76,7 @@ namespace BudgetManager.Mappers
         {
             var destination = new UpdateMonthPatternDto();
             destination.Id = command.Id;
+            destination.UserId = command.UserId;
             destination.PatternId = command.PatternId;
             destination.Date = command.Date;
 

@@ -42,9 +42,6 @@ namespace UI.Pages.MyPages
         {
             try
             {
-                if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
-                    return;
-
                 transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
                 transactions = transactions.OrderByDescending(x => x.Date)
                                        .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
@@ -115,16 +112,13 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthPatterns()
         {
-            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}");
+            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
             if (patternResponse.Id != -1)
                 patternViewModel = patternResponse;
             else patternViewModel.Id = 0;
         }
         private async Task LoadMonthIncome()
         {
-            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
-                return;
-
             var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
