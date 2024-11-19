@@ -71,12 +71,12 @@
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/121405384-444d7300-c95d-11eb-959f-913020d3bf90.png" alt="C#" title="C#"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/186884150-05e9ff6d-340e-4802-9533-2c3f02363ee3.png" alt="Windows" title="Windows"/></code>
 </div>
-![Keycloak-1024x6832]()
 
 <br>
 <h2 align="center"> Milestones </h2>
 <p>
-  🔜 Add Login nad authorization. <br>
+  🔜 Add Login and Registration. <br>
+	* Add authorization. <br>
   * Add Healtch checks.<br>
   * Add Unit Tests.<br>
   * Add saving goals feature. <br>
