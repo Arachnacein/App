@@ -27,7 +27,13 @@ namespace UI.Components.Dialogs
             await Form.Validate();
             if (!Form.IsValid)
                 return;
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
 
+            Model.UserId = UserSessionService.UserId;
             var request = await httpClient.PutAsJsonAsync<IncomeViewModel>("/api/income",Model);
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
@@ -42,7 +48,13 @@ namespace UI.Components.Dialogs
         private async Task Cancel() => MudDialogInstance.Cancel();
         private async Task Delete()
         {
-            var request = await httpClient.DeleteAsync($"/api/income/{Model.Id}");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            var request = await httpClient.DeleteAsync($"/api/income/{Model.Id}/user/{UserSessionService.UserId}");
             if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);

@@ -13,14 +13,15 @@ namespace BudgetManager.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Income> Get(int id)
+        public async Task<Income> Get(int id, Guid userId)
         {
-            return _dbContext.Incomes.FirstOrDefault(x => x.Id == id);
+            return _dbContext.Incomes.FirstOrDefault(x => x.Id == id && x.UserId == userId);
         }
 
-        public async Task<IEnumerable<Income>> GetAll()
+        public async Task<IEnumerable<Income>> GetAll(Guid userId)
         {
-            return _dbContext.Incomes.OrderByDescending(x => x.Date);
+            return _dbContext.Incomes.Where(x => x.UserId == userId)
+                                     .OrderByDescending(x => x.Date);
         }
 
         public async Task<Income> Add(Income income)
@@ -41,18 +42,19 @@ namespace BudgetManager.Repositories
             _dbContext.SaveChanges();
         }
 
-        public async Task<IEnumerable<Income>> Get(MonthYearModel model)
+        public async Task<IEnumerable<Income>> Get(MonthYearModel model, Guid userId)
         {
-            var incomes = _dbContext.Incomes.Where(x => x.Date.Month == model.Month &
-                                                        x.Date.Year == model.Year);
+            var incomes = _dbContext.Incomes.Where(x => x.Date.Month == model.Month &&
+                                                        x.Date.Year == model.Year &&
+                                                        x.UserId == userId);
             return incomes;
         }
     }
     public interface IIncomeRepository
     {
-        Task<Income> Get(int id);
-        Task<IEnumerable<Income>> Get(MonthYearModel model);
-        Task<IEnumerable<Income>> GetAll();
+        Task<Income> Get(int id, Guid userId);
+        Task<IEnumerable<Income>> Get(MonthYearModel model, Guid userId);
+        Task<IEnumerable<Income>> GetAll(Guid userId);
         Task<Income> Add(Income income);
         Task Update(Income income);
         Task Delete(Income income);

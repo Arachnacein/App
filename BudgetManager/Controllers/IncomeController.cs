@@ -21,17 +21,17 @@ namespace BudgetManager.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] Guid userId)
         {
-            var query = new RetrieveIncomesQuery();
+            var query = new RetrieveIncomesQuery(userId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{id}/user/{userId}")]
+        public async Task<IActionResult> GetById(int id, Guid userId)
         {
-            var query = new RetrieveIncomeQuery(id);
+            var query = new RetrieveIncomeQuery(id, userId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -39,7 +39,7 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddIncomeDto dto)
         {
-            var command = new SaveIncomeCommand(dto.Name, dto.Amount, dto.Date);
+            var command = new SaveIncomeCommand(dto.UserId, dto.Name, dto.Amount, dto.Date);
             var result = await _mediator.Send(command);
 
             return Created($"api/incomes/{result.Id}", result);
@@ -48,23 +48,23 @@ namespace BudgetManager.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateIncomeDto dto)
         {
-            var command = new UpdateIncomeCommand(dto.Id, dto.Name, dto.Amount, dto.Date);
+            var command = new UpdateIncomeCommand(dto.Id, dto.UserId, dto.Name, dto.Amount, dto.Date);
             await _mediator.Send(command);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id}/user/{userId}")]
+        public async Task<IActionResult> Delete(int id, Guid userId)
         {
-            var command = new DeleteIncomeCommand(id);
+            var command = new DeleteIncomeCommand(id, userId);
             await _mediator.Send(command);
             return NoContent();
         }
 
         [HttpGet("GetIncome")]
-        public async Task<IActionResult> GetIncome([FromQuery] int month, [FromQuery] int year)
+        public async Task<IActionResult> GetIncome([FromQuery] Guid userId, [FromQuery] int month, [FromQuery] int year)
         {
-            var query = new RetrieveMonthIncomeQuery(month, year);
+            var query = new RetrieveMonthIncomeQuery(userId, month, year);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

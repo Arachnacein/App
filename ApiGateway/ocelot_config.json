@@ -70,7 +70,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/income/{id}",
+      "UpstreamPathTemplate": "/api/income/{id}/user/{userId}",
       "UpstreamHttpMethod": [ "Get", "Delete" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -79,10 +79,10 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/income/{id}"
+      "DownstreamPathTemplate": "/api/income/{id}/user/{userId}"
     },
     {
-      "UpstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}",
+      "UpstreamPathTemplate": "/api/income/GetIncome?userId={userId}&month={month}&year={year}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -91,7 +91,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/income/GetIncome?month={month}&year={year}"
+      "DownstreamPathTemplate": "/api/income/GetIncome?userId={userId}&month={month}&year={year}"
     },
     //Patterns
     {

@@ -27,11 +27,17 @@ namespace UI.Components.Dialogs
             await Form.Validate();
             if (!Form.IsValid)
                 return;
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
 
             //check if pattern for this month exists
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={DialogModel.Date.Value.Month}&year={DialogModel.Date.Value.Year}");
             if (patternResponse.Id != -1)
             {
+                DialogModel.UserId = UserSessionService.UserId;
                 var request = await httpClient.PostAsJsonAsync<IncomeViewModel>("/api/income", DialogModel);
                 if (request.StatusCode == System.Net.HttpStatusCode.Created)
                 {

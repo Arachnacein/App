@@ -129,6 +129,9 @@
   <data name="FailedSnackbar" xml:space="preserve">
     <value>Wystąpił błąd podczas dodawania wydatku</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Musisz się zalogować</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
   </data>

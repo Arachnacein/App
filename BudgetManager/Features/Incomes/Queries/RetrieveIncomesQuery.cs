@@ -7,6 +7,11 @@ namespace BudgetManager.Features.Incomes.Queries
 {
     public record RetrieveIncomesQuery : IRequest<IEnumerable<IncomeDto>>
     {
+        public Guid UserId { get; init; }
+        public RetrieveIncomesQuery(Guid userId)
+        {
+            UserId = userId;
+        }
     }
     public class RetrieveIncomesQueryHandler : IRequestHandler<RetrieveIncomesQuery, IEnumerable<IncomeDto>>
     {
@@ -20,9 +25,11 @@ namespace BudgetManager.Features.Incomes.Queries
         public async Task<IEnumerable<IncomeDto>> Handle(RetrieveIncomesQuery request, CancellationToken cancellationToken)
         {
             var query = await _dbContext.Incomes
+                            .Where(x => x.UserId == request.UserId)
                             .Select(income => new IncomeDto
                             {
                                 Id = income.Id,
+                                UserId = income.UserId,
                                 Name = income.Name,
                                 Amount = income.Amount,
                                 Date = income.Date

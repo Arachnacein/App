@@ -29,11 +29,14 @@ namespace UI.Pages.MyPages
 
         private async Task RefreshData()
         {
-            await ResetModel(patternValuesModel);
-            await LoadTransactions();
-            await LoadMonthPatterns();
-            await LoadMonthIncome();
-            await CalculatePatternValues();
+            if (UserSessionService != null && UserSessionService.UserId != Guid.Empty)
+            {
+                await ResetModel(patternValuesModel);
+                await LoadTransactions();
+                await LoadMonthPatterns();
+                await LoadMonthIncome();
+                await CalculatePatternValues();
+            }
         }
         private async Task LoadTransactions()
         {
@@ -119,7 +122,10 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthIncome()
         {
-            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?month={CurrentDate.Month}&year={CurrentDate.Year}");
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                return;
+
+            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
         private async Task CalculatePatternValues()
