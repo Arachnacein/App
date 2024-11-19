@@ -77,13 +77,13 @@
 <br>
 <h2 align="center"> Milestones </h2>
 <p>
-  🔜 Add Login and Registration. <br>
-	* Add authorization. <br>
+  🔜 Add authorization. <br>
   * Add Healtch checks.<br>
   * Add Unit Tests.<br>
   * Add saving goals feature. <br>
   * Add calendar with notifications.<br>
-  * Add payment feature. <br> 
+  * Add payment feature. <br>
+  ✅ Add Login and Registration. <br>
   ✅ Add Internationalization.<br>
   ✅ Add searching fields for transactions and incomes. <br>
   ✅ Add statistics summary.<br>
