@@ -6,6 +6,11 @@ namespace BudgetManager.Features.Statistics.Queries
 {
     public record RetrieveCategoriesDistributionQuery : IRequest<CategoriesModel>
     {
+        public Guid UserId { get; init; }
+        public RetrieveCategoriesDistributionQuery(Guid userId)
+        {
+            UserId = userId;
+        }
     }
     public class RetrieveCategoriesDistributionQueryHandler : IRequestHandler<RetrieveCategoriesDistributionQuery, CategoriesModel>
     {
@@ -18,9 +23,11 @@ namespace BudgetManager.Features.Statistics.Queries
         public async Task<CategoriesModel> Handle(RetrieveCategoriesDistributionQuery request, CancellationToken cancellationToken)
         {
             var totalTransactionAmount = await _dbContext.Transactions
+                                .Where(x => x.UserId == request.UserId)
                                 .CountAsync(cancellationToken);
 
             var categoryCount = await _dbContext.Transactions
+                                .Where(x => x.UserId == request.UserId)
                                 .GroupBy(x => x.Category)
                                 .Select(x => new
                                 {

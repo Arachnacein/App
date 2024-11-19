@@ -23,55 +23,75 @@ namespace UI.Components
 
         protected override async Task OnInitializedAsync()
         {
-            await GetTotalExpenses();
-            await GetTotalSaves();
-            await GetAverageExpenses();
-            await GetAverageSaves();
-            await GetThreeMonthsSaves();
-            await GetThreeMonthsExpenses();
-            await GetCategoriesDistribution();
-            await GetMonthlyCategoriesDistribution();
+            if (UserSessionService != null && UserSessionService.UserId != Guid.Empty)
+            {
+                await GetTotalExpenses();
+                await GetTotalSaves();
+                await GetAverageExpenses();
+                await GetAverageSaves();
+                await GetThreeMonthsSaves();
+                await GetThreeMonthsExpenses();
+                await GetCategoriesDistribution();
+                await GetMonthlyCategoriesDistribution();
+            }
         }
         private async Task GetTotalExpenses()
         {
-            TotalExpenses = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetTotalExpenses");
+            TotalExpenses = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetTotalExpenses?userId={UserSessionService.UserId}");
             StateHasChanged();
         }
         private async Task GetTotalSaves()
         {
-            TotalSaves = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetTotalSaves");
+            TotalSaves = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetTotalSaves?userId={UserSessionService.UserId}");
             StateHasChanged();
         }
         private async Task GetAverageExpenses()
         {
-            AverageExpenses = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageExpenses");
+            AverageExpenses = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetAverageExpenses?userId={UserSessionService.UserId}");
             StateHasChanged();
         }
         private async Task GetAverageSaves()
         {
-            AverageSaves = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetAverageSaves");
+            AverageSaves = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetAverageSaves?userId={UserSessionService.UserId}");
             StateHasChanged();
         }        
         private async Task GetThreeMonthsSaves()
         {
-            Total3MonthsSaves = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsSaves");
+            Total3MonthsSaves = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetThreeMonthsSaves?userId={UserSessionService.UserId}");
             StateHasChanged();
         }        
         private async Task GetThreeMonthsExpenses()
         {
-            Total3MonthsExpenses = await httpClient.GetFromJsonAsync<double>("/api/statistics/GetThreeMonthsExpenses");
+            Total3MonthsExpenses = await httpClient
+                .GetFromJsonAsync<double>
+                ($"/api/statistics/GetThreeMonthsExpenses?userId={UserSessionService.UserId}");
             StateHasChanged();
         }       
         
         private async Task GetCategoriesDistribution()
         {
-            CategoriesDistribution = await httpClient.GetFromJsonAsync<CategoriesDistributionModel>("/api/statistics/GetCategoriesDistribution");
+            CategoriesDistribution = await httpClient
+                .GetFromJsonAsync<CategoriesDistributionModel>
+                ($"/api/statistics/GetCategoriesDistribution?userId={UserSessionService.UserId}");
             StateHasChanged();
         }       
         
         private async Task GetMonthlyCategoriesDistribution()
         {
-            MonthlyCategoriesDistributionList = await httpClient.GetFromJsonAsync<List<MonthlyCategoriesDistribution>>("/api/statistics/GetMonthlyCategoriesDistribution");
+             MonthlyCategoriesDistributionList = await httpClient
+             .GetFromJsonAsync<List<MonthlyCategoriesDistribution>>
+             ($"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}");
+
 
             XaxisLabels = MonthlyCategoriesDistributionList
                                 .Select(x => new DateTime(x.Year, x.Month, 1)

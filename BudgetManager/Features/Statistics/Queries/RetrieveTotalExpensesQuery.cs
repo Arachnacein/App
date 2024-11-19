@@ -6,6 +6,11 @@ namespace BudgetManager.Features.Statistics.Queries
 {
     public record RetrieveTotalExpensesQuery : IRequest<double>
     {
+        public Guid UserId { get; init; }
+        public RetrieveTotalExpensesQuery(Guid userId)
+        {
+            UserId = userId;
+        }
     }
     public class RetrieveTotalExpensesQueryHandler : IRequestHandler<RetrieveTotalExpensesQuery, double>
     {
@@ -17,7 +22,8 @@ namespace BudgetManager.Features.Statistics.Queries
         public async Task<double> Handle(RetrieveTotalExpensesQuery request, CancellationToken cancellationToken)
         {
             var totalExpenses = await _dbContext.Transactions
-                            .Where(x => x.Category != Models.TransactionCategoryEnum.Saves)
+                            .Where(x => x.Category != Models.TransactionCategoryEnum.Saves && 
+                                        x.UserId == request.UserId)
                             .SumAsync(x => x.Price);
             return Math.Round(totalExpenses,2);
         }

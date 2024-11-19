@@ -6,6 +6,11 @@ namespace BudgetManager.Features.Statistics.Queries
 {
     public record RetrieveAverageSavesQuery : IRequest<double>
     {
+        public Guid UserId { get; init; }
+        public RetrieveAverageSavesQuery(Guid userId)
+        {
+            UserId = userId;
+        }
     }
     public class RetrieveAverageSavesQueryHandler : IRequestHandler<RetrieveAverageSavesQuery, double>
     {
@@ -17,10 +22,14 @@ namespace BudgetManager.Features.Statistics.Queries
 
         public async Task<double> Handle(RetrieveAverageSavesQuery request, CancellationToken cancellationToken)
         {
-            var averageSaves = await _dbContext.Transactions
-                                        .Where(x => x.Category == Models.TransactionCategoryEnum.Saves)
-                                        .AverageAsync(x => x.Price, cancellationToken);
-            return Math.Round(averageSaves, 2);
+            var saves = await _dbContext.Transactions
+                                        .Where(x => x.Category == Models.TransactionCategoryEnum.Saves &&
+                                               x.UserId == request.UserId)
+                                        .ToListAsync(cancellationToken);
+
+            if (!saves.Any())
+                return 0;
+            else return Math.Round(saves.Average(x => x.Price), 2);
         }
     }
 }

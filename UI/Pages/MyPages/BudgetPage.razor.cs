@@ -113,9 +113,20 @@ namespace UI.Pages.MyPages
         private async Task LoadMonthPatterns()
         {
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
-            if (patternResponse.Id != -1)
-                patternViewModel = patternResponse;
-            else patternViewModel.Id = 0;
+            if (patternResponse == null || patternResponse.Id == -1)
+            {
+                patternViewModel = new PatternViewModel
+                {
+                    Id = 0,
+                    Name = string.Empty,
+                    Value_Saves = 0,
+                    Value_Fees = 0,
+                    Value_Entertainment = 0
+                };
+                return;
+            }
+            
+            patternViewModel = patternResponse;
         }
         private async Task LoadMonthIncome()
         {

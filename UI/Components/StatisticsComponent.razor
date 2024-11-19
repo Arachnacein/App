@@ -21,14 +21,14 @@
 
 <MudStack Row="true" Spacing="6" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-4">
     <!-- Category distribution chart -->
-    <MudPaper Width="25%" Height="330px" Elevation="3" Class="mud-pa-2">
+    <MudPaper Width="25%" Height="400px" Elevation="3" Class="mud-pa-2">
         <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()"
                   InputLabels="@CategoriesDistribution.GetPropertyNames(Localizer)"
                   Width="70%" Height="70%" LegendPosition="Position.Bottom" Class="ma-2 pa-2 mt-8" />
     </MudPaper>
 
     <!-- Monthly category distribution chart -->
-    <MudPaper Width="70%" Height="330px" Elevation="3" Class="mud-pa-2">
+    <MudPaper Width="70%" Height="400px" Elevation="3" Class="mud-pa-2">
         <MudChart ChartType="ChartType.StackedBar" ChartSeries="@Series" XAxisLabels="@XaxisLabels"
                   Width="80%" Height="30%" LegendPosition="Position.Right" Class="ma-2 pa-2"/>
     </MudPaper>
