@@ -80,6 +80,7 @@
   🔜 Add authorization. <br>
   * Add Healtch checks.<br>
   * Add Unit Tests.<br>
+  * Add pdf summary. <br>
   * Add saving goals feature. <br>
   * Add calendar with notifications.<br>
   * Add payment feature. <br>
