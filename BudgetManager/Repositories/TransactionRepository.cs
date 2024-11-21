@@ -13,36 +13,36 @@ namespace BudgetManager.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Transaction>> GetAll(Guid userId)
+        public async Task<IEnumerable<Transaction>> GetAllAsync(Guid userId)
         {
             return _context.Transactions.Where(x => x.UserId == userId);
         }
 
-        public async Task<Transaction> Get(int id, Guid userId)
+        public async Task<Transaction> GetAsync(int id, Guid userId)
         {
             return _context.Transactions.FirstOrDefault(t => t.Id == id && t.UserId == userId);
         }
 
-        public async Task<Transaction> Add(Transaction transaction)
+        public async Task<Transaction> AddAsync(Transaction transaction)
         {
             _context.Transactions.Add(transaction);
             _context.SaveChanges();
             return transaction;
         }
 
-        public async Task Update(Transaction transaction)
+        public async Task UpdateAsync(Transaction transaction)
         {
             _context.Transactions.Update(transaction);
             _context.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var transaction = _context.Transactions.FirstOrDefault(x => x.Id == id);
             _context.Transactions.Remove(transaction);
             _context.SaveChanges();
         }
-        public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
+        public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
         {
             var transaction = _context.Transactions.FirstOrDefault(x => x.Id == uc.Id);
             transaction.Category = uc.Category;
@@ -53,12 +53,11 @@ namespace BudgetManager.Repositories
 
     public interface ITransactionRespository
     {
-        Task<IEnumerable<Transaction>> GetAll(Guid userId);
-        Task<Transaction> Get(int id, Guid userId);
-        Task<Transaction> Add(Transaction transaction);
-        Task Update(Transaction transaction);
-        Task Delete(int id);
-
-        Task UpdateCategory(UpdateTransactionCategoryDto uc);
+        Task<IEnumerable<Transaction>> GetAllAsync(Guid userId);
+        Task<Transaction> GetAsync(int id, Guid userId);
+        Task<Transaction> AddAsync(Transaction transaction);
+        Task UpdateAsync(Transaction transaction);
+        Task DeleteAsync(int id);
+        Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc);
     }
 }

@@ -35,7 +35,7 @@ namespace BudgetManager.Features.Incomes.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return await _incomeService.AddIncome(_incomeMapper.Map(request));
+            return await _incomeService.AddIncomeAsync(_incomeMapper.Map(request));
         }
     }
 }

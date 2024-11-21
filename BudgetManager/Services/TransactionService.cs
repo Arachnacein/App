@@ -19,19 +19,19 @@ namespace BudgetManager.Services
             _transactionMapper = transactionMapper;
         }
 
-        public async Task<IEnumerable<TransactionDto>> RetrieveTransactions(Guid userId)
+        public async Task<IEnumerable<TransactionDto>> RetrieveTransactionsAsync(Guid userId)
         {
-            var transactions = await _repository.GetAll(userId);
+            var transactions = await _repository.GetAllAsync(userId);
             return _transactionMapper.MapElements(transactions.ToList());
         }
-        public async Task<TransactionDto> RetrieveTransaction(int id, Guid userId)
+        public async Task<TransactionDto> RetrieveTransactionAsync(int id, Guid userId)
         {
-            var transaction = await _repository.Get(id, userId);
+            var transaction = await _repository.GetAsync(id, userId);
             if(transaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{id}.");
             return _transactionMapper.Map(transaction);
         }
-        public async Task<TransactionDto> AddTransaction(AddTransactionDto transaction)
+        public async Task<TransactionDto> AddTransactionAsync(AddTransactionDto transaction)
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
@@ -44,12 +44,12 @@ namespace BudgetManager.Services
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
             
             Transaction mappedTransaction = _transactionMapper.Map(transaction);
-            await _repository.Add(mappedTransaction);
+            await _repository.AddAsync(mappedTransaction);
 
             return _transactionMapper.Map(mappedTransaction);
 
         }
-        public async Task UpdateTransaction(UpdateTransactionDto transaction)
+        public async Task UpdateTransactionAsync(UpdateTransactionDto transaction)
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
@@ -62,25 +62,25 @@ namespace BudgetManager.Services
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
 
             Transaction mappedTransaction = _transactionMapper.Map(transaction);
-            await _repository.Update(mappedTransaction);
+            await _repository.UpdateAsync(mappedTransaction);
         }
 
-        public async Task DeleteTransaction(int id, Guid userId)
+        public async Task DeleteTransactionAsync(int id, Guid userId)
         {
-            var existingTransaction = await _repository.Get(id, userId);
+            var existingTransaction = await _repository.GetAsync(id, userId);
             if (existingTransaction == null)
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
-            await _repository.Delete(id);
+            await _repository.DeleteAsync(id);
         }
 
-        public async Task UpdateCategory(UpdateTransactionCategoryDto uc)
+        public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
         {
-            var existingTransaction = _repository.Get(uc.Id, uc.UserId);
+            var existingTransaction = _repository.GetAsync(uc.Id, uc.UserId);
             if (existingTransaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{uc.Id}");
             if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
                 throw new BadValueException($"Category not found: {uc.Category}.");
-            await _repository.UpdateCategory(uc);
+            await _repository.UpdateCategoryAsync(uc);
         }
     }
 }

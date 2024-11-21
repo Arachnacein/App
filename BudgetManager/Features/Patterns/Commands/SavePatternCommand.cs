@@ -37,7 +37,7 @@ namespace BudgetManager.Features.Patterns.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return await _patternService.AddPattern(_patternMapper.Map(request));
+            return await _patternService.AddPatternAsync(_patternMapper.Map(request));
         }
     }
 }

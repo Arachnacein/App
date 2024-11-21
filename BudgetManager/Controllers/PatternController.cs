@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.Pattern;
 using BudgetManager.Features.Patterns.Commands;
 using BudgetManager.Features.Patterns.Queries;
-using BudgetManager.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +10,10 @@ namespace BudgetManager.Controllers
     [Route("api/[controller]")]
     public class PatternController : ControllerBase
     {
-        private readonly IPatternService _patternService;
         private readonly IMediator _mediator;
 
-        public PatternController(IPatternService patternService, IMediator mediator)
+        public PatternController(IMediator mediator)
         {
-            _patternService = patternService;
             _mediator = mediator;
         }
 

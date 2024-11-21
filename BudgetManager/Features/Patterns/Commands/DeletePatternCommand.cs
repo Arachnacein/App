@@ -26,7 +26,7 @@ namespace BudgetManager.Features.Patterns.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _patternService.DeletePattern(request.Id, request.UserId);
+            await _patternService.DeletePatternAsync(request.Id, request.UserId);
         }
     }
 }

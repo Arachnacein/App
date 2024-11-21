@@ -26,7 +26,7 @@ namespace BudgetManager.Features.Incomes.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _incomeService.DeleteIncome(request.Id, request.UserId);
+            await _incomeService.DeleteIncomeAsync(request.Id, request.UserId);
         }
     }
 }

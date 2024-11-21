@@ -15,16 +15,16 @@ namespace IdentityManager.Services
             _httpClient = httpClient;
         }
 
-        public async Task<bool> Register(RegistrationModel model)
+        public async Task<bool> RegisterAsync(RegistrationModel model)
         {
-            var adminToken = await GetAdminToken();
+            var adminToken = await GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
 
-            if (await UsernameExists(model.Username))
+            if (await UsernameExistsAsync(model.Username))
                 throw new CustomException((int)ErrorCodesEnum.UsernameAlreadyExists, "Username already exists.");
 
-            if (await EmailExists(model.Email))
+            if (await EmailExistsAsync(model.Email))
                 throw new CustomException((int)ErrorCodesEnum.EmailAlreadyExists, "Email already exists.");
 
             var requestBody = new
@@ -49,7 +49,7 @@ namespace IdentityManager.Services
 
             return response.IsSuccessStatusCode;
         }
-        public async Task<string> GetAdminToken()
+        public async Task<string> GetAdminTokenAsync()
         {
             var tokenRequest = new FormUrlEncodedContent(new[]
             {
@@ -72,9 +72,9 @@ namespace IdentityManager.Services
             var json = JsonDocument.Parse(responseData);
             return json.RootElement.GetProperty("access_token").GetString();
         }
-        public async Task<bool> UsernameExists(string username)
+        public async Task<bool> UsernameExistsAsync(string username)
         {
-            var adminToken = await GetAdminToken();
+            var adminToken = await GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
 
@@ -95,9 +95,9 @@ namespace IdentityManager.Services
 
             return users?.Any() ?? false; // if exists -> true
         }        
-        public async Task<bool> EmailExists(string email)
+        public async Task<bool> EmailExistsAsync(string email)
         {
-            var adminToken = await GetAdminToken();
+            var adminToken = await GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -120,9 +120,9 @@ namespace IdentityManager.Services
     }
     public interface IRegisterService
     {
-        Task<bool> Register(RegistrationModel model);
-        Task<string> GetAdminToken();
-        Task<bool> UsernameExists(string username);
-        Task<bool> EmailExists(string email);
+        Task<bool> RegisterAsync(RegistrationModel model);
+        Task<string> GetAdminTokenAsync();
+        Task<bool> UsernameExistsAsync(string username);
+        Task<bool> EmailExistsAsync(string email);
     }
 }

@@ -4,9 +4,9 @@ namespace BudgetManager.Services
 {
     public interface IPatternService
     {
-        Task<IEnumerable<PatternDto>> RetrievePatterns(Guid userId);
-        Task<PatternDto> RetrievePattern(int id, Guid userId);
-        Task<PatternDto> AddPattern(AddPatternDto dto);
-        Task DeletePattern(int id, Guid userId);
+        Task<IEnumerable<PatternDto>> RetrievePatternsAsync(Guid userId);
+        Task<PatternDto> RetrievePatternAsync(int id, Guid userId);
+        Task<PatternDto> AddPatternAsync(AddPatternDto dto);
+        Task DeletePatternAsync(int id, Guid userId);
     }
 }
