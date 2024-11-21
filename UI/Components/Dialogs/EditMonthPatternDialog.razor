@@ -9,7 +9,7 @@
                        Variant="Variant.Outlined" Class="ma-1 pa-1" ToStringFunc="(x => x.Name)" Dense="true">
                 @foreach (var item in patterns)
                 {
-                    <MudSelectItem T="PatternViewModel" Value="@item">@item.Name (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
+                    <MudSelectItem T="PatternViewModel" Value="@item">@Localizer[item.Name] (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
                 }
             </MudSelect>
         </MudStack>

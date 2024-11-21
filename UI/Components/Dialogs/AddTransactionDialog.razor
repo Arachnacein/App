@@ -11,7 +11,7 @@
                     <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
                         @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
                         {
-                            <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
+                            <MudSelectItem Value="@item">@Localizer[@item.ToString()]</MudSelectItem>
                         }
                     </MudSelect>
             </MudStack>

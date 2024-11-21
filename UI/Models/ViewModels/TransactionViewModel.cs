@@ -19,12 +19,12 @@ namespace UI.Models.ViewModels
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage(localizer["NameFieldEmpty"])
-                .MinimumLength(5).WithMessage(localizer["NameMinLength"])
-                .MaximumLength(15).WithMessage(localizer["NameMaxLength"]);
+                .MinimumLength(3).WithMessage(localizer["NameMinLength"])
+                .MaximumLength(30).WithMessage(localizer["NameMaxLength"]);
 
             RuleFor(x => x.Description)
-                .MinimumLength(5).WithMessage(localizer["DescriptionMinLength"])
-                .MaximumLength(50).WithMessage(localizer["DescriptionMaxLength"]);
+                .MinimumLength(3).WithMessage(localizer["DescriptionMinLength"])
+                .MaximumLength(150).WithMessage(localizer["DescriptionMaxLength"]);
 
             RuleFor(x => x.Price)
                 .NotEmpty().WithMessage(localizer["PriceFieldEmpty"])

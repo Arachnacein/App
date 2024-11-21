@@ -123,8 +123,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>Entertainment</value>
+  </data>
   <data name="FailEditSnackbar" xml:space="preserve">
     <value>Something went wrong</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Fees</value>
   </data>
   <data name="GettingPatternsError" xml:space="preserve">
     <value>Error while getting patterns</value>
@@ -134,6 +140,9 @@
   </data>
   <data name="Placeholder" xml:space="preserve">
     <value>Choose pattern</value>
+  </data>
+  <data name="Saves" xml:space="preserve">
+    <value>Saves</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>

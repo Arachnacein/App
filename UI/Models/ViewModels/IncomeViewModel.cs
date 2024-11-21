@@ -18,7 +18,7 @@ namespace UI.Models.ViewModels
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage(localizer["NameFieldEmpty"])
-                .MinimumLength(5).WithMessage(localizer["NameMinLength"])
+                .MinimumLength(3).WithMessage(localizer["NameMinLength"])
                 .MaximumLength(50).WithMessage(localizer["NameMaxLength"]);
 
             RuleFor(x => x.Amount)
