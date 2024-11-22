@@ -25,7 +25,7 @@ namespace BudgetManager.Features.MonthPatterns.Commands
         {
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
-            await _monthPatternService.DeleteMonthPattern(request.Id, request.UserId);
+            await _monthPatternService.DeleteMonthPatternAsync(request.Id, request.UserId);
         }
     }
 }

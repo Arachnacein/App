@@ -120,11 +120,17 @@
   <data name="Confirm" xml:space="preserve">
     <value>Zatwierdź</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>Rozrywka</value>
+  </data>
   <data name="ErrorGettingPatterns" xml:space="preserve">
     <value>Coś poszło nie tak</value>
   </data>
   <data name="FailSnackbar" xml:space="preserve">
     <value>Coś poszło nie tak</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Wydatki</value>
   </data>
   <data name="MustSignIn" xml:space="preserve">
     <value>Musisz być zalgoowany</value>
@@ -134,6 +140,9 @@
   </data>
   <data name="PleaseChoosePattern" xml:space="preserve">
     <value>Proszę wybrać wzór</value>
+  </data>
+  <data name="Saves" xml:space="preserve">
+    <value>Oszczędności</value>
   </data>
   <data name="SuccessSnackbar" xml:space="preserve">
     <value>Pomyślnie wybrano wzór</value>

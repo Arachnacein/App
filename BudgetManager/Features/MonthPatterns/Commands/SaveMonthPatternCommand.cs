@@ -32,7 +32,7 @@ namespace BudgetManager.Features.MonthPatterns.Commands
             if(request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return await _monthPatternService.AddMonthPattern(_monthPatternMapper.Map(request));
+            return await _monthPatternService.AddMonthPatternAsync(_monthPatternMapper.Map(request));
         }
     }
 }

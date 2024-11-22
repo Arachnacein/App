@@ -18,7 +18,7 @@ namespace IdentityManager.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public async Task<IActionResult> Register([FromForm] RegistrationModel model)
         {
-            var result = await _registerService.Register(model);
+            var result = await _registerService.RegisterAsync(model);
             return Ok();
         }
     }

@@ -17,21 +17,21 @@ namespace BudgetManager.Services
             _patternRepository = patternRepository;
             _patternMapper = patternMapper;
         }
-        public async Task<IEnumerable<PatternDto>> RetrievePatterns(Guid userId)
+        public async Task<IEnumerable<PatternDto>> RetrievePatternsAsync(Guid userId)
         {
-            var patterns =  await _patternRepository.GetAll(userId);
+            var patterns =  await _patternRepository.GetAllAsync(userId);
             return _patternMapper.MapeElements(patterns.ToList());
         }
 
-        public async Task<PatternDto> RetrievePattern(int id, Guid userId)
+        public async Task<PatternDto> RetrievePatternAsync(int id, Guid userId)
         {
-            var pattern = await _patternRepository.Get(id, userId);
+            var pattern = await _patternRepository.GetAsync(id, userId);
             if (pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{id}");
             return _patternMapper.Map(pattern);
         }
 
-        public async Task<PatternDto> AddPattern(AddPatternDto dto)
+        public async Task<PatternDto> AddPatternAsync(AddPatternDto dto)
         {
             if (dto == null)
                 throw new ArgumentNullException($"Object is null.");
@@ -50,16 +50,16 @@ namespace BudgetManager.Services
                 throw new BadValueException($"Value_Fees + Value_Saves + Value_Entertainment Should be 100%. Current is {sum}.");
 
             Pattern mappedPattern = _patternMapper.Map(dto);
-            await _patternRepository.Add(mappedPattern);
+            await _patternRepository.AddAsync(mappedPattern);
             return _patternMapper.Map(mappedPattern);
         }
 
-        public async Task DeletePattern(int id, Guid userId)
+        public async Task DeletePatternAsync(int id, Guid userId)
         {
-            var pattern = await _patternRepository.Get(id, userId);
+            var pattern = await _patternRepository.GetAsync(id, userId);
             if (pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{id}");
-            await _patternRepository.Delete(id, userId);
+            await _patternRepository.DeleteAsync(id, userId);
         }
     }
 }

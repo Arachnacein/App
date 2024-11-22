@@ -19,7 +19,7 @@ namespace IdentityManager.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public async Task<IActionResult> LogIn([FromForm] LoginModel loginModel)
         {
-            var token = await _loginservice.Login(loginModel.Username, loginModel.Password);
+            var token = await _loginservice.LoginAsync(loginModel.Username, loginModel.Password);
 
             if (token != null)
             {

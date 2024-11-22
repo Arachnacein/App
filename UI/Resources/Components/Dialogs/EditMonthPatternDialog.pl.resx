@@ -120,8 +120,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>Rozrywka</value>
+  </data>
   <data name="FailEditSnackbar" xml:space="preserve">
     <value>Coś poszło nie tak</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Wydatki</value>
   </data>
   <data name="GettingPatternsError" xml:space="preserve">
     <value>Błąd ponierania wzorów</value>
@@ -131,6 +137,9 @@
   </data>
   <data name="Placeholder" xml:space="preserve">
     <value>Wybierz wzór</value>
+  </data>
+  <data name="Saves" xml:space="preserve">
+    <value>Oszczędności</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Zatwierdź</value>

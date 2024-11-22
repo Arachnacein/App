@@ -40,7 +40,7 @@ namespace BudgetManager.Features.Transactions.Commands
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return await _transactionService.AddTransaction(_transactionMapper.Map(request));
+            return await _transactionService.AddTransactionAsync(_transactionMapper.Map(request));
         }
     }
 }

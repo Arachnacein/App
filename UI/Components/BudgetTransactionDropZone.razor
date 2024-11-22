@@ -4,24 +4,37 @@
 <MudDropZone T="TransactionViewModel" Identifier="@Identifier" 
              Class="rounded mud-background-gray pa-3 ma-3 flex-grow-1" 
              AllowReorder="false" Style="width: 25%;height: 500px;">
-    <MudText Typo="Typo.h6" Class="mb-4" Style="cssString" Align="Align.Center">
-        @if(TotalValue != 0)
+        @if(IsLoading)
         {
-            @Title @($"  [{(ActualValue / TotalValue * 100):0.00}%]")
+            <MudStack AlignItems="AlignItems.Center"> 
+                <MudSkeleton Animation="Animation.Pulse" Height="40px" Width="100%"/>
+                <MudSkeleton Animation="Animation.Pulse" Height="60px" Width="80%" Style="margin-top: 10px;" />
+                <MudSkeleton Animation="Animation.Pulse" Height="60px" Width="80%" />
+                <MudSkeleton Animation="Animation.Pulse" Height="60px" Width="80%" />
+            </MudStack>
         }
         else
         {
-            @Title
-        }
-        <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
-            <MudProgressLinear Value="@ActualValue" Max="@TotalValue"
-                               Rounded="true" Size="Size.Medium" Class="rounded-progress"
-                               Style="height: 20px;" Color="@TitleColor" />
-            <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
-                @ActualValue / @TotalValue
+
+            <MudText Typo="Typo.h6" Class="mb-4" Style="cssString" Align="Align.Center">
+                @if(TotalValue != 0)
+                {
+                    @Title @($"  [{(ActualValue / TotalValue * 100):0.00}%]")
+                }
+                else
+                {
+                    @Title
+                }
+                <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
+                    <MudProgressLinear Value="@ActualValue" Max="@TotalValue"
+                                       Rounded="true" Size="Size.Medium" Class="rounded-progress"
+                                       Style="height: 20px;" Color="@TitleColor" />
+                    <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
+                        @ActualValue / @TotalValue
+                    </MudText>
+                </MudPaper>
             </MudText>
-        </MudPaper>
-    </MudText>
+        }
 </MudDropZone>
 
 @code {
@@ -31,6 +44,7 @@
     [Parameter] public double TotalValue { get; set; } 
     [Parameter] public string Color { get; set; } 
     [Parameter] public MudBlazor.Color TitleColor { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
 
     private string cssString => $"text-align:center;color:{Color}";
 }

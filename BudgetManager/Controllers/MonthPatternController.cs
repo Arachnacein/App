@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Features.MonthPatterns.Queries;
-using BudgetManager.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +10,10 @@ namespace BudgetManager.Controllers
     [Route("api/[controller]")]
     public class MonthPatternController : ControllerBase
     {
-        private readonly IMonthPatternService _monthPatternService;
         private readonly IMediator _mediator;
 
-        public MonthPatternController(IMonthPatternService monthPatternService, IMediator mediator)
+        public MonthPatternController(IMediator mediator)
         {
-            _monthPatternService = monthPatternService;
             _mediator = mediator;
         }
 

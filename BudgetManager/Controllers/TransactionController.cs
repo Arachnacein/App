@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Features.Transactions.Queries;
-using BudgetManager.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +10,10 @@ namespace BudgetManager.Controllers
     [Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionService _transactionService;
         private readonly IMediator _mediator;
 
-        public TransactionController(ITransactionService transactionService, IMediator mediator)
+        public TransactionController(IMediator mediator)
         {
-            _transactionService = transactionService;
             _mediator = mediator;
         }
 

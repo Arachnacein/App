@@ -32,7 +32,7 @@ namespace BudgetManager.Features.Transactions.Commands
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
-            await _transactionService.UpdateCategory(_transactionMapper.Map(request));
+            await _transactionService.UpdateCategoryAsync(_transactionMapper.Map(request));
         }
     }
 }

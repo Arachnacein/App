@@ -1,5 +1,4 @@
-﻿
-namespace BudgetManager.Models
+﻿namespace BudgetManager.Models
 {
     public enum TransactionCategoryEnum
     {

@@ -5,12 +5,12 @@ namespace BudgetManager.Services
 {
     public interface IMonthPatternService
     {
-        Task<MonthPatternDto> RetrieveMonthPattern(int id, Guid userId);
-        Task<IEnumerable<MonthPatternDto>> RetrieveMonthPatterns(Guid userId);
-        Task<MonthPatternDto> AddMonthPattern(AddMonthPatternDto dto);
-        Task UpdateMonthPattern(UpdateMonthPatternDto dto);
-        Task DeleteMonthPattern(int id, Guid userId);
-        Task<PatternDto> RetrieveMonthPattern(int month, int year, Guid userId);
-        Task<IEnumerable<FullMonthPatternDto>> RetrievePatterns(Guid userId);
+        Task<MonthPatternDto> RetrieveMonthPatternAsync(int id, Guid userId);
+        Task<PatternDto> RetrieveMonthPatternAsync(int month, int year, Guid userId);
+        Task<IEnumerable<MonthPatternDto>> RetrieveMonthPatternsAsync(Guid userId);
+        Task<IEnumerable<FullMonthPatternDto>> RetrievePatternsAsync(Guid userId);
+        Task<MonthPatternDto> AddMonthPatternAsync(AddMonthPatternDto dto);
+        Task UpdateMonthPatternAsync(UpdateMonthPatternDto dto);
+        Task DeleteMonthPatternAsync(int id, Guid userId);
     }
 }

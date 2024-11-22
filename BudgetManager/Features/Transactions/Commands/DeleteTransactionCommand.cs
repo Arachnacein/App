@@ -27,7 +27,7 @@ namespace BudgetManager.Features.Transactions.Commands
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            await _transactionService.DeleteTransaction(request.Id, request.UserId);
+            await _transactionService.DeleteTransactionAsync(request.Id, request.UserId);
         }
     }
 }

@@ -126,8 +126,14 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>Entertainment</value>
+  </data>
   <data name="FailedSnackbar" xml:space="preserve">
     <value>Failed while adding transaction</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Fees</value>
   </data>
   <data name="MustSignIn" xml:space="preserve">
     <value>You must be signed in to perform this action</value>
@@ -137,6 +143,9 @@
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="Saves" xml:space="preserve">
+    <value>Saves</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>

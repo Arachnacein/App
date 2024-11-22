@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.Income;
 using BudgetManager.Features.Incomes.Commands;
 using BudgetManager.Features.Incomes.Queries;
-using BudgetManager.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +10,10 @@ namespace BudgetManager.Controllers
     [Route("api/[controller]")]
     public class IncomeController : ControllerBase
     {
-        private readonly IIncomeService _incomeService;
         private readonly IMediator _mediator;
 
-        public IncomeController(IIncomeService incomeService, IMediator mediator)
+        public IncomeController(IMediator mediator)
         {
-            _incomeService = incomeService;
             _mediator = mediator;
         }
 

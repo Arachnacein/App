@@ -11,7 +11,7 @@ namespace IdentityManager.Services
             _httpClient = httpClient;
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<string> LoginAsync(string username, string password)
         {
             var content = new FormUrlEncodedContent(new[]
             {
@@ -36,6 +36,6 @@ namespace IdentityManager.Services
     }
     public interface ILoginservice
     { 
-        Task<string> Login(string username, string password);
+        Task<string> LoginAsync(string username, string password);
     }
 }

@@ -120,11 +120,17 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>Entertainment</value>
+  </data>
   <data name="ErrorGettingPatterns" xml:space="preserve">
     <value>Error while getting patterns</value>
   </data>
   <data name="FailSnackbar" xml:space="preserve">
     <value>Something went wrong</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Fees</value>
   </data>
   <data name="MustSignIn" xml:space="preserve">
     <value>You must be signed in to perform this action</value>
@@ -134,6 +140,9 @@
   </data>
   <data name="PleaseChoosePattern" xml:space="preserve">
     <value>Please choose pattern</value>
+  </data>
+  <data name="Saves" xml:space="preserve">
+    <value>Saves</value>
   </data>
   <data name="SuccessSnackbar" xml:space="preserve">
     <value>Pattern selected successfully</value>
