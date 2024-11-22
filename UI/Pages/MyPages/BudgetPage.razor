@@ -57,17 +57,20 @@
                                 Title="@Localizer["Saves"]" Identifier="Saves"
                                 ActualValue="patternValuesModel.ActualValueSaves"
                                 TotalValue="patternValuesModel.TotalValueSaves"
-                                TitleColor="Color.Success" Color="forestgreen" />        
+                                TitleColor="Color.Success" Color="forestgreen"
+                                IsLoading="IsLoadingTransactions"/>        
                 <UI.Components.BudgetTransactionDropZone 
                                 Title="@Localizer["Fees"]" Identifier="Fees"
                                 ActualValue="patternValuesModel.ActualValueFees"
                                 TotalValue="patternValuesModel.TotalValueFees"
-                                TitleColor="Color.Error" Color="darkred" />            
+                                TitleColor="Color.Error" Color="darkred" 
+                                IsLoading="IsLoadingTransactions"/>            
                 <UI.Components.BudgetTransactionDropZone 
                                 Title="@Localizer["Entertainment"]" Identifier="Entertainment"
                                 ActualValue="patternValuesModel.ActualValueEntertainment"
                                 TotalValue="patternValuesModel.TotalValueEntertainment"
-                                TitleColor="Color.Info" Color="dodgerblue" />
+                                TitleColor="Color.Info" Color="dodgerblue" 
+                                IsLoading="IsLoadingTransactions"/>
             </ChildContent>
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">

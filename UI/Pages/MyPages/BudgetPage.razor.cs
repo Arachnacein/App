@@ -18,11 +18,11 @@ namespace UI.Pages.MyPages
         private List<IncomeViewModel> incomes;
         private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
         private PatternValuesModel patternValuesModel = new PatternValuesModel();
-
+        private bool IsLoadingTransactions = true;
         protected override async Task OnInitializedAsync()
         {
             CurrentDate = DateTime.Now;
-
+            IsLoadingTransactions = true;
             await base.OnInitializedAsync();
             await RefreshData();
         }
@@ -36,6 +36,7 @@ namespace UI.Pages.MyPages
                 await LoadMonthPatterns();
                 await LoadMonthIncome();
                 await CalculatePatternValues();
+                IsLoadingTransactions = false;
             }
         }
         private async Task LoadTransactions()
