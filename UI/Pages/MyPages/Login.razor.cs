@@ -26,7 +26,6 @@ namespace UI.Pages.MyPages
             });
 
             var response = await httpClient.PostAsync("/api/login", requestBody);
-
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();

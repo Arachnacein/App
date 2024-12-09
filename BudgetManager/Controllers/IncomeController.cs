@@ -2,12 +2,14 @@
 using BudgetManager.Features.Incomes.Commands;
 using BudgetManager.Features.Incomes.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "admin, user")]
     public class IncomeController : ControllerBase
     {
         private readonly IMediator _mediator;

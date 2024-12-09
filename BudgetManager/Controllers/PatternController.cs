@@ -2,12 +2,14 @@
 using BudgetManager.Features.Patterns.Commands;
 using BudgetManager.Features.Patterns.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "admin,user")]
     public class PatternController : ControllerBase
     {
         private readonly IMediator _mediator;

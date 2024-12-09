@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Razor;
 using MudBlazor.Services;
 using UI;
+using UI.Handlers;
 using UI.Models.ViewModels;
 using UI.Services;
 
@@ -19,8 +20,14 @@ builder.Services.AddTransient<IncomeViewModelValidator>();
 builder.Services.AddTransient<TransactionViewModelValidator>();
 builder.Services.AddTransient<RegistrationViewModelValidator>();
 
-
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });
+
+builder.Services.AddScoped<JwtAuthorizationHandler>();
+builder.Services.AddHttpClient("AuthorizedHttpClient", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8010");
+}).AddHttpMessageHandler<JwtAuthorizationHandler>();
+
 
 var app = builder.Build();
 

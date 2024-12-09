@@ -2,12 +2,14 @@
 using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Features.MonthPatterns.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "admin,user")]
     public class MonthPatternController : ControllerBase
     {
         private readonly IMediator _mediator;

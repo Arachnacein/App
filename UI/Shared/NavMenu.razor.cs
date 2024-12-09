@@ -36,11 +36,24 @@ namespace UI.Shared
         }        
         private async Task CheckToken()
         {
-            Snackbar.Add("Username " + UserSessionService.Username, MudBlazor.Severity.Normal);
-            Snackbar.Add("Name " + UserSessionService.Name, MudBlazor.Severity.Error);
-            Snackbar.Add("Surname " + UserSessionService.Surname, MudBlazor.Severity.Success);
-            Snackbar.Add("Email " + UserSessionService.Email, MudBlazor.Severity.Info);
-            Snackbar.Add("Id " + UserSessionService.UserId, MudBlazor.Severity.Success);
+
+            var token = await localStorage.GetAsync<string>("access_token");
+            if (token.Success)
+                Snackbar.Add(token.Value, MudBlazor.Severity.Success);
+            else
+                Snackbar.Add("zły token", MudBlazor.Severity.Warning);
+
+
+            //for (int i = 0; i < UserSessionService.Roles.Count(); i++)
+            //    Snackbar.Add("roles " + UserSessionService.Roles[i], MudBlazor.Severity.Normal);
+
+
+
+            //Snackbar.Add("Username " + UserSessionService.Username, MudBlazor.Severity.Normal);
+            //Snackbar.Add("Name " + UserSessionService.Name, MudBlazor.Severity.Error);
+            //Snackbar.Add("Surname " + UserSessionService.Surname, MudBlazor.Severity.Success);
+            //Snackbar.Add("Email " + UserSessionService.Email, MudBlazor.Severity.Info);
+            //Snackbar.Add("Id " + UserSessionService.UserId, MudBlazor.Severity.Success);
         }
     }
 }

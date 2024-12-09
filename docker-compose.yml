@@ -22,6 +22,7 @@ services:
         networks:
             - frontendnetwork
             - budgetnetwork
+            - keycloaknetwork
             
             
     budgetdb:
@@ -48,6 +49,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
         networks:
             - budgetnetwork
+            - keycloaknetwork
     
     identityapi:
         image: jluka26/identitymanager:latest

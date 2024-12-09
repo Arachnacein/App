@@ -1,11 +1,13 @@
 ﻿using BudgetManager.Features.Statistics.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetManager.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Authorize(Roles = "admin,user")]
     public class StatisticsController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -21,7 +21,10 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
       }
     },
     {
@@ -37,7 +40,7 @@
       "DownstreamPathTemplate": "/api/transaction/{id}/user/{userId}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -59,7 +62,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     //Incomes
@@ -82,7 +85,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -98,7 +101,7 @@
       "DownstreamPathTemplate": "/api/income/{id}/user/{userId}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -114,7 +117,7 @@
       "DownstreamPathTemplate": "/api/income/GetIncome?userId={userId}&month={month}&year={year}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     //Patterns
@@ -137,7 +140,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -153,7 +156,7 @@
       "DownstreamPathTemplate": "/api/pattern/{id}/user/{userId}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     //MonthPatterns
@@ -176,7 +179,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -192,7 +195,7 @@
       "DownstreamPathTemplate": "/api/monthpattern/{id}/user/{userId}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -208,7 +211,7 @@
       "DownstreamPathTemplate": "/api/monthpattern/GetMonthPattern?month={month}&year={year}&userId={userId}",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -230,7 +233,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     //Statistics
@@ -253,7 +256,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -275,7 +278,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -297,7 +300,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -319,7 +322,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -341,7 +344,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -363,7 +366,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -385,7 +388,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     {
@@ -407,7 +410,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "user", "admin" ]
+        "AllowedScopes": [ "profile email" ]
       }
     },
     ////Identity WEB API
