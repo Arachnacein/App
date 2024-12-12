@@ -4,12 +4,13 @@ using BudgetManager.Features.Transactions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Roles = "admin")]
     public class TransactionController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -30,6 +31,12 @@ namespace BudgetManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] Guid userId)
         {
+            var userId_TEMP = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var roles = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+
+            Console.WriteLine($"UserId: {userId_TEMP}");
+            Console.WriteLine($"Roles: {string.Join(", ", roles)}");
+
             var query = new RetrieveTransactionsQuery(userId);
             var response = await _mediator.Send(query);
             return Ok(response);
