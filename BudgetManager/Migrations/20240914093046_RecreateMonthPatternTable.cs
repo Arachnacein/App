@@ -10,8 +10,8 @@ namespace BudgetManager.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.DropTable(
-            //    name: "MonthPatterns");
+            migrationBuilder.DropTable(
+                name: "MonthPatterns");
 
             migrationBuilder.CreateTable(
                 name: "MonthPatterns",
