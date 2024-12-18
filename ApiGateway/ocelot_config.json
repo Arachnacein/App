@@ -20,8 +20,8 @@
         "Limit": 5
       },
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "profile email" ]
+        "AuthenticationProviderKey": "Bearer"
+        //"AllowedScopes": [ "profile email" ]
       },
       "AddHeadersToDownstream": {
         "Authorization": "{Authorization}"

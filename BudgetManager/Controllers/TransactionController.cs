@@ -9,7 +9,8 @@ namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin,user")]
+    [Authorize]
+    [Authorize(Policy = "AdminPolicy")]
     public class TransactionController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -30,6 +31,10 @@ namespace BudgetManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] Guid userId)
         {
+            Console.WriteLine("###################### im into transactions controller");
+            Console.WriteLine(User.Claims.FirstOrDefault(x => x.Value.ToString() == "admin"));
+            Console.WriteLine("isInRole admin " + User.IsInRole("admin"));
+            Console.WriteLine("IsInRole user " + User.IsInRole("user"));
             var query = new RetrieveTransactionsQuery(userId);
             var response = await _mediator.Send(query);
             return Ok(response);
