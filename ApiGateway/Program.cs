@@ -25,14 +25,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             ValidIssuer = "http://keycloak:8080/realms/AppRealm"
         };
-        //options.Events = new JwtBearerEvents
-        //{
-        //    OnAuthenticationFailed = context =>
-        //    {
-        //        Console.WriteLine($"Token Authentication Failed: {context.Exception.Message}");
-        //        return Task.CompletedTask;
-        //    }
-        //};
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Token Authentication Failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddOcelot(builder.Configuration);
