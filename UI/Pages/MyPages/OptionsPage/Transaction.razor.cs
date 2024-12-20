@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.Net.Http.Headers;
 using UI.Components.Dialogs;
 using UI.Extensions;
 using UI.Models.ViewModels;
@@ -38,6 +39,9 @@ namespace UI.Pages.MyPages.OptionsPage
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
                 return;
 
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
             filteredTransactions = transactions;
             StateHasChanged();

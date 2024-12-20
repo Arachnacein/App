@@ -20,11 +20,14 @@
         "Limit": 5
       },
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-        //"AllowedScopes": [ "profile email" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "profile email" ]
       },
       "AddHeadersToDownstream": {
         "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role":  "admin"
       }
     },
     {
@@ -41,6 +44,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -63,6 +72,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     //Incomes
@@ -86,6 +101,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -102,6 +123,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -118,6 +145,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     //Patterns
@@ -141,6 +174,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -157,6 +196,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     //MonthPatterns
@@ -180,6 +225,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -196,6 +247,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Roles": "admin"
       }
     },
     {
@@ -212,6 +269,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -234,6 +297,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     //Statistics
@@ -257,6 +326,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -279,6 +354,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -301,6 +382,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -323,6 +410,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -345,6 +438,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -367,6 +466,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -389,6 +494,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     {
@@ -411,6 +522,12 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": [ "profile email" ]
+      },
+      "AddHeadersToDownstream": {
+        "Authorization": "{Authorization}"
+      },
+      "RouteClaimsRequirement": {
+        "Role": "admin"
       }
     },
     ////Identity WEB API

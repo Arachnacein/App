@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Net.Http.Headers;
 using UI.Components.Dialogs;
 using UI.Extensions;
 using UI.Models.ViewModels;
@@ -40,6 +41,9 @@ namespace UI.Pages.MyPages.OptionsPage
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
                 return;
 
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             incomes = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income?userId={UserSessionService.UserId}");
             filteredIncomes = incomes;
             StateHasChanged();

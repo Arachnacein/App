@@ -108,7 +108,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
     options.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "user"));
-    //options.AddPolicy("both", policy => policy.RequireClaim("realm_access.roles"));
 });
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.Net.Http.Headers;
 using UI.Components.Dialogs;
 using UI.Models.ViewModels;
 
@@ -23,6 +24,10 @@ namespace UI.Pages.MyPages.OptionsPage
                 return;
             
             Model.UserId = UserSessionService.UserId;
+
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             var request = await httpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", Model);
             if (request.StatusCode == System.Net.HttpStatusCode.Created)
                 snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
@@ -34,6 +39,9 @@ namespace UI.Pages.MyPages.OptionsPage
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
                 return;
 
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             patterns = await httpClient.GetFromJsonAsync<List<MonthPatternViewModel>>($"/api/monthpattern/GetAllWithPattern?userId={UserSessionService.UserId}");
             StateHasChanged();
         }

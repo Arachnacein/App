@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Net.Http.Headers;
 using UI.Components.Dialogs;
 using UI.Models;
 using UI.Models.ViewModels;
@@ -43,6 +44,9 @@ namespace UI.Pages.MyPages
         {
             try
             {
+                if (!string.IsNullOrEmpty(UserSessionService.Token))
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
                 transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
                 transactions = transactions.OrderByDescending(x => x.Date)
                                        .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
@@ -92,6 +96,9 @@ namespace UI.Pages.MyPages
             //parses string into enum
             dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", 
                                                                             new UpdateTransactionCategoryViewModel 
                                                                             {
@@ -113,6 +120,9 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthPatterns()
         {
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
             if (patternResponse == null || patternResponse.Id == -1)
             {
@@ -131,6 +141,9 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthIncome()
         {
+            if (!string.IsNullOrEmpty(UserSessionService.Token))
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
