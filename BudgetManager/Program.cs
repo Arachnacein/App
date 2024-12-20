@@ -5,20 +5,11 @@ using BudgetManager.Services;
 using BudgetManager.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var logger = LoggerFactory.Create(builder =>
-{
-    builder.AddConsole();
-}).CreateLogger<Program>();
-
-logger.LogInformation("Application starting...");
-
 
 //services
 builder.Services.AddScoped<ITransactionRespository, TransactionRepository>();
@@ -67,13 +58,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         ValidAudience = "identityapi",
                         ValidateLifetime = true, 
                         ValidateIssuerSigningKey = true,
-                        RoleClaimType = "realm_access.roles"
+                        RoleClaimType = "ClaimTypes.Role"
                     };
                     options.Events = new JwtBearerEvents
                     {
                         OnTokenValidated = context =>
                         {
-                            Console.WriteLine("Im into OnTokenValidated Event");
+                            //Console.WriteLine("Im into OnTokenValidated Event");
                             var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
 
                             var resourceAccess = context.Principal?.FindFirst("resource_access")?.Value;
@@ -89,17 +80,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                                 foreach (var role in roles)
                                 {
                                     claimsIdentity?.AddClaim(new Claim(ClaimTypes.Role, role));
-                                    Console.WriteLine($"Added new role: {role}");
+                                    //Console.WriteLine($"Added new role: {role}");
                                 }
                             }
 
-                            Console.WriteLine("Adding roles completed");
-                            Console.WriteLine($"Counter: {claimsIdentity.Claims.Where(x => x.Type == ClaimTypes.Role).Count()}");
-                            foreach (var item in claimsIdentity.Claims.Where(x => x.Type == ClaimTypes.Role))
-                            {
-                                Console.WriteLine("###" + item.Value);
-                            }
-                            
+                            //Console.WriteLine("Adding roles completed");
+                            //Console.WriteLine($"Counter: {claimsIdentity.Claims.Where(x => x.Type == ClaimTypes.Role).Count()}");
+                            //foreach (var item in claimsIdentity.Claims.Where(x => x.Type == ClaimTypes.Role))
+                            //{
+                            //    Console.WriteLine("###" + item.Value);
+                            //}
+                            //foreach (var claim in claimsIdentity.Claims)
+                            //{
+                            //    Console.WriteLine($"Claim Type: {claim.Type}, Value: {claim.Value}");
+                            //}
                             return Task.CompletedTask;
                         },
                         OnAuthenticationFailed = context =>
@@ -109,11 +103,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         }
                     };
                 });
-//builder.Services.AddAuthorization();
+
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
-    options.AddPolicy("UserPolicy", policy => policy.RequireClaim("role", "user"));
+    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+    options.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "user"));
     //options.AddPolicy("both", policy => policy.RequireClaim("realm_access.roles"));
 });
 
@@ -141,57 +135,52 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionHandling>();
 //app.UseHttpsRedirection();
 
-app.Use(async (context, next) =>
-{
-    var token = context.Request.Headers["Authorization"];
-    logger.LogInformation($"Authorization Header: {token}");
-    await next();
-});
+
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
 });
-app.Use(async (context, next) =>
-{
-    if (context.User.Identity?.IsAuthenticated == true)
-    {
-        Console.WriteLine($"Authenticated User: {context.User.Identity.Name}");
-        Console.WriteLine($"Claims: {string.Join(", ", context.User.Claims.Select(c => $"{c.Type}: {c.Value}"))}");
-    }
-    else
-    {
-        Console.WriteLine("User is not authenticated.");
-    }
+//app.Use(async (context, next) =>
+//{
+//    if (context.User.Identity?.IsAuthenticated == true)
+//    {
+//        Console.WriteLine($"Authenticated User: {context.User.Identity.Name}");
+//        Console.WriteLine($"Claims: {string.Join(", ", context.User.Claims.Select(c => $"{c.Type}: {c.Value}"))}");
+//    }
+//    else
+//    {
+//        Console.WriteLine("User is not authenticated.");
+//    }
 
-    await next();
-});
+//    await next();
+//});
 
-app.Use(async (context, next) =>
-{
-    Console.WriteLine("Before UseAuthentication:");
-    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
-    await next();
-    Console.WriteLine("After UseAuthentication:");
-    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
-});
+//app.Use(async (context, next) =>
+//{
+//    Console.WriteLine("Before UseAuthentication:");
+//    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
+//    await next();
+//    Console.WriteLine("After UseAuthentication:");
+//    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
+//});
 
-app.Use(async (context, next) =>
-{
-    var token = context.Request.Headers["Authorization"];
-    Console.WriteLine($"Authorization Header in apigateway: {token}");
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    var token = context.Request.Headers["Authorization"];
+//    Console.WriteLine($"Authorization Header in apigateway: {token}");
+//    await next();
+//});
 
 app.UseAuthentication();
 
-app.Use(async (context, next) =>
-{
-    Console.WriteLine("Before UseAuthorization:");
-    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
-    await next();
-    Console.WriteLine("After UseAuthorization:");
-    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
-});
+//app.Use(async (context, next) =>
+//{
+//    Console.WriteLine("Before UseAuthorization:");
+//    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
+//    await next();
+//    Console.WriteLine("After UseAuthorization:");
+//    Console.WriteLine($"IsAuthenticated: {context.User?.Identity?.IsAuthenticated}");
+//});
 
 app.UseAuthorization();
 

@@ -9,7 +9,7 @@ namespace BudgetManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin,user")]
+    [Authorize(Policy = "UserPolicy")]
     public class MonthPatternController : ControllerBase
     {
         private readonly IMediator _mediator;
