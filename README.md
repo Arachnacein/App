@@ -1,3 +1,4 @@
+<h3 align="center">I will be spending Christmas writing unit tests. 🎄💻 </h3>
 <h1 align="center"> ExpenseApp</h1>
 <p align="">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since I started working, I noticed that it’s beneficial dividing income into specific categories. I divided them into 'savings', 'daily expenses', and those related to 'entertainment'.
