@@ -9,10 +9,10 @@ namespace BudgetManager.Data
         {
         }
 
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Pattern> Patterns { get; set; }
-        public DbSet<Income> Incomes { get; set; }
-        public DbSet<MonthPattern> MonthPatterns { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Pattern> Patterns { get; set; }
+        public virtual DbSet<Income> Incomes { get; set; }
+        public virtual DbSet<MonthPattern> MonthPatterns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
