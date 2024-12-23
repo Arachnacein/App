@@ -1,4 +1,5 @@
 ﻿using BudgetManager.Data;
+using BudgetManager.Dto;
 using BudgetManager.Models;
 using BudgetManager.Repositories;
 using FluentAssertions;
@@ -27,7 +28,7 @@ namespace RepositoriesTests
 
             var income = new Income { Id = 1, UserId = userId, Name = "Test Income", Amount = 100, Date = DateTime.Now };
             dbContext.Incomes.Add(income);
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var incomeRepository = new IncomeRepository(dbContext);
 
@@ -46,7 +47,7 @@ namespace RepositoriesTests
             var userId = Guid.NewGuid();
             var income = new Income { Id = 1, UserId = userId, Name = "Test Income", Amount = 100, Date = DateTime.Now };
             dbContext.Incomes.Add(income);
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var incomeRepository = new IncomeRepository(dbContext);
             //act
@@ -64,7 +65,7 @@ namespace RepositoriesTests
             var userId = Guid.NewGuid();
             var income = new Income { Id = 1, UserId = userId, Name = "Test Income", Amount = 100, Date = DateTime.Now };
             dbContext.Incomes.Add(income);
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var incomeRepository = new IncomeRepository(dbContext);
             //act
@@ -82,7 +83,7 @@ namespace RepositoriesTests
             var userId = Guid.NewGuid();
             var income = new Income { Id = 1, UserId = userId, Name = "Test Income", Amount = 100, Date = DateTime.Now };
             dbContext.Incomes.Add(income);
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
 
             var incomeRepository = new IncomeRepository(dbContext);
             //act
@@ -167,15 +168,15 @@ namespace RepositoriesTests
             //assert
             result.Should().BeInDescendingOrder(x => x.Date);
         }
-        
+
         [Fact]
         public async Task AddAsync_ShouldAddNewIncome_WhenDataIsValid()
         {
             //arrange
             var dbContext = CreateInMemoryDbContext();
-            var newIncome = new Income { Id = 1, UserId = Guid.NewGuid(), Name="Test12", Amount = 100, Date = DateTime.Now };
+            var newIncome = new Income { Id = 1, UserId = Guid.NewGuid(), Name = "Test12", Amount = 100, Date = DateTime.Now };
             var incomeRepository = new IncomeRepository(dbContext);
-            
+
             //act
             await incomeRepository.AddAsync(newIncome);
 
@@ -184,6 +185,7 @@ namespace RepositoriesTests
             addedIncome.Should().NotBeNull();
             addedIncome.Should().BeEquivalentTo(newIncome, options => options.Excluding(x => x.Id));
         }
+
         [Fact]
         public async Task AddAsync_ShouldReturnNewIncome_WhenDataIsValid()
         {
@@ -207,12 +209,120 @@ namespace RepositoriesTests
             var dbContext = CreateInMemoryDbContext();
             var newIncome = new Income { Id = 1, UserId = Guid.NewGuid(), Name = "Test12", Amount = 100, Date = DateTime.Now };
             var incomeRepository = new IncomeRepository(dbContext);
+            await dbContext.AddAsync(newIncome);
+            await dbContext.SaveChangesAsync();
+
+            newIncome.Amount = 120;
+            newIncome.Name = "3333";
 
             //act
-            var result = await incomeRepository.AddAsync(newIncome);
+            await incomeRepository.UpdateAsync(newIncome);
 
             //assert
+            var income = await dbContext.Incomes.FindAsync(newIncome.Id);
+            income.Should().NotBeNull();
+            income.Name.Should().Be("3333");
+            income.Amount.Should().Be(120);
 
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ShouldNotUpdateIncome_WhenIdIsInValid()
+        {
+            //arrange
+            var dbContext = CreateInMemoryDbContext();
+            var newIncome = new Income { Id = 1, UserId = Guid.NewGuid(), Name = "Test12", Amount = 100, Date = DateTime.Now };
+            var invalidIncome = new Income { Id = 2, UserId = Guid.NewGuid(), Name = "Inv@lid", Amount = 120, Date = DateTime.Now };
+            var incomeRepository = new IncomeRepository(dbContext);
+            await dbContext.AddAsync(newIncome);
+            await dbContext.SaveChangesAsync();
+
+            //act & assert
+            await incomeRepository
+                .Invoking(async repo => await repo.UpdateAsync(invalidIncome))
+                .Should()
+                .ThrowAsync<DbUpdateConcurrencyException>();
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldRemoveIncome_WhenDataIsValid()
+        {
+            //arrange
+            var dbContext = CreateInMemoryDbContext();
+            var income = new Income { Id = 1, UserId = Guid.NewGuid(), Name = "Test Income", Amount = 100, Date = DateTime.Now };
+            dbContext.Incomes.Add(income);
+            await dbContext.SaveChangesAsync();
+            var incomeRepository = new IncomeRepository(dbContext);
+
+            //act
+            await incomeRepository.DeleteAsync(income);
+
+            //assert
+            var deletedIncome = await dbContext.Incomes.FindAsync(income.Id);
+            deletedIncome.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldNotRemoveIncome_WhenIncomeNotFound()
+        {
+            //arrange
+            var dbContext = CreateInMemoryDbContext();
+            var income = new Income { Id = 1, UserId = Guid.NewGuid(), Name = "Test Income", Amount = 100, Date = DateTime.Now };
+            var incomeRepository = new IncomeRepository(dbContext);
+
+            //act & assert
+
+            await incomeRepository
+                .Invoking(async x => await x.DeleteAsync(income))
+                .Should()
+                .ThrowAsync<DbUpdateConcurrencyException>();
+        }
+
+        [Fact]
+        public async Task GetAsync_ShouldReturnAllIncomes_WhenUserIdAndModelAreValid()
+        {
+            //arrange
+            var dbContext = CreateInMemoryDbContext();
+            var userId = Guid.NewGuid();
+
+            var incomes = new List<Income>
+            {
+                new Income { Id = 1, UserId = userId, Name = "Income1", Amount = 100, Date = new DateTime(2024, 5, 23)},
+                new Income { Id = 2, UserId = userId, Name = "Income2", Amount = 200, Date = new DateTime(2024, 8, 24) },
+                new Income { Id = 3, UserId = Guid.NewGuid(), Name = "Income3", Amount = 200, Date = new DateTime(2024, 8, 21) },
+                new Income { Id = 4, UserId = userId, Name = "Income3", Amount = 200, Date = new DateTime(2024, 8, 13) }
+            };
+            dbContext.AddRange(incomes);
+            await dbContext.SaveChangesAsync();
+            var monthYearModel = new MonthYearModel { Month = 8, Year = 2024 };
+            var incomeRepository = new IncomeRepository(dbContext);
+
+            //act
+            var result = await incomeRepository.GetAsync(monthYearModel, userId);
+
+            //assert
+            result.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task GetAsync_ShouldReturnEmptyList_WhenIncomesNotFound()
+        {
+            //arrange
+            var dbContext = CreateInMemoryDbContext();
+            var userId = Guid.NewGuid();
+
+            var incomes = new List<Income>();
+            dbContext.AddRange(incomes);
+            await dbContext.SaveChangesAsync();
+            var monthYearModel = new MonthYearModel { Month = 8, Year = 2024 };
+
+            var incomeRepository = new IncomeRepository(dbContext);
+
+            //act
+            var result = await incomeRepository.GetAsync(monthYearModel, userId);
+
+            //assert
+            result.Should().HaveCount(0);
         }
     }
 }
