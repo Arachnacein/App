@@ -1,6 +1,7 @@
 ﻿using BudgetManager.Data;
 using BudgetManager.Dto;
 using BudgetManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Repositories
 {
@@ -15,38 +16,42 @@ namespace BudgetManager.Repositories
 
         public async Task<Income> GetAsync(int id, Guid userId)
         {
-            return _dbContext.Incomes.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            return await _dbContext.Incomes
+                      .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
         public async Task<IEnumerable<Income>> GetAllAsync(Guid userId)
         {
-            return _dbContext.Incomes.Where(x => x.UserId == userId)
-                                     .OrderByDescending(x => x.Date);
+            return await _dbContext.Incomes.Where(x => x.UserId == userId)
+                                           .OrderByDescending(x => x.Date)
+                                           .ToListAsync();
         }
 
         public async Task<Income> AddAsync(Income income)
         {
-            _dbContext.Incomes.Add(income);
-            _dbContext.SaveChanges();
+            await _dbContext.Incomes.AddAsync(income);
+            await _dbContext.SaveChangesAsync();
             return income;
         }
         public async Task UpdateAsync(Income income)
         {
             _dbContext.Incomes.Update(income);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Income income)
         {
-            _dbContext.Incomes.Remove(income);
-            _dbContext.SaveChanges();
+             _dbContext.Incomes.Remove(income);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Income>> GetAsync(MonthYearModel model, Guid userId)
         {
-            var incomes = _dbContext.Incomes.Where(x => x.Date.Month == model.Month &&
-                                                        x.Date.Year == model.Year &&
-                                                        x.UserId == userId);
+            var incomes = await _dbContext.Incomes
+                                    .Where(x => x.Date.Month == model.Month &&
+                                                x.Date.Year == model.Year &&
+                                                x.UserId == userId)
+                                     .ToListAsync();
             return incomes;
         }
     }
