@@ -1,5 +1,6 @@
 ﻿using BudgetManager.Data;
 using BudgetManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Repositories
 {
@@ -14,25 +15,26 @@ namespace BudgetManager.Repositories
 
         public async Task<Pattern> GetAsync(int id, Guid userId)
         {
-            return _dbContext.Patterns.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            return await _dbContext.Patterns.FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
         public async Task<IEnumerable<Pattern>> GetAllAsync(Guid userId)
         {
-            return  _dbContext.Patterns.Where(x => x.UserId == userId); 
+            return  await _dbContext.Patterns.Where(x => x.UserId == userId)
+                .ToListAsync(); 
         }
         public async Task<Pattern> AddAsync(Pattern pattern)
         {
-            _dbContext.Patterns.Add(pattern);
-            _dbContext.SaveChanges();
+            await _dbContext.Patterns.AddAsync(pattern);
+            await _dbContext.SaveChangesAsync();
             return pattern;
         }
 
         public async Task DeleteAsync(int id, Guid userId)
         {
-            var pattern = _dbContext.Patterns.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            var pattern = await _dbContext.Patterns.FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
             _dbContext.Patterns.Remove(pattern);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
     }
