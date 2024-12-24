@@ -4,7 +4,6 @@ using BudgetManager.Models;
 using BudgetManager.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace RepositoriesTests
 {
@@ -36,6 +35,7 @@ namespace RepositoriesTests
             var result = await incomeRepository.GetAsync(1, userId);
 
             // assert
+            result.Should().BeOfType<Income>();
             result.Should().Be(income);
         }
 

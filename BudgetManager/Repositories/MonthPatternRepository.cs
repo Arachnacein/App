@@ -1,6 +1,7 @@
 ﻿using BudgetManager.Data;
 using BudgetManager.Dto;
 using BudgetManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Repositories
 {
@@ -15,35 +16,37 @@ namespace BudgetManager.Repositories
 
         public async Task<MonthPattern> GetAsync(int id, Guid userId)
         {
-            return _dbCotntext.MonthPatterns.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            return await _dbCotntext.MonthPatterns.FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
         public async Task<IEnumerable<MonthPattern>> GetAllAsync(Guid userId)
         {
-            return _dbCotntext.MonthPatterns.Where(x => x.UserId == userId);
+            return await _dbCotntext.MonthPatterns.Where(x => x.UserId == userId)
+                                                  .ToListAsync();
         }
 
         public async Task<MonthPattern> AddAsync(MonthPattern pattern)
         {
-            _dbCotntext.MonthPatterns.Add(pattern);
-            _dbCotntext.SaveChanges();
+            await _dbCotntext.MonthPatterns.AddAsync(pattern);
+            await _dbCotntext.SaveChangesAsync();
             return pattern;
         }
+
         public async Task UpdateAsync(MonthPattern pattern)
         {
             _dbCotntext.MonthPatterns.Update(pattern);
-            _dbCotntext.SaveChanges();
+            await _dbCotntext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(MonthPattern pattern)
         {
             _dbCotntext.MonthPatterns.Remove(pattern);
-            _dbCotntext.SaveChanges();
+            await _dbCotntext.SaveChangesAsync();
         }
 
         public async Task<MonthPattern> GetAsync(MonthYearModel model, Guid userId)
         {
-            var result = _dbCotntext.MonthPatterns.FirstOrDefault(x => x.Date.Month == model.Month &&
+            var result = await _dbCotntext.MonthPatterns.FirstOrDefaultAsync(x => x.Date.Month == model.Month &&
                                                                        x.Date.Year == model.Year &&
                                                                        x.UserId == userId);
             return result;
@@ -51,10 +54,10 @@ namespace BudgetManager.Repositories
 
         public async Task<int> CheckExistsAsync(MonthYearModel model, Guid userId)
         {
-            var result = _dbCotntext.MonthPatterns.Where(x => x.Date.Month == model.Month &&
+            var result = await _dbCotntext.MonthPatterns.Where(x => x.Date.Month == model.Month &&
                                                               x.Date.Year == model.Year && 
                                                               x.UserId == userId)
-                                                  .Count();
+                                                  .CountAsync();
             return result;
         }
     }
