@@ -21,7 +21,7 @@ namespace BudgetManager.Repositories
         public async Task<IEnumerable<Pattern>> GetAllAsync(Guid userId)
         {
             return  await _dbContext.Patterns.Where(x => x.UserId == userId)
-                .ToListAsync(); 
+                                             .ToListAsync(); 
         }
         public async Task<Pattern> AddAsync(Pattern pattern)
         {
@@ -36,7 +36,6 @@ namespace BudgetManager.Repositories
             _dbContext.Patterns.Remove(pattern);
             await _dbContext.SaveChangesAsync();
         }
-
     }
     public interface IPatternRepository
     {

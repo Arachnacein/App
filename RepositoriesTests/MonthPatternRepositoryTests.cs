@@ -5,7 +5,6 @@ using BudgetManager.Repositories;
 using Castle.Components.DictionaryAdapter.Xml;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace RepositoriesTests
 {
