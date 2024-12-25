@@ -79,8 +79,8 @@
 <h2 align="center"> Milestones </h2>
 <p>
   🔜 Add authorization. <br>
+  🔜 Add Unit test. <br>
   * Add Healtch checks.<br>
-  * Add Unit Tests.<br>
   * Add pdf summary. <br>
   * Add saving goals feature. <br>
   * Add calendar with notifications.<br>
