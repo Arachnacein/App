@@ -1,6 +1,7 @@
 ﻿using BudgetManager.Data;
 using BudgetManager.Dto.Transaction;
 using BudgetManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Repositories
 {
@@ -15,39 +16,40 @@ namespace BudgetManager.Repositories
 
         public async Task<IEnumerable<Transaction>> GetAllAsync(Guid userId)
         {
-            return _context.Transactions.Where(x => x.UserId == userId);
+            return await _context.Transactions.Where(x => x.UserId == userId)
+                                              .ToListAsync();
         }
 
         public async Task<Transaction> GetAsync(int id, Guid userId)
         {
-            return _context.Transactions.FirstOrDefault(t => t.Id == id && t.UserId == userId);
+            return await _context.Transactions.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         }
 
         public async Task<Transaction> AddAsync(Transaction transaction)
         {
-            _context.Transactions.Add(transaction);
-            _context.SaveChanges();
+            await _context.Transactions.AddAsync(transaction);
+            await _context.SaveChangesAsync();
             return transaction;
         }
 
         public async Task UpdateAsync(Transaction transaction)
         {
             _context.Transactions.Update(transaction);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var transaction = _context.Transactions.FirstOrDefault(x => x.Id == id);
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == id);
             _context.Transactions.Remove(transaction);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
         {
-            var transaction = _context.Transactions.FirstOrDefault(x => x.Id == uc.Id);
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == uc.Id);
             transaction.Category = uc.Category;
             _context.Update(transaction);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 
