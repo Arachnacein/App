@@ -6,7 +6,9 @@
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Align="Align.Center" Class="mb-5 bg-opacity-10 mt-2 ma-1">@Localizer["Transactions"]</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Transactions"]</MudText>
+    <MudDivider />
+
     <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
         <MudStack>
             <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @transactionCounter</MudText>

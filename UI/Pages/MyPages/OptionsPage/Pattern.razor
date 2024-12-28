@@ -6,7 +6,9 @@
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Align="Align.Center" Class="mb-5">@Localizer["Header"]</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
+    <MudDivider />
+
     <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true">
         <MudTabPanel Text="@Localizer["OverwiewHeader"]" >
             <MudTable T="MonthPatternViewModel" Items="@patterns" FixedHeader="true" 
