@@ -23,13 +23,13 @@
                 For="@(() => RegistrationModel.Email)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" />
 
-            <MudTextField @bind-Value="RegistrationModel.Password" Label="@Localizer["Password"]" InputType="InputType.Password"
+            <MudTextField @bind-Value="RegistrationModel.Password" Label="@Localizer["Password"]" InputType="@PasswordInput"
                           For="@(() => RegistrationModel.Password)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
-                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" />
 
-            <MudTextField @bind-Value="RegistrationModel.ConfirmPassword" Label="@Localizer["ConfirmPassword"]" InputType="InputType.Password"
+            <MudTextField @bind-Value="RegistrationModel.ConfirmPassword" Label="@Localizer["ConfirmPassword"]" InputType="@PasswordInput"
                           For="@(() => RegistrationModel.ConfirmPassword)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
-                Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
+                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" />
 
             <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ma-2 mt-4 px-6">@Localizer["SignUp"]</MudButton>
         </MudForm>
