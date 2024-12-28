@@ -14,6 +14,9 @@ namespace UI.Pages.MyPages
         [Inject] private RegistrationViewModelValidator RegistrationModelValidator { get; set; }
         private RegistrationViewModel RegistrationModel = new RegistrationViewModel();
         private MudForm Form;
+        string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+        InputType PasswordInput = InputType.Password;
+        bool isShow;
 
         private async Task Submit()
         {
@@ -46,6 +49,21 @@ namespace UI.Pages.MyPages
             }
             else
                 Snackbar.Add(Localizer["InvalidForm"], Severity.Warning);
+        }
+        private void ShowPassword()
+        {
+            if (isShow)
+            {
+                isShow = false;
+                PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+                PasswordInput = InputType.Password;
+            }
+            else
+            {
+                isShow = true;
+                PasswordInputIcon = Icons.Material.Filled.Visibility;
+                PasswordInput = InputType.Text;
+            }
         }
     }
 }

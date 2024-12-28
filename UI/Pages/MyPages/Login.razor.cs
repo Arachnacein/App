@@ -16,6 +16,9 @@ namespace UI.Pages.MyPages
         [Inject] private HttpClient httpClient {  get; set; }
         private string Username { get; set; }
         private string Password { get; set; }
+        string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+        InputType PasswordInput = InputType.Password;
+        bool isShow;
 
         private async Task LogIn()
         {
@@ -53,6 +56,21 @@ namespace UI.Pages.MyPages
             else
             {
                 snackbar.Add(Localizer["LogInError"], Severity.Warning);
+            }
+        }
+        private void ShowPassword()
+        {
+            if(isShow)
+            {
+                isShow = false;
+                PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+                PasswordInput = InputType.Password;
+            }
+            else
+            {
+                isShow = true;
+                PasswordInputIcon = Icons.Material.Filled.Visibility;
+                PasswordInput = InputType.Text;
             }
         }
     }
