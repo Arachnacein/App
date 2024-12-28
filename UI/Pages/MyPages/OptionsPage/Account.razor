@@ -35,7 +35,7 @@
                 </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Data założenia konta:</MudText>
-                    <MudText Typo="Typo.body1">@userDetails.AccountCreatedDate.ToString("yyyy-MM-dd")</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.AccountCreatedDate.ToString("dd-MM-yyyy")</MudText>
                 </MudStack>
             </MudStack>
         </MudPaper>
@@ -48,7 +48,7 @@
                 </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Data wygaśnięcia sesji:</MudText>
-                    <MudText Typo="Typo.body1">@userDetails.SessionExpiryDate.ToString("yyyy-MM-dd HH:mm")</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.SessionExpiryDate.ToString("dd-MM-yyyy HH:mm")</MudText>
                 </MudStack>
             </MudStack>
         </MudPaper>

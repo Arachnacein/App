@@ -47,13 +47,19 @@ namespace UI.Pages.MyPages
                 var username = jwtToken.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
                 var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
                 var userId = Guid.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "userId")?.Value);
+                
                 var expiryClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
                 DateTime expiryDate;
                 if (long.TryParse(expiryClaim, out var expSeconds))
                     expiryDate = DateTimeOffset.FromUnixTimeSeconds(expSeconds).UtcDateTime;
                 else expiryDate = DateTime.MinValue;
 
-                UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate);
+                var accountCreatedDate = jwtToken.Claims.FirstOrDefault(x => x.Type == "created_at")?.Value;
+                DateTime createdAt = long.TryParse(accountCreatedDate, out var timestamp)
+                                                        ? DateTimeOffset.FromUnixTimeMilliseconds(timestamp).UtcDateTime
+                                                        : DateTime.MinValue;
+
+                UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate, createdAt);
 
                 snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
                 Navigation.NavigateTo("/",false);

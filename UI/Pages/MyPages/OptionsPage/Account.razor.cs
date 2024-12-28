@@ -23,7 +23,7 @@ namespace UI.Pages.MyPages.OptionsPage
             userDetails.Roles = UserSessionService.Roles
                                     .Where(role => role.Contains("user") || role.Contains("admin"))
                                     .ToList() ?? new List<string>();
-            userDetails.AccountCreatedDate = DateTime.Now;
+            userDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
             userDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
 
         }
