@@ -5,5 +5,52 @@
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+    <MudContainer Class="pa-4">
+        <MudPaper Class="ma-4 pa-4" Elevation="5">
+            <MudText Typo="Typo.h6" Align="Align.Center" Class="mb-4">Informacje o użytkowniku</MudText>
+        </MudPaper>
 
+        <MudPaper Class="ma-4 pa-4" Elevation="3">
+            <MudStack Row="false" Spacing="2">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Imię:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.FirstName</MudText>
+                </MudStack>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Nazwisko:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.LastName</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+
+        <MudPaper Class="ma-4 pa-4" Elevation="3">
+            <MudStack Row="false" Spacing="2">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Nazwa użytkownika:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.Username</MudText>
+                </MudStack>    
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Email:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.Email</MudText>
+                </MudStack>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Data założenia konta:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.AccountCreatedDate.ToString("yyyy-MM-dd")</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+
+        <MudPaper Class="ma-4 pa-4" Elevation="3">
+            <MudStack Row="false" Spacing="2">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Roles:</MudText>
+                    <MudText Typo="Typo.body1">@string.Join(", ", userDetails.Roles)</MudText>
+                </MudStack>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Data wygaśnięcia sesji:</MudText>
+                    <MudText Typo="Typo.body1">@userDetails.SessionExpiryDate.ToString("yyyy-MM-dd HH:mm")</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudContainer>
 </MudPaper>
