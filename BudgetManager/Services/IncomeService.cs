@@ -48,7 +48,7 @@ namespace BudgetManager.Services
                 throw new NullPointerException($"Object is null.");
             if (income.Name.Length < 3 || income.Name.Length > 50)
                 throw new BadStringLengthException($"Name should be between 3 and 50 characters. Now is: {income.Name}.");
-            if (income.Amount < 0d)
+            if (income.Amount < 1d)
                 throw new BadValueException($"Amount should be more than 0. Now is: {income.Amount}.");
 
             var mappedIncome = _incomeMapper.Map(income);
