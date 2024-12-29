@@ -1,0 +1,34 @@
+﻿@using UI.Models.ViewModels
+<MudForm Model="@DialogModel" @ref="@Form" Validation="UserDetailsValidator.ValidateValue()" ValidationDelay="0">
+    <MudDialog style="padding-bottom:7px;">
+        <DialogContent>
+            <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:90%;">
+                @switch (Property)
+                {   
+                    case "FirstName":
+                        <MudTextField Label="FirstName" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
+                        break;                    
+                    case "LastName":
+                        <MudTextField Label="LastName" @bind-Value="DialogModel.LastName" For="@(() => DialogModel.LastName)" Class="ma-1 pa-1" />
+                        break;                   
+                    case "Username":
+                        <MudTextField Label="UserName" @bind-Value="DialogModel.Username" For="@(() => DialogModel.Username)" Class="ma-1 pa-1" />
+                        break;                   
+                    case "Email":
+                        <MudTextField Label="Email" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
+                        break;
+                    default:
+                        <MudTextField Label="Default" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
+                        break;
+                }
+
+            </MudStack>
+        </DialogContent>
+        <DialogActions>
+            <MudStack Row="true" Spacing="8" Class="mr-5">
+                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">dasd</MudButton>
+                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">adasd</MudButton>
+            </MudStack>
+        </DialogActions>
+    </MudDialog>
+</MudForm> 

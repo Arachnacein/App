@@ -5,45 +5,42 @@
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
 <MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
-    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">Account</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Title"]</MudText>
     <MudDivider />
 
     <MudContainer Class="pa-4">
         <MudPaper Class="ma-4 pa-4" Elevation="3">
-            <MudStack Row="false" Spacing="2">
+            <MudStack Row="false" Spacing="2" Class="ma-2 pa-3 mb-5">
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Imię:</MudText>
                     <MudText Typo="Typo.body1">@userDetails.FirstName</MudText>
+                    <MudButton Class="ml-2" Size="Size.Medium" Color="Color.Default" OnClick="() => EditData(nameof(userDetails.FirstName))">edit</MudButton>
                 </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Nazwisko:</MudText>
                     <MudText Typo="Typo.body1">@userDetails.LastName</MudText>
+                    <MudButton Class="ml-2" Size="Size.Medium" Color="Color.Default" OnClick="() => EditData(nameof(userDetails.LastName))">edit</MudButton>
                 </MudStack>
-            </MudStack>
-        </MudPaper>
-
-        <MudPaper Class="ma-4 pa-4" Elevation="3">
-            <MudStack Row="false" Spacing="2">
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Nazwa użytkownika:</MudText>
                     <MudText Typo="Typo.body1">@userDetails.Username</MudText>
-                </MudStack>    
+                    <MudButton Class="ml-2" Size="Size.Medium" Color="Color.Default" OnClick="() => EditData(nameof(userDetails.Username))">edit</MudButton>
+                </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Email:</MudText>
                     <MudText Typo="Typo.body1">@userDetails.Email</MudText>
+                    <MudButton Class="ml-2" Size="Size.Medium" Color="Color.Success" OnClick="() => EditData(nameof(userDetails.Email))" >edit</MudButton>
+                </MudStack>
+            </MudStack>
+
+            <MudStack Row="false" Spacing="2" Class="ma-2 pa-3 mb-5">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
+                    <MudText Typo="Typo.body1" Class="font-weight-bold">Roles:</MudText>
+                    <MudText Typo="Typo.body1">@string.Join(", ", userDetails.Roles)</MudText>
                 </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Data założenia konta:</MudText>
                     <MudText Typo="Typo.body1">@userDetails.AccountCreatedDate.ToString("dd-MM-yyyy")</MudText>
-                </MudStack>
-            </MudStack>
-        </MudPaper>
-
-        <MudPaper Class="ma-4 pa-4" Elevation="3">
-            <MudStack Row="false" Spacing="2">
-                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
-                    <MudText Typo="Typo.body1" Class="font-weight-bold">Roles:</MudText>
-                    <MudText Typo="Typo.body1">@string.Join(", ", userDetails.Roles)</MudText>
                 </MudStack>
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                     <MudText Typo="Typo.body1" Class="font-weight-bold">Data wygaśnięcia sesji:</MudText>
