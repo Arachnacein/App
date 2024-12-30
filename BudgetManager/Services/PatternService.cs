@@ -11,16 +11,16 @@ namespace BudgetManager.Services
     {
         private readonly IPatternRepository _patternRepository;
         private readonly IPatternMapper _patternMapper;
-
         public PatternService(IPatternRepository patternRepository, IPatternMapper patternMapper)
         {
             _patternRepository = patternRepository;
             _patternMapper = patternMapper;
         }
+      
         public async Task<IEnumerable<PatternDto>> RetrievePatternsAsync(Guid userId)
         {
             var patterns =  await _patternRepository.GetAllAsync(userId);
-            return _patternMapper.MapeElements(patterns.ToList());
+            return _patternMapper.MapElements(patterns.ToList());
         }
 
         public async Task<PatternDto> RetrievePatternAsync(int id, Guid userId)
@@ -35,16 +35,16 @@ namespace BudgetManager.Services
         {
             if (dto == null)
                 throw new ArgumentNullException($"Object is null.");
-            if (dto.Name.Length < 3)
+            if (dto.Name.Length <= 3)
                 throw new BadStringLengthException($"Name have incorrect length. Should be more than 3 characters.");
-            if (dto.Name.Length > 50)
+            if (dto.Name.Length >= 50)
                 throw new BadStringLengthException($"Name have incorrect length. Should be less than 50 characters.");
             if (dto.Value_Fees < 0d || dto.Value_Fees > 100d)
                 throw new BadValueException($"Fees Value should be more than 0 and less than 100. ({dto.Value_Fees})");            
             if (dto.Value_Saves < 0d || dto.Value_Saves > 100d)
-                throw new BadValueException($"Fees Value should be more than 0 and less than 100. ({dto.Value_Saves})");
+                throw new BadValueException($"Saves Value should be more than 0 and less than 100. ({dto.Value_Saves})");
             if (dto.Value_Entertainment < 0d || dto.Value_Entertainment > 100d)
-                throw new BadValueException($"Fees Value should be more than 0 and less than 100. ({dto.Value_Entertainment})");
+                throw new BadValueException($"Entertainment Value should be more than 0 and less than 100. ({dto.Value_Entertainment})");
             var sum = dto.Value_Entertainment + dto.Value_Fees + dto.Value_Saves;
             if (sum != 100d)
                 throw new BadValueException($"Value_Fees + Value_Saves + Value_Entertainment Should be 100%. Current is {sum}.");
