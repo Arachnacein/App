@@ -10,8 +10,8 @@ namespace BudgetManager.Mappers
         Pattern Map(PatternDto source);
         Pattern Map(AddPatternDto source);
         AddPatternDto Map(SavePatternCommand command);
-        ICollection<PatternDto> MapeElements(ICollection<Pattern> source);
-        ICollection<Pattern> MapeElements(ICollection<PatternDto> source);
+        ICollection<PatternDto> MapElements(ICollection<Pattern> source);
+        ICollection<Pattern> MapElements(ICollection<PatternDto> source);
     }
     public class PatternMapper : IPatternMapper
     {
@@ -65,7 +65,7 @@ namespace BudgetManager.Mappers
             return destination;
         }
 
-        public ICollection<PatternDto> MapeElements(ICollection<Pattern> source)
+        public ICollection<PatternDto> MapElements(ICollection<Pattern> source)
         {
             List<PatternDto> destination = new List<PatternDto>();
             foreach (var item in source)
@@ -74,7 +74,7 @@ namespace BudgetManager.Mappers
             return destination;
         }
 
-        public ICollection<Pattern> MapeElements(ICollection<PatternDto> source)
+        public ICollection<Pattern> MapElements(ICollection<PatternDto> source)
         {
             List<Pattern> destination = new List<Pattern>();
             foreach (var item in source)
