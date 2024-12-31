@@ -7,7 +7,6 @@ using BudgetManager.Models;
 using BudgetManager.Repositories;
 using BudgetManager.Services;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Moq;
 
 namespace ServicesTests
