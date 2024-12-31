@@ -10,7 +10,7 @@ namespace UI.Pages.MyPages.OptionsPage
     {
         [Inject] private IStringLocalizer<Account> Localizer {  get; set; }
         [Inject] private IDialogService dialogService { get; set; }
-        private UserDetailsViewModel userDetails = new UserDetailsViewModel();
+        private UserDetailsViewModel UserDetails = new UserDetailsViewModel();
 
         protected override async Task OnInitializedAsync()
         {
@@ -19,32 +19,33 @@ namespace UI.Pages.MyPages.OptionsPage
 
         private async Task LoadDataToUserDetailsModel()
         {
-            userDetails.FirstName = UserSessionService.Name;
-            userDetails.LastName = UserSessionService.Surname;
-            userDetails.Username = UserSessionService.Username;
-            userDetails.Email = UserSessionService.Email;
-            userDetails.Roles = UserSessionService.Roles
+            UserDetails.UserId = UserSessionService.UserId;
+            UserDetails.FirstName = UserSessionService.Name;
+            UserDetails.LastName = UserSessionService.Surname;
+            UserDetails.Username = UserSessionService.Username;
+            UserDetails.Email = UserSessionService.Email;
+            UserDetails.Roles = UserSessionService.Roles
                                     .Where(role => role.Contains("user") || role.Contains("admin"))
                                     .ToList() ?? new List<string>();
-            userDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
-            userDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
+            UserDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
+            UserDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
 
         }
         private async Task EditData(string variableName)
         {
             switch (variableName)
             {
-                case nameof(userDetails.FirstName):
-                    await OpenDialog(nameof(userDetails.FirstName));
+                case nameof(UserDetails.FirstName):
+                    await OpenDialog(nameof(UserDetails.FirstName));
                     break;                
-                case nameof(userDetails.LastName):
-                    await OpenDialog(nameof(userDetails.LastName));
+                case nameof(UserDetails.LastName):
+                    await OpenDialog(nameof(UserDetails.LastName));
                     break;                
-                case nameof(userDetails.Username):
-                    await OpenDialog(nameof(userDetails.Username));
+                case nameof(UserDetails.Username):
+                    await OpenDialog(nameof(UserDetails.Username));
                     break;                
-                case nameof(userDetails.Email):
-                    await OpenDialog(nameof(userDetails.Email));
+                case nameof(UserDetails.Email):
+                    await OpenDialog(nameof(UserDetails.Email));
                     break;                
                 default:
                     break;
@@ -56,6 +57,7 @@ namespace UI.Pages.MyPages.OptionsPage
 
             var parameters = new DialogParameters();
             parameters[nameof(property)] = property;
+            parameters[nameof(UserDetails)] = UserDetails;
             //refresh data send update token TODO 
 
             await dialogService.ShowAsync<EditUserPropertiesDialog>($"Edycja {property} uzytkownika", parameters, options);
