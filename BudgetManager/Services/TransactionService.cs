@@ -35,10 +35,10 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+            if (transaction.Name.Length <= 3 || transaction.Name.Length >= 30)
                 throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if(!transaction.Description.IsNullOrEmpty())
-            if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+            if (transaction.Description.Length <= 3 || transaction.Description.Length >= 150)
                 throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
@@ -64,7 +64,6 @@ namespace BudgetManager.Services
             Transaction mappedTransaction = _transactionMapper.Map(transaction);
             await _repository.UpdateAsync(mappedTransaction);
         }
-
         public async Task DeleteTransactionAsync(int id, Guid userId)
         {
             var existingTransaction = await _repository.GetAsync(id, userId);
@@ -72,7 +71,6 @@ namespace BudgetManager.Services
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
             await _repository.DeleteAsync(id);
         }
-
         public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
         {
             var existingTransaction = _repository.GetAsync(uc.Id, uc.UserId);
