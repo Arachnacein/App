@@ -6,10 +6,7 @@ using BudgetManager.Models;
 using BudgetManager.Repositories;
 using BudgetManager.Services;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
-using Newtonsoft.Json.Linq;
 
 namespace ServicesTests
 {
