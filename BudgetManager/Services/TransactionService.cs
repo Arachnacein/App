@@ -53,10 +53,10 @@ namespace BudgetManager.Services
         {
             if (transaction == null)
                 throw new NullPointerException("Object is null");
-            if (transaction.Name.Length < 3 || transaction.Name.Length > 30)
+            if (transaction.Name.Length <= 3 || transaction.Name.Length >= 30)
                 throw new BadStringLengthException("Name have incorrect length. Should be more than 3 and less than 30.");
             if (!transaction.Description.IsNullOrEmpty())
-                if (transaction.Description.Length < 3 || transaction.Description.Length > 150)
+                if (transaction.Description.Length <= 3 || transaction.Description.Length >= 150)
                     throw new BadStringLengthException("Description have incorrect length. Should be more than 3 and less than 150.");
             if (transaction.Price < 0d)
                 throw new BadValueException($"Price is incorrect. {transaction.Price}");
@@ -73,7 +73,7 @@ namespace BudgetManager.Services
         }
         public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
         {
-            var existingTransaction = _repository.GetAsync(uc.Id, uc.UserId);
+            var existingTransaction = await _repository.GetAsync(uc.Id, uc.UserId);
             if (existingTransaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{uc.Id}");
             if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
