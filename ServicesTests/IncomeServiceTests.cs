@@ -27,7 +27,7 @@ namespace ServicesTests
         [Fact]
         public async Task RetrieveIncomesAsync_ShouldReturnMappedIncomes_WhenIdIsValid()
         {
-            //Arrange
+            //arrange
             var userId = Guid.NewGuid();
             var incomes = new List<Income>
             {
