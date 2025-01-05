@@ -77,7 +77,7 @@ namespace BudgetManager.Services
 
             var pattern = await _patternRepository.GetAsync(monthPattern.PatternId, userId);
             if(pattern == null)
-                throw new PatternNotFoundException($"Pattern not found. Id:{pattern.Id}.");
+                throw new PatternNotFoundException($"Pattern not found. Id:{monthPattern.PatternId}.");
 
             return _patternMapper.Map(pattern);
         }
