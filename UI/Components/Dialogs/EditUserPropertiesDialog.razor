@@ -18,7 +18,7 @@
                         <MudTextField Label="Email" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
                         break;
                     default:
-                        <MudTextField Label="Default" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
+                        <MudTextField Label="Default" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
                         break;
                 }
 
@@ -26,8 +26,8 @@
         </DialogContent>
         <DialogActions>
             <MudStack Row="true" Spacing="8" Class="mr-5">
-                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">dasd</MudButton>
-                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">adasd</MudButton>
+                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Submit</MudButton>
+                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
             </MudStack>
         </DialogActions>
     </MudDialog>

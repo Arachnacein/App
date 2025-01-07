@@ -15,11 +15,25 @@ namespace IdentityManager.Services
             _httpClient = httpClient;
             _tokenService = tokenService;
         }
-        public async Task<bool> UpdateUserProperties(UserModel model)
+
+        public async Task<bool> UpdateUserPropertiesAsync(UserModel model)
         {
             //check token
             var adminToken = await _tokenService.GetAdminTokenAsync();
-            var serializedContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+            var payload = new
+            {
+                username = model.Username,
+                email = model.Email,
+                firstName = model.FirstName,
+                lastName = model.LastName,
+                enabled = true
+            };
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            var serializedContent = new StringContent(JsonSerializer.Serialize(payload, options), Encoding.UTF8, "application/json");
+
             var request = new HttpRequestMessage(HttpMethod.Put, $"http://keycloak:8080/admin/realms/AppRealm/users/{model.UserId}")
             {
                 Content = serializedContent
@@ -32,6 +46,6 @@ namespace IdentityManager.Services
     }
     public interface IUserService
     {
-        Task<bool> UpdateUserProperties(UserModel model);
+        Task<bool> UpdateUserPropertiesAsync(UserModel model);
     }
 }

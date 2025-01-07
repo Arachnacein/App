@@ -13,7 +13,7 @@ namespace UI.Pages.MyPages
         [Inject] private ISnackbar snackbar { get; set; }
         [Inject] private IStringLocalizer<Login> Localizer { get; set; }
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
-        [Inject] private HttpClient httpClient {  get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private string Username { get; set; }
         private string Password { get; set; }
         string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;

@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using UI.Components.Dialogs;
+using UI.Extensions;
 using UI.Models.ViewModels;
+using UI.Services;
 
 namespace UI.Pages.MyPages.OptionsPage
 {
@@ -58,7 +63,6 @@ namespace UI.Pages.MyPages.OptionsPage
             var parameters = new DialogParameters();
             parameters[nameof(property)] = property;
             parameters[nameof(UserDetails)] = UserDetails;
-            //refresh data send update token TODO 
 
             await dialogService.ShowAsync<EditUserPropertiesDialog>($"Edycja {property} uzytkownika", parameters, options);
         }

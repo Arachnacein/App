@@ -367,9 +367,9 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
-    },///Editing user properties
+    },
     {
-      "UpstreamPathTemplate": "/api/editUser",
+      "UpstreamPathTemplate": "/api/User/editUser",
       "UpstreamHttpMethod": [ "PUT" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -378,7 +378,25 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/editUser",
+      "DownstreamPathTemplate": "/api/User/editUser",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/refreshToken?token={token}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/refreshToken?token={token}",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
