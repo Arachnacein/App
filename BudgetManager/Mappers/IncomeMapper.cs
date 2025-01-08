@@ -11,7 +11,6 @@ namespace BudgetManager.Mappers
         Income Map(UpdateIncomeDto source);
         AddIncomeDto Map(SaveIncomeCommand command);
         UpdateIncomeDto Map(UpdateIncomeCommand command);
-
         IncomeDto Map(Income source);
         ICollection<IncomeDto> MapElements(ICollection<Income> source);
         ICollection<Income> MapElements(ICollection<IncomeDto> source);
