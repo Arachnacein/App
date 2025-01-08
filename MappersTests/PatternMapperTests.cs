@@ -2,7 +2,6 @@
 using BudgetManager.Features.Patterns.Commands;
 using BudgetManager.Mappers;
 using BudgetManager.Models;
-using BudgetManager.Services;
 using FluentAssertions;
 
 namespace MappersTests
@@ -15,7 +14,7 @@ namespace MappersTests
             _mapper = new PatternMapper();
         }
         [Fact]
-        public async Task Map_PatternToPatternDto_ShouldReturnPatternDto_WhenCalled()
+        public void Map_PatternToPatternDto_ShouldReturnPatternDto_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -40,7 +39,7 @@ namespace MappersTests
             mappedPattern.Should().BeEquivalentTo(pattern, options => options.Excluding(x => x.MonthPatterns));
         }
         [Fact]
-        public async Task Map_PatternDtoToPattern_ShouldReturnPattern_WhenCalled()
+        public void Map_PatternDtoToPattern_ShouldReturnPattern_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -64,7 +63,7 @@ namespace MappersTests
             mappedPattern.Should().BeEquivalentTo(patternDto);
         }
         [Fact]
-        public async Task Map_AddPatternDtoToPattern_ShouldReturnPattern_WhenCalled()
+        public void Map_AddPatternDtoToPattern_ShouldReturnPattern_WhenCalled()
         {            
             //arrange
             var userId = Guid.NewGuid();
@@ -87,7 +86,7 @@ namespace MappersTests
             mappedPattern.Should().BeEquivalentTo(patternDto);
         }
         [Fact]
-        public async Task Map_SavePatternCommandToAddPatternDto_ShouldReturnAddPatternDto_WhenCalled()
+        public void Map_SavePatternCommandToAddPatternDto_ShouldReturnAddPatternDto_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -103,7 +102,7 @@ namespace MappersTests
             mappedPattern.Should().BeEquivalentTo(savePatternCommand);
         }
         [Fact]
-        public async Task MapElements_PatternListToPatternDtoList_ShouldReturnPatternDtoList_WhenCalled()
+        public void MapElements_PatternListToPatternDtoList_ShouldReturnPatternDtoList_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -124,7 +123,7 @@ namespace MappersTests
             mappedPatternsList.Should().BeEquivalentTo(patternList, options => options.ExcludingMissingMembers());
         }
         [Fact]
-        public async Task MapElements_PatternDtoListToPatternList_ShouldReturnPatternList_WhenCalled()
+        public void MapElements_PatternDtoListToPatternList_ShouldReturnPatternList_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();

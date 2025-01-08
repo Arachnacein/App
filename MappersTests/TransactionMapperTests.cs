@@ -1,10 +1,8 @@
-﻿
-using BudgetManager.Dto.Transaction;
+﻿using BudgetManager.Dto.Transaction;
 using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Mappers;
 using BudgetManager.Models;
 using FluentAssertions;
-using Moq;
 
 namespace MappersTests
 {
@@ -17,7 +15,7 @@ namespace MappersTests
         }
 
         [Fact]
-        public async Task  Map_TransactionToTransactionDto_ShouldReturnTransationDto_WhenCalled()
+        public void  Map_TransactionToTransactionDto_ShouldReturnTransationDto_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -42,7 +40,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(transaction);
         }       
         [Fact]
-        public async Task  Map_SaveTransactionCommandToAddTransactionDto_ShouldReturnAddTransationDto_WhenCalled()
+        public void  Map_SaveTransactionCommandToAddTransactionDto_ShouldReturnAddTransationDto_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -59,7 +57,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(saveTransactionCommand);
         }       
         [Fact]
-        public async Task  Map_UpdateTransactionCommandToUpdateTransactionDto_ShouldReturnUpdateTransationDto_WhenCalled()
+        public void  Map_UpdateTransactionCommandToUpdateTransactionDto_ShouldReturnUpdateTransationDto_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -76,7 +74,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(updateTransactionCommand);
         }       
         [Fact]
-        public async Task  Map_TransactionDtoToTransaction_ShouldReturnTransation_WhenCalled()
+        public void  Map_TransactionDtoToTransaction_ShouldReturnTransation_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -101,7 +99,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(transactionDto);
         }        
         [Fact]
-        public async Task  Map_AddTransactionDtoToTransaction_ShouldReturnAddTransation_WhenCalled()
+        public void  Map_AddTransactionDtoToTransaction_ShouldReturnAddTransation_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -125,7 +123,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(addTransactionDto);
         }        
         [Fact]
-        public async Task  Map_UpdateTransactionDtoToTransaction_ShouldReturnUpdateTransation_WhenCalled()
+        public void  Map_UpdateTransactionDtoToTransaction_ShouldReturnUpdateTransation_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -150,7 +148,7 @@ namespace MappersTests
             mappedTransaction.Should().BeEquivalentTo(updateTransactionDto);
         }        
         [Fact]
-        public async Task  MapElements_TransactionListToTransactionDtoList_ShouldReturnTransationDtoList_WhenCalled()
+        public void  MapElements_TransactionListToTransactionDtoList_ShouldReturnTransationDtoList_WhenCalled()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -171,7 +169,7 @@ namespace MappersTests
             mappedTransactionsList.Should().BeEquivalentTo(transactionDtoList);
         }        
         [Fact]
-        public async Task  MapElements_TransactionDtoListToTransactionList_ShouldReturnTransationList_WhenCalled()
+        public void  MapElements_TransactionDtoListToTransactionList_ShouldReturnTransationList_WhenCalled()
         {            
             //arrange
             var userId = Guid.NewGuid();

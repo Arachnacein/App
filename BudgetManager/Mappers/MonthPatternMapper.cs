@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.MonthPattern;
 using BudgetManager.Features.MonthPatterns.Commands;
 using BudgetManager.Models;
-using System.Diagnostics.Tracing;
 
 namespace BudgetManager.Mappers
 {
