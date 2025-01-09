@@ -103,5 +103,5 @@
   ✅ Set project architecture.<br>
   ❔❔ Mobile app. <br>
 </p>
-
+<center> <img src="https://github.com/user-attachments/assets/1c97b389-d3b9-45f2-9cae-022b50ac28cc" /></center>
 
