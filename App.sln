@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesTests", "ServicesTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappersTests", "MappersTests\MappersTests.csproj", "{7608838E-4F64-4F7E-A53B-7FC9729992B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewaresTests", "MiddlewaresTests\MiddlewaresTests.csproj", "{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{7608838E-4F64-4F7E-A53B-7FC9729992B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7608838E-4F64-4F7E-A53B-7FC9729992B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7608838E-4F64-4F7E-A53B-7FC9729992B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{DC5DD344-A711-4FB6-91D3-5733063F03EC} = {EB5816B7-9C37-4A46-A947-BDC859B30798}
 		{6939FDCF-E6F2-41F4-A74D-AB44B9CF1BBD} = {EB5816B7-9C37-4A46-A947-BDC859B30798}
 		{7608838E-4F64-4F7E-A53B-7FC9729992B4} = {EB5816B7-9C37-4A46-A947-BDC859B30798}
+		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2} = {EB5816B7-9C37-4A46-A947-BDC859B30798}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CC4BEBA-048E-467D-9CA9-DB90775B49C9}
