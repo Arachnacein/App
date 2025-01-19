@@ -3,13 +3,13 @@ using BudgetManager.Services;
 using FluentAssertions;
 using Moq;
 
-namespace FeatureTests.IncomeTests
+namespace FeatureTests.IncomeTests.Commands
 {
-    public class CommandsTests
+    public class DeleteIncomeCommandTests
     {
         private readonly Mock<IIncomeService> _incomeServiceMock;
         private readonly DeleteIncomeCommandHandler _deleteCommandHandler;
-        public CommandsTests()
+        public DeleteIncomeCommandTests()
         {
             _incomeServiceMock = new Mock<IIncomeService>();
             _deleteCommandHandler = new DeleteIncomeCommandHandler(_incomeServiceMock.Object);
@@ -44,24 +44,6 @@ namespace FeatureTests.IncomeTests
                 .Invoking(commnd => commnd.Handle(command, CancellationToken.None))
                 .Should()
                 .ThrowAsync<ArgumentNullException>(nameof(command));
-        }
-
-        [Fact]
-        public async Task SaveIncomeCommandHandler_ShouldCallAddIncomeAsyncOnce_WhenDataIsValid()
-        {
-
-        }    
-        
-        [Fact]
-        public async Task SaveIncomeCommandHandler_ShouldCallIncomeMapperOnce_WhenDataIsValid()
-        {
-
-        }        
-
-        [Fact]
-        public async Task SaveIncomeCommandHandler_ShouldThrowArgumentNullException_WhenCommandIsNull()
-        {
-
         }
     }
 }
