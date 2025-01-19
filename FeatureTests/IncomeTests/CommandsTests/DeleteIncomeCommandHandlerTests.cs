@@ -5,11 +5,11 @@ using Moq;
 
 namespace FeatureTests.IncomeTests.Commands
 {
-    public class DeleteIncomeCommandTests
+    public class DeleteIncomeCommandHandlerTests
     {
         private readonly Mock<IIncomeService> _incomeServiceMock;
         private readonly DeleteIncomeCommandHandler _deleteCommandHandler;
-        public DeleteIncomeCommandTests()
+        public DeleteIncomeCommandHandlerTests()
         {
             _incomeServiceMock = new Mock<IIncomeService>();
             _deleteCommandHandler = new DeleteIncomeCommandHandler(_incomeServiceMock.Object);

@@ -7,13 +7,13 @@ using Moq;
 
 namespace FeatureTests.IncomeTests.Commands
 {
-    public class SaveIncomeCommandTests
+    public class SaveIncomeCommandHandlerTests
     {
         private readonly Mock<IIncomeService> _incomeServiceMock;
         private readonly Mock<IIncomeMapper> _incomeMapperMock;
         private readonly SaveIncomeCommandHandler _saveIncomeCommandHandlerMock;
 
-        public SaveIncomeCommandTests()
+        public SaveIncomeCommandHandlerTests()
         {
             _incomeMapperMock = new Mock<IIncomeMapper>();
             _incomeServiceMock = new Mock<IIncomeService>();
