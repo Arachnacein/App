@@ -22,6 +22,7 @@ namespace IdentityManager.Services
         {
             //check token
             var adminToken = await _tokenService.GetAdminTokenAsync();
+            Console.WriteLine($"______________________ {model.Username}");
             var payload = new
             {
                 username = model.Username,
@@ -45,6 +46,7 @@ namespace IdentityManager.Services
             var response = await _httpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
+
         public async Task<UserModel> GetUserDataAsync(Guid userId)
         {
             var adminToken = await _tokenService.GetAdminTokenAsync();
@@ -81,24 +83,6 @@ namespace IdentityManager.Services
                 Console.WriteLine($"Request failed: {ex.Message}");
                 throw;
             }
-            //var adminToken = await _tokenService.GetAdminTokenAsync();
-            //Console.WriteLine($"_____________ admin token {adminToken}");
-            //var _keycloak = new KeycloakClient("http://keycloak:8080", adminToken);
-
-            //Console.WriteLine("Przed zpaytaniem");
-            //Console.WriteLine(userId.ToString());
-            //var user = await _keycloak.GetUserAsync("AppRealm", userId.ToString());
-            //Console.WriteLine("_____________ Po zapytaniu");
-
-            //if(user == null)
-            //    throw new Exception($"User is null. Id: {userId}");
-            //return new UserModel
-            //{
-            //    FirstName = user.FirstName,
-            //    LastName = user.LastName,
-            //    Email = user.Email,
-            //    Username = user.UserName
-            //};
         }
     }
     public interface IUserService
