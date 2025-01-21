@@ -4,7 +4,7 @@
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-2" Elevation="5" style="text-align:center;">
+<MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
     <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
     <MudDivider />
 
@@ -18,7 +18,7 @@
                           Variant="Variant.Outlined" style="width:250px;" />
         </MudStack>
     </MudStack>
-    <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Height="300px;" Striped="true">
+    <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true" style="height:63vh;" >
         <HeaderContent>
             <MudTh> @Localizer["Name"] </MudTh>
             <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>
@@ -34,5 +34,8 @@
                                OnClick="@( async () => await EditIncome(context))" />
             </MudTd>
         </RowTemplate>
+        <PagerContent>
+            <MudTablePager HideRowsPerPage="true"/>
+        </PagerContent>
     </MudTable>
 </MudPaper>
