@@ -61,7 +61,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters[nameof(UserDetails)] = UserDetails;
             parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
-            await dialogService.ShowAsync<EditUserPropertiesDialog>($"Edycja {property} uzytkownika", parameters, options);
+            await dialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
         }
         private async Task OnDialogClose()
         {
