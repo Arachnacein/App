@@ -23,16 +23,13 @@ namespace IdentityManager.Controllers
             return NoContent();
         }
 
-        [HttpPost("refreshToken")]
-        public async Task<IActionResult> RefreshToken([FromQuery] string token)
+        [HttpGet("getUserData")]
+        public async Task<IActionResult> GetUserData([FromQuery] Guid userId)
         {
-            var result = await _tokenService.RefreshAccessTokenAsync(token);
-            if (token != null)
-            {
-                return Ok(new { access_token = token });
-            }
-
-            return BadRequest("Błąd podczas odświeżania tokenu");
+            Console.WriteLine("_____________ Jestem w kontrolerze getUserData");
+            var result = await _userService.GetUserDataAsync(userId);
+            Console.WriteLine("_____________ Znów wróciłem do kontrolera");
+            return Ok(result);
         }
     }
 }

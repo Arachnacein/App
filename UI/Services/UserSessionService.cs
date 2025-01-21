@@ -23,6 +23,13 @@
             UserId = userId;
             TokenExpiryDate = tokenExpiryDate;
             AccountCreatedDate = accountCreatedDate;
+        }        
+        public void SetUserSession(string name, string surname, string username, string email)
+        {
+            Name = name;
+            Surname = surname;
+            Username = username;
+            this.Email = email;
         }
 
         public void ClearUserSession()

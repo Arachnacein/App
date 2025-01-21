@@ -63,8 +63,14 @@ namespace UI.Pages.MyPages.OptionsPage
             var parameters = new DialogParameters();
             parameters[nameof(property)] = property;
             parameters[nameof(UserDetails)] = UserDetails;
+            parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
             await dialogService.ShowAsync<EditUserPropertiesDialog>($"Edycja {property} uzytkownika", parameters, options);
+        }
+        private async Task OnDialogClose()
+        {
+            await LoadDataToUserDetailsModel();
+            StateHasChanged();
         }
     }
 }

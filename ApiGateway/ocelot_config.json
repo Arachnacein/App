@@ -387,8 +387,8 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/User/refreshToken?token={token}",
-      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamPathTemplate": "/api/User/getUserData?userId={userId}",
+      "UpstreamHttpMethod": [ "GET" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -396,7 +396,7 @@
           "Port": 8080
         }
       ],
-      "DownstreamPathTemplate": "/api/User/refreshToken?token={token}",
+      "DownstreamPathTemplate": "/api/User/getUserData?userId={userId}",
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
