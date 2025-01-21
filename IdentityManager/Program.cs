@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddHttpClient<ILoginservice, LoginService>();
 builder.Services.AddHttpClient<IRegisterService, RegisterService>();
+builder.Services.AddHttpClient<ITokenService, TokenService>();
+builder.Services.AddHttpClient<IUserService, UserService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>

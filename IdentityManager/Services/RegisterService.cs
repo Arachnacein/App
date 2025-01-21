@@ -2,6 +2,7 @@
 using IdentityManager.Models;
 using IdentityManager.Models.Enums;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 
 namespace IdentityManager.Services
@@ -9,15 +10,16 @@ namespace IdentityManager.Services
     public class RegisterService : IRegisterService
     {
         private readonly HttpClient _httpClient;
-
-        public RegisterService(HttpClient httpClient)
+        private readonly ITokenService _tokenService;
+        public RegisterService(HttpClient httpClient, ITokenService tokenService)
         {
             _httpClient = httpClient;
+            _tokenService = tokenService;
         }
 
         public async Task<bool> RegisterAsync(RegistrationModel model)
         {
-            var adminToken = await GetAdminTokenAsync();
+            var adminToken = await _tokenService.GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
 
@@ -36,9 +38,7 @@ namespace IdentityManager.Services
                 enabled = true,
                 credentials = new[] {new { type = "password", value = model.Password, temporary = false }}
             };
-            var jsonContent = new StringContent(JsonSerializer.Serialize(requestBody),
-                                                 System.Text.Encoding.UTF8,
-                                                 "application/json");
+            var jsonContent = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage(HttpMethod.Post, "http://keycloak:8080/admin/realms/AppRealm/users")
             {
                 Content = jsonContent
@@ -49,32 +49,10 @@ namespace IdentityManager.Services
 
             return response.IsSuccessStatusCode;
         }
-        public async Task<string> GetAdminTokenAsync()
-        {
-            var tokenRequest = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("client_id", "admin-cli"),
-                new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("username", "admin"),
-                new KeyValuePair<string, string>("password", "admin")
-            });
-
-            var response = await _httpClient
-                .PostAsync("http://keycloak:8080/realms/master/protocol/openid-connect/token", tokenRequest);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var error = await response.Content.ReadAsStringAsync();
-                throw new CustomException((int)ErrorCodesEnum.AdminTokenFetchFailed, "Failed to fetch admin token.");
-            }
-
-            var responseData = await response.Content.ReadAsStringAsync();
-            var json = JsonDocument.Parse(responseData);
-            return json.RootElement.GetProperty("access_token").GetString();
-        }
+        
         public async Task<bool> UsernameExistsAsync(string username)
         {
-            var adminToken = await GetAdminTokenAsync();
+            var adminToken = await _tokenService.GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
 
@@ -97,7 +75,7 @@ namespace IdentityManager.Services
         }        
         public async Task<bool> EmailExistsAsync(string email)
         {
-            var adminToken = await GetAdminTokenAsync();
+            var adminToken = await _tokenService.GetAdminTokenAsync();
             if (string.IsNullOrEmpty(adminToken))
                 return false;
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -121,7 +99,6 @@ namespace IdentityManager.Services
     public interface IRegisterService
     {
         Task<bool> RegisterAsync(RegistrationModel model);
-        Task<string> GetAdminTokenAsync();
         Task<bool> UsernameExistsAsync(string username);
         Task<bool> EmailExistsAsync(string email);
     }

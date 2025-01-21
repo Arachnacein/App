@@ -13,7 +13,7 @@ namespace UI.Pages.MyPages
         [Inject] private ISnackbar snackbar { get; set; }
         [Inject] private IStringLocalizer<Login> Localizer { get; set; }
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
-        [Inject] private HttpClient httpClient {  get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private string Username { get; set; }
         private string Password { get; set; }
         string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
@@ -47,8 +47,19 @@ namespace UI.Pages.MyPages
                 var username = jwtToken.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
                 var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
                 var userId = Guid.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "userId")?.Value);
+                
+                var expiryClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
+                DateTime expiryDate;
+                if (long.TryParse(expiryClaim, out var expSeconds))
+                    expiryDate = DateTimeOffset.FromUnixTimeSeconds(expSeconds).UtcDateTime;
+                else expiryDate = DateTime.MinValue;
 
-                UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId);
+                var accountCreatedDate = jwtToken.Claims.FirstOrDefault(x => x.Type == "created_at")?.Value;
+                DateTime createdAt = long.TryParse(accountCreatedDate, out var timestamp)
+                                                        ? DateTimeOffset.FromUnixTimeMilliseconds(timestamp).UtcDateTime
+                                                        : DateTime.MinValue;
+
+                UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate, createdAt);
 
                 snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
                 Navigation.NavigateTo("/",false);

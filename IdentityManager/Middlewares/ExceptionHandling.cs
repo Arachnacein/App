@@ -51,12 +51,12 @@ namespace IdentityManager.Middlewares
         {
             var errorResponse = new ErrorResponse
             {
-                ErrorCode = (int)ErrorCodesEnum.GeneralError,
-                Message = "An unexpected error occurred."
+                ErrorCode = 409,
+                Message = "Conflict"
             };
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Response.StatusCode = StatusCodes.Status409Conflict;
             return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
         }
     }
