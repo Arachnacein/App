@@ -1,6 +1,5 @@
 ﻿using IdentityManager.Exceptions;
 using IdentityManager.Models;
-using IdentityManager.Models.Enums;
 using System.Text.Json;
 
 namespace IdentityManager.Middlewares

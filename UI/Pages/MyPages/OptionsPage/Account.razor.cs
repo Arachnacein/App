@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
 using UI.Components.Dialogs;
-using UI.Extensions;
 using UI.Models.ViewModels;
 using UI.Services;
 

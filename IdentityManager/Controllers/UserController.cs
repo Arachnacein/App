@@ -9,11 +9,9 @@ namespace IdentityManager.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
-        public UserController(IUserService userService, ITokenService tokenSetvice)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _tokenService = tokenSetvice;
         }
 
         [HttpPut("editUser")]
@@ -26,9 +24,7 @@ namespace IdentityManager.Controllers
         [HttpGet("getUserData")]
         public async Task<IActionResult> GetUserData([FromQuery] Guid userId)
         {
-            Console.WriteLine("_____________ Jestem w kontrolerze getUserData");
             var result = await _userService.GetUserDataAsync(userId);
-            Console.WriteLine("_____________ Znów wróciłem do kontrolera");
             return Ok(result);
         }
     }
