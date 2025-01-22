@@ -133,6 +133,6 @@
     <value>Zarejestruj się</value>
   </data>
   <data name="username" xml:space="preserve">
-    <value>Nazwa użytkownika</value>
+    <value>Nickname lub Email</value>
   </data>
 </root>
