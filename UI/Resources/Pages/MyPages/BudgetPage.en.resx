@@ -141,6 +141,12 @@
   <data name="FeesText" xml:space="preserve">
     <value>Fees</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Log in to access this information</value>
+  </data>
+  <data name="MustSignInButton" xml:space="preserve">
+    <value>Log in to access this option</value>
+  </data>
   <data name="NoPattern" xml:space="preserve">
     <value>No pattern</value>
   </data>

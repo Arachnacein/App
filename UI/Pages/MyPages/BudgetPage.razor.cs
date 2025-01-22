@@ -60,6 +60,11 @@ namespace UI.Pages.MyPages
         }
         private async Task AddTransaction()
         {
+            if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
+                return;
+            }
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();
@@ -69,6 +74,11 @@ namespace UI.Pages.MyPages
         }
         private async Task AddIncome()
         {
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
+                return;
+            }
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             var parameters = new DialogParameters();

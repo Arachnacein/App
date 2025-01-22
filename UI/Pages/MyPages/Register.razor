@@ -31,7 +31,11 @@
                           For="@(() => RegistrationModel.ConfirmPassword)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
                 Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" />
 
+            <div class="g-recaptcha" data-sitekey="6LfCwL8qAAAAAKWlogobXgEEWcGjhE93gQFKtEXP"></div>
+
             <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ma-2 mt-4 px-6">@Localizer["SignUp"]</MudButton>
         </MudForm>
     </MudPaper>
 </MudContainer>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

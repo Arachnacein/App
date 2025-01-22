@@ -150,6 +150,9 @@
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="MustLogIn" xml:space="preserve">
+    <value>Log in to access this page</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

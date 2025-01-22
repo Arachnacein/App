@@ -4,38 +4,47 @@
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
-    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
-    <MudDivider />
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustLogIn"]</MudText>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
+        <MudDivider />
 
-    <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
-        <MudStack>
-            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @IncomesCounter</MudText>
+        <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
+            <MudStack>
+                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @IncomesCounter</MudText>
+            </MudStack>
+            <MudStack>
+                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
+                              AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
+                              Variant="Variant.Outlined" style="width:250px;" />
+            </MudStack>
         </MudStack>
-        <MudStack>
-            <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
-                          Variant="Variant.Outlined" style="width:250px;" />
-        </MudStack>
-    </MudStack>
-    <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true" style="height:63vh;" >
-        <HeaderContent>
-            <MudTh> @Localizer["Name"] </MudTh>
-            <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>
-            <MudTh Style="text-align:center"> @Localizer["Date"] </MudTh>
-            <MudTh Style="text-align:center"> @Localizer["Options"]</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="@Localizer["Name"]" Style="padding-left:15px;">@context.Name</MudTd>
-            <MudTd DataLabel="@Localizer["Amount"]" Style="text-align:center">@context.Amount</MudTd>
-            <MudTd DataLabel="@Localizer["Date"]" Style="text-align:center">@context.Date.Format()</MudTd>
-            <MudTd DataLabel="@Localizer["Options"]" Style="text-align:center">
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
-                               OnClick="@( async () => await EditIncome(context))" />
-            </MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager HideRowsPerPage="true"/>
-        </PagerContent>
-    </MudTable>
-</MudPaper>
+        <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true" style="height:63vh;" >
+            <HeaderContent>
+                <MudTh> @Localizer["Name"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Date"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Options"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["Name"]" Style="padding-left:15px;">@context.Name</MudTd>
+                <MudTd DataLabel="@Localizer["Amount"]" Style="text-align:center">@context.Amount</MudTd>
+                <MudTd DataLabel="@Localizer["Date"]" Style="text-align:center">@context.Date.Format()</MudTd>
+                <MudTd DataLabel="@Localizer["Options"]" Style="text-align:center">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
+                                   OnClick="@( async () => await EditIncome(context))" />
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager HideRowsPerPage="true"/>
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+}
