@@ -117,22 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LogIn" xml:space="preserve">
-    <value>Zaloguj się</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="LogInError" xml:space="preserve">
-    <value>Coś poszło nie tak</value>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FailEditSnackbar" xml:space="preserve">
+    <value>Failed to update user data</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Surname</value>
   </data>
   <data name="LogInSuccess" xml:space="preserve">
-    <value>Zalogowano pomyślnie</value>
+    <value>Logged in successfully</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Hasło</value>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>You must be signed in to perform this action</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Zarejestruj się</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
-  <data name="username" xml:space="preserve">
-    <value>Nickname lub Email</value>
+  <data name="Username" xml:space="preserve">
+    <value>Nickname</value>
   </data>
 </root>

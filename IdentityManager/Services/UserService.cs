@@ -1,6 +1,4 @@
-﻿using Flurl.Http;
-using IdentityManager.Models;
-using Keycloak.Net;
+﻿using IdentityManager.Models;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -22,7 +20,6 @@ namespace IdentityManager.Services
         {
             //check token
             var adminToken = await _tokenService.GetAdminTokenAsync();
-            Console.WriteLine($"______________________ {model.Username}");
             var payload = new
             {
                 username = model.Username,
@@ -53,36 +50,22 @@ namespace IdentityManager.Services
             if (string.IsNullOrEmpty(adminToken))
                 throw new Exception("Failed to retrieve admin token.");
 
-            Console.WriteLine($"Admin token: {adminToken}");
-
             var request = new HttpRequestMessage(HttpMethod.Get, $"http://keycloak:8080/admin/realms/AppRealm/users/{userId}");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
 
-            Console.WriteLine("Before request");
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
 
-            try
+            var responseData = await response.Content.ReadAsStringAsync();
+            var user = JsonSerializer.Deserialize<UserModel>(responseData, new JsonSerializerOptions
             {
-                var response = await _httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
 
-                var responseData = await response.Content.ReadAsStringAsync();
-                var user = JsonSerializer.Deserialize<UserModel>(responseData, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+            if (user == null)
+                throw new Exception($"User not found. ID: {userId}");
 
-                Console.WriteLine("After request");
-
-                if (user == null)
-                    throw new Exception($"User not found. ID: {userId}");
-
-                return user;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
-                throw;
-            }
+            return user;
         }
     }
     public interface IUserService

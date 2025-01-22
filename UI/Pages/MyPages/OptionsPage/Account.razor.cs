@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
 using UI.Components.Dialogs;
-using UI.Extensions;
 using UI.Models.ViewModels;
 using UI.Services;
 
@@ -65,7 +61,7 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters[nameof(UserDetails)] = UserDetails;
             parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
-            await dialogService.ShowAsync<EditUserPropertiesDialog>($"Edycja {property} uzytkownika", parameters, options);
+            await dialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
         }
         private async Task OnDialogClose()
         {

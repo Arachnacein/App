@@ -133,6 +133,6 @@
     <value>Sing Up</value>
   </data>
   <data name="username" xml:space="preserve">
-    <value>Username</value>
+    <value>Username or Email</value>
   </data>
 </root>

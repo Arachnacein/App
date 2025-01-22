@@ -6,19 +6,19 @@
                 @switch (Property)
                 {   
                     case "FirstName":
-                        <MudTextField Label="FirstName" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["FirstName"]" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
                         break;                    
                     case "LastName":
-                        <MudTextField Label="LastName" @bind-Value="DialogModel.LastName" For="@(() => DialogModel.LastName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["LastName"]" @bind-Value="DialogModel.LastName" For="@(() => DialogModel.LastName)" Class="ma-1 pa-1" />
                         break;                   
                     case "Username":
-                        <MudTextField Label="UserName" @bind-Value="DialogModel.Username" For="@(() => DialogModel.Username)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Username"]" @bind-Value="DialogModel.Username" For="@(() => DialogModel.Username)" Class="ma-1 pa-1" />
                         break;                   
                     case "Email":
-                        <MudTextField Label="Email" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Email"]" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
                         break;
                     default:
-                        <MudTextField Label="Default" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Default"]" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
                         break;
                 }
 
@@ -26,8 +26,8 @@
         </DialogContent>
         <DialogActions>
             <MudStack Row="true" Spacing="8" Class="mr-5">
-                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">Submit</MudButton>
-                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Tertiary">@Localizer["Submit"]</MudButton>
+                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
             </MudStack>
         </DialogActions>
     </MudDialog>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -11,6 +12,7 @@ namespace UI.Components.Dialogs
         [Parameter] public string Property { get; set; }
         [Parameter] public UserDetailsViewModel UserDetails { get; set; }
         [Parameter] public EventCallback OnDialogClose { get; set; }
+        [Inject] public IStringLocalizer<EditUserPropertiesDialog> Localizer { get; set; }
         [Inject] private UserDetailsViewModelValidator UserDetailsValidator { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
@@ -30,14 +32,14 @@ namespace UI.Components.Dialogs
                 return;
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             {
-                Snackbar.Add(/*Localizer["MustSignIn"]*/"user session is not set", Severity.Warning);
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
                 return;
             }
 
             var responseEditUserProperties = await httpClient.PutAsJsonAsync<UserDetailsViewModel>($"/api/User/editUser", DialogModel);
             if (responseEditUserProperties.StatusCode != System.Net.HttpStatusCode.NoContent)
             {
-                Snackbar.Add(/*Localizer["FailEditSnackbar"]*/$"error 2 {responseEditUserProperties.StatusCode.ToString()}", Severity.Error);
+                Snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
                 return;
             }
 
@@ -48,7 +50,7 @@ namespace UI.Components.Dialogs
             UserDetails.Email = refreshedUserData.Email;
 
             UserSessionService.SetUserSession(UserDetails.FirstName, UserDetails.LastName, UserDetails.Username, UserDetails.Email);
-            Snackbar.Add(/*Localizer["LogInSuccess"]*/$"pomyslnie zmienionio bla bla", Severity.Success);
+            Snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
             StateHasChanged();
 
             await OnDialogClose.InvokeAsync();
