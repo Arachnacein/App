@@ -129,6 +129,9 @@
   <data name="Header" xml:space="preserve">
     <value>Manage incomes</value>
   </data>
+  <data name="MustLogIn" xml:space="preserve">
+    <value>Log in to access this page</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

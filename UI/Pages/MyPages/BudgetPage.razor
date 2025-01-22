@@ -25,7 +25,11 @@
                         <MudIcon Icon="@Icons.Material.Filled.Info" />
                     </ChildContent>
                     <TooltipContent> 
-                        @if (patternViewModel == null || patternViewModel.Id == 0)
+                        @if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+                        {
+                            <MudText Typo="Typo.body2">@Localizer["MustSignIn"]</MudText>
+                        }
+                        else if (patternViewModel == null || patternViewModel.Id == 0)
                         {
                             <MudText Typo="Typo.body2">@Localizer["NoPattern"]</MudText>
                         }
@@ -98,9 +102,4 @@
     <MudTabPanel Text="@Localizer["Statistics"]"> 
         <UI.Components.StatisticsComponent />
     </MudTabPanel>
-
-    <MudTabPanel Text="Tab3" Disabled="true">
-        <MudText>Hidden message</MudText>
-    </MudTabPanel>
-
 </MudTabs>

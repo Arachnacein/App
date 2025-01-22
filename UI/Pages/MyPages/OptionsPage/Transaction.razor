@@ -5,44 +5,53 @@
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh">
-    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Transactions"]</MudText>
-    <MudDivider />
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustLogIn"]</MudText>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Transactions"]</MudText>
+        <MudDivider />
 
-    <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
-        <MudStack>
-            <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @transactionCounter</MudText>
+        <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
+            <MudStack>
+                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @transactionCounter</MudText>
+            </MudStack>
+            <MudStack>
+                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End" 
+                              AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" 
+                              Variant="Variant.Outlined" style="width:250px;" />
+            </MudStack>
         </MudStack>
-        <MudStack>
-            <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End" 
-                          AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" 
-                          Variant="Variant.Outlined" style="width:250px;" />
-        </MudStack>
-    </MudStack>
 
-    <MudTable T="TransactionViewModel" Items="@filteredTransactions" FixedHeader="true"
-              FixedFooter="true" Dense="true" Striped="true" style="height:vh63;">
-        <HeaderContent>
-            <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
-            <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>
-            <MudTh Style="text-align:center">@Localizer["Price"] </MudTh>
-            <MudTh Style="text-align:center">@Localizer["Category"]</MudTh>
-            <MudTh Style="text-align:center">@Localizer["Description"]</MudTh>
-            <MudTh Style="text-align:center">@Localizer["Options"]</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="@Localizer["Name"]">@context.Name</MudTd>
-            <MudTd DataLabel="@Localizer["Date"]">@context.Date.ShortFormat()</MudTd>
-            <MudTd DataLabel="@Localizer["Price"]" Style="text-align:center">@context.Price</MudTd>
-            <MudTd DataLabel="@Localizer["Category"]" Style="text-align:center">@context.Category</MudTd>
-            <MudTd DataLabel="@Localizer["Description"]" Style="text-align:center">@context.Description</MudTd>
-            <MudTd DataLabel="@Localizer["Options"]">
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
-                               OnClick="@(() => EditOptions(context))"></MudIconButton>
-            </MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager HideRowsPerPage="true" />
-        </PagerContent>
-    </MudTable>
-</MudPaper>
+        <MudTable T="TransactionViewModel" Items="@filteredTransactions" FixedHeader="true"
+                  FixedFooter="true" Dense="true" Striped="true" style="height:vh63;">
+            <HeaderContent>
+                <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
+                <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>
+                <MudTh Style="text-align:center">@Localizer["Price"] </MudTh>
+                <MudTh Style="text-align:center">@Localizer["Category"]</MudTh>
+                <MudTh Style="text-align:center">@Localizer["Description"]</MudTh>
+                <MudTh Style="text-align:center">@Localizer["Options"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["Name"]">@context.Name</MudTd>
+                <MudTd DataLabel="@Localizer["Date"]">@context.Date.ShortFormat()</MudTd>
+                <MudTd DataLabel="@Localizer["Price"]" Style="text-align:center">@context.Price</MudTd>
+                <MudTd DataLabel="@Localizer["Category"]" Style="text-align:center">@context.Category</MudTd>
+                <MudTd DataLabel="@Localizer["Description"]" Style="text-align:center">@context.Description</MudTd>
+                <MudTd DataLabel="@Localizer["Options"]">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
+                                   OnClick="@(() => EditOptions(context))"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager HideRowsPerPage="true" />
+            </PagerContent>
+        </MudTable>
+    </MudPaper>
+}

@@ -141,6 +141,12 @@
   <data name="FeesText" xml:space="preserve">
     <value>Codzienne</value>
   </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Zaloguj się, by uzyskać dostęp do tych informacji</value>
+  </data>
+  <data name="MustSignInButton" xml:space="preserve">
+    <value>Zaloguj się, by uzyskać dostęp do tej opcji</value>
+  </data>
   <data name="NoPattern" xml:space="preserve">
     <value>Brak wzoru</value>
   </data>
