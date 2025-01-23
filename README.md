@@ -30,9 +30,13 @@
   It separates business logic from databases and user interfaces, creating a layered structure where each layer communicates with the others in a well-defined manner.
    <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, the application is built using a distributed architecture, specifically microservices. It is divided into modules, such as the API responsible for business logic related to transactions and budgeting, and the graphical user interface. Thesemodules 
-  are connected by an API Gateway, which routes requests between the modules. 
-  My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice. Currently, the application has three microservices: 
-  budgetapi, apigateway, and GUI. In the future, microservices responsible for the calendar and payments will be added.
+  are connected by an API Gateway, which routes requests between the modules. My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice.
+</p>
+<br>
+<h3 align="center">How architecture was changing</h3>
+<p>
+   Firstly, the application had three microservices: 
+  budgetapi, apigateway, and GUI. In the future, microservices responsible for the calendar, user and payments will be added.
 </p>
 <br>
 <p align="center">
@@ -40,12 +44,15 @@
 </p>
 <br>
 <p align="">
-	Currently, I am working on the login and authorization feature. After that, the architecture will look like the picture below
+	Currently, I added IdentityApi that manages user actions. This WebApi works together with Keycloak API. Keycloak is an open-source identity and access 
+	management platform. All user-related requests, such as login, registration, token retrieval, and fetching user resources, go through IdentityApi, 
+	which redirects these requests to Keycloak.
 </p>
 <br>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/46566b8f-2f54-47b3-9e57-0544eed7f787">
+	<img src="https://github.com/user-attachments/assets/1dd99578-8045-4595-b69c-d7def4ad583d">
 </p>
+
 
 
 <br><br>
