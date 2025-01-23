@@ -10,9 +10,10 @@
         public string Email { get; private set; }
         public DateTime AccountCreatedDate { get; set; }
         public DateTime TokenExpiryDate { get; set; }
+        public bool EmailVerified { get; set; }
         public List<string> Roles { get; private set; } = new List<string>();
 
-        public void SetUserSession(string token, List<string> roles, string name, string surname, string username, string email, Guid userId, DateTime tokenExpiryDate, DateTime accountCreatedDate)
+        public void SetUserSession(string token, List<string> roles, string name, string surname, string username, string email, Guid userId, DateTime tokenExpiryDate, DateTime accountCreatedDate, bool emailVerified)
         {
             Token = token;
             Roles = roles;
@@ -23,6 +24,7 @@
             UserId = userId;
             TokenExpiryDate = tokenExpiryDate;
             AccountCreatedDate = accountCreatedDate;
+            EmailVerified = emailVerified;
         }        
         public void SetUserSession(string name, string surname, string username, string email)
         {
@@ -31,6 +33,8 @@
             Username = username;
             this.Email = email;
         }
+        public void SetUserSession(bool emailVerified) => EmailVerified = emailVerified;
+
 
         public void ClearUserSession()
         {
@@ -43,6 +47,7 @@
             UserId = Guid.Empty;
             TokenExpiryDate = DateTime.MinValue;
             AccountCreatedDate = DateTime.MinValue;
+            EmailVerified = false;
         }
 
         public bool IsUserLoggedIn() => !string.IsNullOrEmpty(Token);

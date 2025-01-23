@@ -47,7 +47,16 @@ else
                         <MudButton Class="ml-2" Size="Size.Medium" OnClick="() => EditData(nameof(UserDetails.Email))">
                             <MudText Color="Color.Secondary">@Localizer["Edit"]</MudText>
                         </MudButton>
-                    </MudStack>
+                    </MudStack>      
+                    @if(!UserSessionService.EmailVerified)
+                    {
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                            <MudText Typo="Typo.body2" Color="Color.Error">@Localizer["LabelVerifyEmail"]</MudText>
+                            <MudButton Class="ml-2" Size="Size.Small" OnClick="VerifyEmail">
+                                <MudText Color="Color.Error" Style="font-size:smaller;">@Localizer["Verify"]</MudText>
+                            </MudButton>
+                        </MudStack>
+                    }
                 </MudStack>
 
                 <MudStack Row="false" Spacing="2" Class="ma-2 pa-3 mb-5">
