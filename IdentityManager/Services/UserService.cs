@@ -67,10 +67,26 @@ namespace IdentityManager.Services
 
             return user;
         }
+
+        public async Task SendVerificationEmailAsync(Guid userId)
+        {
+            var adminToken = await _tokenService.GetAdminTokenAsync();
+            if (string.IsNullOrEmpty(adminToken))
+                throw new Exception("Failed to retrieve admin token.");
+
+            var request = new HttpRequestMessage(HttpMethod.Put,
+                                                 $"http://keycloak:8080/admin/realms/AppRealm/users/{userId}/send-verify-email");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+
+            var response = await _httpClient.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Error while sending email verification request to keycloak.");
+        }
     }
     public interface IUserService
     {
         Task<bool> UpdateUserPropertiesAsync(UserModel model);
         Task<UserModel> GetUserDataAsync(Guid userId);
+        Task SendVerificationEmailAsync(Guid userId);
     }
 }

@@ -51,7 +51,6 @@ namespace UI.Pages.MyPages
                 var expiryClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
                 bool emailVerified = bool.TryParse(emailVerifiedClaim, out var result) ? result : false;
 
-                Snackbar.Add("weryfikacja: " + emailVerified, Severity.Info);
                 DateTime expiryDate;
                 if (long.TryParse(expiryClaim, out var expSeconds))
                     expiryDate = DateTimeOffset.FromUnixTimeSeconds(expSeconds).UtcDateTime;

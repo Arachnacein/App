@@ -27,5 +27,12 @@ namespace IdentityManager.Controllers
             var result = await _userService.GetUserDataAsync(userId);
             return Ok(result);
         }
+
+        [HttpPost("verifyEmail")]
+        public async Task<IActionResult> VerifyEmail([FromBody] Guid userId)
+        {
+            await _userService.SendVerificationEmailAsync(userId);
+            return NoContent();
+        }
     }
 }

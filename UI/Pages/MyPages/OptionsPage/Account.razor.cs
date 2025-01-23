@@ -71,7 +71,7 @@ namespace UI.Pages.MyPages.OptionsPage
             var parameters = new DialogParameters();
             parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
-            await dialogService.ShowAsync<VerifyEmailDialog>(String.Empty,parameters, options);
+            await dialogService.ShowAsync<VerifyEmailDialog>(String.Empty, parameters, options);
 
         }
         private async Task OnDialogClose()
