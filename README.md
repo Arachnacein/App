@@ -78,13 +78,16 @@
 <br>
 <h2 align="center"> Milestones </h2>
 <p>
-  🔜 Add authorization. <br>
-  🔜 Add Unit test. <br>
-  * Add Healtch checks.<br>
+  🔜 Add Admin Panel. <br>
   * Add pdf summary. <br>
+  * Add Healtch checks.<br>
+  * Add 2FA <br>
   * Add saving goals feature. <br>
   * Add calendar with notifications.<br>
   * Add payment feature. <br>
+  ⛔ Add authorization. => Keycloak BUG🐛 <br>
+  ✅ Add email verification. => Completed but Keycloak BUG 🐛<br>  
+  ✅ Add Unit test. <br>
   ✅ Add Login and Registration. <br>
   ✅ Add Internationalization.<br>
   ✅ Add searching fields for transactions and incomes. <br>
