@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace UI.Shared
 {
@@ -9,6 +11,7 @@ namespace UI.Shared
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
         [Inject] private NavigationManager NavManager { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
+        [Inject] private IStringLocalizer<NavMenu> Localizer { get; set; }
 
         private async void SetPolish() => await SetCulture("pl-PL");
         private async void SetEnglish() => await SetCulture("en-UK");
@@ -27,7 +30,7 @@ namespace UI.Shared
         {
             UserSessionService.ClearUserSession();
             await localStorage.DeleteAsync("access_token");
-            Snackbar.Add("Pomyślnie wylogowano", MudBlazor.Severity.Success);
+            Snackbar.Add(Localizer["LogOutSuccess"], Severity.Success);
             Navigation.NavigateTo("/", false);
         }
         private async Task Register()
@@ -36,11 +39,12 @@ namespace UI.Shared
         }        
         private async Task CheckToken()
         {
-            Snackbar.Add("Username " + UserSessionService.Username, MudBlazor.Severity.Normal);
-            Snackbar.Add("Name " + UserSessionService.Name, MudBlazor.Severity.Error);
-            Snackbar.Add("Surname " + UserSessionService.Surname, MudBlazor.Severity.Success);
-            Snackbar.Add("Email " + UserSessionService.Email, MudBlazor.Severity.Info);
-            Snackbar.Add("Id " + UserSessionService.UserId, MudBlazor.Severity.Success);
+            Snackbar.Add(UserSessionService.Token, Severity.Normal);
+            //Snackbar.Add("Username " + UserSessionService.Username, Severity.Normal);
+            //Snackbar.Add("Name " + UserSessionService.Name, Severity.Error);
+            //Snackbar.Add("Surname " + UserSessionService.Surname, Severity.Success);
+            //Snackbar.Add("Email " + UserSessionService.Email, Severity.Info);
+            //Snackbar.Add("Id " + UserSessionService.UserId, Severity.Success);
         }
     }
 }

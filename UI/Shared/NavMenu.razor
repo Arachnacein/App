@@ -1,6 +1,4 @@
-﻿@inject IStringLocalizer<NavMenu> Localizer
-
-<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%;">
+﻿<MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%;">
     <MudStack Row="true" Justify="Justify.FlexStart">
         <NavLink href="" class="nav-main-menu-item"><MudButton StartIcon="@Icons.Material.Filled.Home" IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary">@Localizer["Home"]</MudButton></NavLink>
         <NavLink href="/budget" class="nav-main-menu-item"><MudButton IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> @Localizer["Budget"] </MudButton></NavLink>

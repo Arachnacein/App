@@ -144,6 +144,9 @@
   <data name="LabelUserName" xml:space="preserve">
     <value>Nazwa użytkownika:</value>
   </data>
+  <data name="LabelVerifyEmail" xml:space="preserve">
+    <value>Email jest niepotwierdzony</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
@@ -158,5 +161,11 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nickname</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
+  <data name="VerifyEmail" xml:space="preserve">
+    <value>Potwierdź email</value>
   </data>
 </root>

@@ -135,6 +135,9 @@
   <data name="LogOut" xml:space="preserve">
     <value>Sign out</value>
   </data>
+  <data name="LogOutSuccess" xml:space="preserve">
+    <value>Signed out successfully</value>
+  </data>
   <data name="Polish" xml:space="preserve">
     <value>Polish</value>
   </data>

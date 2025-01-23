@@ -30,6 +30,7 @@ namespace UI.Pages.MyPages.OptionsPage
                                     .ToList() ?? new List<string>();
             UserDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
             UserDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
+            UserDetails.EmailVerified = UserSessionService.EmailVerified;
 
         }
         private async Task EditData(string variableName)
@@ -62,6 +63,16 @@ namespace UI.Pages.MyPages.OptionsPage
             parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
             await dialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
+        }
+        private async Task VerifyEmail()
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var parameters = new DialogParameters();
+            parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
+
+            await dialogService.ShowAsync<VerifyEmailDialog>(String.Empty, parameters, options);
+
         }
         private async Task OnDialogClose()
         {

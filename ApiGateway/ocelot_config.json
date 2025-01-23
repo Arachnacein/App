@@ -403,6 +403,24 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/verifyEmail",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/verifyEmail",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     }
   ],
   "GlobalConfiguration": {

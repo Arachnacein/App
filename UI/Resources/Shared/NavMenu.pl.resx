@@ -135,6 +135,9 @@
   <data name="LogOut" xml:space="preserve">
     <value>Wyloguj</value>
   </data>
+  <data name="LogOutSuccess" xml:space="preserve">
+    <value>Pomyślnie wylogowano</value>
+  </data>
   <data name="Polish" xml:space="preserve">
     <value>Polski</value>
   </data>
