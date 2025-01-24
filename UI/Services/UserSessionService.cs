@@ -11,6 +11,7 @@
         public DateTime AccountCreatedDate { get; set; }
         public DateTime TokenExpiryDate { get; set; }
         public bool EmailVerified { get; set; }
+        public bool IsAdmin { get; set; }
         public List<string> Roles { get; private set; } = new List<string>();
 
         public void SetUserSession(string token, List<string> roles, string name, string surname, string username, string email, Guid userId, DateTime tokenExpiryDate, DateTime accountCreatedDate, bool emailVerified)
@@ -25,6 +26,7 @@
             TokenExpiryDate = tokenExpiryDate;
             AccountCreatedDate = accountCreatedDate;
             EmailVerified = emailVerified;
+            IsAdmin = roles.Contains("admin") ? true : false;
         }        
         public void SetUserSession(string name, string surname, string username, string email)
         {
@@ -48,6 +50,7 @@
             TokenExpiryDate = DateTime.MinValue;
             AccountCreatedDate = DateTime.MinValue;
             EmailVerified = false;
+            IsAdmin = false;
         }
 
         public bool IsUserLoggedIn() => !string.IsNullOrEmpty(Token);
