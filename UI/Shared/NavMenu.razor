@@ -23,10 +23,16 @@
             @if(UserSessionService.IsUserLoggedIn())
             {
                 <MudMenuItem Href="/options/account">
-                    @* @Localizer["Account"] *@
                     [ @UserSessionService.Username ]
                     <MudIcon Icon="@Icons.Material.Filled.Person"/>
-                </MudMenuItem>
+                </MudMenuItem>   
+                @if(UserSessionService.IsAdmin)
+                {
+                    <MudMenuItem Href="/options/adminPanel" Style="@($"color:{Colors.Yellow.Darken1}")">
+                        @Localizer["AdminPanel"]
+                        <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Style="@($"color:{Colors.Yellow.Darken1}")" />
+                    </MudMenuItem>
+                }
                 <MudMenuItem OnClick="LogOut">
                     @Localizer["LogOut"]
                     <MudIcon Icon="@Icons.Material.Filled.Logout"/>

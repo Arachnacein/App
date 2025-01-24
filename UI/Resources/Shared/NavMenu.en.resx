@@ -120,6 +120,9 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Admin panel</value>
+  </data>
   <data name="Budget" xml:space="preserve">
     <value>Budget</value>
   </data>

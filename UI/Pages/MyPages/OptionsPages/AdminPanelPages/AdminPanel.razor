@@ -1,0 +1,25 @@
+﻿@page "/options/adminPanel"
+@using UI.Models;
+@using UI.Models.ViewModels
+
+<PageTitle>@Localizer["Title"]</PageTitle>
+<UI.Components.OptionNavigationComponent />
+
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustLogIn"]</MudText>
+    </MudPaper>
+}
+else if(!UserSessionService.IsAdmin)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustBeAdmin"]</MudText>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanel"]</MudText>
+    </MudPaper>
+}

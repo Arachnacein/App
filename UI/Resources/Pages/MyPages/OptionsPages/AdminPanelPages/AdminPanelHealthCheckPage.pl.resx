@@ -117,34 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Konto</value>
+  <data name="AdminPanelHealth" xml:space="preserve">
+    <value>Application health</value>
   </data>
-  <data name="AdminPanel" xml:space="preserve">
-    <value>Panel admina</value>
+  <data name="MustBeAdmin" xml:space="preserve">
+    <value>You must be admin to access this page</value>
   </data>
-  <data name="Budget" xml:space="preserve">
-    <value>Budżet</value>
+  <data name="MustLogIn" xml:space="preserve">
+    <value>You must be logged in to access this page.</value>
   </data>
-  <data name="English" xml:space="preserve">
-    <value>Angielski</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Strona główna</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Zaloguj</value>
-  </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Wyloguj</value>
-  </data>
-  <data name="LogOutSuccess" xml:space="preserve">
-    <value>Pomyślnie wylogowano</value>
-  </data>
-  <data name="Polish" xml:space="preserve">
-    <value>Polski</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Rejestracja</value>
+  <data name="Title" xml:space="preserve">
+    <value>Application health</value>
   </data>
 </root>
