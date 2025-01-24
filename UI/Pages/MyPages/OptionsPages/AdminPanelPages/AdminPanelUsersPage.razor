@@ -1,4 +1,4 @@
-﻿@page "/options/account"
+﻿@page "/options/adminPanel/users"
 @using UI.Models;
 @using UI.Models.ViewModels
 
@@ -11,7 +11,7 @@
         <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustLogIn"]</MudText>
     </MudPaper>
 }
-else if(!UserSessionService.IsAdmin)
+else if (!UserSessionService.IsAdmin)
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
         <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustBeAdmin"]</MudText>
@@ -20,6 +20,6 @@ else if(!UserSessionService.IsAdmin)
 else
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
-        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanel"]</MudText>
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanelUsers"]</MudText>
     </MudPaper>
 }

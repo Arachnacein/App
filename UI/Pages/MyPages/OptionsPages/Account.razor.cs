@@ -5,7 +5,7 @@ using UI.Components.Dialogs;
 using UI.Models.ViewModels;
 using UI.Services;
 
-namespace UI.Pages.MyPages.OptionsPage
+namespace UI.Pages.MyPages.OptionsPages
 {
     public partial class Account
     {

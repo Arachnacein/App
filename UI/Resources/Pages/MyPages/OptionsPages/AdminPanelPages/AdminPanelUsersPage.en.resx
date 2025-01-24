@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdminPanelUsers" xml:space="preserve">
+    <value>Użytkownicy aplikacji</value>
+  </data>
   <data name="MustBeAdmin" xml:space="preserve">
-    <value />
+    <value>Musisz być administratorem, by mieć dostęp do tej strony.</value>
   </data>
   <data name="MustLogIn" xml:space="preserve">
-    <value />
+    <value>Musisz się zalogować, by mieć dostęp do tej strony.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Użytkownicy aplikacji</value>
   </data>
 </root>

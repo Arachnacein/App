@@ -5,7 +5,7 @@ using UI.Components.Dialogs;
 using UI.Extensions;
 using UI.Models.ViewModels;
 
-namespace UI.Pages.MyPages.OptionsPage
+namespace UI.Pages.MyPages.OptionsPages
 {
     public partial class Income
     {

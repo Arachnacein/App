@@ -1,6 +1,19 @@
 ﻿@inject IStringLocalizer<OptionNavigationComponent> Localizer
 <MudDrawer Open="true" Anchor="Anchor.Left" Elevation="2" Variant="DrawerVariant.Mini">
     <MudNavMenu>
+        @if(UserSessionService.IsAdmin)
+        {
+            <MudNavGroup Title="@Localizer["AdminPanel"]" Icon="@Icons.Material.Filled.AdminPanelSettings" 
+                         Expanded="true" Style="@($"color:{Colors.Yellow.Darken1}")">
+                <MudNavLink Href="/options/adminPanel/users" Icon="@Icons.Material.Filled.People">
+                    @Localizer["Users"]
+                </MudNavLink>
+                <MudNavLink Href="/options/adminPanel/healthChecks" Icon="@Icons.Material.Filled.Storage">
+                    @Localizer["HealthChecks"]
+                </MudNavLink>
+            </MudNavGroup>
+            <MudDivider Class="my-2" />
+        }
         <MudNavLink Href="/options/account" Icon="@Icons.Material.Filled.Person">
             @Localizer["Account"]
         </MudNavLink>

@@ -3,7 +3,7 @@ using MudBlazor;
 using UI.Components.Dialogs;
 using UI.Models.ViewModels;
 
-namespace UI.Pages.MyPages.OptionsPage
+namespace UI.Pages.MyPages.OptionsPages
 {
     public partial class Pattern
     {
