@@ -49,7 +49,6 @@ namespace IdentityManager.Services
 
             return response.IsSuccessStatusCode;
         }
-        
         public async Task<bool> UsernameExistsAsync(string username)
         {
             var adminToken = await _tokenService.GetAdminTokenAsync();
