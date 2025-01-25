@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManager", "Identity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesTests.cs", "ServicesTests.cs\ServicesTests.cs.csproj", "{B5BD9B5A-025E-44C7-922A-976A06D91ACD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareTests", "MiddlewareTests\MiddlewareTests.csproj", "{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{B5BD9B5A-025E-44C7-922A-976A06D91ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5BD9B5A-025E-44C7-922A-976A06D91ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5BD9B5A-025E-44C7-922A-976A06D91ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{272FEAD2-D847-4DA7-8E33-7D89D95EC8D2} = {EB5816B7-9C37-4A46-A947-BDC859B30798}
 		{5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1} = {611D8730-F64C-4100-8136-867C86FEF0C1}
 		{B5BD9B5A-025E-44C7-922A-976A06D91ACD} = {5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1}
+		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3} = {5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CC4BEBA-048E-467D-9CA9-DB90775B49C9}
