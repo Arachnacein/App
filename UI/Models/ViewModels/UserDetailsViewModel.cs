@@ -9,10 +9,11 @@ namespace UI.Models.ViewModels
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public DateTime AccountCreatedDate { get; set; }
+        public DateTime? AccountCreatedDate { get; set; }
         public DateTime SessionExpiryDate { get; set; }
         public List<string> Roles { get; set; }
         public bool EmailVerified { get; set; }
+        public bool Enabled { get; set; }
     }
 
     public class UserDetailsViewModelValidator : AbstractValidator<UserDetailsViewModel>

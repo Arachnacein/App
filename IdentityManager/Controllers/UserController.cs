@@ -33,6 +33,13 @@ namespace IdentityManager.Controllers
         {
             await _userService.SendVerificationEmailAsync(userId);
             return NoContent();
+        }        
+        
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            var result = await _userService.GetUsersAsync();
+            return Ok(result);
         }
     }
 }

@@ -20,6 +20,38 @@ else if (!UserSessionService.IsAdmin)
 else
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
-        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanelUsers"]</MudText>
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanelUsers"]</MudText>       
+        <MudDivider />
+
+        <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
+            <MudStack>
+                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @usersCounter</MudText>
+            </MudStack>
+            <MudStack>
+                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
+                              AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
+                              Variant="Variant.Outlined" style="width:250px;" />
+            </MudStack>
+        </MudStack>
+        <MudTable Items="filteredUsers" Hover="true">
+            <HeaderContent>
+                <MudTh>@Localizer["UserName"]</MudTh>
+                <MudTh>@Localizer["UserSurname"]</MudTh>
+                <MudTh>@Localizer["Email"]</MudTh>
+                <MudTh>@Localizer["EmailVerified"]</MudTh>
+                <MudTh>@Localizer["Enabled"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["UserName"]">@context.FirstName</MudTd>
+                <MudTd DataLabel="@Localizer["UserName"]">@context.LastName</MudTd>
+                <MudTd DataLabel="@Localizer["Email"]">@context.Email</MudTd>
+                <MudTd DataLabel="@Localizer["EmailVarified"]">
+                    <MudSwitch @bind-Value="@context.EmailVerified" Disabled="true" Color="Color.Success"/>
+                </MudTd>
+                <MudTd DataLabel="@Localizer["Enabled"]">
+                    <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success"/>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudPaper>
 }
