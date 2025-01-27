@@ -66,7 +66,7 @@ else
                     </MudStack>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                         <MudText Typo="Typo.body1" Class="font-weight-bold">@Localizer["AccountCreated"]</MudText>
-                        <MudText Typo="Typo.body1">@UserDetails.AccountCreatedDate.ToString("dd-MM-yyyy HH:mm")</MudText>
+                        <MudText Typo="Typo.body1">@UserDetails.AccountCreatedDate?.ToString("dd-MM-yyyy HH:mm")</MudText>
                     </MudStack>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="4">
                         <MudText Typo="Typo.body1" Class="font-weight-bold">@Localizer["SessionExpirations"]</MudText>
