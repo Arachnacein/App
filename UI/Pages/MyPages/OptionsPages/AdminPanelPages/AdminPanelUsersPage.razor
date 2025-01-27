@@ -21,5 +21,25 @@ else
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
         <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanelUsers"]</MudText>
+        <MudTable Items="users" Hover="true">
+            <HeaderContent>
+                <MudTh>@Localizer["UserName"]</MudTh>
+                <MudTh>@Localizer["UserSurname"]</MudTh>
+                <MudTh>@Localizer["Email"]</MudTh>
+                <MudTh>@Localizer["EmailVerified"]</MudTh>
+                <MudTh>@Localizer["Enabled"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["UserName"]">@context.FirstName</MudTd>
+                <MudTd DataLabel="@Localizer["UserName"]">@context.LastName</MudTd>
+                <MudTd DataLabel="@Localizer["Email"]">@context.Email</MudTd>
+                <MudTd DataLabel="@Localizer["EmailVarified"]">
+                    <MudSwitch @bind-Value="@context.EmailVerified" Disabled="true" Color="Color.Success"/>
+                </MudTd>
+                <MudTd DataLabel="@Localizer["Enabled"]">
+                    <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success"/>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudPaper>
 }

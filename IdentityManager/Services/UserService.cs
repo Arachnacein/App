@@ -82,11 +82,36 @@ namespace IdentityManager.Services
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Error while sending email verification request to keycloak.");
         }
+
+        public async Task<List<UserModel>> GetUsersAsync()
+        {
+            var adminToken = await _tokenService.GetAdminTokenAsync();
+            if (string.IsNullOrEmpty(adminToken))
+                throw new Exception("Failed to retrieve admin token.");
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://keycloak:8080/admin/realms/AppRealm/users");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var responseData = await response.Content.ReadAsStringAsync();
+            var users = JsonSerializer.Deserialize<List<UserModel>>(responseData, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            if (users == null)
+                throw new Exception("Failed to retrieve users.");
+
+            return users;
+        }
     }
     public interface IUserService
     {
         Task<bool> UpdateUserPropertiesAsync(UserModel model);
         Task<UserModel> GetUserDataAsync(Guid userId);
         Task SendVerificationEmailAsync(Guid userId);
+        Task<List<UserModel>> GetUsersAsync();
     }
 }

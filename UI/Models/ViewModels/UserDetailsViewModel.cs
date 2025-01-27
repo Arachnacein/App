@@ -13,6 +13,7 @@ namespace UI.Models.ViewModels
         public DateTime SessionExpiryDate { get; set; }
         public List<string> Roles { get; set; }
         public bool EmailVerified { get; set; }
+        public bool Enabled { get; set; }
     }
 
     public class UserDetailsViewModelValidator : AbstractValidator<UserDetailsViewModel>
