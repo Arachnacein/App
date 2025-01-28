@@ -43,7 +43,7 @@ else
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="@Localizer["UserName"]">@context.FirstName</MudTd>
-                <MudTd DataLabel="@Localizer["UserName"]">@context.LastName</MudTd>
+                <MudTd DataLabel="@Localizer["UserSurname"]">@context.LastName</MudTd>
                 <MudTd DataLabel="@Localizer["Email"]">@context.Email</MudTd>
                 <MudTd DataLabel="@Localizer["EmailVarified"]">
                     <MudSwitch @bind-Value="@context.EmailVerified" Disabled="true" Color="Color.Success"/>

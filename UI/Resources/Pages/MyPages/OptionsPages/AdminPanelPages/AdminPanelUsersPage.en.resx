@@ -120,13 +120,34 @@
   <data name="AdminPanelUsers" xml:space="preserve">
     <value>Użytkownicy aplikacji</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailVerified" xml:space="preserve">
+    <value>Potwierdzony email</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Konto aktywne</value>
+  </data>
   <data name="MustBeAdmin" xml:space="preserve">
     <value>Musisz być administratorem, by mieć dostęp do tej strony.</value>
   </data>
   <data name="MustLogIn" xml:space="preserve">
     <value>Musisz się zalogować, by mieć dostęp do tej strony.</value>
   </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Znaleziono</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Użytkownicy aplikacji</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Imię</value>
+  </data>
+  <data name="UserSurname" xml:space="preserve">
+    <value>Nazwisko</value>
   </data>
 </root>
