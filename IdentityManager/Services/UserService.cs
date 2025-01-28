@@ -26,7 +26,7 @@ namespace IdentityManager.Services
                 email = model.Email,
                 firstName = model.FirstName,
                 lastName = model.LastName,
-                enabled = true
+                enabled = model.Enabled
             };
             var options = new JsonSerializerOptions
             {
@@ -106,6 +106,30 @@ namespace IdentityManager.Services
 
             return users;
         }
+
+        public async Task<bool> EnableDisableUserAsync(UserModel model)
+        {
+            //check token
+            var adminToken = await _tokenService.GetAdminTokenAsync();
+            var payload = new
+            {
+                enabled = model.Enabled
+            };
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            var serializedContent = new StringContent(JsonSerializer.Serialize(payload, options), Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"http://keycloak:8080/admin/realms/AppRealm/users/{model.UserId}")
+            {
+                Content = serializedContent
+            };
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+
+            var response = await _httpClient.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
     }
     public interface IUserService
     {
@@ -113,5 +137,6 @@ namespace IdentityManager.Services
         Task<UserModel> GetUserDataAsync(Guid userId);
         Task SendVerificationEmailAsync(Guid userId);
         Task<List<UserModel>> GetUsersAsync();
+        Task<bool> EnableDisableUserAsync(UserModel model);
     }
 }
