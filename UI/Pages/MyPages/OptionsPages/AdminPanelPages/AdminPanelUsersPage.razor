@@ -49,7 +49,7 @@ else
                     <MudSwitch @bind-Value="@context.EmailVerified" Disabled="true" Color="Color.Success"/>
                 </MudTd>
                 <MudTd DataLabel="@Localizer["Enabled"]">
-                    <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success"/>
+                    <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success" onclick="@(() => Enable(context))"/>
                 </MudTd>
             </RowTemplate>
         </MudTable>

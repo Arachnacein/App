@@ -56,5 +56,10 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages
             usersCounter = filteredUsers.Count();
             StateHasChanged();
         }
+        private async Task Enable(UserDetailsViewModel model)
+        {
+            model.Enabled = !model.Enabled;
+            await httpClient.PutAsJsonAsync("api/User/enableUser", model);
+        }
     }
 }

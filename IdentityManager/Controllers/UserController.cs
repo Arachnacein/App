@@ -19,6 +19,13 @@ namespace IdentityManager.Controllers
         {
             await _userService.UpdateUserPropertiesAsync(model);
             return NoContent();
+        }        
+
+        [HttpPut("enableUser")]
+        public async Task<IActionResult> EnableUser([FromBody] UserModel model)
+        {
+            await _userService.EnableDisableUserAsync(model);
+            return NoContent();
         }
 
         [HttpGet("getUserData")]
