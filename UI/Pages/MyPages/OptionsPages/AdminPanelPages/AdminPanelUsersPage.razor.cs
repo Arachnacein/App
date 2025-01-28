@@ -29,9 +29,7 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages
         protected override async Task OnInitializedAsync()
         {
             if (UserSessionService != null && UserSessionService.IsAdmin)
-            {
                 await FetchUsersAsync();
-            }
         }
 
         private async Task FetchUsersAsync()
