@@ -54,5 +54,10 @@
         }
 
         public bool IsUserLoggedIn() => !string.IsNullOrEmpty(Token);
+        public string GetRemainingTime()
+        {
+            var remainingTime = TokenExpiryDate - DateTime.Now;
+            return remainingTime.ToString(@"hh\:mm\:ss");
+        }
     }
 }

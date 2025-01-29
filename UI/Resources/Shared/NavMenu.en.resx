@@ -147,4 +147,7 @@
   <data name="Register" xml:space="preserve">
     <value>Sign up</value>
   </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>Session expired</value>
+  </data>
 </root>

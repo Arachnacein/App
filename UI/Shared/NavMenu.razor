@@ -52,5 +52,17 @@
         </MudMenu>
     </MudStack>
 </MudStack>
-
+@if (UserSessionService.IsUserLoggedIn())
+{
+    <MudText Typo="Typo.caption" Align="Align.Right" Class="mr-5">
+        @if (UserSessionService.GetRemainingTime() > 0)
+        {
+            @UserSessionService.GetRemainingTime();
+        }
+        else
+        {
+            @Localizer["SessionExpired"]
+        }
+    </MudText>
+}
 @* Icons from https://www.flaticon.com/packs/international-flags *@
