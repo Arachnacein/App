@@ -55,7 +55,7 @@
 @if (UserSessionService.IsUserLoggedIn())
 {
     <MudText Typo="Typo.caption" Align="Align.Right" Class="mr-5">
-        @if (UserSessionService.GetRemainingTime() > 0)
+        @if (!UserSessionService.IsTimeExpired())
         {
             @UserSessionService.GetRemainingTime();
         }
