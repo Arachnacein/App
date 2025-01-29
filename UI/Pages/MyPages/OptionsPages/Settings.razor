@@ -8,12 +8,26 @@
 <MudPaper Class="ma-1 pa-2" Elevation="5">
     <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
     <MudDivider/>
-    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-        <MudText>@Localizer["Theme"]</MudText>
-        <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary" Class="ma-4"
-                            T="bool" Label="@Localizer["ToggleText"]" @onclick="Refresh"/>
-    </MudStack>
+    <MudGrid>
+        <MudItem xs="6" class="d-flex align-items-center justify-content-end">
+            <MudText>@Localizer["Theme"]</MudText>
+        </MudItem>
+        <MudItem xs="6" class="d-flex align-items-center justify-content-start">
+            <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary" Class="ma-4"
+                       T="bool" Label="@Localizer["ToggleTextTheme"]" @onclick="Refresh"/>
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xs="6" class="d-flex align-items-center justify-content-end">
+            <MudText>@Localizer["ShowLogoutTimer"]</MudText>
+        </MudItem>
+        <MudItem xs="6" class="d-flex align-items-center justify-content-start">
+            <MudSwitch @bind-Value="_globalClass.ShowLogoutTimer" Color="Color.Primary" Class="ma-4"
+                       T="bool" Label="@Localizer["ToggleTextTimer"]"/>
+        </MudItem>
+    </MudGrid>
 </MudPaper>
+
 @code{
     private void Refresh() => Navigation.NavigateTo("/options/settings");
 }
