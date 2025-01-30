@@ -5,11 +5,6 @@
     </MudStack>
     <MudStack Row="true" Justify="Justify.FlexEnd" Class="mr-5">
         <MudButton OnClick="CheckToken">CHECK TOKEN</MudButton>@* develop option *@
-        @if(UserSessionService.IsUserLoggedIn())
-        {
-
-            <MudText>@remainingTime</MudText>
-        }
         <MudMenu Icon="@Icons.Material.Filled.Language" Size="Size.Large" Color="Color.Secondary"
                   AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
             <MudMenuItem OnClick="SetEnglish">
@@ -56,6 +51,11 @@
         </MudMenu>
      
     </MudStack>
+
 </MudStack>
+@if (UserSessionService.IsUserLoggedIn() &&  _globalInfo.ShowLogoutTimer)
+{
+    <MudText Class="ma-2 pa-2" Align="Align.Center" Typo="Typo.subtitle1"> @Localizer["RemainingTime"]: @remainingTime </MudText>
+}
 
 @* Icons from https://www.flaticon.com/packs/international-flags *@

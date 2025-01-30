@@ -12,6 +12,7 @@ namespace UI.Shared
         [Inject] private NavigationManager NavManager { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IStringLocalizer<NavMenu> Localizer { get; set; }
+        [Inject] private GlobalInfoClass _globalInfo { get; set; }
         private string remainingTime;
         private Timer Timer { get; set; }
 
