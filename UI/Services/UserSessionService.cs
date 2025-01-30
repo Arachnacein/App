@@ -59,12 +59,5 @@
             var remainingTime = TokenExpiryDate - DateTime.Now;
             return remainingTime.ToString(@"hh\:mm\:ss");
         }
-        public bool IsTimeExpired()
-        {
-            var remainingTime = TokenExpiryDate - DateTime.Now;
-            if (remainingTime.TotalSeconds == 0)
-                return true;
-            else return false;
-        }
     }
 }

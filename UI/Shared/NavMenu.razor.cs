@@ -12,19 +12,27 @@ namespace UI.Shared
         [Inject] private NavigationManager NavManager { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IStringLocalizer<NavMenu> Localizer { get; set; }
+        private string remainingTime;
+        private Timer Timer { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            if(UserSessionService.IsUserLoggedIn())
+            {
+                remainingTime = UserSessionService.GetRemainingTime();
+                Timer = new Timer(UpdateRemainingTime, null, 0, 1000); 
+            }
+        }
 
         private async void SetPolish() => await SetCulture("pl-PL");
         private async void SetEnglish() => await SetCulture("en-UK");
-
+        private async Task Register() => Navigation.NavigateTo("/register", false);
+        private async Task LogIn() => Navigation.NavigateTo("/login", false);
         private async Task SetCulture(string culture)
         {
             var uri = $"{NavManager.Uri}?culture={culture}";
             await JSRuntime.InvokeVoidAsync("blazorCulture.set", culture);
             NavManager.NavigateTo(uri, forceLoad: true);
-        }
-        private async Task LogIn()
-        {
-             Navigation.NavigateTo("/login", false);
         }
         private async Task LogOut()
         {
@@ -33,10 +41,6 @@ namespace UI.Shared
             Snackbar.Add(Localizer["LogOutSuccess"], Severity.Success);
             Navigation.NavigateTo("/", false);
         }
-        private async Task Register()
-        {
-            Navigation.NavigateTo("/register", false);
-        }        
         private async Task CheckToken()
         {
             Snackbar.Add(UserSessionService.Token, Severity.Normal);
@@ -45,6 +49,11 @@ namespace UI.Shared
             //Snackbar.Add("Surname " + UserSessionService.Surname, Severity.Success);
             //Snackbar.Add("Email " + UserSessionService.Email, Severity.Info);
             //Snackbar.Add("Id " + UserSessionService.UserId, Severity.Success);
+        }
+        private void UpdateRemainingTime(object state)
+        {
+            remainingTime = UserSessionService.GetRemainingTime();
+            InvokeAsync(StateHasChanged);
         }
     }
 }
