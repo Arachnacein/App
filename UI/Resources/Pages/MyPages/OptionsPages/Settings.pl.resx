@@ -123,10 +123,19 @@
   <data name="PageTitle" xml:space="preserve">
     <value>Ustawienia</value>
   </data>
+  <data name="ShowLogoutTimer" xml:space="preserve">
+    <value>Pokaż czas do wylogowania</value>
+  </data>
+  <data name="SuccessSnackbar" xml:space="preserve">
+    <value>Pomyślnie zmodyfikowano opcję</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Motyw</value>
   </data>
-  <data name="ToggleText" xml:space="preserve">
+  <data name="ToggleTextTheme" xml:space="preserve">
     <value>Jasny motyw / Ciemny motyw</value>
+  </data>
+  <data name="ToggleTextTimer" xml:space="preserve">
+    <value>Pokaż  / Ukryj</value>
   </data>
 </root>
