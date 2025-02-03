@@ -23,11 +23,12 @@
         </MudItem>
         <MudItem xs="6" class="d-flex align-items-center justify-content-start">
             <MudSwitch @bind-Value="_globalClass.ShowLogoutTimer" Color="Color.Primary" Class="ma-4"
-                       T="bool" Label="@Localizer["ToggleTextTimer"]"/>
+                       T="bool" Label="@Localizer["ToggleTextTimer"]" @onclick="Refresh"/>
         </MudItem>
     </MudGrid>
 </MudPaper>
 
 @code{
-    private void Refresh() => Navigation.NavigateTo("/options/settings");
+    // private void Refresh() => Navigation.NavigateTo("/options/settings");
+    private void Refresh() => StateHasChanged();
 }

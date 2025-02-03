@@ -147,6 +147,9 @@
   <data name="Register" xml:space="preserve">
     <value>Rejestracja</value>
   </data>
+  <data name="RemainingTime" xml:space="preserve">
+    <value>Pozostaly czas</value>
+  </data>
   <data name="SessionExpired" xml:space="preserve">
     <value>Sesja wygasła</value>
   </data>
