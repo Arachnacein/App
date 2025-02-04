@@ -31,7 +31,6 @@ builder.Services.AddScoped<IMonthPatternMapper, MonthPatternMapper>();
 var db_host = Environment.GetEnvironmentVariable("db_host");
 var db_name = Environment.GetEnvironmentVariable("db_name");
 var db_password = Environment.GetEnvironmentVariable("db_password");
-//var connString = $"Server = {db_host}; Database = {db_name}; User Id = sa; Password = {db_password}";
 var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password={db_password};TrustServerCertificate=True;";
 
 

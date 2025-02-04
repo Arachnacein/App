@@ -13,6 +13,9 @@ namespace BudgetManager.Data
         public virtual DbSet<Pattern> Patterns { get; set; }
         public virtual DbSet<Income> Incomes { get; set; }
         public virtual DbSet<MonthPattern> MonthPatterns { get; set; }
+        public virtual DbSet<RecurringTransaction> RecurringTransactions { get; set; }
+        public virtual DbSet<RecurringTransactionSchedule> RecurringTransactionSchedules { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +23,12 @@ namespace BudgetManager.Data
                 .HasOne(x => x.Pattern)
                 .WithMany(p => p.MonthPatterns)
                 .HasForeignKey(f => f.PatternId);
+
+            modelBuilder.Entity<RecurringTransaction>()
+                .HasOne(x => x.Schedule)
+                .WithOne(rt => rt.RecurringTransaction)
+                .HasForeignKey<RecurringTransactionSchedule>(s => s.RecurringTransactionId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
