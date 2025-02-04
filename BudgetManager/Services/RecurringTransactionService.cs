@@ -17,7 +17,7 @@ namespace BudgetManager.Services
             _recurringTransactionMapper = recurringTransactionMapper;
         }
 
-        public async Task<RecurringTransactionDto> GetAsync(int id, Guid userId)
+        public async Task<RecurringTransactionDto> RetrieveRecurringTransactionAsync(int id, Guid userId)
         {
             var recurringTransaction = await _recurringTransactionRepository.GetAsync(id, userId);
             if(recurringTransaction == null)
@@ -25,13 +25,13 @@ namespace BudgetManager.Services
             return _recurringTransactionMapper.Map(recurringTransaction);
         }
 
-        public async Task<IEnumerable<RecurringTransactionDto>> GetAllAsync(Guid userId)
+        public async Task<IEnumerable<RecurringTransactionDto>> RetrieveRecurringTransactionsAsync(Guid userId)
         {
             var recurringTransactions = await _recurringTransactionRepository.GetAllAsync(userId);
             return _recurringTransactionMapper.MapElements(recurringTransactions.ToList());
         }
 
-        public async Task<RecurringTransactionDto> AddAsync(AddRecurringTransactionDto recurringTransaction)
+        public async Task<RecurringTransactionDto> AddRecurringTransactionAsync(AddRecurringTransactionDto recurringTransaction)
         {
             if(recurringTransaction == null)
                 throw new ArgumentNullException("Object is null");
@@ -44,7 +44,7 @@ namespace BudgetManager.Services
             await _recurringTransactionRepository.AddAsync(mappedRecurringTransaction);
             return _recurringTransactionMapper.Map(mappedRecurringTransaction);
         }
-        public async Task UpdateAsync(UpdateRecurringTransactionDto recurringTransaction)
+        public async Task UpdateRecurringTransactionAsync(UpdateRecurringTransactionDto recurringTransaction)
         {
             if (recurringTransaction == null)
                 throw new ArgumentNullException("Object is null");
@@ -57,7 +57,7 @@ namespace BudgetManager.Services
             await _recurringTransactionRepository.UpdateAsync(mappedRecurringTransaction);
         }
 
-        public async Task DeleteAsync(int id, Guid userId)
+        public async Task DeleteRecurringTransactionAsync(int id, Guid userId)
         {
             var recurringTransaction = await _recurringTransactionRepository.GetAsync(id, userId);
             if (recurringTransaction == null)

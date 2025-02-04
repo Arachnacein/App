@@ -4,10 +4,10 @@ namespace BudgetManager.Services
 {
     public interface IRecurringTransactionService
     {
-        Task<RecurringTransactionDto> GetAsync(int id, Guid userId);
-        Task<IEnumerable<RecurringTransactionDto>> GetAllAsync(Guid userId);
-        Task<RecurringTransactionDto> AddAsync(AddRecurringTransactionDto recurringTransaction);
-        Task UpdateAsync(UpdateRecurringTransactionDto recurringTransaction);
-        Task DeleteAsync(int id, Guid userId);
+        Task<RecurringTransactionDto> RetrieveRecurringTransactionAsync(int id, Guid userId);
+        Task<IEnumerable<RecurringTransactionDto>> RetrieveRecurringTransactionsAsync(Guid userId);
+        Task<RecurringTransactionDto> AddRecurringTransactionAsync(AddRecurringTransactionDto recurringTransaction);
+        Task UpdateRecurringTransactionAsync(UpdateRecurringTransactionDto recurringTransaction);
+        Task DeleteRecurringTransactionAsync(int id, Guid userId);
     }
 }
