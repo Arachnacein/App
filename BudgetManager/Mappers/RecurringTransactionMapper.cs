@@ -1,4 +1,6 @@
 ﻿using BudgetManager.Dto.RecurringTransaction;
+using BudgetManager.Features.RecurringTransactions.Commands;
+using BudgetManager.Features.Transactions.Commands;
 using BudgetManager.Models;
 
 namespace BudgetManager.Mappers
@@ -9,6 +11,8 @@ namespace BudgetManager.Mappers
         RecurringTransactionDto Map(RecurringTransaction source);
         RecurringTransaction Map(AddRecurringTransactionDto source);
         RecurringTransaction Map(UpdateRecurringTransactionDto source);
+        AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source);
+        UpdateRecurringTransactionDto Map(UpdateRecurringTransactionCommand source);
         ICollection<RecurringTransactionDto> MapElements(ICollection<RecurringTransaction> source);
         ICollection<RecurringTransaction> MapElements(ICollection<RecurringTransactionDto> source);
     }
@@ -94,6 +98,57 @@ namespace BudgetManager.Mappers
         public RecurringTransaction Map(UpdateRecurringTransactionDto source)
         {
             var destination = new RecurringTransaction();
+            destination.Id = source.Id;
+            destination.UserId = source.UserId;
+            destination.Name = source.Name;
+            destination.Description = source.Description;
+            destination.Amount = source.Amount;
+            destination.TransactionType = source.TransactionType;
+            destination.StartDate = source.StartDate;
+            destination.EndDate = source.EndDate;
+            destination.Approved = source.Approved;
+            destination.ScheduleId = source.ScheduleId;
+
+            destination.Schedule.Id = source.Schedule.Id;
+            destination.Schedule.Frequency = source.Schedule.Frequency;
+            destination.Schedule.Interval = source.Schedule.Interval;
+            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
+            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
+            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
+            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
+            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
+            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
+            return destination;
+        }
+
+        public AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source)
+        {
+            var destination = new AddRecurringTransactionDto();
+            destination.UserId = source.UserId;
+            destination.Name = source.Name;
+            destination.Description = source.Description;
+            destination.Amount = source.Amount;
+            destination.TransactionType = source.TransactionType;
+            destination.StartDate = source.StartDate;
+            destination.EndDate = source.EndDate;
+            destination.Approved = source.Approved;
+            destination.ScheduleId = source.ScheduleId;
+
+            destination.Schedule.Id = source.Schedule.Id;
+            destination.Schedule.Frequency = source.Schedule.Frequency;
+            destination.Schedule.Interval = source.Schedule.Interval;
+            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
+            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
+            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
+            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
+            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
+            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
+            return destination;
+        }
+
+        public UpdateRecurringTransactionDto Map(UpdateRecurringTransactionCommand source)
+        {
+            var destination = new UpdateRecurringTransactionDto();
             destination.Id = source.Id;
             destination.UserId = source.UserId;
             destination.Name = source.Name;
