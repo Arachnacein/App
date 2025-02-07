@@ -44,6 +44,7 @@ namespace BudgetManager.Services
             await _recurringTransactionRepository.AddAsync(mappedRecurringTransaction);
             return _recurringTransactionMapper.Map(mappedRecurringTransaction);
         }
+
         public async Task UpdateRecurringTransactionAsync(UpdateRecurringTransactionDto recurringTransaction)
         {
             if (recurringTransaction == null)
