@@ -126,6 +126,9 @@
   <data name="AddNewTransaction" xml:space="preserve">
     <value>Nowy wydatek</value>
   </data>
+  <data name="AddRecurringTransaction" xml:space="preserve">
+    <value>Dodaj zlecenie stałe</value>
+  </data>
   <data name="AddTransaction" xml:space="preserve">
     <value>Dodaj wydatek</value>
   </data>

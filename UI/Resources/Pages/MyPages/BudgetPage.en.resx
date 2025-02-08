@@ -126,6 +126,9 @@
   <data name="AddNewTransaction" xml:space="preserve">
     <value>Add new transaction</value>
   </data>
+  <data name="AddRecurringTransaction" xml:space="preserve">
+    <value>Add recurring transaction</value>
+  </data>
   <data name="AddTransaction" xml:space="preserve">
     <value>Add Transaction</value>
   </data>
