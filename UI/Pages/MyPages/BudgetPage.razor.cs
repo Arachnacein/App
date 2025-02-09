@@ -74,17 +74,14 @@ namespace UI.Pages.MyPages
         }
         private async Task AddRecurringTransaction()
         {
-            if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
-            {
-                Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
-                return;
-            }
+            //if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            //{
+            //    Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
+            //    return;
+            //}
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
-            var parameters = new DialogParameters();
-            parameters["Refresh"] = new Func<Task>(RefreshData);
-
-            await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"], parameters, options);
+            await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"], options);
         }
         private async Task AddIncome()
         {

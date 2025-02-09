@@ -1,0 +1,64 @@
+﻿@using UI.Models
+@using MudBlazor
+
+<MudDialog Class="pa-4">
+    <DialogContent>
+        <MudForm @ref="form" Model="@Model">
+            <!-- Pole nazwy transakcji -->
+            <MudTextField @bind-Value="Model.Name" Label="Transaction Name" Required="true" Margin="Margin.Normal"/>
+
+            <!-- Pole kwoty -->
+            <MudTextField @bind-Value="Model.Amount" Label="Amount" Required="true" Margin="Margin.Normal" FullWidth="true"/>
+
+            <!-- Data rozpoczęcia -->
+            <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal"/>
+
+            <!-- Częstotliwość powtarzania -->
+            <MudSelect @bind-Value="Model.Schedule.Frequency"  T="FrequencyEnum" Label="Frequency" Required="true" Margin="Margin.Normal" FullWidth="true"
+                @onchange="OnFrequencyChange">
+                <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
+                <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
+                <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
+                <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
+            </MudSelect>
+
+            <!-- Interval (dla wszystkich) -->
+            <MudTextField @bind-Value="Model.Schedule.Interval" T="int" Label="Powtarzaj co" Required="true" 
+                Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+
+            <!-- Dni tygodnia (tylko dla "tydzień") -->
+            <MudGrid Class="mt-2" Style="@(ShowWeeklyDays ? "display:block;" : "display:none;")">
+                <MudText Typo="Typo.subtitle1">Powtarzaj w:</MudText>
+                <MudGrid>
+                    @foreach (var day in Enum.GetValues<DayOfWeek>())
+                    {
+                        <MudChip T="DayOfWeek" Label="Convert.ToBoolean((int)day)" Color="@(Model.Schedule.WeeklyDays.Contains(day) ? Color.Primary : Color.Default)"
+                                 OnClick="() => ToggleDay(day)" />
+                    }
+                </MudGrid>
+            </MudGrid>
+
+@*             <!-- Dzień miesiąca (tylko dla "miesiąc") -->
+            <MudTextField @bind-Value="Model.Schedule.MonthlyDay" Label="Dzień miesiąca"
+                Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"
+                Style="@(ShowMonthlyDay ? "display:block;" : "display:none;")"/>
+
+            <!-- Dzień i miesiąc (tylko dla "rok") -->
+            <MudGrid Style="@(ShowYearly ? "display:block;" : "display:none;")">
+                <MudTextField @bind-Value="Model.Schedule.YearlyDay" T="int?" Label="Dzień roku" Required="true"
+                    Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                <MudSelect @bind-Value="Model.Schedule.YearlyMonth" Label="Miesiąc" Required="true" Margin="Margin.Normal" FullWidth="true">
+                    @foreach (var month in Enumerable.Range(1, 12))
+                    {
+                        <MudSelectItem Value="@month">@month</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudGrid> *@
+        </MudForm>
+    </DialogContent>
+    
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">Anuluj</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Gotowe</MudButton>
+    </DialogActions>
+</MudDialog>
