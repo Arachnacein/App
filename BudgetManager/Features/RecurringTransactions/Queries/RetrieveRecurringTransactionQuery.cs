@@ -29,7 +29,7 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
         {
             var recurringTransaction = await _dbContext.RecurringTransactions
                                     .Where(x => x.Id == request.Id && x.UserId == request.UserId)
-                                    .Select(recurringTransaction => new RecurringTransaction
+                                    .Select(recurringTransaction => new RecurringTransactionDto
                                     {
                                         Id = recurringTransaction.Id,
                                         UserId = recurringTransaction.UserId,
@@ -41,7 +41,19 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
                                         EndDate = recurringTransaction.EndDate,
                                         Approved = recurringTransaction.Approved,
                                         ScheduleId = recurringTransaction.ScheduleId,
-                                        Schedule = recurringTransaction.Schedule
+                                        Schedule = new RecurringTransactionScheduleDto
+                                        {
+                                            Id = recurringTransaction.Schedule.Id,
+                                            Frequency = recurringTransaction.Schedule.Frequency,
+                                            Interval = recurringTransaction.Schedule.Interval,
+                                            WeeklyDays = recurringTransaction.Schedule.WeeklyDays,
+                                            MonthlyDay = recurringTransaction.Schedule.MonthlyDay,
+                                            YearlyMonth = recurringTransaction.Schedule.YearlyMonth,
+                                            YearlyDay = recurringTransaction.Schedule.YearlyDay,
+                                            MaxOccurrences = recurringTransaction.Schedule.MaxOccurrences,
+                                            RecurringTransactionId = recurringTransaction.Schedule.RecurringTransactionId,
+
+                                        }
                                     })
                                     .FirstOrDefaultAsync(cancellationToken);
             if(recurringTransaction == null)
