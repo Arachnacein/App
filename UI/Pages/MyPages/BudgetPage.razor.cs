@@ -72,6 +72,17 @@ namespace UI.Pages.MyPages
 
             await dialogService.ShowAsync<AddTransactionDialog>(Localizer["AddNewTransaction"], parameters, options);
         }
+        private async Task AddRecurringTransaction()
+        {
+            //if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            //{
+            //    Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
+            //    return;
+            //}
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"], options);
+        }
         private async Task AddIncome()
         {
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
