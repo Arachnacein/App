@@ -35,8 +35,7 @@ builder.Services.AddScoped<IRecurringTransactionMapper, RecurringTransactionMapp
 var db_host = Environment.GetEnvironmentVariable("db_host");
 var db_name = Environment.GetEnvironmentVariable("db_name");
 var db_password = Environment.GetEnvironmentVariable("db_password");
-var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password=tHiSiS_NoT@PAsSW&d;TrustServerCertificate=True;";
-//var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password={db_password};TrustServerCertificate=True;";
+var connString = $"Data Source={db_host};Initial Catalog={db_name};Persist Security Info=True;User ID=sa;Password={db_password};TrustServerCertificate=True;";
 
 
 builder.Services.AddDbContext<BudgetDbContext>(options =>
@@ -59,7 +58,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<BudgetDbContext>();
-    db.Database.Migrate();
+    //db.Database.Migrate();
 }
 
 
