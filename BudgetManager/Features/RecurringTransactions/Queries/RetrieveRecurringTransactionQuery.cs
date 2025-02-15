@@ -16,6 +16,7 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
             UserId = userId;
         }
     }
+
     public class RetrieveRecurringTransactionQueryHandler : IRequestHandler<RetrieveRecurringTransactionQuery, RecurringTransactionDto>
     {
         private readonly BudgetDbContext _dbContext;
@@ -29,7 +30,7 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
         {
             var recurringTransaction = await _dbContext.RecurringTransactions
                                     .Where(x => x.Id == request.Id && x.UserId == request.UserId)
-                                    .Select(recurringTransaction => new RecurringTransaction
+                                    .Select(recurringTransaction => new RecurringTransactionDto
                                     {
                                         Id = recurringTransaction.Id,
                                         UserId = recurringTransaction.UserId,
@@ -40,11 +41,16 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
                                         StartDate = recurringTransaction.StartDate,
                                         EndDate = recurringTransaction.EndDate,
                                         Approved = recurringTransaction.Approved,
-                                        ScheduleId = recurringTransaction.ScheduleId,
-                                        Schedule = recurringTransaction.Schedule
+                                        Frequency = recurringTransaction.Frequency,
+                                        Interval = recurringTransaction.Interval,
+                                        WeeklyDays = recurringTransaction.WeeklyDays,
+                                        MonthlyDay = recurringTransaction.MonthlyDay,
+                                        YearlyMonth = recurringTransaction.YearlyMonth,
+                                        YearlyDay = recurringTransaction.YearlyDay,
+                                        MaxOccurrences = recurringTransaction.MaxOccurrences,
                                     })
                                     .FirstOrDefaultAsync(cancellationToken);
-            if(recurringTransaction == null)
+            if (recurringTransaction == null)
                 throw new ArgumentNullException(nameof(recurringTransaction));
 
             return recurringTransaction;

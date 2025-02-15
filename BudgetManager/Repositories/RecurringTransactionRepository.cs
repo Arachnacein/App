@@ -14,13 +14,11 @@ namespace BudgetManager.Repositories
         public async Task<RecurringTransaction> GetAsync(int id, Guid userId)
         {
             return await _dbContext.RecurringTransactions
-                .Include(x => x.Schedule)
                 .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
         public async Task<IEnumerable<RecurringTransaction>> GetAllAsync(Guid userId)
         {
             return await _dbContext.RecurringTransactions
-                .Include(x => x.Schedule)
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
         }
