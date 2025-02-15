@@ -1,7 +1,6 @@
 ﻿using BudgetManager.Dto.RecurringTransaction;
 using BudgetManager.Features.RecurringTransactions.Commands;
 using BudgetManager.Features.RecurringTransactions.Queries;
-using BudgetManager.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,18 +35,10 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddRecurringTransactionDto dto)
         {
-            var schedule = new RecurringTransactionSchedule
-            {
-                Frequency = dto.Schedule.Frequency,
-                Interval = dto.Schedule.Interval,
-                WeeklyDays = dto.Schedule.WeeklyDays,
-                MonthlyDay = dto.Schedule.MonthlyDay,
-                YearlyMonth = dto.Schedule.YearlyMonth,
-                YearlyDay = dto.Schedule.YearlyDay,
-                MaxOccurrences = dto.Schedule.MaxOccurrences,
-                RecurringTransactionId = dto.Schedule.RecurringTransactionId
-            };
-            var command = new SaveRecurringTransactionCommand(dto.UserId, dto.Name, dto.Description, dto.Amount, dto.TransactionType, dto.StartDate, dto.EndDate, dto.Approved, dto.ScheduleId, schedule);
+            var command = new SaveRecurringTransactionCommand(dto.UserId, dto.Name, dto.Description, dto.Amount, 
+                                                              dto.TransactionType, dto.StartDate, dto.EndDate, 
+                                                              dto.Approved, dto.Frequency, dto.Interval, dto.WeeklyDays, 
+                                                              dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
@@ -55,18 +46,10 @@ namespace BudgetManager.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(UpdateRecurringTransactionDto dto)
         {
-            var schedule = new RecurringTransactionSchedule
-            {
-                Frequency = dto.Schedule.Frequency,
-                Interval = dto.Schedule.Interval,
-                WeeklyDays = dto.Schedule.WeeklyDays,
-                MonthlyDay = dto.Schedule.MonthlyDay,
-                YearlyMonth = dto.Schedule.YearlyMonth,
-                YearlyDay = dto.Schedule.YearlyDay,
-                MaxOccurrences = dto.Schedule.MaxOccurrences,
-                RecurringTransactionId = dto.Schedule.RecurringTransactionId
-            };
-            var command = new UpdateRecurringTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Amount, dto.TransactionType, dto.StartDate, dto.EndDate, dto.Approved, dto.ScheduleId, schedule);
+            var command = new UpdateRecurringTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Amount, 
+                                                                dto.TransactionType, dto.StartDate, dto.EndDate, dto.Approved, 
+                                                                dto.Frequency, dto.Interval, dto.WeeklyDays,
+                                                                dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             await _mediator.Send(command);
             return NoContent();
         }

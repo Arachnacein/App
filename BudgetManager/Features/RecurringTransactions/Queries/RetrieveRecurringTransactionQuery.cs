@@ -16,6 +16,7 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
             UserId = userId;
         }
     }
+
     public class RetrieveRecurringTransactionQueryHandler : IRequestHandler<RetrieveRecurringTransactionQuery, RecurringTransactionDto>
     {
         private readonly BudgetDbContext _dbContext;
@@ -40,23 +41,16 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
                                         StartDate = recurringTransaction.StartDate,
                                         EndDate = recurringTransaction.EndDate,
                                         Approved = recurringTransaction.Approved,
-                                        ScheduleId = recurringTransaction.ScheduleId,
-                                        Schedule = new RecurringTransactionScheduleDto
-                                        {
-                                            Id = recurringTransaction.Schedule.Id,
-                                            Frequency = recurringTransaction.Schedule.Frequency,
-                                            Interval = recurringTransaction.Schedule.Interval,
-                                            WeeklyDays = recurringTransaction.Schedule.WeeklyDays,
-                                            MonthlyDay = recurringTransaction.Schedule.MonthlyDay,
-                                            YearlyMonth = recurringTransaction.Schedule.YearlyMonth,
-                                            YearlyDay = recurringTransaction.Schedule.YearlyDay,
-                                            MaxOccurrences = recurringTransaction.Schedule.MaxOccurrences,
-                                            RecurringTransactionId = recurringTransaction.Schedule.RecurringTransactionId,
-
-                                        }
+                                        Frequency = recurringTransaction.Frequency,
+                                        Interval = recurringTransaction.Interval,
+                                        WeeklyDays = recurringTransaction.WeeklyDays,
+                                        MonthlyDay = recurringTransaction.MonthlyDay,
+                                        YearlyMonth = recurringTransaction.YearlyMonth,
+                                        YearlyDay = recurringTransaction.YearlyDay,
+                                        MaxOccurrences = recurringTransaction.MaxOccurrences,
                                     })
                                     .FirstOrDefaultAsync(cancellationToken);
-            if(recurringTransaction == null)
+            if (recurringTransaction == null)
                 throw new ArgumentNullException(nameof(recurringTransaction));
 
             return recurringTransaction;

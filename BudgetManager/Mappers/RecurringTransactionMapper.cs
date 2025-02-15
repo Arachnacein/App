@@ -30,17 +30,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
 
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
             return destination;
         }
 
@@ -56,17 +53,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
 
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
             return destination;
         }
 
@@ -81,17 +75,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
-
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences; 
+            
             return destination;
         }
 
@@ -107,17 +98,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
 
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
             return destination;
         }
 
@@ -132,17 +120,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
 
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
             return destination;
         }
 
@@ -158,17 +143,14 @@ namespace BudgetManager.Mappers
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
             destination.Approved = source.Approved;
-            destination.ScheduleId = source.ScheduleId;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
 
-            destination.Schedule.Id = source.Schedule.Id;
-            destination.Schedule.Frequency = source.Schedule.Frequency;
-            destination.Schedule.Interval = source.Schedule.Interval;
-            destination.Schedule.WeeklyDays = source.Schedule.WeeklyDays;
-            destination.Schedule.MonthlyDay = source.Schedule.MonthlyDay;
-            destination.Schedule.YearlyMonth = source.Schedule.YearlyMonth;
-            destination.Schedule.YearlyDay = source.Schedule.YearlyDay;
-            destination.Schedule.MaxOccurrences = source.Schedule.MaxOccurrences;
-            destination.Schedule.RecurringTransactionId = source.Schedule.RecurringTransactionId;
             return destination;
         }
 

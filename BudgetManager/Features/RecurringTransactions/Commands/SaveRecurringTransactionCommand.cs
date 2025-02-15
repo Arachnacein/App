@@ -16,13 +16,18 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
         public bool Approved { get; init; } = false;
-        public int ScheduleId { get; init; }
-        public RecurringTransactionSchedule Schedule { get; init; }
+        public FrequencyEnum Frequency { get; init; }
+        public int Interval { get; init; }
+        public List<DayOfWeek>? WeeklyDays { get; init; }
+        public int? MonthlyDay { get; init; }
+        public int? YearlyMonth { get; init; }
+        public int? YearlyDay { get; init; }
+        public int? MaxOccurrences { get; init; }
 
-        public SaveRecurringTransactionCommand(Guid userId, string name, string? description, 
-                                               double amount, TransactionTypeEnum transactionType, 
-                                               DateTime startDate, DateTime endDate, 
-                                               bool approved, int scheduleId, RecurringTransactionSchedule schedule)
+        public SaveRecurringTransactionCommand(Guid userId, string name, string? description, double amount, 
+                            TransactionTypeEnum transactionType, DateTime startDate, DateTime endDate, bool approved, 
+                            FrequencyEnum frequency, int interval, List<DayOfWeek>? weeklyDays, int? monthlyDay, 
+                            int? yearlyMonth, int? yearlyDay, int? maxOccurrences)
         {
             UserId = userId;
             Name = name;
@@ -32,8 +37,13 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
             StartDate = startDate;
             EndDate = endDate;
             Approved = approved;
-            ScheduleId = scheduleId;
-            Schedule = schedule;
+            Frequency = frequency;
+            Interval = interval;
+            WeeklyDays = weeklyDays;
+            MonthlyDay = monthlyDay;
+            YearlyMonth = yearlyMonth;
+            YearlyDay = yearlyDay;
+            MaxOccurrences = maxOccurrences;
         }
     }
 
