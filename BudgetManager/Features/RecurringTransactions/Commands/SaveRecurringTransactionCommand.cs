@@ -8,7 +8,6 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
 {
     public record SaveRecurringTransactionCommand : IRequest<RecurringTransactionDto>
     {
-        public int Id { get; init; }
         public Guid UserId { get; init; }
         public string Name { get; init; }
         public string? Description { get; init; }
@@ -20,12 +19,11 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
         public int ScheduleId { get; init; }
         public RecurringTransactionSchedule Schedule { get; init; }
 
-        public SaveRecurringTransactionCommand(int id, Guid userId, string name, string? description, 
+        public SaveRecurringTransactionCommand(Guid userId, string name, string? description, 
                                                double amount, TransactionTypeEnum transactionType, 
                                                DateTime startDate, DateTime endDate, 
                                                bool approved, int scheduleId, RecurringTransactionSchedule schedule)
         {
-            Id = id;
             UserId = userId;
             Name = name;
             Description = description;
