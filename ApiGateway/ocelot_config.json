@@ -49,6 +49,43 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    }, 
+    //Recurring Transactions
+    {
+      "UpstreamPathTemplate": "/api/recurringTransaction/{id}/user/{userId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/recurringTransaction/{id}/user/{userId}",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },    
+    {
+      "UpstreamPathTemplate": "/api/recurringTransaction/{userId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "budgetapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/recurringTransaction/{userId}",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     },
     //Incomes
     {
@@ -384,80 +421,80 @@
         "Period": "1s",
         "PeriodTimespan": 1,
         "Limit": 5
-        }
-      },
-      {
-        "UpstreamPathTemplate": "/api/User/enableUser",
-        "UpstreamHttpMethod": [ "PUT" ],
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "identityapi",
-            "Port": 8080
-          }
-        ],
-        "DownstreamPathTemplate": "/api/User/enableUser",
-        "RateLimitOptions": {
-          "EnableRateLimiting": true,
-          "Period": "1s",
-          "PeriodTimespan": 1,
-          "Limit": 5
-        }
-      },
-      {
-        "UpstreamPathTemplate": "/api/User/getUserData?userId={userId}",
-        "UpstreamHttpMethod": [ "GET" ],
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "identityapi",
-            "Port": 8080
-          }
-        ],
-        "DownstreamPathTemplate": "/api/User/getUserData?userId={userId}",
-        "RateLimitOptions": {
-          "EnableRateLimiting": true,
-          "Period": "1s",
-          "PeriodTimespan": 1,
-          "Limit": 5
-        }
-      },
-      {
-        "UpstreamPathTemplate": "/api/User/verifyEmail",
-        "UpstreamHttpMethod": [ "POST" ],
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "identityapi",
-            "Port": 8080
-          }
-        ],
-        "DownstreamPathTemplate": "/api/User/verifyEmail",
-        "RateLimitOptions": {
-          "EnableRateLimiting": true,
-          "Period": "1s",
-          "PeriodTimespan": 1,
-          "Limit": 5
-        }
-      },
-      {
-        "UpstreamPathTemplate": "/api/User",
-        "UpstreamHttpMethod": [ "GET" ],
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "identityapi",
-            "Port": 8080
-          }
-        ],
-        "DownstreamPathTemplate": "/api/User",
-        "RateLimitOptions": {
-          "EnableRateLimiting": true,
-          "Period": "1s",
-          "PeriodTimespan": 1,
-          "Limit": 5
-        }
       }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/enableUser",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/enableUser",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/getUserData?userId={userId}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/getUserData?userId={userId}",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/verifyEmail",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/verifyEmail",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/User",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8010"
