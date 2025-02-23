@@ -4,17 +4,16 @@
 <MudDialog Class="pa-4">
     <DialogContent>
         <MudForm @ref="form" Model="@Model">
-            <!-- Pole nazwy transakcji -->
-            <MudTextField @bind-Value="Model.Name" Label="Transaction Name" Required="true" Margin="Margin.Normal"/>
+            <MudStack>
+                <MudTextField @bind-Value="Model.Name" Label="Transaction Name" Required="true" Margin="Margin.Normal"/>
+                <MudStack Row="true">
+                    <MudTextField @bind-Value="Model.Amount" Label="Amount" Required="true" Margin="Margin.Normal"/>
+                    <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal"/>
+                </MudStack>
+            </MudStack>
 
-            <!-- Pole kwoty -->
-            <MudTextField @bind-Value="Model.Amount" Label="Amount" Required="true" Margin="Margin.Normal" FullWidth="true"/>
-
-            <!-- Data rozpoczęcia -->
-            <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal"/>
-
-            <!-- Częstotliwość powtarzania -->
-            <MudSelect @bind-Value="Model.Schedule.Frequency"  T="FrequencyEnum" Label="Frequency" Required="true" Margin="Margin.Normal" FullWidth="true"
+            <MudText> Powtarzaj co:</MudText>
+            <MudSelect @bind-Value="Model.Frequency"  T="FrequencyEnum" Label="Frequency" Required="true" Margin="Margin.Normal" FullWidth="true"
                 @onchange="OnFrequencyChange">
                 <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
                 <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
@@ -22,8 +21,28 @@
                 <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
             </MudSelect>
 
+            @if (Model.Frequency == FrequencyEnum.Monthly)
+            {
+
+            }
+            else if(Model.Frequency == FrequencyEnum.Weekly)
+            {
+
+            }
+            else if(Model.Frequency == FrequencyEnum.Custom)
+            {
+                <!-- open new dialog -->
+            }
+            else if (Model.Frequency == FrequencyEnum.Yearly)
+            {
+
+            }
+            else <!-- daily -->
+            {
+
+            }
             <!-- Interval (dla wszystkich) -->
-            <MudTextField @bind-Value="Model.Schedule.Interval" T="int" Label="Powtarzaj co" Required="true" 
+            <MudTextField @bind-Value="Model.Interval" T="int" Label="Powtarzaj co" Required="true" 
                 Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
 
             <!-- Dni tygodnia (tylko dla "tydzień") -->
@@ -32,7 +51,7 @@
                 <MudGrid>
                     @foreach (var day in Enum.GetValues<DayOfWeek>())
                     {
-                        <MudChip T="DayOfWeek" Label="Convert.ToBoolean((int)day)" Color="@(Model.Schedule.WeeklyDays.Contains(day) ? Color.Primary : Color.Default)"
+                        <MudChip T="DayOfWeek" Label="Convert.ToBoolean((int)day)" Color="@(Model.WeeklyDays.Contains(day) ? Color.Primary : Color.Default)"
                                  OnClick="() => ToggleDay(day)" />
                     }
                 </MudGrid>
