@@ -62,7 +62,7 @@ namespace UI.Pages.MyPages.OptionsPages
                 filteredIncomes = incomes.Where(x =>
                     (x.Name?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     (x.Amount.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
-                    (x.Date.ShortFormat().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+                    (x.Date.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
                 ).ToList();
             }
             IncomesCounter = filteredIncomes.Count();

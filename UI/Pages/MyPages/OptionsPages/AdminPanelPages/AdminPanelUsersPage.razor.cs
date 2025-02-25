@@ -48,7 +48,7 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages
                     (x.FirstName?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     (x.LastName?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     (x.Email?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                    (x.AccountCreatedDate.ShortFormat().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+                    (x.AccountCreatedDate.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
                 ).ToList();
             }
             usersCounter = filteredUsers.Count();

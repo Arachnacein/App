@@ -53,7 +53,7 @@ namespace UI.Pages.MyPages.OptionsPages
                     (x.Description?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     (x.Category.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
                     (x.Price.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
-                    (x.Date.ShortFormat().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+                    (x.Date.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
                 ).ToList();
             }
             transactionCounter = filteredTransactions.Count();

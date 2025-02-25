@@ -11,13 +11,6 @@
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool Approved { get; set; }
-
-        public int ScheduleId { get; set; }
-        public RecurringTransactionSchedule Schedule { get; set; }
-    }
-    public class RecurringTransactionSchedule
-    {
-        public int Id { get; set; }
         public FrequencyEnum Frequency { get; set; }
         public int Interval { get; set; }
         public List<DayOfWeek>? WeeklyDays { get; set; }
@@ -25,8 +18,5 @@
         public int? YearlyMonth { get; set; }
         public int? YearlyDay { get; set; }
         public int? MaxOccurrences { get; set; }
-
-        public int RecurringTransactionId { get; set; }
-        public RecurringTransaction RecurringTransaction { get; set; }
     }
 }

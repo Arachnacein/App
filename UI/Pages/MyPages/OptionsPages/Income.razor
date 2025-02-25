@@ -36,7 +36,7 @@ else
             <RowTemplate>
                 <MudTd DataLabel="@Localizer["Name"]" Style="padding-left:15px;">@context.Name</MudTd>
                 <MudTd DataLabel="@Localizer["Amount"]" Style="text-align:center">@context.Amount</MudTd>
-                <MudTd DataLabel="@Localizer["Date"]" Style="text-align:center">@context.Date.Format()</MudTd>
+                <MudTd DataLabel="@Localizer["Date"]" Style="text-align:center">@context.Date.FormatDMY()</MudTd>
                 <MudTd DataLabel="@Localizer["Options"]" Style="text-align:center">
                     <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small"
                                    OnClick="@( async () => await EditIncome(context))" />

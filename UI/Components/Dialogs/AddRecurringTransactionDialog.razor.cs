@@ -27,19 +27,13 @@ namespace UI.Components.Dialogs
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddYears(1),
                 Approved = true,
-                ScheduleId = 1,
-                Schedule = new RecurringTransactionSchedule
-                {
-                    Id = 1,
-                    Frequency = FrequencyEnum.Monthly,
-                    Interval = 1,
-                    WeeklyDays = new List<DayOfWeek>(),
-                    MonthlyDay = 15,
-                    YearlyMonth = null,
-                    YearlyDay = null,
-                    MaxOccurrences = 12,
-                    RecurringTransactionId = 1
-                }
+                Frequency = FrequencyEnum.Monthly,
+                Interval = 1,
+                WeeklyDays = new List<DayOfWeek>(),
+                MonthlyDay = 15,
+                YearlyMonth = null,
+                YearlyDay = null,
+                MaxOccurrences = 12
             };
 
             return base.OnInitializedAsync();
@@ -65,10 +59,10 @@ namespace UI.Components.Dialogs
 
         private void ToggleDay(DayOfWeek day)
         {
-            if (Model.Schedule.WeeklyDays.Contains(day))
-                Model.Schedule.WeeklyDays.Remove(day);
+            if (Model.WeeklyDays.Contains(day))
+                Model.WeeklyDays.Remove(day);
             else
-                Model.Schedule.WeeklyDays.Add(day);
+                Model.WeeklyDays.Add(day);
         }
         private async Task Cancel() => MudDialog.Cancel();
     }
