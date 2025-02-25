@@ -12,38 +12,45 @@
                 </MudStack>
             </MudStack>
 
-            <MudText> Powtarzaj co:</MudText>
-            <MudSelect @bind-Value="Model.Frequency"  T="FrequencyEnum" Label="Frequency" Required="true" Margin="Margin.Normal" FullWidth="true"
-                @onchange="OnFrequencyChange">
-                <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
-                <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
-                <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
-                <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
-            </MudSelect>
+            <MudText Class="mt-3"> Powtarzaj co:</MudText>
 
-            @if (Model.Frequency == FrequencyEnum.Monthly)
-            {
+            <MudStack Row="true">
+                <MudGrid>
+                    <MudItem xs="8">
+                        <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true"
+                            @onchange="OnFrequencyChange">
+                            <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="4">
+                        <MudNumericField @bind-Value="Model.Interval" T="int" Required="true" 
+                            Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                    </MudItem>
+                </MudGrid>
+            </MudStack>
 
-            }
-            else if(Model.Frequency == FrequencyEnum.Weekly)
+            @switch (Model.Frequency)
             {
-
+                case FrequencyEnum.Monthly:
+                    <MudText Class="ma-2 pa-2">Co @Model.Interval Miesięcy zaczynając @Model.StartDate.FormatDM()</MudText>
+                    break;
+                case FrequencyEnum.Weekly:
+                    <MudText Class="ma-2 pa-2">Co @Model.Interval Tygodni zaczynając @Model.StartDate.FormatDM()</MudText>
+                    break;
+                case FrequencyEnum.Custom:
+                    <!-- open new dialog -->
+                    break;
+                case FrequencyEnum.Yearly:
+                    <MudText Class="ma-2 pa-2">Co @Model.Interval Lat zaczynając @Model.StartDate.FormatDM()</MudText>
+                    break;
+                case FrequencyEnum.Daily:
+                    <MudText Class="ma-2 pa-2">Co @Model.Interval dni zaczynając @Model.StartDate.FormatDM()</MudText>
+                    break;
             }
-            else if(Model.Frequency == FrequencyEnum.Custom)
-            {
-                <!-- open new dialog -->
-            }
-            else if (Model.Frequency == FrequencyEnum.Yearly)
-            {
-
-            }
-            else <!-- daily -->
-            {
-
-            }
-            <!-- Interval (dla wszystkich) -->
-            <MudTextField @bind-Value="Model.Interval" T="int" Label="Powtarzaj co" Required="true" 
-                Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
 
             <!-- Dni tygodnia (tylko dla "tydzień") -->
             <MudGrid Class="mt-2" Style="@(ShowWeeklyDays ? "display:block;" : "display:none;")">

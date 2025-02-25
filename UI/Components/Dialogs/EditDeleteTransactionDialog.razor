@@ -14,7 +14,7 @@
                 <MudTabPanel Text="@Localizer["TabPanelDelete"]">
                     <MudText Class="ma-1 pa-1">@Localizer["DeleteQuestion"]</MudText>
                     <MudText Class="ma-1 pa-1"> @Localizer["Name"]: @DialogModel.Name</MudText>
-                    <MudText Class="ma-1 pa-1"> @Localizer["Date"]: @DialogModel.Date.Format()</MudText>
+                    <MudText Class="ma-1 pa-1"> @Localizer["Date"]: @DialogModel.Date.FormatDMY()</MudText>
                     <MudText Class="ma-1 pa-1"> @Localizer["Price"]: @DialogModel.Price</MudText>
                     <MudButton Class="ma-2 pa-2 float-end" OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Delete"]</MudButton>
                 </MudTabPanel>
