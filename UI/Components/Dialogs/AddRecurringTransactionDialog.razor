@@ -6,9 +6,16 @@
         <MudForm @ref="form" Model="@Model">
             <MudStack>
                 <MudTextField @bind-Value="Model.Name" Label="Transaction Name" Required="true" Margin="Margin.Normal"/>
+                <MudTextField @bind-Value="Model.Description" Label="Description" Required="true" Margin="Margin.Normal"/>
                 <MudStack Row="true">
                     <MudTextField @bind-Value="Model.Amount" Label="Amount" Required="true" Margin="Margin.Normal"/>
                     <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal"/>
+                </MudStack>
+                <MudStack AlignItems="AlignItems.Center">
+                    <MudRadioGroup @bind-Value="Model.TransactionType" Required="true">
+                        <MudRadio Value="TransactionTypeEnum.Expense" Color="Color.Secondary">Expense</MudRadio>
+                        <MudRadio Value="TransactionTypeEnum.Income"Color="Color.Tertiary">Income</MudRadio>
+                    </MudRadioGroup>
                 </MudStack>
             </MudStack>
 
@@ -17,8 +24,7 @@
             <MudStack Row="true">
                 <MudGrid>
                     <MudItem xs="8">
-                        <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true"
-                            @onchange="OnFrequencyChange">
+                        <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
                             <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
                             <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
                             <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
@@ -41,45 +47,16 @@
                 case FrequencyEnum.Weekly:
                     <MudText Class="ma-2 pa-2">Co @Model.Interval Tygodni zaczynając @Model.StartDate.FormatDM()</MudText>
                     break;
-                case FrequencyEnum.Custom:
-                    <!-- open new dialog -->
-                    break;
                 case FrequencyEnum.Yearly:
                     <MudText Class="ma-2 pa-2">Co @Model.Interval Lat zaczynając @Model.StartDate.FormatDM()</MudText>
                     break;
                 case FrequencyEnum.Daily:
                     <MudText Class="ma-2 pa-2">Co @Model.Interval dni zaczynając @Model.StartDate.FormatDM()</MudText>
                     break;
+                case FrequencyEnum.Custom:
+                    <MudButton OnClick="OpenCustomDialog" Class="ma-2 pa-2" Color="Color.Primary" Variant="Variant.Outlined">Niestandardowe ustawienia</MudButton>
+                    break;
             }
-
-            <!-- Dni tygodnia (tylko dla "tydzień") -->
-            <MudGrid Class="mt-2" Style="@(ShowWeeklyDays ? "display:block;" : "display:none;")">
-                <MudText Typo="Typo.subtitle1">Powtarzaj w:</MudText>
-                <MudGrid>
-                    @foreach (var day in Enum.GetValues<DayOfWeek>())
-                    {
-                        <MudChip T="DayOfWeek" Label="Convert.ToBoolean((int)day)" Color="@(Model.WeeklyDays.Contains(day) ? Color.Primary : Color.Default)"
-                                 OnClick="() => ToggleDay(day)" />
-                    }
-                </MudGrid>
-            </MudGrid>
-
-@*             <!-- Dzień miesiąca (tylko dla "miesiąc") -->
-            <MudTextField @bind-Value="Model.Schedule.MonthlyDay" Label="Dzień miesiąca"
-                Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"
-                Style="@(ShowMonthlyDay ? "display:block;" : "display:none;")"/>
-
-            <!-- Dzień i miesiąc (tylko dla "rok") -->
-            <MudGrid Style="@(ShowYearly ? "display:block;" : "display:none;")">
-                <MudTextField @bind-Value="Model.Schedule.YearlyDay" T="int?" Label="Dzień roku" Required="true"
-                    Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
-                <MudSelect @bind-Value="Model.Schedule.YearlyMonth" Label="Miesiąc" Required="true" Margin="Margin.Normal" FullWidth="true">
-                    @foreach (var month in Enumerable.Range(1, 12))
-                    {
-                        <MudSelectItem Value="@month">@month</MudSelectItem>
-                    }
-                </MudSelect>
-            </MudGrid> *@
         </MudForm>
     </DialogContent>
     
