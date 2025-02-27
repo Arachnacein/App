@@ -1,6 +1,95 @@
-﻿<MudDialog>
+﻿@using UI.Models
+
+<MudDialog>
     <DialogContent>
-        <MudText>DialogContet</MudText>
+        <MudStack Row="true" AlignItems="AlignItems.Center">
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="4">
+                    <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
+                        <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="2">
+                    <MudNumericField @bind-Value="Model.Interval" T="int" Required="true"
+                                     Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                </MudItem>
+            </MudGrid>
+        </MudStack>
+        <MudStack AlignItems="AlignItems.Center">
+            <MudText Class="mt-2 pt-2 ml-2 pl-2 pr-2 mr-2">Powtarzaj w:</MudText>
+            <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxMonday" Color="Color.Warning" 
+                        Label="Mon"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>                    
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxTuesday" Color="Color.Warning" 
+                        Label="Tue"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>                    
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxWednesday" Color="Color.Warning" 
+                        Label="Wed"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>                    
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxThursday" Color="Color.Warning" 
+                        Label="Thur"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>                   
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxFriday" Color="Color.Warning" 
+                        Label="Fri"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>   
+            </MudStack>
+            <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxSaturday" Color="Color.Warning" 
+                        Label="Sat"
+                        CheckedIcon="@Icons.Material.Filled.Circle" 
+                        UncheckedIcon="@Icons.Material.Outlined.Circle" 
+                        UncheckedColor="Color.Default" />
+                </MudItem>                    
+                <MudItem>
+                    <MudCheckBox @bind-Value="CheckBoxSunday" Color="Color.Warning"
+                        Label="Sat"
+                        CheckedIcon="@Icons.Material.Filled.Circle"
+                        UncheckedIcon="@Icons.Material.Outlined.Circle"
+                        UncheckedColor="Color.Default" />
+                </MudItem>
+            </MudStack>
+        </MudStack>
+
+        <MudStack Row="true">
+            <MudText>Kończy się</MudText>
+            <MudStack>
+                <MudRadioGroup>
+                    
+                </MudRadioGroup>
+            </MudStack>
+            <MudStack>
+
+            </MudStack>
+            <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal" />
+            <MudDatePicker @bind-Date="Model.EndDate" Label="End Date" Required="true" Margin="Margin.Normal" />
+        </MudStack>
+
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">Anuluj</MudButton>

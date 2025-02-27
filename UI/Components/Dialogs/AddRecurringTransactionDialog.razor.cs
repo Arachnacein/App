@@ -11,9 +11,6 @@ namespace UI.Components.Dialogs
         [Inject] IDialogService DialogService { get; set; }
         private MudForm form;
         private RecurringTransaction Model;
-        private bool ShowWeeklyDays = false;
-        private bool ShowMonthlyDay = false;
-        private bool ShowYearly = false;
 
         protected override Task OnInitializedAsync()
         {
@@ -55,8 +52,10 @@ namespace UI.Components.Dialogs
             if (Model.Frequency == FrequencyEnum.Custom)
             {
                 var parameters = new DialogParameters();
+                parameters["Model"] = Model;
+
                 var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small };
-                await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>("name", parameters, options);
+                await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>("Ustawienia niestandardowe", parameters, options);
             }
         }
 
