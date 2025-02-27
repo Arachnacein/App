@@ -8,11 +8,9 @@ namespace UI.Components.Dialogs
     public partial class AddRecurringTransactionDialog
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
+        [Inject] IDialogService DialogService { get; set; }
         private MudForm form;
         private RecurringTransaction Model;
-        private bool ShowWeeklyDays = false;
-        private bool ShowMonthlyDay = false;
-        private bool ShowYearly = false;
 
         protected override Task OnInitializedAsync()
         {
@@ -48,22 +46,19 @@ namespace UI.Components.Dialogs
             return Task.CompletedTask;
 
         }
-        private void OnFrequencyChange(ChangeEventArgs e)
-        {
-            var selectedValue = e.Value?.ToString();
 
-            ShowWeeklyDays = selectedValue == "FrequencyEnum.Weekly";
-            ShowMonthlyDay = selectedValue == "FrequencyEnum.Monthly";
-            ShowYearly = selectedValue == "FrequencyEnum.Yearly";
+        private async Task OpenCustomDialog()
+        {
+            if (Model.Frequency == FrequencyEnum.Custom)
+            {
+                var parameters = new DialogParameters();
+                parameters["Model"] = Model;
+
+                var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small };
+                await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>("Ustawienia niestandardowe", parameters, options);
+            }
         }
 
-        private void ToggleDay(DayOfWeek day)
-        {
-            if (Model.WeeklyDays.Contains(day))
-                Model.WeeklyDays.Remove(day);
-            else
-                Model.WeeklyDays.Add(day);
-        }
         private async Task Cancel() => MudDialog.Cancel();
     }
 }
