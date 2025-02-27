@@ -22,6 +22,10 @@
             <MudText Class="mt-3"> Powtarzaj co:</MudText>
             <MudStack Row="true">
                 <MudGrid>
+                    <MudItem xs="4">
+                        <MudNumericField @bind-Value="Model.Interval" T="int" Required="true" 
+                            Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                    </MudItem>
                     <MudItem xs="8">
                         <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
                             <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
@@ -30,10 +34,6 @@
                             <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
                             <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
                         </MudSelect>
-                    </MudItem>
-                    <MudItem xs="4">
-                        <MudNumericField @bind-Value="Model.Interval" T="int" Required="true" 
-                            Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
                     </MudItem>
                 </MudGrid>
             </MudStack>

@@ -1,9 +1,14 @@
 ﻿@using UI.Models
 
-<MudDialog>
+<MudDialog Class="pa-4">
     <DialogContent>
+        <MudText Class="mt-3"> Powtarzaj co:</MudText>
         <MudStack Row="true" AlignItems="AlignItems.Center">
             <MudGrid Justify="Justify.Center">
+                <MudItem xs="2">
+                    <MudNumericField @bind-Value="Model.Interval" T="int" Required="true"
+                                     Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                </MudItem>
                 <MudItem xs="4">
                     <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
                         <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
@@ -13,14 +18,10 @@
                         <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
                     </MudSelect>
                 </MudItem>
-                <MudItem xs="2">
-                    <MudNumericField @bind-Value="Model.Interval" T="int" Required="true"
-                                     Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
-                </MudItem>
             </MudGrid>
         </MudStack>
+        <MudText Class="ma-2 pa-2">Powtarzaj w:</MudText>
         <MudStack AlignItems="AlignItems.Center">
-            <MudText Class="mt-2 pt-2 ml-2 pl-2 pr-2 mr-2">Powtarzaj w:</MudText>
             <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxMonday" Color="Color.Warning" 
@@ -76,19 +77,38 @@
             </MudStack>
         </MudStack>
 
-        <MudStack Row="true">
-            <MudText>Kończy się</MudText>
-            <MudStack>
-                <MudRadioGroup>
-                    
-                </MudRadioGroup>
-            </MudStack>
-            <MudStack>
-
-            </MudStack>
-            <MudDatePicker @bind-Date="Model.StartDate" Label="Start Date" Required="true" Margin="Margin.Normal" />
-            <MudDatePicker @bind-Date="Model.EndDate" Label="End Date" Required="true" Margin="Margin.Normal" />
+        <MudStack Spacing="2">
+            <MudText Typo="Typo.h6" Class="mt-1 pt-1 mb-2 pb-2">Kończy się</MudText>
+            <MudGrid>
+                <MudItem xs="6" md="3">
+                    <MudRadioGroup T="string" @bind-Value="EndOption">
+                        <MudStack Spacing="5">
+                            <MudRadio Value="@(new string("date"))">W dniu</MudRadio>
+                            <MudRadio Value="@(new string("occurrences"))">Po</MudRadio>
+                        </MudStack>
+                    </MudRadioGroup>
+                </MudItem>
+                <MudItem xs="6" md="9">
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudDatePicker @bind-Date="Model.EndDate"
+                                Label="Data zakończenia"
+                                Required="true"
+                                Disabled="@(EndOption != "date")"
+                                Margin="Margin.Normal" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudNumericField @bind-Value="Model.MaxOccurrences"
+                                Label="wystąpieniach"
+                                Required="true"
+                                Disabled="@(EndOption != "occurrences")"
+                                Margin="Margin.Normal"/>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
         </MudStack>
+
 
     </DialogContent>
     <DialogActions>

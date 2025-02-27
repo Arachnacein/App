@@ -16,7 +16,7 @@ namespace UI.Components.Dialogs
         private bool CheckBoxFriday { get; set; } = false;
         private bool CheckBoxSaturday { get; set; } = false;
         private bool CheckBoxSunday { get; set; } = false;
-
+        private string EndOption { get; set; }
         protected override Task OnInitializedAsync()
         {
             Model.Frequency = FrequencyEnum.Daily;
