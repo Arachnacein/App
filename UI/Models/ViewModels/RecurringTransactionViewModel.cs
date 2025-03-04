@@ -16,9 +16,9 @@ namespace UI.Models.ViewModels
         public FrequencyEnum Frequency { get; set; }
         public int Interval { get; set; }
         public List<DayOfWeek>? WeeklyDays { get; set; }
-        public int? MonthlyDay { get; set; } //if Monthly then this is the day of the month
-        public int? YearlyMonth { get; set; } // if yearly then this is the month of the year
-        public int? YearlyDay { get; set; } // if yearly then this is the day of the month
+        public int? MonthlyDay { get; set; } //if Frequency = Monthly then this is the day of the month
+        public int? YearlyMonth { get; set; } // if Frequency = yearly then this is the month of the year
+        public int? YearlyDay { get; set; } // if Frequency = yearly then this is the day of the month
         public int? MaxOccurrences { get; set; }
     }
 

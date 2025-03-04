@@ -8,7 +8,8 @@ namespace UI.Components.Dialogs
     public partial class AddRecurringTransactionDialog
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
-        [Inject] IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private MudForm form;
         private RecurringTransactionViewModel Model;
 
@@ -32,13 +33,16 @@ namespace UI.Components.Dialogs
             return base.OnInitializedAsync();
         }
 
-        private Task Submit()
+        private async Task Submit()
         {
             if (form.IsValid)
             {
-
+                var result = await httpClient.PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction", Model);
+                if(result.IsSuccessStatusCode)
+                    Snackbar.Add("Pomyślnie dodano transakcję cykliczną", Severity.Success);
+                else
+                    Snackbar.Add("Wystąpił błąd podczas dodawania transakcji cyklicznej", Severity.Error);
             }
-            return Task.CompletedTask;
 
         }
 
