@@ -37,7 +37,7 @@ namespace BudgetManager.Controllers
         {
             var command = new SaveRecurringTransactionCommand(dto.UserId, dto.Name, dto.Description, dto.Amount, 
                                                               dto.TransactionType, dto.StartDate, dto.EndDate, 
-                                                              dto.Approved, dto.Frequency, dto.Interval, dto.WeeklyDays, 
+                                                              dto.Frequency, dto.Interval, dto.WeeklyDays, 
                                                               dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             var result = await _mediator.Send(command);
             return Ok(result);
@@ -47,7 +47,7 @@ namespace BudgetManager.Controllers
         public async Task<IActionResult> Update(UpdateRecurringTransactionDto dto)
         {
             var command = new UpdateRecurringTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Amount, 
-                                                                dto.TransactionType, dto.StartDate, dto.EndDate, dto.Approved, 
+                                                                dto.TransactionType, dto.StartDate, dto.EndDate, 
                                                                 dto.Frequency, dto.Interval, dto.WeeklyDays,
                                                                 dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             await _mediator.Send(command);

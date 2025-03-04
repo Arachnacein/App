@@ -28,6 +28,8 @@ namespace BudgetManager.Mappers
             destination.Date = source.Date;
             destination.Price = source.Price;
             destination.Category = source.Category;
+            destination.IsApproved = source.IsApproved;
+            destination.IsRecurring = source.IsRecurring;
 
             return destination;
         }
@@ -41,6 +43,8 @@ namespace BudgetManager.Mappers
             destination.Date = command.Date;
             destination.Price = command.Price;
             destination.Category = command.Category;
+            destination.IsApproved = command.IsApproved;
+            destination.IsRecurring = command.IsRecurring;
 
             return destination;
         }
@@ -55,6 +59,8 @@ namespace BudgetManager.Mappers
             destination.Date = command.Date;
             destination.Price = command.Price;
             destination.Category = command.Category;
+            destination.IsApproved = command.IsApproved;
+            destination.IsRecurring = command.IsRecurring;
 
             return destination;
         }
@@ -78,6 +84,8 @@ namespace BudgetManager.Mappers
             destination.Date = source.Date;
             destination.Price = source.Price;
             destination.Category = source.Category;
+            destination.IsApproved = source.IsApproved;
+            destination.IsRecurring = source.IsRecurring;
 
             return destination;
         }
@@ -91,6 +99,8 @@ namespace BudgetManager.Mappers
             destination.Date = source.Date;
             destination.Price = source.Price;
             destination.Category = source.Category;
+            destination.IsApproved = source.IsApproved;
+            destination.IsRecurring = source.IsRecurring;
 
             return destination;
         }
@@ -105,6 +115,8 @@ namespace BudgetManager.Mappers
             destination.Date = source.Date;
             destination.Price = source.Price;
             destination.Category = source.Category;
+            destination.IsApproved = source.IsApproved;
+            destination.IsRecurring = source.IsRecurring;
 
             return destination;
         }

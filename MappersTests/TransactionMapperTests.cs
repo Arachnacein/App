@@ -46,7 +46,7 @@ namespace MappersTests
             var userId = Guid.NewGuid();
             var date = DateTime.UtcNow;
             var saveTransactionCommand = new SaveTransactionCommand
-                ("Name", "Description", date, 100, TransactionCategoryEnum.Entertainment, userId);
+                ("Name", "Description", date, 100, TransactionCategoryEnum.Entertainment, userId, false, false);
 
             //act
             var mappedTransaction = _mapper.Map(saveTransactionCommand);
@@ -63,7 +63,7 @@ namespace MappersTests
             var userId = Guid.NewGuid();
             var date = DateTime.UtcNow;
             var updateTransactionCommand = new UpdateTransactionCommand
-                (1, userId, "Name", "Description", date, 100, TransactionCategoryEnum.Entertainment);
+                (1, userId, "Name", "Description", date, 100, TransactionCategoryEnum.Entertainment, false, false);
 
             //act
             var mappedTransaction = _mapper.Map(updateTransactionCommand);

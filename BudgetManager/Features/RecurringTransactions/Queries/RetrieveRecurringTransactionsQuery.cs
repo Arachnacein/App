@@ -37,7 +37,6 @@ namespace BudgetManager.Features.RecurringTransactions.Queries
                                         TransactionType = recurringTransaction.TransactionType,
                                         StartDate = recurringTransaction.StartDate,
                                         EndDate = recurringTransaction.EndDate,
-                                        Approved = recurringTransaction.Approved,
                                         Frequency = recurringTransaction.Frequency,
                                         Interval = recurringTransaction.Interval,
                                         WeeklyDays = recurringTransaction.WeeklyDays,

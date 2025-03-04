@@ -10,5 +10,7 @@ namespace BudgetManager.Dto.Transaction
         public DateTime Date { get; set; }
         public double Price { get; set; }
         public TransactionCategoryEnum Category { get; set; }
+        public bool IsRecurring { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

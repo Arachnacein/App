@@ -13,9 +13,11 @@ namespace BudgetManager.Features.Transactions.Commands
         public string? Description { get; init; }
         public DateTime Date { get; init; }
         public double Price { get; init; }
-        public TransactionCategoryEnum Category { get; set; }
+        public TransactionCategoryEnum Category { get; init; }
+        public bool IsRecurring { get; init; }
+        public bool IsApproved { get; init; }
 
-        public SaveTransactionCommand(string name, string? description, DateTime date, double price, TransactionCategoryEnum category, Guid userId)
+        public SaveTransactionCommand(string name, string? description, DateTime date, double price, TransactionCategoryEnum category, Guid userId, bool isRecurring, bool isApproved)
         {
             Name = name;
             Description = description;
@@ -23,6 +25,8 @@ namespace BudgetManager.Features.Transactions.Commands
             Price = price;
             Category = category;
             UserId = userId;
+            IsRecurring = isRecurring;
+            IsApproved = isApproved;
         }
     }
     public class SaveTransactionCommandHandler : IRequestHandler<SaveTransactionCommand, TransactionDto>

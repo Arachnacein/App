@@ -14,8 +14,10 @@ namespace BudgetManager.Features.Transactions.Commands
         public DateTime Date { get; init; }
         public double Price { get; init; }
         public TransactionCategoryEnum Category { get; set; }
+        public bool IsRecurring { get; init; }
+        public bool IsApproved { get; set; }
 
-        public UpdateTransactionCommand(int id, Guid userId, string name, string? description, DateTime date, double price, TransactionCategoryEnum category)
+        public UpdateTransactionCommand(int id, Guid userId, string name, string? description, DateTime date, double price, TransactionCategoryEnum category, bool isRecurring, bool approved)
         {
             Id = id;
             Name = name;
@@ -24,6 +26,8 @@ namespace BudgetManager.Features.Transactions.Commands
             Price = price;
             Category = category;
             UserId = userId;
+            IsRecurring = isRecurring;
+            IsApproved = approved;
         }
     }
 
