@@ -41,16 +41,16 @@
             @switch (Model.Frequency)
             {
                 case FrequencyEnum.Monthly:
-                    <MudText Class="ma-2 pa-2">Co @Model.Interval Miesięcy zaczynając @Model.StartDate.FormatDM() kończąc przed @Model.EndDate.FormatDM()</MudText>
+                    <DateRangeTextComponent Frequency="@Model.Frequency" Interval=@Model.Interval StartDate="@Model.StartDate" EndDate="@Model.EndDate" />
                     break;
                 case FrequencyEnum.Weekly:
-                    <MudText Class="ma-2 pa-2">Co @Model.Interval Tygodni zaczynając @Model.StartDate.FormatDM() kończąc przed @Model.EndDate.FormatDM()</MudText>
+                    <DateRangeTextComponent Frequency="@Model.Frequency" Interval=@Model.Interval StartDate="@Model.StartDate" EndDate="@Model.EndDate" />
                     break;
                 case FrequencyEnum.Yearly:
-                    <MudText Class="ma-2 pa-2">Co @Model.Interval Lat zaczynając @Model.StartDate.FormatDM() kończąc przed @Model.EndDate.FormatDM()</MudText>
+                    <DateRangeTextComponent Frequency="@Model.Frequency" Interval=@Model.Interval StartDate="@Model.StartDate" EndDate="@Model.EndDate" />
                     break;
                 case FrequencyEnum.Daily:
-                    <MudText Class="ma-2 pa-2">Co @Model.Interval dni zaczynając @Model.StartDate.FormatDM() kończąc przed @Model.EndDate.FormatDM()</MudText>
+                    <DateRangeTextComponent Frequency="@Model.Frequency" Interval=@Model.Interval StartDate="@Model.StartDate" EndDate="@Model.EndDate"/>
                     break;
                 case FrequencyEnum.Custom:
                     <MudButton OnClick="OpenCustomDialog" Class="ma-2 pa-2" Color="Color.Primary" Variant="Variant.Outlined">Niestandardowe ustawienia</MudButton>

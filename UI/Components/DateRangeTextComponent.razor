@@ -1,0 +1,15 @@
+﻿@using UI.Models
+<MudText Class="ma-2 pa-2"> 
+    <span>Co @Interval @Frequency</span>
+    <br />
+    <span>zaczynając @StartDate.FormatDMY()</span>
+    <br />
+    <span>kończąc przed @EndDate.FormatDMY()</span>
+</MudText>
+
+@code{
+    [Parameter] public FrequencyEnum Frequency{ get; set; }
+    [Parameter] public int Interval { get; set; }   
+    [Parameter] public DateTime? StartDate { get; set; }
+    [Parameter] public DateTime? EndDate { get; set; }
+}

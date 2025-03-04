@@ -8,42 +8,41 @@ namespace UI.Components.Dialogs
     public partial class AddRecurringTransactionDialog
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
-        [Inject] IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; }
+        [Inject] private HttpClient httpClient { get; set; }
         private MudForm form;
-        private RecurringTransaction Model;
+        private RecurringTransactionViewModel Model;
 
         protected override Task OnInitializedAsync()
         {
-            Model = new RecurringTransaction
+            Model = new RecurringTransactionViewModel
             {
-                Id = 1,
-                UserId = Guid.NewGuid(),
-                Name = "Sample Transaction",
-                Description = "This is a sample recurring transaction",
-                Amount = 100.0,
+                UserId = UserSessionService.UserId,
+                Name = String.Empty,
+                Description = String.Empty,
                 TransactionType = TransactionTypeEnum.Expense,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddYears(1),
-                Approved = true,
+                EndDate = DateTime.Now.AddMonths(1),
+                Approved = false,
                 Frequency = FrequencyEnum.Monthly,
                 Interval = 1,
                 WeeklyDays = new List<DayOfWeek>(),
-                MonthlyDay = 15,
-                YearlyMonth = null,
-                YearlyDay = null,
                 MaxOccurrences = 12
             };
 
             return base.OnInitializedAsync();
         }
 
-        private Task Submit()
+        private async Task Submit()
         {
-            //if (form.IsValid)
-            //{
-
-            //}
-            return Task.CompletedTask;
+            if (form.IsValid)
+            {
+                var result = await httpClient.PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction", Model);
+                if(result.IsSuccessStatusCode)
+                    Snackbar.Add("Pomyślnie dodano transakcję cykliczną", Severity.Success);
+                else
+                    Snackbar.Add("Wystąpił błąd podczas dodawania transakcji cyklicznej", Severity.Error);
+            }
 
         }
 
