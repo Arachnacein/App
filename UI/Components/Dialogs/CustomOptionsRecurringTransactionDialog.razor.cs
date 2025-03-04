@@ -8,7 +8,7 @@ namespace UI.Components.Dialogs
     public partial class CustomOptionsRecurringTransactionDialog
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
-        [Parameter] public RecurringTransaction Model { get; set; }
+        [Parameter] public RecurringTransactionViewModel Model { get; set; }
         private bool CheckBoxMonday { get; set; } = false;
         private bool CheckBoxTuesday { get; set; } = false;
         private bool CheckBoxWednesday { get; set; } = false;

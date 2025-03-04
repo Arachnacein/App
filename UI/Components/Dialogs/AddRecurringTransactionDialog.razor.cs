@@ -10,27 +10,22 @@ namespace UI.Components.Dialogs
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
         [Inject] IDialogService DialogService { get; set; }
         private MudForm form;
-        private RecurringTransaction Model;
+        private RecurringTransactionViewModel Model;
 
         protected override Task OnInitializedAsync()
         {
-            Model = new RecurringTransaction
+            Model = new RecurringTransactionViewModel
             {
-                Id = 1,
-                UserId = Guid.NewGuid(),
-                Name = "Sample Transaction",
-                Description = "This is a sample recurring transaction",
-                Amount = 100.0,
+                UserId = UserSessionService.UserId,
+                Name = String.Empty,
+                Description = String.Empty,
                 TransactionType = TransactionTypeEnum.Expense,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddYears(1),
-                Approved = true,
+                EndDate = DateTime.Now.AddMonths(1),
+                Approved = false,
                 Frequency = FrequencyEnum.Monthly,
                 Interval = 1,
                 WeeklyDays = new List<DayOfWeek>(),
-                MonthlyDay = 15,
-                YearlyMonth = null,
-                YearlyDay = null,
                 MaxOccurrences = 12
             };
 
@@ -39,10 +34,10 @@ namespace UI.Components.Dialogs
 
         private Task Submit()
         {
-            //if (form.IsValid)
-            //{
+            if (form.IsValid)
+            {
 
-            //}
+            }
             return Task.CompletedTask;
 
         }
