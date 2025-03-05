@@ -11,7 +11,6 @@ namespace BudgetManager.Dto.RecurringTransaction
         public TransactionTypeEnum TransactionType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int ScheduleId { get; set; }
         public FrequencyEnum Frequency { get; set; }
         public int Interval { get; set; }
         public List<DayOfWeek>? WeeklyDays { get; set; }

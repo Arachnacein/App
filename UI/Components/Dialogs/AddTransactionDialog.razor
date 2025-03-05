@@ -1,26 +1,27 @@
-﻿<MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
-    <MudDialog style="padding-bottom:7px;">
-        <DialogContent>
-            <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1"/> <MudError />
-            <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />
-            <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" Style="width:90%;">
-                <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
-            </MudStack>
-            <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-                <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="DialogModel.Price" For="@(() => DialogModel.Price)" Class="ma-2 pa-2"></MudTextField>
-                    <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
-                        @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
-                        {
-                            <MudSelectItem Value="@item">@Localizer[@item.ToString()]</MudSelectItem>
-                        }
-                    </MudSelect>
-            </MudStack>
-        </DialogContent>
-        <DialogActions>
-            <MudStack Row="true" Spacing="8" Class="mr-5">
-                <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
-                <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
-            </MudStack>
-        </DialogActions>
-    </MudDialog>
-</MudForm>
+﻿<MudDialog style="padding-bottom:7px;">
+    <DialogContent>
+    <MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
+        <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1"/> <MudError />
+        <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />
+        <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" Style="width:90%;">
+            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+        </MudStack>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="DialogModel.Price" For="@(() => DialogModel.Price)" Class="ma-2 pa-2"></MudTextField>
+                <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+                    @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
+                    {
+                        <MudSelectItem Value="@item">@Localizer[@item.ToString()]</MudSelectItem>
+                    }
+                </MudSelect>
+        </MudStack>
+    </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudStack Row="true" Spacing="8" Class="mr-5">
+            <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
+            <MudButton OnClick="Cancel" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>

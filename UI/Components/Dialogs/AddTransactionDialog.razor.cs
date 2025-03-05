@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Net;
 using UI.Models.ViewModels;
 
 namespace UI.Components.Dialogs
@@ -35,7 +36,7 @@ namespace UI.Components.Dialogs
 
             DialogModel.UserId = UserSessionService.UserId;
             var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
-            if (request.StatusCode == System.Net.HttpStatusCode.Created)
+            if (request.StatusCode == HttpStatusCode.Created)
             {
                 snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
 

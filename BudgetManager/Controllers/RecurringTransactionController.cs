@@ -1,4 +1,5 @@
-﻿using BudgetManager.Dto.RecurringTransaction;
+﻿using Azure;
+using BudgetManager.Dto.RecurringTransaction;
 using BudgetManager.Features.RecurringTransactions.Commands;
 using BudgetManager.Features.RecurringTransactions.Queries;
 using MediatR;
@@ -40,7 +41,7 @@ namespace BudgetManager.Controllers
                                                               dto.Frequency, dto.Interval, dto.WeeklyDays, 
                                                               dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             var result = await _mediator.Send(command);
-            return Ok(result);
+            return Created($"api/recurringTransactions/{result.Id}", result);
         }
 
         [HttpPut]
