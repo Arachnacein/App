@@ -5,21 +5,21 @@
     <DialogContent>
         <MudForm @ref="@form" Model="@Model" Validation="RecurringTransactionValidator.ValidateValue()" ValidationDelay="0">
             <MudStack>
-                <MudTextField @bind-Value="Model.Name" For="@(() => Model.Name)"  Label="Transaction Name" Required="true" Margin="Margin.Normal" />
-                <MudTextField @bind-Value="Model.Description" For="@(() => Model.Description)" Label="Description" Required="true" Margin="Margin.Normal"/>
+                <MudTextField @bind-Value="Model.Name" For="@(() => Model.Name)"  Label="@Localizer["RecurringTransaction"]" Required="true" Margin="Margin.Normal" />
+                <MudTextField @bind-Value="Model.Description" For="@(() => Model.Description)" Label="@Localizer["Description"]" Required="true" Margin="Margin.Normal" />
                 <MudStack Row="true">
-                    <MudDatePicker @bind-Date="Model.StartDate" For="@(() => Model.StartDate)" Label="Start Date" Required="true" Margin="Margin.Normal"/>
-                    <MudDatePicker @bind-Date="Model.EndDate" For="@(() => Model.EndDate)" Label="End Date" Required="true" Margin="Margin.Normal" />
+                    <MudDatePicker @bind-Date="Model.StartDate" For="@(() => Model.StartDate)" Label="@Localizer["StartDate"]" Required="true" Margin="Margin.Normal" />
+                    <MudDatePicker @bind-Date="Model.EndDate" For="@(() => Model.EndDate)" Label="@Localizer["EndDate"]" Required="true" Margin="Margin.Normal" />
                 </MudStack>
-                <MudTextField @bind-Value="Model.Amount" For="@(() => Model.Amount)" Label="Amount" Required="true" Margin="Margin.Normal" />
+                <MudTextField @bind-Value="Model.Amount" For="@(() => Model.Amount)" Label="@Localizer["Amount"]" Required="true" Margin="Margin.Normal" />
                 <MudStack AlignItems="AlignItems.Center">
                     <MudRadioGroup @bind-Value="Model.TransactionType" Required="true">
-                        <MudRadio Value="TransactionTypeEnum.Expense" Color="Color.Secondary">Expense</MudRadio>
-                        <MudRadio Value="TransactionTypeEnum.Income"Color="Color.Tertiary">Income</MudRadio>
+                        <MudRadio Value="TransactionTypeEnum.Expense" Color="Color.Secondary">@Localizer["Expense"]</MudRadio>
+                        <MudRadio Value="TransactionTypeEnum.Income" Color="Color.Tertiary">@Localizer["Income"]</MudRadio>
                     </MudRadioGroup>
                 </MudStack>
             </MudStack>
-            <MudText Class="mt-3"> Powtarzaj co:</MudText>
+            <MudText Class="mt-3">@Localizer["Repeat"]:</MudText>
             <MudStack Row="true">
                 <MudGrid>
                     <MudItem xs="4">
@@ -28,11 +28,11 @@
                     </MudItem>
                     <MudItem xs="8">
                         <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
-                            <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
-                            <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
-                            <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
-                            <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
-                            <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Daily">@Localizer["Day"]</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Weekly">@Localizer["Week"]</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Monthly">@Localizer["Month"]</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Yearly">@Localizer["Year"]</MudSelectItem>
+                            <MudSelectItem Value="FrequencyEnum.Custom">@Localizer["Custom"]</MudSelectItem>
                         </MudSelect>
                     </MudItem>
                 </MudGrid>
@@ -53,14 +53,14 @@
                     <DateRangeTextComponent Frequency="@Model.Frequency" Interval=@Model.Interval StartDate="@Model.StartDate" EndDate="@Model.EndDate"/>
                     break;
                 case FrequencyEnum.Custom:
-                    <MudButton OnClick="OpenCustomDialog" Class="ma-2 pa-2" Color="Color.Primary" Variant="Variant.Outlined">Niestandardowe ustawienia</MudButton>
+                    <MudButton OnClick="OpenCustomDialog" Class="ma-2 pa-2" Color="Color.Primary" Variant="Variant.Outlined">@Localizer["Custom"]</MudButton>
                     break;
             }
         </MudForm>
     </DialogContent>
     
     <DialogActions>
-        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">Anuluj</MudButton>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Gotowe</MudButton>
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
     </DialogActions>
 </MudDialog>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Net;
 using UI.Models;
@@ -10,6 +11,7 @@ namespace UI.Components.Dialogs
     {
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Inject] private IDialogService DialogService { get; set; }
+        [Inject] private IStringLocalizer<AddRecurringTransactionDialog> Localizer { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
         [Inject] private RecurringTransactionViewModelValidator RecurringTransactionValidator { get; set; }
         private MudForm form;
@@ -40,18 +42,18 @@ namespace UI.Components.Dialogs
 
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             {
-                Snackbar.Add("MustSignIn", Severity.Warning);
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
                 return;
             }
             
             var result = await httpClient.PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction", Model);
             if(result.StatusCode == HttpStatusCode.Created)
             {
-                Snackbar.Add("Pomyślnie dodano transakcję cykliczną", Severity.Success);
+                Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
                 MudDialog.Cancel();    
             }
             else
-                Snackbar.Add("Wystąpił błąd podczas dodawania transakcji cyklicznej", Severity.Error);
+                Snackbar.Add(Localizer["ErrorAddRecurringTransaction"], Severity.Error);
 
         }
 
@@ -63,7 +65,7 @@ namespace UI.Components.Dialogs
                 parameters["Model"] = Model;
 
                 var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small };
-                await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>("Ustawienia niestandardowe", parameters, options);
+                await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>(Localizer["CustomOptions"], parameters, options);
             }
         }
 

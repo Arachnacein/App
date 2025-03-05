@@ -1,10 +1,12 @@
 ﻿@using UI.Models
+@inject IStringLocalizer<DateRangeTextComponent> Localizer
+
 <MudText Class="ma-2 pa-2"> 
-    <span>Co @Interval @Frequency</span>
+    <span>@Localizer["Every"] @Interval @Frequency</span>
     <br />
-    <span>zaczynając @StartDate.FormatDMY()</span>
+    <span>@Localizer["Starting"] @StartDate.FormatDMY()</span>
     <br />
-    <span>kończąc przed @EndDate.FormatDMY()</span>
+    <span>@Localizer["Ending"] @EndDate.FormatDMY()</span>
 </MudText>
 
 @code{
