@@ -2,7 +2,7 @@
 
 <MudDialog Class="pa-4">
     <DialogContent>
-        <MudText Class="mt-3"> Powtarzaj co:</MudText>
+        <MudText Class="mt-3">@Localizer["RepeatEvery"]:</MudText>
         <MudStack Row="true" AlignItems="AlignItems.Center">
             <MudGrid Justify="Justify.Center">
                 <MudItem xs="2">
@@ -11,49 +11,48 @@
                 </MudItem>
                 <MudItem xs="4">
                     <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
-                        <MudSelectItem Value="FrequencyEnum.Daily">Dzień</MudSelectItem>
-                        <MudSelectItem Value="FrequencyEnum.Weekly">Tydzień</MudSelectItem>
-                        <MudSelectItem Value="FrequencyEnum.Monthly">Miesiąc</MudSelectItem>
-                        <MudSelectItem Value="FrequencyEnum.Yearly">Rok</MudSelectItem>
-                        <MudSelectItem Value="FrequencyEnum.Custom">Niestandardowe</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Daily">@Localizer["Day"]</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Weekly">@Localizer["Week"]</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Monthly">@Localizer["Month"]</MudSelectItem>
+                        <MudSelectItem Value="FrequencyEnum.Yearly">@Localizer["Year"]</MudSelectItem>
                     </MudSelect>
                 </MudItem>
             </MudGrid>
         </MudStack>
-        <MudText Class="ma-2 pa-2">Powtarzaj w:</MudText>
+        <MudText Class="ma-2 pa-2">@Localizer["RepeatIn"]:</MudText>
         <MudStack AlignItems="AlignItems.Center">
             <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxMonday" Color="Color.Warning" 
-                        Label="Mon"
+                        Label="@Localizer["Mon"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
                 </MudItem>                    
                 <MudItem>
-                    <MudCheckBox @bind-Value="CheckBoxTuesday" Color="Color.Warning" 
-                        Label="Tue"
+                    <MudCheckBox @bind-Value="CheckBoxTuesday" Color="Color.Warning"
+                        Label="@Localizer["Tue"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
                 </MudItem>                    
                 <MudItem>
-                    <MudCheckBox @bind-Value="CheckBoxWednesday" Color="Color.Warning" 
-                        Label="Wed"
+                    <MudCheckBox @bind-Value="CheckBoxWednesday" Color="Color.Warning"
+                        Label="@Localizer["Wed"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
                 </MudItem>                    
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxThursday" Color="Color.Warning" 
-                        Label="Thur"
+                        Label="@Localizer["Thu"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
                 </MudItem>                   
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxFriday" Color="Color.Warning" 
-                        Label="Fri"
+                        Label="@Localizer["Fri"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
@@ -62,14 +61,14 @@
             <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxSaturday" Color="Color.Warning" 
-                        Label="Sat"
+                        Label="@Localizer["Sat"]"
                         CheckedIcon="@Icons.Material.Filled.Circle" 
                         UncheckedIcon="@Icons.Material.Outlined.Circle" 
                         UncheckedColor="Color.Default" />
                 </MudItem>                    
                 <MudItem>
                     <MudCheckBox @bind-Value="CheckBoxSunday" Color="Color.Warning"
-                        Label="Sat"
+                        Label="@Localizer["Sun"]"
                         CheckedIcon="@Icons.Material.Filled.Circle"
                         UncheckedIcon="@Icons.Material.Outlined.Circle"
                         UncheckedColor="Color.Default" />
@@ -78,13 +77,13 @@
         </MudStack>
 
         <MudStack Spacing="2">
-            <MudText Typo="Typo.h6" Class="mt-1 pt-1 mb-2 pb-2">Kończy się</MudText>
+            <MudText Typo="Typo.h6" Class="mt-1 pt-1 mb-2 pb-2">@Localizer["EndsOn"]</MudText>
             <MudGrid>
                 <MudItem xs="6" md="3">
                     <MudRadioGroup T="string" @bind-Value="EndOption">
                         <MudStack Spacing="5">
-                            <MudRadio Value="@(new string("date"))">W dniu</MudRadio>
-                            <MudRadio Value="@(new string("occurrences"))">Po</MudRadio>
+                            <MudRadio Value="@(new string("date"))">@Localizer["On"]</MudRadio>
+                            <MudRadio Value="@(new string("occurrences"))">@Localizer["After"]</MudRadio>
                         </MudStack>
                     </MudRadioGroup>
                 </MudItem>
@@ -92,14 +91,14 @@
                     <MudGrid>
                         <MudItem xs="12">
                             <MudDatePicker @bind-Date="Model.EndDate"
-                                Label="Data zakończenia"
+                                Label="@Localizer["EndDate"]"
                                 Required="true"
                                 Disabled="@(EndOption != "date")"
                                 Margin="Margin.Normal" />
                         </MudItem>
                         <MudItem xs="12">
                             <MudNumericField @bind-Value="Model.MaxOccurrences"
-                                Label="wystąpieniach"
+                                Label="@Localizer["Occurences"]"
                                 Required="true"
                                 Disabled="@(EndOption != "occurrences")"
                                 Margin="Margin.Normal"/>
@@ -112,7 +111,7 @@
 
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">Anuluj</MudButton>
-        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">Gotowe</MudButton>
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Secondary">@Localizer["Cancel"]</MudButton>
+        <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
     </DialogActions>
 </MudDialog>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models;
 using UI.Models.ViewModels;
@@ -9,6 +10,7 @@ namespace UI.Components.Dialogs
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
         [Parameter] public RecurringTransactionViewModel Model { get; set; }
+        [Inject] private IStringLocalizer<CustomOptionsRecurringTransactionDialog> Localizer { get; set; }
         private bool CheckBoxMonday { get; set; } = false;
         private bool CheckBoxTuesday { get; set; } = false;
         private bool CheckBoxWednesday { get; set; } = false;
