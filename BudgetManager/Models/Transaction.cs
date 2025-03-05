@@ -26,6 +26,10 @@ namespace BudgetManager.Models
         public double Price { get; set; }
         [Required]
         public TransactionCategoryEnum Category { get; set; }
+        [Required]
+        public bool IsRecurring { get; set; }
+        [Required]
+        public bool IsApproved { get; set; }
 
     }
 }

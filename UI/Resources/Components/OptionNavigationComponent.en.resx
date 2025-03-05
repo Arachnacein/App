@@ -126,6 +126,9 @@
   <data name="Patterns" xml:space="preserve">
     <value>Patterns</value>
   </data>
+  <data name="RecurringTransactions" xml:space="preserve">
+    <value>Recurring transactions</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>

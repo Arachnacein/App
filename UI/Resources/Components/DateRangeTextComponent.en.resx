@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Konto</value>
+  <data name="Ending" xml:space="preserve">
+    <value>Until</value>
   </data>
-  <data name="Incomes" xml:space="preserve">
-    <value>Wpływy</value>
+  <data name="Every" xml:space="preserve">
+    <value>Every</value>
   </data>
-  <data name="Patterns" xml:space="preserve">
-    <value>Wzory</value>
-  </data>
-  <data name="RecurringTransactions" xml:space="preserve">
-    <value>Wydatki cykliczne</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
-  </data>
-  <data name="Transactions" xml:space="preserve">
-    <value>Wydatki</value>
+  <data name="Starting" xml:space="preserve">
+    <value>Starting from</value>
   </data>
 </root>

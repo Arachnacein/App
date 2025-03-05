@@ -29,7 +29,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;
@@ -52,7 +51,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;
@@ -74,7 +72,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;
@@ -97,7 +94,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;
@@ -119,7 +115,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;
@@ -142,7 +137,6 @@ namespace BudgetManager.Mappers
             destination.TransactionType = source.TransactionType;
             destination.StartDate = source.StartDate;
             destination.EndDate = source.EndDate;
-            destination.Approved = source.Approved;
             destination.Frequency = source.Frequency;
             destination.Interval = source.Interval;
             destination.WeeklyDays = source.WeeklyDays;

@@ -15,7 +15,6 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
         public TransactionTypeEnum TransactionType { get; init; }
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
-        public bool Approved { get; init; } = false;
         public FrequencyEnum Frequency { get; init; }
         public int Interval { get; init; }
         public List<DayOfWeek>? WeeklyDays { get; init; }
@@ -25,7 +24,7 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
         public int? MaxOccurrences { get; init; }
 
         public SaveRecurringTransactionCommand(Guid userId, string name, string? description, double amount, 
-                            TransactionTypeEnum transactionType, DateTime startDate, DateTime endDate, bool approved, 
+                            TransactionTypeEnum transactionType, DateTime startDate, DateTime endDate, 
                             FrequencyEnum frequency, int interval, List<DayOfWeek>? weeklyDays, int? monthlyDay, 
                             int? yearlyMonth, int? yearlyDay, int? maxOccurrences)
         {
@@ -36,7 +35,6 @@ namespace BudgetManager.Features.RecurringTransactions.Commands
             TransactionType = transactionType;
             StartDate = startDate;
             EndDate = endDate;
-            Approved = approved;
             Frequency = frequency;
             Interval = interval;
             WeeklyDays = weeklyDays;

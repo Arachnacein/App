@@ -117,22 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Konto</value>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
   </data>
-  <data name="Incomes" xml:space="preserve">
-    <value>Wpływy</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Patterns" xml:space="preserve">
-    <value>Wzory</value>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
   </data>
-  <data name="RecurringTransactions" xml:space="preserve">
-    <value>Wydatki cykliczne</value>
+  <data name="CustomOptions" xml:space="preserve">
+    <value>Custom options</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
   </data>
-  <data name="Transactions" xml:space="preserve">
-    <value>Wydatki</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="ErrorAddRecurringTransaction" xml:space="preserve">
+    <value>Error while adding recurring transaction</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>You must be signed in to perform this action</value>
+  </data>
+  <data name="RecurringTransaction" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat every</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="SuccessfullyAddRecurringTransaction" xml:space="preserve">
+    <value>Recurring transaction added successfully</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
   </data>
 </root>

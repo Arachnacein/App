@@ -117,22 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Konto</value>
+  <data name="After" xml:space="preserve">
+    <value>Po</value>
   </data>
-  <data name="Incomes" xml:space="preserve">
-    <value>Wpływy</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
-  <data name="Patterns" xml:space="preserve">
-    <value>Wzory</value>
+  <data name="Day" xml:space="preserve">
+    <value>Dzień</value>
   </data>
-  <data name="RecurringTransactions" xml:space="preserve">
-    <value>Wydatki cykliczne</value>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data zakończenia</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
+  <data name="EndsOn" xml:space="preserve">
+    <value>Kończy się</value>
   </data>
-  <data name="Transactions" xml:space="preserve">
-    <value>Wydatki</value>
+  <data name="Fri" xml:space="preserve">
+    <value>Pt</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Pon</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="Occurences" xml:space="preserve">
+    <value>wystąpieniach</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>W dniu</value>
+  </data>
+  <data name="RepeatEvery" xml:space="preserve">
+    <value>Powtarzaj co</value>
+  </data>
+  <data name="RepeatIn" xml:space="preserve">
+    <value>Powtarzaj w</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Sob</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Ndz</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Czw</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Wt</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Śr</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tydzień</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Rok</value>
   </data>
 </root>

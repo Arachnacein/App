@@ -1,0 +1,49 @@
+﻿@page "/options/recurringTransaction"
+@using UI.Models;
+@using UI.Models.ViewModels
+
+<PageTitle>Recurring Transactions</PageTitle>
+<UI.Components.OptionNavigationComponent />
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">["MustLogIn"]</MudText>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">["Header"]</MudText>
+        <MudDivider />
+        <MudTable T="RecurringTransactionViewModel" Items="@recurringTransactions" Dense="true" Striped="true" style="height:63vh;">
+            <HeaderContent>
+                <MudTh> @Localizer["Name"] </MudTh>
+                <MudTh> @Localizer["Description"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["TransactionType"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["StartDate"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["EndDate"] </MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Frequency"]</MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Interval"]</MudTh>
+                <MudTh Style="text-align:center"> @Localizer["Delete"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["Name"]" Style="padding-left:15px;">@context.Name</MudTd>
+                <MudTd DataLabel="@Localizer["Description"]" Style="padding-left:15px;">@context.Description</MudTd>
+                <MudTd DataLabel="@Localizer["Amount"]" Style="text-align:center">@context.Amount</MudTd>
+                <MudTd DataLabel="@Localizer["TransactionType"]" Style="text-align:center">@context.TransactionType</MudTd>
+                <MudTd DataLabel="@Localizer["StartDate"]" Style="text-align:center">@context.StartDate.FormatDMY()</MudTd>
+                <MudTd DataLabel="@Localizer["EndDate"]" Style="text-align:center">@context.EndDate.FormatDMY()</MudTd>
+                <MudTd DataLabel="@Localizer["Frequency"]" Style="text-align:center">@context.Frequency</MudTd>
+                <MudTd DataLabel="@Localizer["Interval"]" Style="text-align:center">@context.Interval</MudTd>
+                <MudTd DataLabel="@Localizer["Delete"]" Style="text-align:center">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small"
+                                   OnClick="@(() => DeleteRecurringTransaction(context))"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager HideRowsPerPage="true" />
+            </PagerContent>
+        </MudTable>
+        </MudPaper>
+}

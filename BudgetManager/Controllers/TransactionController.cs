@@ -36,7 +36,7 @@ namespace BudgetManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddTransactionDto dto)
         {
-            var command = new SaveTransactionCommand(dto.Name, dto.Description, dto.Date, dto.Price, dto.Category, dto.UserId);
+            var command = new SaveTransactionCommand(dto.Name, dto.Description, dto.Date, dto.Price, dto.Category, dto.UserId, dto.IsRecurring, dto.IsApproved);
             var response = await _mediator.Send(command);        
             return Created($"api/transactions/{response.Id}", response);
         }
@@ -44,7 +44,7 @@ namespace BudgetManager.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateTransactionDto dto)
         {
-            var command = new UpdateTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category);
+            var command = new UpdateTransactionCommand(dto.Id, dto.UserId, dto.Name, dto.Description, dto.Date, dto.Price, dto.Category, dto.IsRecurring, dto.IsApproved);
             await _mediator.Send(command);
             return NoContent();
         }

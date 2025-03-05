@@ -12,7 +12,6 @@ namespace UI.Models.ViewModels
         public TransactionTypeEnum TransactionType { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public bool Approved { get; set; }
         public FrequencyEnum Frequency { get; set; }
         public int Interval { get; set; }
         public List<DayOfWeek>? WeeklyDays { get; set; }
@@ -33,8 +32,7 @@ namespace UI.Models.ViewModels
 
             RuleFor(x => x.Description)
                 .MinimumLength(3).WithMessage("DescriptionMinLength")
-                .MaximumLength(150).WithMessage("DescriptionMaxLength")
-                .When(x => !string.IsNullOrEmpty(x.Description));
+                .MaximumLength(150).WithMessage("DescriptionMaxLength");
 
             RuleFor(x => x.Amount)
                 .NotEmpty().WithMessage("PriceFieldEmpty")
