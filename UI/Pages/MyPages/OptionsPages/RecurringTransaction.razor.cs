@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 using UI.Models.ViewModels;
 
 namespace UI.Pages.MyPages.OptionsPages
@@ -26,9 +27,14 @@ namespace UI.Pages.MyPages.OptionsPages
         {
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
                 return;
-            var response = await httpClient.DeleteAsync($"/api/recurringTransaction/{UserSessionService.UserId}/{model.Id}");
+            var response = await httpClient.DeleteAsync($"/api/recurringTransaction/{model.Id}/user/{UserSessionService.UserId}");
             if (response.IsSuccessStatusCode)
+            {
                 await LoadRecurringTransactions();
+                Snackbar.Add("Pomyślnie usunieto transakcję", Severity.Success);
+            }
+            else
+                Snackbar.Add("Coś poszło nie tak", Severity.Error);
         }
     }
 }
