@@ -17,13 +17,13 @@ namespace ServicesTests
 {
     public class TransactionServiceStests
     {
-        private readonly Mock<ITransactionRespository> _transactionRepositoryMock;
+        private readonly Mock<ITransactionRepository> _transactionRepositoryMock;
         private readonly Mock<ITransactionMapper> _transactionMapperMock;
         private readonly TransactionService _transactionService;
         public TransactionServiceStests()
         {
             _transactionMapperMock = new Mock<ITransactionMapper>();
-            _transactionRepositoryMock = new Mock<ITransactionRespository>();
+            _transactionRepositoryMock = new Mock<ITransactionRepository>();
             _transactionService = new TransactionService(_transactionRepositoryMock.Object, _transactionMapperMock.Object);
         }
 

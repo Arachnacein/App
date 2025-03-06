@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BudgetManager.Repositories
 {
-    public class TransactionRepository : ITransactionRespository
+    public class TransactionRepository : ITransactionRepository
     {
         private readonly BudgetDbContext _context;
 
@@ -51,9 +51,16 @@ namespace BudgetManager.Repositories
             _context.Update(transaction);
             await _context.SaveChangesAsync();
         }
+
+        public async Task ConfirmTransactionAsync(Transaction transaction)
+        {
+            transaction.IsApproved = true;
+            _context.Update(transaction);
+            await _context.SaveChangesAsync();
+        }
     }
 
-    public interface ITransactionRespository
+    public interface ITransactionRepository
     {
         Task<IEnumerable<Transaction>> GetAllAsync(Guid userId);
         Task<Transaction> GetAsync(int id, Guid userId);
@@ -61,5 +68,6 @@ namespace BudgetManager.Repositories
         Task UpdateAsync(Transaction transaction);
         Task DeleteAsync(int id);
         Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc);
+        Task ConfirmTransactionAsync(Transaction transaction);
     }
 }
