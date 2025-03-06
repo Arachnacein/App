@@ -31,10 +31,10 @@ namespace UI.Pages.MyPages.OptionsPages
             if (response.IsSuccessStatusCode)
             {
                 await LoadRecurringTransactions();
-                Snackbar.Add("Pomyślnie usunieto transakcję", Severity.Success);
+                Snackbar.Add(Localizer["SuccessDeleteTransaction"], Severity.Success);
             }
             else
-                Snackbar.Add("Coś poszło nie tak", Severity.Error);
+                Snackbar.Add(Localizer["ErrorDeleteTransaction"], Severity.Error);
         }
     }
 }

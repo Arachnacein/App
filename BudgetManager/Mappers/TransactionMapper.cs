@@ -13,6 +13,7 @@ namespace BudgetManager.Mappers
         Transaction Map(TransactionDto source);
         Transaction Map(AddTransactionDto source);
         Transaction Map(UpdateTransactionDto source);
+        Transaction Map(ConfirmTransactionCommand source);
         ICollection<TransactionDto> MapElements(ICollection<Transaction> source);
         ICollection<Transaction> MapElements(ICollection<TransactionDto> source);
     }
@@ -117,6 +118,15 @@ namespace BudgetManager.Mappers
             destination.Category = source.Category;
             destination.IsApproved = source.IsApproved;
             destination.IsRecurring = source.IsRecurring;
+
+            return destination;
+        }        
+        
+        public Transaction Map(ConfirmTransactionCommand command)
+        {
+            var destination = new Transaction();
+            destination.Id = command.Id;
+            destination.UserId = command.UserId;
 
             return destination;
         }

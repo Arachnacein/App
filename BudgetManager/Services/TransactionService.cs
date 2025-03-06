@@ -10,10 +10,10 @@ namespace BudgetManager.Services
 {
     public class TransactionService : ITransactionService
     {
-        private readonly ITransactionRespository _repository;
+        private readonly ITransactionRepository _repository;
         private readonly ITransactionMapper _transactionMapper;
 
-        public TransactionService(ITransactionRespository transactionRepository, ITransactionMapper transactionMapper)
+        public TransactionService(ITransactionRepository transactionRepository, ITransactionMapper transactionMapper)
         {
             _repository = transactionRepository;   
             _transactionMapper = transactionMapper;
@@ -79,6 +79,14 @@ namespace BudgetManager.Services
             if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
                 throw new BadValueException($"Category not found: {uc.Category}.");
             await _repository.UpdateCategoryAsync(uc);
+        }
+
+        public async Task ConfirmTransactionAsync(ConfirmTransactionDto dto)
+        {
+            var existingTransaction = await _repository.GetAsync(dto.Id, dto.UserId);
+            if (existingTransaction == null)
+                throw new TransactionNotFoundException($"Transaction not found. Id:{dto.Id}");
+            await _repository.ConfirmTransactionAsync(existingTransaction);
         }
     }
 }

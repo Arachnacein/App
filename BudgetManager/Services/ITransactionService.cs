@@ -10,5 +10,6 @@ namespace BudgetManager.Services
         Task UpdateTransactionAsync(UpdateTransactionDto transaction);
         Task DeleteTransactionAsync(int id, Guid userId);
         Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc);
+        Task ConfirmTransactionAsync(ConfirmTransactionDto dto);
     }
 }

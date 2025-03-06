@@ -64,5 +64,13 @@ namespace BudgetManager.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpPut("ConfirmTransaction")]
+        public async Task<IActionResult> ConfirmTransaction([FromBody] ConfirmTransactionDto dto)
+        {
+            var command = new ConfirmTransactionCommand(dto.Id, dto.UserId);
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }
