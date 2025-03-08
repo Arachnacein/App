@@ -47,6 +47,10 @@ namespace UI.Pages.MyPages
                 transactions = transactions.OrderByDescending(x => x.Date)
                                        .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
                                        .ToList();
+
+                var xd = transactions.Where(x => x.IsRecurring == true);
+                Snackbar.Add($"{xd.Count()}", Severity.Info);
+
                 StateHasChanged();
             }
             catch(HttpRequestException e)
@@ -74,11 +78,11 @@ namespace UI.Pages.MyPages
         }
         private async Task AddRecurringTransaction()
         {
-            //if(UserSessionService == null || UserSessionService.UserId == Guid.Empty)
-            //{
-            //    Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
-            //    return;
-            //}
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignInButton"], Severity.Info);
+                return;
+            }
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
             await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"], options);
@@ -182,6 +186,10 @@ namespace UI.Pages.MyPages
                     }
                 });
             }
+        }
+        private async Task ConfirmTransaction(TransactionViewModel model)
+        {
+            Snackbar.Add("adsadadad", Severity.Error);
         }
         private async Task ResetModel(PatternValuesModel model)
         {

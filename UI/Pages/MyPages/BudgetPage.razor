@@ -84,12 +84,15 @@
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
-                        <MudPaper Elevation="25" Class="pa-2 my-2" @onclick="() => EditDeleteTransaction(context)">
+                        <MudPaper Elevation="25" Class="pa-2 my-2"
+                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px solid lightgreen;" : 
+                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px solid white;" : null)"
+                                  @onclick="() => EditDeleteTransaction(context)">
                             <MudGrid>
-                                <MudItem xs="8">
+                                <MudItem xs="8" Class="text-align-center">
                                     <MudText Typo="Typo.body1">@context.Name</MudText>
                                 </MudItem>
-                                <MudItem xs="4" Class="text-align-right">
+                                <MudItem xs="2" Class="text-align-right">
                                     <MudText Typo="Typo.body1">@context.Price</MudText>
                                 </MudItem>
                             </MudGrid>

@@ -35,7 +35,9 @@ namespace BudgetManager.Features.Transactions.Queries
                                     Description = transaction.Description,
                                     Date = transaction.Date,
                                     Price = transaction.Price,
-                                    Category = transaction.Category
+                                    Category = transaction.Category,
+                                    IsRecurring = transaction.IsRecurring,
+                                    IsApproved = transaction.IsApproved
                                 })
                                 .OrderByDescending(x => x.Date)
                                 .ToListAsync(cancellationToken);
