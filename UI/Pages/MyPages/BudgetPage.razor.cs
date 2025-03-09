@@ -47,10 +47,6 @@ namespace UI.Pages.MyPages
                 transactions = transactions.OrderByDescending(x => x.Date)
                                        .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
                                        .ToList();
-
-                var xd = transactions.Where(x => x.IsRecurring == true);
-                Snackbar.Add($"{xd.Count()}", Severity.Info);
-
                 StateHasChanged();
             }
             catch(HttpRequestException e)

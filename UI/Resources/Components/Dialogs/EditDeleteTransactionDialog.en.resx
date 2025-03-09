@@ -135,6 +135,9 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="FailAcceptTransactionSnackbar" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
   <data name="FailDeleteSnackbar" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
@@ -153,11 +156,17 @@
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="SuccessAcceptTransactionSnackbar" xml:space="preserve">
+    <value>Transation accepted successfully</value>
+  </data>
   <data name="SuccessDeleteSnackbar" xml:space="preserve">
     <value>Transaction deleted successfully</value>
   </data>
   <data name="SuccessEditSnackbar" xml:space="preserve">
     <value>Transaction edited successfully</value>
+  </data>
+  <data name="TabPanelConfirmTransaction" xml:space="preserve">
+    <value>Confirm</value>
   </data>
   <data name="TabPanelDelete" xml:space="preserve">
     <value>Delete</value>

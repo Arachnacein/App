@@ -68,7 +68,22 @@ namespace UI.Components.Dialogs
         }
         private async Task AcceptTransaction()
         {
-            Snackbar.Add("Transaction accepted", Severity.Error);
+            if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+            {
+                Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
+                return;
+            }
+
+            var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction/ConfirmTransaction", DialogModel);
+            if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                snackbar.Add(Localizer["SuccessAcceptTransactionSnackbar"], Severity.Success);
+                MudDialog.Cancel();
+                if (Refresh != null)
+                    await Refresh.Invoke();
+            }
+            else
+                snackbar.Add(Localizer["FailAcceptTransactionSnackbar"], Severity.Error);
         }
         private async Task Cancel() => MudDialog.Cancel();
     }

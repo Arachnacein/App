@@ -52,10 +52,12 @@ namespace BudgetManager.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task ConfirmTransactionAsync(Transaction transaction)
+        public async Task ConfirmTransactionAsync(ConfirmTransactionDto dto)
         {
-            transaction.IsApproved = true;
-            _context.Update(transaction);
+            var currentTransaction = _context.Transactions
+                .FirstOrDefault(x => x.Id == dto.Id && x.UserId == dto.UserId);
+            currentTransaction.IsApproved = true;
+            _context.Update(currentTransaction);
             await _context.SaveChangesAsync();
         }
     }
@@ -67,7 +69,7 @@ namespace BudgetManager.Repositories
         Task<Transaction> AddAsync(Transaction transaction);
         Task UpdateAsync(Transaction transaction);
         Task DeleteAsync(int id);
-        Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc);
-        Task ConfirmTransactionAsync(Transaction transaction);
+        Task UpdateCategoryAsync(UpdateTransactionCategoryDto dto);
+        Task ConfirmTransactionAsync(ConfirmTransactionDto dto);
     }
 }

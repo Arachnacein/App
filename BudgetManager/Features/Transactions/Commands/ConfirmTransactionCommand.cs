@@ -1,5 +1,5 @@
 ﻿using BudgetManager.Mappers;
-using BudgetManager.Repositories;
+using BudgetManager.Services;
 using MediatR;
 
 namespace BudgetManager.Features.Transactions.Commands
@@ -16,18 +16,18 @@ namespace BudgetManager.Features.Transactions.Commands
     }
     public class ConfirmTransactionCommandHandler : IRequestHandler<ConfirmTransactionCommand>
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly ITransactionService _transactionService;
         private readonly ITransactionMapper _mapper;
-        public ConfirmTransactionCommandHandler(ITransactionRepository transactionRepository, ITransactionMapper mapper)
+        public ConfirmTransactionCommandHandler(ITransactionService transactionService, ITransactionMapper mapper)
         {
-            _transactionRepository = transactionRepository;
+            _transactionService = transactionService;
             _mapper = mapper;
         }
 
         public async Task Handle(ConfirmTransactionCommand request, CancellationToken cancellationToken)
         {
             var mappedTransaction = _mapper.Map(request);
-            await _transactionRepository.ConfirmTransactionAsync(mappedTransaction);
+            await _transactionService.ConfirmTransactionAsync(mappedTransaction);
         }
     }
 }
