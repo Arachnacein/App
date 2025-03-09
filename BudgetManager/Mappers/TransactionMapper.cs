@@ -10,10 +10,10 @@ namespace BudgetManager.Mappers
         AddTransactionDto Map(SaveTransactionCommand command);
         UpdateTransactionDto Map(UpdateTransactionCommand command);
         UpdateTransactionCategoryDto Map(UpdateCategoryCommand command);
+        ConfirmTransactionDto Map(ConfirmTransactionCommand command);
         Transaction Map(TransactionDto source);
         Transaction Map(AddTransactionDto source);
         Transaction Map(UpdateTransactionDto source);
-        Transaction Map(ConfirmTransactionCommand source);
         ICollection<TransactionDto> MapElements(ICollection<Transaction> source);
         ICollection<Transaction> MapElements(ICollection<TransactionDto> source);
     }
@@ -74,7 +74,14 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
+        public ConfirmTransactionDto Map(ConfirmTransactionCommand command)
+        {
+            var destination = new ConfirmTransactionDto();
+            destination.Id = command.Id;
+            destination.UserId = command.UserId;
 
+            return destination;
+        }
         public Transaction Map(TransactionDto source)
         {
             var destination = new Transaction();
@@ -121,15 +128,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }        
-        
-        public Transaction Map(ConfirmTransactionCommand command)
-        {
-            var destination = new Transaction();
-            destination.Id = command.Id;
-            destination.UserId = command.UserId;
-
-            return destination;
-        }
 
         public ICollection<TransactionDto> MapElements(ICollection<Transaction> source)
         {

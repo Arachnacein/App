@@ -32,12 +32,6 @@ namespace UI.Models.ViewModels
                 .NotEmpty().WithMessage(localizer["PriceFieldEmpty"])
                 .GreaterThanOrEqualTo(0d).WithMessage(localizer["PriceCorrectValue"])
                 .Must(price => !double.IsNaN(price) && !double.IsInfinity(price)).WithMessage(localizer["PriceCorrectValue"]);
-
-            RuleFor(x => x.IsRecurring)
-                .NotEmpty().WithMessage("IsRecurringFieldEmpty");
-
-            RuleFor(x => x.IsApproved)
-                .NotEmpty().WithMessage("IsApprovedFieldEmpty");
         }
     }
 }

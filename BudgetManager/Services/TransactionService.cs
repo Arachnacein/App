@@ -71,14 +71,14 @@ namespace BudgetManager.Services
                 throw new NullPointerException($"Transaction not found. Id:{id}.");
             await _repository.DeleteAsync(id);
         }
-        public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto uc)
+        public async Task UpdateCategoryAsync(UpdateTransactionCategoryDto dto)
         {
-            var existingTransaction = await _repository.GetAsync(uc.Id, uc.UserId);
+            var existingTransaction = await _repository.GetAsync(dto.Id, dto.UserId);
             if (existingTransaction == null)
-                throw new TransactionNotFoundException($"Transaction not found. Id:{uc.Id}");
-            if (!Enum.IsDefined(typeof(TransactionCategoryEnum), uc.Category))
-                throw new BadValueException($"Category not found: {uc.Category}.");
-            await _repository.UpdateCategoryAsync(uc);
+                throw new TransactionNotFoundException($"Transaction not found. Id:{dto.Id}");
+            if (!Enum.IsDefined(typeof(TransactionCategoryEnum), dto.Category))
+                throw new BadValueException($"Category not found: {dto.Category}.");
+            await _repository.UpdateCategoryAsync(dto);
         }
 
         public async Task ConfirmTransactionAsync(ConfirmTransactionDto dto)
@@ -86,7 +86,9 @@ namespace BudgetManager.Services
             var existingTransaction = await _repository.GetAsync(dto.Id, dto.UserId);
             if (existingTransaction == null)
                 throw new TransactionNotFoundException($"Transaction not found. Id:{dto.Id}");
-            await _repository.ConfirmTransactionAsync(existingTransaction);
+            if (existingTransaction.IsRecurring == false)
+                throw new NotRecurringTransactionException($"Transaction is not recurring transaction. Id:{dto.Id}");
+            await _repository.ConfirmTransactionAsync(dto);
         }
     }
 }
