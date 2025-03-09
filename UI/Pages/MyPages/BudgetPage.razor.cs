@@ -43,9 +43,12 @@ namespace UI.Pages.MyPages
         {
             try
             {
-                transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
+                transactions = await httpClient
+                    .GetFromJsonAsync<List<TransactionViewModel>>
+                    ($"/api/transaction?userId={UserSessionService.UserId}");
                 transactions = transactions.OrderByDescending(x => x.Date)
-                                       .Where(x => x.Date.Value.Month == CurrentDate.Month && x.Date.Value.Year == CurrentDate.Year)
+                                       .Where(x => x.Date.Value.Month == CurrentDate.Month && 
+                                                   x.Date.Value.Year == CurrentDate.Year)
                                        .ToList();
                 StateHasChanged();
             }
@@ -111,15 +114,18 @@ namespace UI.Pages.MyPages
                 return;
             
             //parses string into enum
-            dropItem.Item.Category = (TransactionCategoryEnum)Enum.Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
+            dropItem.Item.Category = (TransactionCategoryEnum)Enum.
+                Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
-            await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>("/api/transaction/UpdateCategory", 
-                                                                            new UpdateTransactionCategoryViewModel 
-                                                                            {
-                                                                                Id = dropItem.Item.Id, 
-                                                                                UserId = UserSessionService.UserId, 
-                                                                                Category = dropItem.Item.Category 
-                                                                            });
+            await httpClient
+                .PutAsJsonAsync<UpdateTransactionCategoryViewModel>
+                ("/api/transaction/UpdateCategory", 
+                    new UpdateTransactionCategoryViewModel 
+                    {
+                        Id = dropItem.Item.Id, 
+                        UserId = UserSessionService.UserId, 
+                        Category = dropItem.Item.Category 
+                    });
             await RefreshData();
         }
         private async Task PreviousMonth()
@@ -134,7 +140,9 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthPatterns()
         {
-            var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
+            var patternResponse = await httpClient
+                .GetFromJsonAsync<PatternViewModel>
+                ($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
             if (patternResponse == null || patternResponse.Id == -1)
             {
                 patternViewModel = new PatternViewModel
@@ -152,7 +160,9 @@ namespace UI.Pages.MyPages
         }
         private async Task LoadMonthIncome()
         {
-            var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
+            var incomeList = await httpClient
+                .GetFromJsonAsync<List<IncomeViewModel>>
+                ($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
             incomes = incomeList;
         }
         private async Task CalculatePatternValues()
@@ -166,6 +176,7 @@ namespace UI.Pages.MyPages
 
                 transactions.ForEach(x =>
                 {
+                    if(!x.IsRecurring || (x.IsRecurring && x.IsApproved)) // exclude unaccepted transactions
                     switch (x.Category)
                     {
                         case TransactionCategoryEnum.Saves:
