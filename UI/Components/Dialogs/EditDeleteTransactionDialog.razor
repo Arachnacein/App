@@ -2,6 +2,16 @@
     <MudDialog Style="height:515px;">
         <DialogContent>
             <MudTabs Class="ma-2 pa-2" Elevation="5" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true">
+                @if(DialogModel.IsRecurring == true && DialogModel.IsApproved == false)
+                {
+                    <MudTabPanel Text="Potwierdź transckję">
+                        <MudText Class="ma-1 pa-1">Name: @DialogModel.Name</MudText>
+                        <MudText Class="ma-1 pa-1">Description: @DialogModel.Description</MudText>
+                        <MudText Class="ma-1 pa-1">Date: @DialogModel.Date.FormatDMY() </MudText>
+                        <MudButton OnClick="AcceptTransaction" Class="ma-2 pa-2 float-end"
+                                Color="Color.Primary" Variant="Variant.Filled">Submit</MudButton>
+                    </MudTabPanel>
+                }
                 <MudTabPanel Text="@Localizer["TabPanelEdit"]">
                     <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1" />
                     <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />

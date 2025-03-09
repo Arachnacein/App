@@ -187,10 +187,6 @@ namespace UI.Pages.MyPages
                 });
             }
         }
-        private async Task ConfirmTransaction(TransactionViewModel model)
-        {
-            Snackbar.Add("adsadadad", Severity.Error);
-        }
         private async Task ResetModel(PatternValuesModel model)
         {
             model.ActualValueSaves = 0;

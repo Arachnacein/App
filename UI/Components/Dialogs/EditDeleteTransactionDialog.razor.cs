@@ -66,6 +66,10 @@ namespace UI.Components.Dialogs
             else
                 snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
         }
+        private async Task AcceptTransaction()
+        {
+            Snackbar.Add("Transaction accepted", Severity.Error);
+        }
         private async Task Cancel() => MudDialog.Cancel();
     }
 }
