@@ -176,7 +176,7 @@ namespace UI.Pages.MyPages
 
                 transactions.ForEach(x =>
                 {
-                    if(!x.IsRecurring || (x.IsRecurring && x.IsApproved)) // exclude unaccepted transactions
+                    if(!x.IsRecurring || (x.IsRecurring && x.IsApproved)) // exclude unaccepted transactions from calculations
                     switch (x.Category)
                     {
                         case TransactionCategoryEnum.Saves:

@@ -31,6 +31,12 @@ namespace BudgetManager.Repositories
             await _context.SaveChangesAsync();
             return transaction;
         }
+        public async Task<IEnumerable<Transaction>> AddManyAsync(IEnumerable<Transaction> transactions)
+        {
+            await _context.Transactions.AddRangeAsync(transactions);
+            await _context.SaveChangesAsync();
+            return transactions;
+        }
 
         public async Task UpdateAsync(Transaction transaction)
         {
@@ -60,6 +66,7 @@ namespace BudgetManager.Repositories
             _context.Update(currentTransaction);
             await _context.SaveChangesAsync();
         }
+
     }
 
     public interface ITransactionRepository
@@ -67,6 +74,7 @@ namespace BudgetManager.Repositories
         Task<IEnumerable<Transaction>> GetAllAsync(Guid userId);
         Task<Transaction> GetAsync(int id, Guid userId);
         Task<Transaction> AddAsync(Transaction transaction);
+        Task<IEnumerable<Transaction>> AddManyAsync(IEnumerable<Transaction> transactions);
         Task UpdateAsync(Transaction transaction);
         Task DeleteAsync(int id);
         Task UpdateCategoryAsync(UpdateTransactionCategoryDto dto);
