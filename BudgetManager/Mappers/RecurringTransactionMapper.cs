@@ -10,6 +10,8 @@ namespace BudgetManager.Mappers
         RecurringTransaction Map(RecurringTransactionDto source);
         RecurringTransactionDto Map(RecurringTransaction source);
         RecurringTransaction Map(AddRecurringTransactionDto source);
+        Transaction MapToTransaction(AddRecurringTransactionDto source);
+        Income MapToIncome(AddRecurringTransactionDto source);
         RecurringTransaction Map(UpdateRecurringTransactionDto source);
         AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source);
         UpdateRecurringTransactionDto Map(UpdateRecurringTransactionCommand source);
@@ -39,7 +41,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
         public RecurringTransactionDto Map(RecurringTransaction source)
         {
             var destination = new RecurringTransactionDto();
@@ -61,7 +62,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
         public RecurringTransaction Map(AddRecurringTransactionDto source)
         {
             var destination = new RecurringTransaction();
@@ -82,7 +82,6 @@ namespace BudgetManager.Mappers
             
             return destination;
         }
-
         public RecurringTransaction Map(UpdateRecurringTransactionDto source)
         {
             var destination = new RecurringTransaction();
@@ -104,7 +103,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
         public AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source)
         {
             var destination = new AddRecurringTransactionDto();
@@ -125,7 +123,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
         public UpdateRecurringTransactionDto Map(UpdateRecurringTransactionCommand source)
         {
             var destination = new UpdateRecurringTransactionDto();
@@ -147,7 +144,6 @@ namespace BudgetManager.Mappers
 
             return destination;
         }
-
         public ICollection<RecurringTransactionDto> MapElements(ICollection<RecurringTransaction> source)
         {
             var destination = new List<RecurringTransactionDto>();
@@ -155,12 +151,35 @@ namespace BudgetManager.Mappers
                 destination.Add(Map(item));
             return destination;
         }
-
         public ICollection<RecurringTransaction> MapElements(ICollection<RecurringTransactionDto> source)
         {
             var destination = new List<RecurringTransaction>();
             foreach (var item in source)
                 destination.Add(Map(item));
+            return destination;
+        }
+        public Income MapToIncome(AddRecurringTransactionDto source)
+        {
+            var destination = new Income();
+            destination.UserId = source.UserId;
+            destination.Name = source.Name;
+            destination.Amount = source.Amount;
+            destination.Date = DateTime.MinValue;
+
+            return destination;
+        }
+        public Transaction MapToTransaction(AddRecurringTransactionDto source)
+        {
+            var destination = new Transaction();
+            destination.UserId = source.UserId;
+            destination.Name = source.Name;
+            destination.Description = source.Description;
+            destination.Date = DateTime.MinValue;
+            destination.Price = source.Amount;
+            destination.Category = TransactionCategoryEnum.Fees;
+            destination.IsRecurring = true;
+            destination.IsApproved = false;
+
             return destination;
         }
     }
