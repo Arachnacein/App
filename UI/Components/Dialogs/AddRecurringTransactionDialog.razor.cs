@@ -10,6 +10,7 @@ namespace UI.Components.Dialogs
     public partial class AddRecurringTransactionDialog
     {
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+        [Parameter] public Func<Task> Refresh { get; set; }
         [Inject] private IDialogService DialogService { get; set; }
         [Inject] private IStringLocalizer<AddRecurringTransactionDialog> Localizer { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
@@ -50,11 +51,13 @@ namespace UI.Components.Dialogs
             if(result.StatusCode == HttpStatusCode.Created)
             {
                 Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
-                MudDialog.Cancel();    
+                MudDialog.Cancel();
+
+                if (Refresh != null)
+                    await Refresh.Invoke();
             }
             else
                 Snackbar.Add(Localizer["ErrorAddRecurringTransaction"], Severity.Error);
-
         }
 
         private async Task OpenCustomDialog()

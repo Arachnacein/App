@@ -84,7 +84,10 @@ namespace UI.Pages.MyPages
             }
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
 
-            await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"], options);
+            var parameters = new DialogParameters();
+            parameters["Refresh"] = new Func<Task>(RefreshData);
+
+            await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"],parameters, options);
         }
         private async Task AddIncome()
         {
