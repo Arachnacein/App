@@ -15,15 +15,18 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/61bcef4b-c00f-4546-8b88-b5fef3cad395" style="border-radius:15px;">
 </p>
-
 <br>
+
+
+
 <h2 align="center"> How it works </h2>
 <p align="">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the 'Budget' tab, you can view your monthly expenses. It's best to start by adding the income for the current month. This includes any funds added to your budget, such as a salary, winnings from a bet, or even money found on the street. When adding the first income for the month, the system will prompt you to select a pattern for distributing your income. Choose the one that suits you best. If none of the available patterns fit, you can create a new one in the options window. After successfully adding the income, the application will automatically allocate it to various categories according to the selected pattern and update the data in the tables. You can now start adding individual transactions. (Transactions can also be added without selecting a pattern or having any income for the month. In that case, only the transaction itself will be visible without a percentage allocation.) If you make a mistake with a category, you can easily move the transaction between columns. When you hover over a transaction with the mouse, the date and the description you entered will appear after a moment. If you click on the transaction, a window will open where you can edit or delete it.
 </p>
-
-
 <br>
+
+
+
 <h2 align="center"> Architecture </h2>
 <p align="">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The architecture used in this application is based on Clean Architecture, which has become the standard for developing WebAPIs. 
@@ -33,6 +36,7 @@
   are connected by an API Gateway, which routes requests between the modules. My assumption is that each group of functionalities related to a single aspect will be implemented as a separate microservice.
 </p>
 <br>
+
 <h3 align="center">How architecture was changing</h3>
 <p>
    Firstly, the application had three microservices: 
@@ -52,10 +56,18 @@
 <p align="center">
 	<img src="https://github.com/user-attachments/assets/1dd99578-8045-4595-b69c-d7def4ad583d">
 </p>
-
-
-
 <br><br>
+<br>
+
+
+<h2 align="center"> Endpoints </h2>
+<p align="">
+I use Postman for API documentation. The current state of my application's endpoints is shown in the picture below. The documentation is organized into folders, each representing a specific controller. Within each folder, there are requests corresponding to that controller.
+</p>
+<img src="https://github.com/user-attachments/assets/17209749-903a-459c-93e4-27b2e28a25e2">
+<br>
+
+
 <h2 align="center"> Screenshots </h2><br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c77b88b4-3a76-4a07-b70b-ecccdb6c9e9b">
