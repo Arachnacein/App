@@ -13,11 +13,9 @@
 </p>
 <br>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/61bcef4b-c00f-4546-8b88-b5fef3cad395" style="border-radius:15px;">
+<img src="https://github.com/user-attachments/assets/73423987-de48-45b3-b4ab-2d1871e7304b" style="border-radius:15px;">
 </p>
 <br>
-
-
 
 <h2 align="center"> How it works </h2>
 <p align="">
