@@ -21,6 +21,9 @@
 <p align="">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the 'Budget' tab, you can view your monthly expenses. It's best to start by adding the income for the current month. This includes any funds added to your budget, such as a salary, winnings from a bet, or even money found on the street. When adding the first income for the month, the system will prompt you to select a pattern for distributing your income. Choose the one that suits you best. If none of the available patterns fit, you can create a new one in the options window. After successfully adding the income, the application will automatically allocate it to various categories according to the selected pattern and update the data in the tables. You can now start adding individual transactions. (Transactions can also be added without selecting a pattern or having any income for the month. In that case, only the transaction itself will be visible without a percentage allocation.) If you make a mistake with a category, you can easily move the transaction between columns. When you hover over a transaction with the mouse, the date and the description you entered will appear after a moment. If you click on the transaction, a window will open where you can edit or delete it.
 </p>
+<p align="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, the application allows you to add recurring transactions. The user can define the date range and the frequency of repetition. A recurring transaction can be either an income or an expense. These transactions appear as regular ones but are visually distinguished by a different border. Recurring transactions that have not yet been confirmed are displayed with a white border and are not included in the summary. Once confirmed by the user, they are highlighted with a green border and counted in the statistics.
+</p>
 <br>
 
 
