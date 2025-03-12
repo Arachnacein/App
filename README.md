@@ -71,7 +71,7 @@ I use Postman for API documentation. The current state of my application's endpo
 
 <h2 align="center"> Screenshots </h2><br>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c77b88b4-3a76-4a07-b70b-ecccdb6c9e9b">
+  <img src="https://github.com/user-attachments/assets/73423987-de48-45b3-b4ab-2d1871e7304b">
   <img src="https://github.com/user-attachments/assets/3b16c174-0c13-4cf3-b98c-6dc6778ab35d">
   <img src="https://github.com/user-attachments/assets/2b4283c6-75e0-4854-b191-1e4ca9a62743">
   <img src="https://github.com/user-attachments/assets/3f6856fb-b394-4458-be47-8a90e16b2c08">
