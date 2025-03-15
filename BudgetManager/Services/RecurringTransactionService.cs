@@ -4,7 +4,6 @@ using BudgetManager.Exceptions.TransactionExceptions;
 using BudgetManager.Mappers;
 using BudgetManager.Models;
 using BudgetManager.Repositories;
-using System.ComponentModel;
 
 namespace BudgetManager.Services
 {
@@ -73,7 +72,7 @@ namespace BudgetManager.Services
             await _recurringTransactionRepository.DeleteAsync(recurringTransaction);
         }
 
-        public IEnumerable<Transaction> FillTransactions(AddRecurringTransactionDto dto)
+        private IEnumerable<Transaction> FillTransactions(AddRecurringTransactionDto dto)
         {
             var transactionsList = new List<Transaction>();
 
@@ -86,7 +85,8 @@ namespace BudgetManager.Services
                 _ => TimeSpan.Zero
             };
 
-            for (DateTime i = dto.StartDate; i <= dto.EndDate; i = dto.Frequency switch
+            for (DateTime i = dto.StartDate; i <= dto.EndDate; i = dto.Frequency 
+                                                                    switch
                                                                     {
                                                                         FrequencyEnum.Monthly => i.AddMonths(dto.Interval),
                                                                         FrequencyEnum.Yearly => i.AddYears(dto.Interval),

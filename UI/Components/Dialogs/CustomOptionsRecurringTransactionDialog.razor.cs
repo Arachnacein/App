@@ -18,10 +18,13 @@ namespace UI.Components.Dialogs
         private bool CheckBoxFriday { get; set; } = false;
         private bool CheckBoxSaturday { get; set; } = false;
         private bool CheckBoxSunday { get; set; } = false;
-        private string EndOption { get; set; }
+        private string EndOption { get; set; } = "date";
         protected override Task OnInitializedAsync()
         {
-            Model.Frequency = FrequencyEnum.Daily;
+            Model.Frequency = FrequencyEnum.Weekly;
+            Model.MonthlyDay = Model.StartDate.Value.Day;
+            Model.YearlyDay = Model.StartDate.Value.Day;
+            Model.YearlyMonth = Model.StartDate.Value.Month;
             return base.OnInitializedAsync();
         }
         private async Task Submit()

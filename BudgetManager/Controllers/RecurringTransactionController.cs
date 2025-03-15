@@ -1,5 +1,4 @@
-﻿using Azure;
-using BudgetManager.Dto.RecurringTransaction;
+﻿using BudgetManager.Dto.RecurringTransaction;
 using BudgetManager.Features.RecurringTransactions.Commands;
 using BudgetManager.Features.RecurringTransactions.Queries;
 using MediatR;
