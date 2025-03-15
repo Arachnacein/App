@@ -84,14 +84,14 @@
         @if(Model.Frequency == FrequencyEnum.Monthly)
         {
             <MudStack AlignItems="AlignItems.Center" Class="ma-2 pa-2">
-                <MudText>Co miesiąc w @Model.MonthlyDay dniu</MudText>
+                <MudText>@Localizer["MonthlyFrequencyText"] @Model.MonthlyDay @Localizer["Day_small"]</MudText>
             </MudStack>
         }
 
         @if(Model.Frequency == FrequencyEnum.Yearly)
         {
             <MudStack AlignItems="AlignItems.Center" Class="ma-2 pa-2">
-                <MudText>Co rok @Model.YearlyDay @Model.YearlyMonth.GetMonthName()</MudText>
+                <MudText>@Localizer["YearlyFrequencyText"]@Model.YearlyDay @Localizer[$"{@Model.YearlyMonth.GetMonthName()}"]</MudText>
             </MudStack>
         }
 

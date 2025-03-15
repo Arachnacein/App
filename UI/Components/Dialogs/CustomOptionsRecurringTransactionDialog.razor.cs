@@ -29,7 +29,8 @@ namespace UI.Components.Dialogs
         }
         private async Task Submit()
         {
-
+            Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
+            Snackbar.Add(Localizer["ErrorAddRecurringTransaction"], Severity.Error);
         }
         private async Task Cancel() => MudDialog.Cancel();
     }
