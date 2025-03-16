@@ -66,6 +66,7 @@ namespace UI.Components.Dialogs
             {
                 var parameters = new DialogParameters();
                 parameters["Model"] = Model;
+                parameters["Refresh"] = Refresh;
 
                 var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small };
                 await DialogService.ShowAsync<CustomOptionsRecurringTransactionDialog>(Localizer["CustomOptions"], parameters, options);

@@ -41,6 +41,17 @@ namespace BudgetManager.Controllers
                                                               dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
             var result = await _mediator.Send(command);
             return Created($"api/recurringTransactions/{result.Id}", result);
+        }        
+        
+        [HttpPost("Custom")]
+        public async Task<IActionResult> CreateCustom(AddRecurringTransactionDto dto)
+        {
+            var command = new SaveCustomRecurringTransactionCommand(dto.UserId, dto.Name, dto.Description, dto.Amount, 
+                                                              dto.TransactionType, dto.StartDate, dto.EndDate, 
+                                                              dto.Frequency, dto.Interval, dto.WeeklyDays, 
+                                                              dto.MonthlyDay, dto.YearlyMonth, dto.YearlyDay, dto.MaxOccurrences);
+            var result = await _mediator.Send(command);
+            return Created($"api/recurringTransactions/Custom/{result.Id}", result);
         }
 
         [HttpPut]

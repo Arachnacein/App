@@ -14,6 +14,7 @@ namespace BudgetManager.Mappers
         Income MapToIncome(AddRecurringTransactionDto source);
         RecurringTransaction Map(UpdateRecurringTransactionDto source);
         AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source);
+        AddRecurringTransactionDto Map(SaveCustomRecurringTransactionCommand source);
         UpdateRecurringTransactionDto Map(UpdateRecurringTransactionCommand source);
         ICollection<RecurringTransactionDto> MapElements(ICollection<RecurringTransaction> source);
         ICollection<RecurringTransaction> MapElements(ICollection<RecurringTransactionDto> source);
@@ -104,6 +105,26 @@ namespace BudgetManager.Mappers
             return destination;
         }
         public AddRecurringTransactionDto Map(SaveRecurringTransactionCommand source)
+        {
+            var destination = new AddRecurringTransactionDto();
+            destination.UserId = source.UserId;
+            destination.Name = source.Name;
+            destination.Description = source.Description;
+            destination.Amount = source.Amount;
+            destination.TransactionType = source.TransactionType;
+            destination.StartDate = source.StartDate;
+            destination.EndDate = source.EndDate;
+            destination.Frequency = source.Frequency;
+            destination.Interval = source.Interval;
+            destination.WeeklyDays = source.WeeklyDays;
+            destination.MonthlyDay = source.MonthlyDay;
+            destination.YearlyMonth = source.YearlyMonth;
+            destination.YearlyDay = source.YearlyDay;
+            destination.MaxOccurrences = source.MaxOccurrences;
+
+            return destination;
+        }        
+        public AddRecurringTransactionDto Map(SaveCustomRecurringTransactionCommand source)
         {
             var destination = new AddRecurringTransactionDto();
             destination.UserId = source.UserId;

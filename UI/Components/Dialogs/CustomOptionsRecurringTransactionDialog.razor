@@ -118,7 +118,7 @@
                         <MudItem xs="12">
                             <MudNumericField @bind-Value="Model.MaxOccurrences"
                                 Label="@Localizer["Occurences"]"
-                                Required="true"
+                                Required="true" Min="1" Max="30"
                                 Disabled="@(EndOption != "occurrences")"
                                 Margin="Margin.Normal"/>
                         </MudItem>
