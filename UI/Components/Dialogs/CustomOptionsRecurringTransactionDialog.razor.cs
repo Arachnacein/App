@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Dynamic;
 using System.Net;
 using UI.Models;
 using UI.Models.ViewModels;
@@ -38,7 +39,7 @@ namespace UI.Components.Dialogs
                 return;
             }
 
-            if (Model.EndDate < Model.StartDate)
+            if (EndOption == "date" && Model.EndDate < Model.StartDate)
             {
                 Snackbar.Add(Localizer["EndDateGreaterThanStartDate"], Severity.Warning);
                 return;
@@ -48,39 +49,16 @@ namespace UI.Components.Dialogs
                 Snackbar.Add(Localizer["IntervalCorrectValue"], Severity.Warning);
                 return;
             }
+
             if(EndOption == "date")
                 Model.MaxOccurrences = 0;
 
-            switch (Model.Frequency)
-            {
-                case FrequencyEnum.Daily:
-                    var resultDaily = await httpClient
-                        .PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction/Custom", Model);
-                    
-                    await ResponseMethod(resultDaily);
-                    break;
+            if(Model.Frequency == FrequencyEnum.Weekly)
+                GetWeeklyDays();
 
-                case FrequencyEnum.Weekly:
-                    break;
-                case FrequencyEnum.Monthly:
-                    var resultMonthly = await httpClient
+            var result = await httpClient
                         .PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction/Custom", Model);
 
-                    await ResponseMethod(resultMonthly);
-                    break;
-                case FrequencyEnum.Yearly:
-                    var resultYearly = await httpClient
-                        .PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction/Custom", Model);
-
-                    await ResponseMethod(resultYearly);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private async Task ResponseMethod(HttpResponseMessage result)
-        {
             if (result.StatusCode == HttpStatusCode.Created)
             {
                 Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
@@ -89,11 +67,26 @@ namespace UI.Components.Dialogs
                     await Refresh.Invoke();
             }
             else
-            {
                 Snackbar.Add(Localizer["ErrorAddRecurringTransaction"], Severity.Error);
-            }
         }
 
+        private void GetWeeklyDays()
+        {
+            if (CheckBoxMonday)
+                Model.WeeklyDays.Add(DayOfWeek.Monday);
+            if (CheckBoxTuesday)
+                Model.WeeklyDays.Add(DayOfWeek.Tuesday);
+            if (CheckBoxWednesday)
+                Model.WeeklyDays.Add(DayOfWeek.Wednesday);
+            if (CheckBoxThursday)
+                Model.WeeklyDays.Add(DayOfWeek.Thursday);
+            if (CheckBoxFriday)
+                Model.WeeklyDays.Add(DayOfWeek.Friday);
+            if (CheckBoxSaturday)
+                Model.WeeklyDays.Add(DayOfWeek.Saturday);
+            if (CheckBoxSunday)
+                Model.WeeklyDays.Add(DayOfWeek.Sunday);
+        }
         private async Task Cancel() => MudDialog.Cancel();
     }
 }

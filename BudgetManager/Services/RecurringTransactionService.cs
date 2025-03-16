@@ -56,7 +56,12 @@ namespace BudgetManager.Services
             if (recurringTransaction.Name.Length >= 50)
                 throw new BadStringLengthException($"Name have incorrect length. Should be less than 50 characters.");
 
-            var transactionsList = FillCustomTransactions(recurringTransaction);
+            IEnumerable<Transaction> transactionsList;
+            if (recurringTransaction.WeeklyDays.Count == 0) // then it's not weekly
+                transactionsList = FillCustomTransactions(recurringTransaction);
+            else
+                transactionsList = FillCustomWeeklyTransactions(recurringTransaction);
+
             await _transactionRepository.AddManyAsync(transactionsList);
 
             var mappedRecurringTransaction = _recurringTransactionMapper.Map(recurringTransaction);
@@ -129,6 +134,40 @@ namespace BudgetManager.Services
                 var transaction = _recurringTransactionMapper.MapToTransaction(dto);
                 transaction.Date = dateCalculator(i);
                 transactionsList.Add(transaction);
+            }
+
+            return transactionsList;
+        }
+        private IEnumerable<Transaction> FillCustomWeeklyTransactions(AddRecurringTransactionDto dto)
+        {
+            // TO DO  ADD INTERVAL To ALGHORITM
+            var transactionsList = new List<Transaction>();
+
+            if (dto.MaxOccurrences == 0) // case user chosen end date
+            {
+                for (DateTime date = dto.StartDate; date <= dto.EndDate; date = date.AddDays(1))
+                {
+                    if (dto.WeeklyDays.Contains(date.DayOfWeek))
+                    {
+                        var transaction = _recurringTransactionMapper.MapToTransaction(dto);
+                        transaction.Date = date;
+                        transactionsList.Add(transaction);
+                    }
+                }
+            }
+            else // case user chosen max occurrences
+            {
+                int occurrences = 0;
+                for (DateTime date = dto.StartDate; occurrences < dto.MaxOccurrences; date = date.AddDays(1))
+                {
+                    if (dto.WeeklyDays.Contains(date.DayOfWeek))
+                    {
+                        var transaction = _recurringTransactionMapper.MapToTransaction(dto);
+                        transaction.Date = date;
+                        transactionsList.Add(transaction);
+                        occurrences++;
+                    }
+                }
             }
 
             return transactionsList;

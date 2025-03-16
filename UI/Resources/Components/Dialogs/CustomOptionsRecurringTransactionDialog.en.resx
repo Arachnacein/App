@@ -141,6 +141,9 @@
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
   </data>
+  <data name="EndDateGreaterThanStartDate" xml:space="preserve">
+    <value>End date cannot be earlier than start date</value>
+  </data>
   <data name="EndsOn" xml:space="preserve">
     <value>Ends on</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Fri" xml:space="preserve">
     <value>Fri</value>
+  </data>
+  <data name="IntervalCorrectValue" xml:space="preserve">
+    <value>Value should be more than 0</value>
   </data>
   <data name="Invalid month" xml:space="preserve">
     <value>invalid month</value>
