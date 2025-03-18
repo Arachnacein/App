@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace UI.Models.ViewModels
 {
@@ -23,41 +24,41 @@ namespace UI.Models.ViewModels
 
     public class RecurringTransactionViewModelValidator : AbstractValidator<RecurringTransactionViewModel>
     {
-        public RecurringTransactionViewModelValidator()
+        public RecurringTransactionViewModelValidator(IStringLocalizer<RecurringTransactionViewModelValidator> localizator)
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("NameFieldEmpty")
-                .MinimumLength(3).WithMessage("NameMinLength")
-                .MaximumLength(30).WithMessage("NameMaxLength");
+                .NotEmpty().WithMessage(localizator["NameFieldEmpty"])
+                .MinimumLength(3).WithMessage(localizator["NameMinLength"])
+                .MaximumLength(30).WithMessage(localizator["NameMaxLength"]);
 
             RuleFor(x => x.Description)
-                .MinimumLength(3).WithMessage("DescriptionMinLength")
-                .MaximumLength(150).WithMessage("DescriptionMaxLength");
+                .MinimumLength(3).WithMessage(localizator["DescriptionMinLength"])
+                .MaximumLength(150).WithMessage(localizator["DescriptionMaxLength"]);
 
             RuleFor(x => x.Amount)
-                .NotEmpty().WithMessage("PriceFieldEmpty")
-                .GreaterThanOrEqualTo(0d).WithMessage("PriceCorrectValue")
-                .Must(price => !double.IsNaN(price) && !double.IsInfinity(price)).WithMessage("PriceCorrectValue");
+                .NotEmpty().WithMessage(localizator["PriceFieldEmpty"])
+                .GreaterThanOrEqualTo(0d).WithMessage(localizator["PriceCorrectValue"])
+                .Must(price => !double.IsNaN(price) && !double.IsInfinity(price)).WithMessage(localizator["PriceCorrectValue"]);
 
             RuleFor(x => x.Interval)
-                .GreaterThan(0).WithMessage("IntervalCorrectValue");
+                .GreaterThan(0).WithMessage(localizator["IntervalCorrectValue"]);
 
             RuleFor(x => x.StartDate)
-                .LessThanOrEqualTo(x => x.EndDate).WithMessage("StartDateLessThanEndDate");
+                .LessThanOrEqualTo(x => x.EndDate).WithMessage(localizator["StartDateLessThanEndDate"]);
 
             RuleFor(x => x.EndDate)
-                .GreaterThanOrEqualTo(x => x.StartDate).WithMessage("EndDateGreaterThanStartDate");
+                .GreaterThanOrEqualTo(x => x.StartDate).WithMessage(localizator["EndDateGreaterThanStartDate"]);
 
             RuleFor(x => x.MonthlyDay)
-                .InclusiveBetween(1, 31).WithMessage("MonthlyDayCorrectValue")
+                .InclusiveBetween(1, 31).WithMessage(localizator["MonthlyDayCorrectValue"])
                 .When(x => x.Frequency == FrequencyEnum.Monthly);
 
             RuleFor(x => x.YearlyMonth)
-                .InclusiveBetween(1, 12).WithMessage("YearlyMonthCorrectValue")
+                .InclusiveBetween(1, 12).WithMessage(localizator["YearlyMonthCorrectValue"])
                 .When(x => x.Frequency == FrequencyEnum.Yearly);
 
             RuleFor(x => x.YearlyDay)
-                .InclusiveBetween(1, 31).WithMessage("YearlyDayCorrectValue")
+                .InclusiveBetween(1, 31).WithMessage(localizator["YearlyDayCorrectValue"])
                 .When(x => x.Frequency == FrequencyEnum.Yearly);
         }
     }
