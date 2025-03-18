@@ -87,6 +87,7 @@ namespace BudgetManager.Services
                 throw new RecurringTransactionNotFoundException($"Recurring transaction not found. Id:{id}");
             await _recurringTransactionRepository.DeleteAsync(recurringTransaction);
         }
+
         private IEnumerable<Transaction> FillTransactions(AddRecurringTransactionDto dto)
         {
             var transactionsList = new List<Transaction>();
@@ -140,37 +141,51 @@ namespace BudgetManager.Services
         }
         private IEnumerable<Transaction> FillCustomWeeklyTransactions(AddRecurringTransactionDto dto)
         {
-            // TO DO  ADD INTERVAL To ALGHORITM
             var transactionsList = new List<Transaction>();
 
-            if (dto.MaxOccurrences == 0) // case user chosen end date
+            if (dto.MaxOccurrences == 0) //case user chosen end date
             {
-                for (DateTime date = dto.StartDate; date <= dto.EndDate; date = date.AddDays(1))
+                for (DateTime i = dto.StartDate; i <= dto.EndDate;)
                 {
-                    if (dto.WeeklyDays.Contains(date.DayOfWeek))
+                    foreach (var day in dto.WeeklyDays)
                     {
+                        var nextDate = GetNextWeekday(i, day);
+                        if (nextDate > dto.EndDate)
+                            break;
+
                         var transaction = _recurringTransactionMapper.MapToTransaction(dto);
-                        transaction.Date = date;
+                        transaction.Date = nextDate;
                         transactionsList.Add(transaction);
                     }
+                    i = i.AddDays(7 * dto.Interval);
                 }
             }
-            else // case user chosen max occurrences
+            else //case user chosen max occurrences
             {
                 int occurrences = 0;
-                for (DateTime date = dto.StartDate; occurrences < dto.MaxOccurrences; date = date.AddDays(1))
+                for (DateTime i = dto.StartDate; occurrences < dto.MaxOccurrences;)
                 {
-                    if (dto.WeeklyDays.Contains(date.DayOfWeek))
+                    foreach (var day in dto.WeeklyDays)
                     {
+                        var nextDate = GetNextWeekday(i, day);
+                        if (occurrences >= dto.MaxOccurrences)
+                            break;
+
                         var transaction = _recurringTransactionMapper.MapToTransaction(dto);
-                        transaction.Date = date;
+                        transaction.Date = nextDate;
                         transactionsList.Add(transaction);
                         occurrences++;
                     }
+                    i = i.AddDays(7 * dto.Interval);
                 }
             }
 
             return transactionsList;
+        }
+        private DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            return start.AddDays(daysToAdd);
         }
     }
 }

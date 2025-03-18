@@ -7,7 +7,7 @@
             <MudGrid Justify="Justify.Center">
                 <MudItem xs="2">
                     <MudNumericField @bind-Value="Model.Interval" T="int" Required="true"
-                                     Margin="Margin.Normal" FullWidth="true"/>
+                                     Margin="Margin.Normal" FullWidth="true" Min="1" Max="60"/>
                 </MudItem>
                 <MudItem xs="4">
                     <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" 
