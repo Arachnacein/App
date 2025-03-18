@@ -72,6 +72,8 @@ namespace UI.Components.Dialogs
 
         private void GetWeeklyDays()
         {
+            Model.WeeklyDays.Clear();
+
             if (CheckBoxMonday)
                 Model.WeeklyDays.Add(DayOfWeek.Monday);
             if (CheckBoxTuesday)
