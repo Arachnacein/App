@@ -105,13 +105,13 @@ I use Postman for API documentation. The current state of my application's endpo
 <br>
 <h2 align="center"> Milestones </h2>
 <p>
-  🔜 Add Recurring transactions. <br>
+  🔜 Add calendar representation.<br>
   * Add pdf summary. <br>
   * Add Healtch checks.<br>
   * Add 2FA <br>
   * Add saving goals feature. <br>
-  * Add calendar with notifications.<br>
   * Add payment feature. <br>
+  ✅ Add Recurring transactions. <br>
   ✅ Add Admin Panel. <br>
   ⛔ Add authorization. => Keycloak BUG🐛 <br>
   ✅ Add email verification. => Completed but Keycloak BUG 🐛<br> 
