@@ -139,7 +139,7 @@
     <value>Odstęp</value>
   </data>
   <data name="MustLogIn" xml:space="preserve">
-    <value>Musisz się zalogować</value>
+    <value>Zaloguj się, by uzyskać dostęp do tej strony</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>

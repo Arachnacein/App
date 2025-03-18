@@ -120,20 +120,62 @@
   <data name="After" xml:space="preserve">
     <value>After</value>
   </data>
+  <data name="April" xml:space="preserve">
+    <value>april</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>august</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Day</value>
   </data>
+  <data name="Day_small" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>december</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
+  </data>
+  <data name="EndDateGreaterThanStartDate" xml:space="preserve">
+    <value>End date cannot be earlier than start date</value>
   </data>
   <data name="EndsOn" xml:space="preserve">
     <value>Ends on</value>
   </data>
+  <data name="ErrorAddRecurringTransaction" xml:space="preserve">
+    <value>Error while adding recurring transaction</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>february</value>
+  </data>
   <data name="Fri" xml:space="preserve">
     <value>Fri</value>
+  </data>
+  <data name="IntervalCorrectValue" xml:space="preserve">
+    <value>Value should be more than 0</value>
+  </data>
+  <data name="Invalid month" xml:space="preserve">
+    <value>invalid month</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>january</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>july</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>june</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>march</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>may</value>
   </data>
   <data name="Mon" xml:space="preserve">
     <value>Mon</value>
@@ -141,8 +183,17 @@
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="MonthlyFrequencyText" xml:space="preserve">
+    <value>On the </value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>november</value>
+  </data>
   <data name="Occurences" xml:space="preserve">
     <value>occurences</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>octomber</value>
   </data>
   <data name="On" xml:space="preserve">
     <value>On</value>
@@ -156,8 +207,14 @@
   <data name="Sat" xml:space="preserve">
     <value>Sat</value>
   </data>
+  <data name="September" xml:space="preserve">
+    <value>september</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="SuccessfullyAddRecurringTransaction" xml:space="preserve">
+    <value>Recurring transaction added successfully</value>
   </data>
   <data name="Sun" xml:space="preserve">
     <value>Sun</value>
@@ -176,5 +233,8 @@
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>
+  </data>
+  <data name="YearlyFrequencyText" xml:space="preserve">
+    <value>Every year on </value>
   </data>
 </root>

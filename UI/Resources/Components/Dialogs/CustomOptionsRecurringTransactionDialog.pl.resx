@@ -120,20 +120,62 @@
   <data name="After" xml:space="preserve">
     <value>Po</value>
   </data>
+  <data name="April" xml:space="preserve">
+    <value>kwiecień</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>sierpień</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Dzień</value>
   </data>
+  <data name="Day_small" xml:space="preserve">
+    <value>dzień</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>grudzień</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>Data zakończenia</value>
+  </data>
+  <data name="EndDateGreaterThanStartDate" xml:space="preserve">
+    <value>Data końca nie może być mniejsza niż data  początku</value>
   </data>
   <data name="EndsOn" xml:space="preserve">
     <value>Kończy się</value>
   </data>
+  <data name="ErrorAddRecurringTransaction" xml:space="preserve">
+    <value>Wystąpił błąd podczas dodawania transakcji cyklicznej</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>luty</value>
+  </data>
   <data name="Fri" xml:space="preserve">
     <value>Pt</value>
+  </data>
+  <data name="IntervalCorrectValue" xml:space="preserve">
+    <value>Wartośc powinna być większa od 0</value>
+  </data>
+  <data name="Invalid month" xml:space="preserve">
+    <value>błędny miesiąc</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>styczeń</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>lipiec</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>czerwiec</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>marzec</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>maj</value>
   </data>
   <data name="Mon" xml:space="preserve">
     <value>Pon</value>
@@ -141,8 +183,17 @@
   <data name="Month" xml:space="preserve">
     <value>Miesiąc</value>
   </data>
+  <data name="MonthlyFrequencyText" xml:space="preserve">
+    <value>Co miesiąc w </value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>listopad</value>
+  </data>
   <data name="Occurences" xml:space="preserve">
     <value>wystąpieniach</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>październik</value>
   </data>
   <data name="On" xml:space="preserve">
     <value>W dniu</value>
@@ -156,8 +207,14 @@
   <data name="Sat" xml:space="preserve">
     <value>Sob</value>
   </data>
+  <data name="September" xml:space="preserve">
+    <value>wrzesień</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Zatwierdź</value>
+  </data>
+  <data name="SuccessfullyAddRecurringTransaction" xml:space="preserve">
+    <value>Pomyślnie dodano transakcję cykliczną</value>
   </data>
   <data name="Sun" xml:space="preserve">
     <value>Ndz</value>
@@ -176,5 +233,8 @@
   </data>
   <data name="Year" xml:space="preserve">
     <value>Rok</value>
+  </data>
+  <data name="YearlyFrequencyText" xml:space="preserve">
+    <value>Co rok w </value>
   </data>
 </root>

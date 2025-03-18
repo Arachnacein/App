@@ -15,7 +15,7 @@
                 <MudStack AlignItems="AlignItems.Center">
                     <MudRadioGroup @bind-Value="Model.TransactionType" Required="true">
                         <MudRadio Value="TransactionTypeEnum.Expense" Color="Color.Secondary">@Localizer["Expense"]</MudRadio>
-                        <MudRadio Value="TransactionTypeEnum.Income" Color="Color.Tertiary">@Localizer["Income"]</MudRadio>
+                        <MudRadio Value="TransactionTypeEnum.Income" Color="Color.Tertiary" Disabled="true">@Localizer["Income"]</MudRadio>
                     </MudRadioGroup>
                 </MudStack>
             </MudStack>
