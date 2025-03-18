@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace UI.Models.ViewModels
 {
@@ -18,12 +19,16 @@ namespace UI.Models.ViewModels
 
     public class UserDetailsViewModelValidator : AbstractValidator<UserDetailsViewModel>
     {
-        public UserDetailsViewModelValidator()
+        public UserDetailsViewModelValidator(IStringLocalizer<UserDetailsViewModelValidator> localizer)
         {
-            RuleFor(x => x.Username).NotEmpty();
-            RuleFor(x => x.FirstName).NotEmpty();
-            RuleFor(x => x.LastName).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty();       
+            RuleFor(x => x.Username)
+                .NotEmpty().WithMessage(localizer["UsernameEmpty"]);
+            RuleFor(x => x.FirstName)
+                .NotEmpty().WithMessage(localizer["FirstNameEmpty"]);
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithMessage(localizer["LastNameEmpty"]);
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage(localizer["EmailEmpty"]);       
         }
     }
 }
