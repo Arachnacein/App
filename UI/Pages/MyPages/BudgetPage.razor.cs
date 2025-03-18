@@ -37,6 +37,7 @@ namespace UI.Pages.MyPages
                 await LoadMonthIncome();
                 await CalculatePatternValues();
                 IsLoadingTransactions = false;
+                StateHasChanged();
             }
         }
         private async Task LoadTransactions()

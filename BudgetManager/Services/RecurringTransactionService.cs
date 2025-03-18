@@ -174,8 +174,8 @@ namespace BudgetManager.Services
                         var transaction = _recurringTransactionMapper.MapToTransaction(dto);
                         transaction.Date = nextDate;
                         transactionsList.Add(transaction);
-                        occurrences++;
                     }
+                    occurrences++;
                     i = i.AddDays(7 * dto.Interval);
                 }
             }

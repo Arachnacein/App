@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System.Dynamic;
 using System.Net;
 using UI.Models;
 using UI.Models.ViewModels;
@@ -11,6 +10,7 @@ namespace UI.Components.Dialogs
     public partial class CustomOptionsRecurringTransactionDialog
     {
         [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
+        [Parameter] public MudDialogInstance PreviousDialogInstance { get; set; }
         [Parameter] public RecurringTransactionViewModel Model { get; set; }
         [Parameter] public Func<Task> Refresh { get; set; }
         [Inject] private IStringLocalizer<CustomOptionsRecurringTransactionDialog> Localizer { get; set; }
@@ -63,6 +63,7 @@ namespace UI.Components.Dialogs
             {
                 Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
                 MudDialog.Cancel();
+                PreviousDialogInstance.Cancel();
                 if (Refresh != null)
                     await Refresh.Invoke();
             }
@@ -72,6 +73,8 @@ namespace UI.Components.Dialogs
 
         private void GetWeeklyDays()
         {
+            Model.WeeklyDays.Clear();
+
             if (CheckBoxMonday)
                 Model.WeeklyDays.Add(DayOfWeek.Monday);
             if (CheckBoxTuesday)
