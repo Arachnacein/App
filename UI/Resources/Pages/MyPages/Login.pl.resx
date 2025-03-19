@@ -126,6 +126,9 @@
   <data name="LogInSuccess" xml:space="preserve">
     <value>Zalogowano pomyślnie</value>
   </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Logowanie</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Hasło</value>
   </data>

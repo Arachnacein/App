@@ -150,6 +150,9 @@
   <data name="RegisterSuccess" xml:space="preserve">
     <value>Signing up successful</value>
   </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Registration</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign Up</value>
   </data>
