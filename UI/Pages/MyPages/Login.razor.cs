@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,14 +15,17 @@ namespace UI.Pages.MyPages
         [Inject] private IStringLocalizer<Login> Localizer { get; set; }
         [Inject] protected ProtectedLocalStorage localStorage { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
+        private MudTextField<string> usernameTextField;
         private string Username { get; set; }
         private string Password { get; set; }
         string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-        InputType PasswordInput = InputType.Password;
-        bool isShow;
+        private InputType PasswordInput = InputType.Password;
+        private bool isShow = false;
+        private bool isLoading = false;
 
         private async Task LogIn()
         {
+            isLoading = true;
             var requestBody = new FormUrlEncodedContent(new[] //keycloak needs x-www-form-urlencoded format
             {
                 new KeyValuePair<string, string>("username", Username),
@@ -63,28 +67,32 @@ namespace UI.Pages.MyPages
 
                 UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate, createdAt, emailVerified);
 
+                isLoading = false;
                 snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
-                Navigation.NavigateTo("/",false);
+                Navigation.NavigateTo("/", false);
             }
             else
             {
+                isLoading = false;  
                 snackbar.Add(Localizer["LogInError"], Severity.Warning);
             }
         }
         private void ShowPassword()
         {
-            if(isShow)
-            {
-                isShow = false;
-                PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-                PasswordInput = InputType.Password;
-            }
-            else
-            {
-                isShow = true;
-                PasswordInputIcon = Icons.Material.Filled.Visibility;
-                PasswordInput = InputType.Text;
-            }
+            isShow = !isShow;
+            PasswordInputIcon = isShow ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+            PasswordInput = isShow ? InputType.Text : InputType.Password;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if(firstRender)
+                await usernameTextField.FocusAsync();
+        }
+        private async Task HandleEnterDown(KeyboardEventArgs e)
+        {
+                if (e.Key == "Enter")
+                    await LogIn();
         }
     }
 }
