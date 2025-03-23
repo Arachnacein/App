@@ -4,7 +4,6 @@
         <NavLink href="/budget" class="nav-main-menu-item"><MudButton IconSize="Size.Large" Size="Size.Large" Color="Color.Secondary"> @Localizer["Budget"] </MudButton></NavLink>
     </MudStack>
     <MudStack Row="true" Justify="Justify.FlexEnd" Class="mr-5">
-        <MudButton OnClick="CheckToken">CHECK TOKEN</MudButton>@* develop option *@
         <MudMenu Icon="@Icons.Material.Filled.Language" Size="Size.Large" Color="Color.Secondary"
                   AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
             <MudMenuItem OnClick="SetEnglish">
@@ -53,9 +52,9 @@
     </MudStack>
 
 </MudStack>
-@if (UserSessionService.IsUserLoggedIn() &&  _globalInfo.ShowLogoutTimer)
+@* @if (UserSessionService.IsUserLoggedIn() &&  _globalInfo.ShowLogoutTimer)
 {
     <MudText Class="ma-2 pa-2" Align="Align.Center" Typo="Typo.subtitle1"> @Localizer["RemainingTime"]: @remainingTime </MudText>
 }
-
+ *@
 @* Icons from https://www.flaticon.com/packs/international-flags *@

@@ -42,15 +42,6 @@ namespace UI.Shared
             Snackbar.Add(Localizer["LogOutSuccess"], Severity.Success);
             Navigation.NavigateTo("/", false);
         }
-        private async Task CheckToken()
-        {
-            Snackbar.Add(UserSessionService.Token, Severity.Normal);
-            //Snackbar.Add("Username " + UserSessionService.Username, Severity.Normal);
-            //Snackbar.Add("Name " + UserSessionService.Name, Severity.Error);
-            //Snackbar.Add("Surname " + UserSessionService.Surname, Severity.Success);
-            //Snackbar.Add("Email " + UserSessionService.Email, Severity.Info);
-            //Snackbar.Add("Id " + UserSessionService.UserId, Severity.Success);
-        }
         private void UpdateRemainingTime(object state)
         {
             remainingTime = UserSessionService.GetRemainingTime();
