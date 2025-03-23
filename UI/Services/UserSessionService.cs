@@ -52,7 +52,10 @@
             EmailVerified = false;
             IsAdmin = false;
         }
-
+        /// <summary>
+        /// Returns true if user is logged in, false otherwise.
+        /// </summary>
+        /// <returns></returns>
         public bool IsUserLoggedIn() => !string.IsNullOrEmpty(Token);
         public string GetRemainingTime()
         {

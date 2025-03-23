@@ -150,6 +150,9 @@
   <data name="RegisterSuccess" xml:space="preserve">
     <value>Pomyślnie zarejestrowano</value>
   </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Rejestracja</value>
+  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Zarejestruj się</value>
   </data>

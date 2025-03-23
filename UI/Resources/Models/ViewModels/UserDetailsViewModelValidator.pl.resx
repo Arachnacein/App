@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LogIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="EmailEmpty" xml:space="preserve">
+    <value>Email  nie może być pusty</value>
   </data>
-  <data name="LogInError" xml:space="preserve">
-    <value>Something went wrong</value>
+  <data name="FirstNameEmpty" xml:space="preserve">
+    <value>Imię nie może być puste</value>
   </data>
-  <data name="LogInSuccess" xml:space="preserve">
-    <value>Signed in successfully</value>
+  <data name="LastNameEmpty" xml:space="preserve">
+    <value>Nazwisko  nie może być puste</value>
   </data>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>Signing in</value>
-  </data>
-  <data name="password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Sing Up</value>
-  </data>
-  <data name="username" xml:space="preserve">
-    <value>Username or Email</value>
+  <data name="UsernameEmpty" xml:space="preserve">
+    <value>Nazwa nie może być pusta</value>
   </data>
 </root>

@@ -18,17 +18,16 @@
         </MudItem>
     </MudGrid>
     <MudGrid>
-        <MudItem xs="6" class="d-flex align-items-center justify-content-end">
+@*         <MudItem xs="6" class="d-flex align-items-center justify-content-end">
             <MudText>@Localizer["ShowLogoutTimer"]</MudText>
         </MudItem>
         <MudItem xs="6" class="d-flex align-items-center justify-content-start">
             <MudSwitch @bind-Value="_globalClass.ShowLogoutTimer" Color="Color.Primary" Class="ma-4"
-                       T="bool" Label="@Localizer["ToggleTextTimer"]" @onclick="Refresh"/>
-        </MudItem>
+                       T="bool" Label="@Localizer["ToggleTextTimer"]" @onclick="Refresh" Disabled="@(!UserSessionService.IsUserLoggedIn())"/>
+        </MudItem> *@
     </MudGrid>
 </MudPaper>
 
 @code{
-    // private void Refresh() => Navigation.NavigateTo("/options/settings");
-    private void Refresh() => StateHasChanged();
+     private void Refresh() => Navigation.NavigateTo("/options/settings");
 }

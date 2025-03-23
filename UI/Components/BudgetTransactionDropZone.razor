@@ -4,7 +4,7 @@
 <MudDropZone T="TransactionViewModel" Identifier="@Identifier" 
              Class="rounded mud-background-gray pa-3 ma-3 flex-grow-1" 
              AllowReorder="false" Style="width: 25%;height: 500px;">
-        @if(IsLoading)
+        @if(IsLoading && UserSessionService.IsUserLoggedIn())
         {
             <MudStack AlignItems="AlignItems.Center"> 
                 <MudSkeleton Animation="Animation.Pulse" Height="40px" Width="100%"/>
@@ -25,10 +25,10 @@
                 {
                     @Title
                 }
-                <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 90%; height: 20px;">
+            <MudPaper Class="d-flex justify-center" Elevation="0" Style="position: relative; width: 94%; height: 25px; margin-inline:3%;">
                     <MudProgressLinear Value="@ActualValue" Max="@TotalValue"
                                        Rounded="true" Size="Size.Medium" Class="rounded-progress"
-                                       Style="height: 20px;" Color="@TitleColor" />
+                                       Style="height: 100%;width: 100%;" Color="@TitleColor" />
                     <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
                         @ActualValue / @TotalValue
                     </MudText>

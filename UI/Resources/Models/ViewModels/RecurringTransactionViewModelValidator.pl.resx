@@ -117,25 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LogIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="DescriptionMaxLength" xml:space="preserve">
+    <value>Opis powinien być krótszy niż 30 znaków.</value>
   </data>
-  <data name="LogInError" xml:space="preserve">
-    <value>Something went wrong</value>
+  <data name="DescriptionMinLength" xml:space="preserve">
+    <value>Opis powinien być dłuższy niż 3 znaki.</value>
   </data>
-  <data name="LogInSuccess" xml:space="preserve">
-    <value>Signed in successfully</value>
+  <data name="EndDateGreaterThanStartDate" xml:space="preserve">
+    <value>Data zakończenia powinna być większa niż data rozpoczęcia.</value>
   </data>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>Signing in</value>
+  <data name="IntervalCorrectValue" xml:space="preserve">
+    <value>Interwał jest niepoprawny.</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Password</value>
+  <data name="MonthlyDayCorrectValue" xml:space="preserve">
+    <value>Dzień miesiąca ma niepoprawną wartość.</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Sing Up</value>
+  <data name="NameFieldEmpty" xml:space="preserve">
+    <value>Nazwa nie powinna być pusta.</value>
   </data>
-  <data name="username" xml:space="preserve">
-    <value>Username or Email</value>
+  <data name="NameMaxLength" xml:space="preserve">
+    <value>Nazwa powinna być któtsza niż 30 znaków.</value>
+  </data>
+  <data name="NameMinLength" xml:space="preserve">
+    <value>Nazwa powinna być dłuższa niż 3 znaki.</value>
+  </data>
+  <data name="PriceCorrectValue" xml:space="preserve">
+    <value>Kwota jest niepoprawna.</value>
+  </data>
+  <data name="PriceFieldEmpty" xml:space="preserve">
+    <value>Wartośc nie powinna być pusta.</value>
+  </data>
+  <data name="StartDateLessThanEndDate" xml:space="preserve">
+    <value>Data rozpoczęcia powinna być wcześniejsza niż data zakończenia.</value>
+  </data>
+  <data name="YearlyDayCorrectValue" xml:space="preserve">
+    <value>Dzień ma niepoprawną wartość.</value>
+  </data>
+  <data name="YearlyMonthCorrectValue" xml:space="preserve">
+    <value>Miesiąc ma niepoprawną wartość.</value>
   </data>
 </root>
