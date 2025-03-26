@@ -3,7 +3,7 @@
 
 <MudDropZone T="TransactionViewModel" Identifier="@Identifier" 
              Class="rounded mud-background-gray pa-3 ma-3 flex-grow-1" 
-             AllowReorder="false" Style="width: 25%;height: 500px;">
+             AllowReorder="false" Style="width: 25%;height: 500px; overflow-y: auto;">
         @if(IsLoading && UserSessionService.IsUserLoggedIn())
         {
             <MudStack AlignItems="AlignItems.Center"> 
