@@ -13,7 +13,7 @@
                     </MudButton>
                 </MudStack>
                 <MudStack>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddRecurringTransaction" Class="ml-auto mr-5">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddRecurringTransaction" Class="ml-auto">
                         @Localizer["AddRecurringTransaction"]
                     </MudButton>
                 </MudStack>
@@ -85,15 +85,21 @@
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
                         <MudPaper Elevation="25" Class="pa-2 my-2"
-                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px solid lightgreen;" : 
-                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px solid white;" : null)"
+                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px groove lightgreen;" : 
+                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px dotted white;" : null)"
                                   @onclick="() => EditDeleteTransaction(context)">
-                            <MudGrid>
-                                <MudItem xs="8" Class="text-align-center">
+                            <MudGrid Class="flex-nowrap">
+                                <MudItem xs="8" md="6" Class="text-align-center">
                                     <MudText Typo="Typo.body1">@context.Name</MudText>
                                 </MudItem>
-                                <MudItem xs="2" Class="text-align-right">
+                                <MudItem xs="4" md="3" Class="text-align-center">
                                     <MudText Typo="Typo.body1">@context.Price</MudText>
+                                </MudItem>       
+                                <MudItem xs="0" md="3" Class="text-align-center hide-on-small date-column">
+                                    <MudText Typo="Typo.body1">
+                                        <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="vertical-align: middle; margin-right: 4px;" />
+                                        @context.Date.FormatDM()
+                                    </MudText>
                                 </MudItem>
                             </MudGrid>
                         </MudPaper>

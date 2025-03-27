@@ -7,7 +7,7 @@
     <UserSecretsId>fe457981-0ba6-492e-aab8-7aa6cdc594eb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
