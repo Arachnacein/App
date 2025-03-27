@@ -66,3 +66,23 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/*my styles*/
+
+/*BudgetPage*/
+.date-column {
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@media (max-width: 1300px) {
+    .date-column {
+        opacity: 0;
+        width: 0;
+        padding: 0;
+        margin: 0;
+        flex-shrink: 1;
+        pointer-events: none;
+    }
+}

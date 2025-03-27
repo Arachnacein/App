@@ -118,9 +118,13 @@ namespace UI.Pages.MyPages
                 return;
             
             //parses string into enum
-            dropItem.Item.Category = (TransactionCategoryEnum)Enum.
+            var droppedItem = (TransactionCategoryEnum)Enum.
                 Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
 
+            if (dropItem.Item.Category == droppedItem)
+                return;
+
+            dropItem.Item.Category = droppedItem;
             await httpClient
                 .PutAsJsonAsync<UpdateTransactionCategoryViewModel>
                 ("/api/transaction/UpdateCategory", 
