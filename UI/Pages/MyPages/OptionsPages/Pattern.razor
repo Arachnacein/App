@@ -13,14 +13,14 @@
 }
 else
 {
-    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;">
         <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
         <MudDivider />
 
         <MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-4" Centered="true">
             <MudTabPanel Text="@Localizer["OverwiewHeader"]" >
                 <MudTable T="MonthPatternViewModel" Items="@patterns" FixedHeader="true" 
-                          FixedFooter="true" Dense="true" Striped="true" style="height:63vh;">
+                          FixedFooter="true" Dense="true" Striped="true">
                     <HeaderContent>
                         <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>
                         <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>

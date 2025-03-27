@@ -12,7 +12,7 @@
 }
 else
 {
-    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;">
         <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
         <MudDivider />
 
@@ -26,7 +26,7 @@ else
                               Variant="Variant.Outlined" style="width:250px;" />
             </MudStack>
         </MudStack>
-        <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true" style="height:63vh;" >
+        <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true">
             <HeaderContent>
                 <MudTh> @Localizer["Name"] </MudTh>
                 <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>

@@ -12,10 +12,10 @@
 }
 else
 {
-    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;height:85vh;">
+    <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;">
         <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
         <MudDivider />
-        <MudTable T="RecurringTransactionViewModel" Items="@recurringTransactions" Dense="true" Striped="true" style="height:63vh;">
+        <MudTable T="RecurringTransactionViewModel" Items="@recurringTransactions" Dense="true" Striped="true">
             <HeaderContent>
                 <MudTh> @Localizer["Name"] </MudTh>
                 <MudTh> @Localizer["Description"] </MudTh>
