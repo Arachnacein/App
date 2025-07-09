@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-date-selector',
@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './date-selector.component.css'
 })
 export class DateSelectorComponent {
+  @Input() month: string = '';
+  @Output() monthChange = new EventEmitter<'prev' | 'next'>();
 
+  prevMonth() {
+    this.monthChange.emit('prev');
+  }
+
+  nextMonth() {
+    this.monthChange.emit('next');
+  }
 }
