@@ -3,14 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
+import { DateSelectorComponent } from './components/date-selector/date-selector.component';
+import { CategoryBoardComponent } from './components/category-board/category-board.component';
 
 @NgModule({
   declarations: [
-    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AppComponent,
+    NavbarComponent,
+    TabsComponent,
+    ActionButtonsComponent,
+    DateSelectorComponent,
+    CategoryBoardComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
