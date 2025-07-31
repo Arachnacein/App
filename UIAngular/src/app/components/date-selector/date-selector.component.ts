@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { getMonthName } from '../../utils/dates-extensions';
 
 @Component({
   selector: 'app-date-selector',
@@ -7,14 +8,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './date-selector.component.css'
 })
 export class DateSelectorComponent {
-  @Input() month: string = '';
+  @Input() currentDate: Date = new Date();
   @Output() monthChange = new EventEmitter<'prev' | 'next'>();
 
+  ngOnInit(): void {
+    if (!this.currentDate)
+      this.currentDate = new Date();
+  }
+  get monthLabel(): string {
+    return getMonthName(this.currentDate);
+  }
   prevMonth() {
-    this.monthChange.emit('prev');
+    this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() - 1));
   }
 
   nextMonth() {
-    this.monthChange.emit('next');
+    this.currentDate = new Date(this.currentDate.setMonth(this.currentDate.getMonth() + 1));
   }
 }

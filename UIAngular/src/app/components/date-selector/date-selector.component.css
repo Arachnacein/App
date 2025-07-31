@@ -7,6 +7,12 @@
   color: #ccc;
 }
 
+  .date-selector span {
+    display: inline-block;
+    width: 180px; /* stała szerokość */
+    text-align: center;
+  }
+
   .date-selector button {
     background: #1e1e2f;
     border: none;
