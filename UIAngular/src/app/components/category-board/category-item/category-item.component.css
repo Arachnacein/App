@@ -1,0 +1,51 @@
+.category-item {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  border: dashed 1px #ccc;
+}
+
+
+  .category-item h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: green;
+  }
+
+.progress-bar {
+  position: relative;
+  background: #222;
+  width: 100%;
+  height: 22px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #6a00ff, #9b4dff);
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 2;
+  pointer-events: none;
+}

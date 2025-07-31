@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: white;
+  background: transparent;
+  font: 100 1rem Arial, sans-serif;
+}
+
+  .navbar a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: white;
+  }
+
+  .navbar button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }

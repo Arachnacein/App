@@ -1,0 +1,32 @@
+.date-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+  .date-selector span {
+    display: inline-block;
+    width: 180px; /* stała szerokość */
+    text-align: center;
+  }
+
+  .date-selector button {
+    background: #1e1e2f;
+    border: none;
+    color: #ccc;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+    .date-selector button:hover {
+      background: #6200ea;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+    }
