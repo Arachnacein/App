@@ -15,6 +15,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("AllowClients", policy =>
+    {
+        policy.WithOrigins("http://localhost:8012", "http://localhost:8011")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });    
+});
+
 var app = builder.Build();
 
 //automiatic migrations
@@ -32,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandling>();
+
+app.UseCors("AllowClients");
 
 app.UseHttpsRedirection();
 

@@ -8,6 +8,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import { CategoryBoardComponent } from './components/category-board/category-board.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { CategoryBoardComponent } from './components/category-board/category-boa
     TabsComponent,
     ActionButtonsComponent,
     DateSelectorComponent,
-    CategoryBoardComponent
+    CategoryBoardComponent,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

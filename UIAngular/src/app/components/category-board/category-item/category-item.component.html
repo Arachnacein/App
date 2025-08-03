@@ -1,13 +1,13 @@
-<div class="category-item">
-  <h3>{{ category.name }}</h3>
+<div class="category-item" [style.background-color]="color">
+  <h3>{{ category }}</h3>
   <div class="progress-bar">
     <div class="fill" [style.width.%]="progress"></div>
-    <span class="progress-text">{{ category.current }} / {{ category.total }}</span>
+    <span class="progress-text">{{ currentValue }} / {{ totalValue }}</span>
   </div>
 
   <ul class="tasks">
-    @for (task of tasks; track task) {
-    <li>{{ task }}</li>
+    @for (transaction of transactions; track transaction) {
+    <li>{{ transaction.name }}</li>
     }
   </ul>
 </div>
