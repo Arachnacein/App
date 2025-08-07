@@ -1,10 +1,8 @@
 .category-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  box-sizing: border-box;
   gap: 3rem;
+  padding: 2rem;
+  max-width: 1250px; 
+  margin: 0 auto;
 }

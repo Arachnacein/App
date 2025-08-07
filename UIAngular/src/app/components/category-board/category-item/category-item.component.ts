@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Transaction } from '../../../models';
-import { CategoryEnum } from '../../../enums';
+import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-category-item',
   standalone: true,
+  imports: [CommonModule, MatTooltipModule],
   templateUrl: './category-item.component.html',
   styleUrl: './category-item.component.css'
 })
