@@ -1,13 +1,21 @@
-<div class="category-item">
-  <h3>{{ category.name }}</h3>
-  <div class="progress-bar">
-    <div class="fill" [style.width.%]="progress"></div>
-    <span class="progress-text">{{ category.current }} / {{ category.total }}</span>
+<div class="category-card">
+  <h3>{{ category }} [{{ (currentValue / totalValue * 100) | number:'1.2-2' }}%]</h3>
+
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="fill" [style.width.%]="(currentValue / totalValue) * 100"></div>
+    </div>
+    <span class="progress-text">{{ currentValue }} / {{ totalValue }}</span>
   </div>
 
-  <ul class="tasks">
-    @for (task of tasks; track task) {
-    <li>{{ task }}</li>
+  <ul class="transaction-list">
+    @for (transaction of transactions; track transaction) {
+    <li class="transaction-item"
+        [matTooltip]="transaction.description || 'Brak opisu'">
+      <span class="transaction-name">{{ transaction.name }}</span>
+      <span class="transaction-price">{{ transaction.price }}</span>
+      <span class="transaction-price">{{ transaction.date | date:'dd MMMM yyyy' }}</span>
+    </li>
     }
   </ul>
 </div>

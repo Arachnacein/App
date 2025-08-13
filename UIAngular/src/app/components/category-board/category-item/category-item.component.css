@@ -1,51 +1,72 @@
-.category-item {
-  width: 100%;
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.3);
+.category-card {
+  background-color: #1f1f2e;
   padding: 1rem;
   border-radius: 8px;
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  border: dashed 1px #ccc;
+  width: 100%;
 }
 
+h3 {
+  text-align: center;
+}
 
-  .category-item h3 {
-    margin-bottom: 0.5rem;
-    text-align: center;
-    color: green;
-  }
+.progress-container {
+  margin-bottom: 1rem;
+}
 
 .progress-bar {
-  position: relative;
-  background: #222;
-  width: 100%;
-  height: 22px;
+  background-color: #333;
+  height: 10px;
   border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  position: relative;
 }
 
 .fill {
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
-  background: linear-gradient(90deg, #6a00ff, #9b4dff);
-  transition: width 0.3s ease;
-  z-index: 1;
+  background-color: #00cc99;
 }
 
 .progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  z-index: 2;
-  pointer-events: none;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: block;
+  color: #ccc;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-item {
+  background-color: #2e2e40;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+  .transaction-item:last-child {
+    margin-bottom: 0;
+  }
+
+.transaction-name {
+  color: #ddd;
+}
+
+.transaction-price {
+  color: #aaa;
+}
+
+.mat-tooltip {
+  background-color: darkred;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 8px 12px;
 }

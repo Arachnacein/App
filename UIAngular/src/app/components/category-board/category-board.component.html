@@ -1,6 +1,22 @@
 <div class="category-board">
-  @for(category of categories; track category)
-  {
-    <app-category-item [category]="category"/>
-  }
+
+  <div class="date-selector">
+    <button (click)="prevMonth()">&laquo;</button>
+    <span>{{ monthLabel }}</span>
+    <button (click)="nextMonth()">&raquo;</button>
+  </div>
+  <div class="category-container">
+    <app-category-item [category]="'Saves'"
+                       [color]="'#1f5717'"
+                       [transactions]="savesTransactions"/>
+
+    <app-category-item [category]="'Fees'"
+                       [color]="'#66121f'"
+                       [transactions]="feesTransactions"/>
+
+    <app-category-item [category]="'Entertainment'"
+                       [color]="'#172757'"
+                       [transactions]="entertainmentTransactions"/>
+  </div>
+
 </div>
