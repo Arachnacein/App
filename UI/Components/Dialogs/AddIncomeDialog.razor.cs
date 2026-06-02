@@ -59,7 +59,22 @@ namespace UI.Components.Dialogs
                 parameters[nameof(DialogModel)] = DialogModel;
                 parameters["Refresh"] = new Func<Task>(Refresh);
 
-                await dialogService.ShowAsync<PatternDialog>(Localizer["ChoosePattern", DialogModel.Date.Value.Month, DialogModel.Date.Value.Year], parameters, options);
+                var dialogRef = await dialogService.ShowAsync<PatternDialog>(Localizer["ChoosePattern", DialogModel.Date.Value.Month, DialogModel.Date.Value.Year], parameters, options);
+                var result = await dialogRef.Result;
+                if (result is { Canceled: false })
+                {
+                    DialogModel.UserId = UserSessionService.UserId;
+                    var request = await httpClient.PostAsJsonAsync<IncomeViewModel>("/api/income", DialogModel);
+                    if (request.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
+                        MudDialog.Cancel();
+                        if (Refresh != null)
+                            await Refresh.Invoke();
+                    }
+                    else
+                        snackbar.Add(Localizer["FailAddSnacbar"], Severity.Error);
+                }
             }
         }
         private async Task Cancel() => MudDialog.Cancel();

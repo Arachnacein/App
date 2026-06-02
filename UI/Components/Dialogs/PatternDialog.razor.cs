@@ -48,7 +48,10 @@ namespace UI.Components.Dialogs
                 PatternId = model.Id
             };
             if (model.Id == null)
+            {
                 snackbar.Add(Localizer["PleaseChoosePattern"], Severity.Warning);
+                return;
+            }
 
             var addPatternRequest = await httpClient.PostAsJsonAsync("/api/monthpattern",requestBody);
             if (addPatternRequest.StatusCode != System.Net.HttpStatusCode.Created)
@@ -56,7 +59,7 @@ namespace UI.Components.Dialogs
             else
             {
                 snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
-                MudDialogInstance.Cancel();
+                MudDialogInstance.Close();
             }
         }
     }
