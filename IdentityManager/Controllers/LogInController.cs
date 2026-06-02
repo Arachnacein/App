@@ -1,32 +1,40 @@
-﻿using IdentityManager.Models;
+using IdentityManager.Models;
 using IdentityManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityManager.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class LogInController : ControllerBase
+    [Route("api/login")]
+    public class AuthController : ControllerBase
     {
-        private readonly ILoginservice _loginservice;
+        private readonly IAuthService _authService;
 
-        public LogInController(ILoginservice loginservice)
+        public AuthController(IAuthService authService)
         {
-            _loginservice = loginservice;
+            _authService = authService;
         }
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<IActionResult> LogIn([FromForm] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromForm] LoginModel model, CancellationToken ct)
         {
-            var token = await _loginservice.LoginAsync(loginModel.Username, loginModel.Password);
+            var (accessToken, refreshToken) = await _authService.LoginAsync(model.Username, model.Password, ct);
+            return Ok(new { access_token = accessToken, refresh_token = refreshToken });
+        }
 
-            if (token != null)
-            {
-                return Ok(new { access_token = token });
-            }
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenModel model, CancellationToken ct)
+        {
+            var (accessToken, refreshToken) = await _authService.RefreshTokenAsync(model.Token, ct);
+            return Ok(new { access_token = accessToken, refresh_token = refreshToken });
+        }
 
-            return BadRequest("Logowanie nie powiodło się.");
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenModel model, CancellationToken ct)
+        {
+            await _authService.LogoutAsync(model.Token, ct);
+            return NoContent();
         }
     }
 }

@@ -1,176 +1,138 @@
-﻿
 using FluentAssertions;
+using IdentityManager.Exceptions;
 using IdentityManager.Models;
+using IdentityManager.Models.Enums;
 using IdentityManager.Services;
+using Microsoft.AspNetCore.Identity;
 using Moq;
-using Moq.Protected;
-using System.Net;
-using System.Text.Json;
 
 namespace ServicesTests.cs
 {
     public class UserServiceTests
     {
-        private readonly Mock<HttpMessageHandler> _httpMessageHandlerMock;
-        private readonly Mock<ITokenService> _tokenServiceMock;
-        private readonly HttpClient _httpClient;
+        private readonly Mock<UserManager<ApplicationUser>> _userManagerMock;
+        private readonly Mock<RoleManager<IdentityRole>> _roleManagerMock;
         private readonly UserService _userService;
 
         public UserServiceTests()
         {
-            _httpMessageHandlerMock = new Mock<HttpMessageHandler>();
-            _httpClient = new HttpClient(_httpMessageHandlerMock.Object);
-            _tokenServiceMock = new Mock<ITokenService>();
-            _userService = new UserService(_httpClient, _tokenServiceMock.Object);
+            var userStore = new Mock<IUserStore<ApplicationUser>>();
+            _userManagerMock = new Mock<UserManager<ApplicationUser>>(
+                userStore.Object, null, null, null, null, null, null, null, null);
+
+            var roleStore = new Mock<IRoleStore<IdentityRole>>();
+            _roleManagerMock = new Mock<RoleManager<IdentityRole>>(
+                roleStore.Object, null, null, null, null);
+
+            _userService = new UserService(_userManagerMock.Object, _roleManagerMock.Object);
         }
 
         [Fact]
-        public async Task UpdateUserPropertiesAsync_ShouldReturnTrue_WhenResponseIsSuccessful()
-        {
-            // Arrange
-            var userModel = new UserModel
-            {
-                UserId = Guid.NewGuid(),
-                Username = "testuser",
-                Email = "testuser@example.com",
-                FirstName = "Test",
-                LastName = "User"
-            };
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("valid_token");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK
-                });
-
-            // Act
-            var result = await _userService.UpdateUserPropertiesAsync(userModel);
-
-            // Assert
-            result.Should().BeTrue();
-        }
-
-        [Fact]
-        public async Task GetUserDataAsync_ShouldReturnUserModel_WhenResponseIsSuccessful()
+        public async Task GetUserDataAsync_ShouldReturnUserModel_WhenUserExists()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var userModel = new UserModel
+            var user = new ApplicationUser
             {
-                UserId = userId,
-                Username = "testuser",
-                Email = "testuser@example.com",
-                FirstName = "Test",
-                LastName = "User"
+                Id = userId.ToString(),
+                UserName = "testuser",
+                Email = "test@example.com",
+                FirstName = "Jan",
+                LastName = "Kowalski",
+                IsActive = true,
+                EmailConfirmed = true,
+                CreatedAt = DateTime.UtcNow
             };
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("valid_token");
-            var jsonResponse = JsonSerializer.Serialize(new
-            {
-                id = userModel.UserId,
-                username = userModel.Username,
-                email = userModel.Email,
-                firstName = userModel.FirstName,
-                lastName = userModel.LastName
-            });
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(jsonResponse)
-                });
+            _userManagerMock.Setup(x => x.FindByIdAsync(userId.ToString())).ReturnsAsync(user);
+            _userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "user" });
 
             // Act
             var result = await _userService.GetUserDataAsync(userId);
 
             // Assert
-            result.Should().BeEquivalentTo(userModel, options => options.Excluding(x => x.UserId));
+            result.Should().NotBeNull();
+            result.Username.Should().Be("testuser");
+            result.Email.Should().Be("test@example.com");
+            result.FirstName.Should().Be("Jan");
+            result.LastName.Should().Be("Kowalski");
+            result.Enabled.Should().BeTrue();
+            result.EmailVerified.Should().BeTrue();
+            result.Roles.Should().Contain("user");
         }
 
         [Fact]
-        public async Task GetUserDataAsync_ShouldThrowException_WhenUserIsNull()
+        public async Task GetUserDataAsync_ShouldThrowCustomException_WhenUserNotFound()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("valid_token");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("null")
-                });
+            _userManagerMock.Setup(x => x.FindByIdAsync(userId.ToString())).ReturnsAsync((ApplicationUser?)null);
 
             // Act
             Func<Task> act = async () => await _userService.GetUserDataAsync(userId);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage($"User not found. ID: {userId}");
+            await act.Should().ThrowAsync<CustomException>()
+                .Where(e => e.ErrorCode == (int)ErrorCodesEnum.UserNotFound);
         }
 
         [Fact]
-        public async Task GetUserDataAsync_ShouldThrowException_WhenAdminTokenIsNullOrEmpty()
+        public async Task UpdateUserPropertiesAsync_ShouldSucceed_WhenUserExists()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync(string.Empty);
+            var user = new ApplicationUser { Id = userId.ToString(), UserName = "old", Email = "old@example.com" };
+            _userManagerMock.Setup(x => x.FindByIdAsync(userId.ToString())).ReturnsAsync(user);
+            _userManagerMock.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+
+            var model = new UserModel
+            {
+                UserId = userId,
+                Username = "newuser",
+                Email = "new@example.com",
+                FirstName = "Nowe",
+                LastName = "Nazwisko"
+            };
 
             // Act
-            Func<Task> act = async () => await _userService.GetUserDataAsync(userId);
+            Func<Task> act = async () => await _userService.UpdateUserPropertiesAsync(model);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Failed to retrieve admin token.");
+            await act.Should().NotThrowAsync();
         }
 
         [Fact]
-        public async Task SendVerificationEmailAsync_ShouldThrowException_WhenResponseIsUnsuccessful()
+        public async Task UpdateUserPropertiesAsync_ShouldThrowCustomException_WhenUserNotFound()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("valid_token");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.BadRequest
-                });
+            _userManagerMock.Setup(x => x.FindByIdAsync(userId.ToString())).ReturnsAsync((ApplicationUser?)null);
+
+            var model = new UserModel { UserId = userId };
 
             // Act
-            Func<Task> act = async () => await _userService.SendVerificationEmailAsync(userId);
+            Func<Task> act = async () => await _userService.UpdateUserPropertiesAsync(model);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Error while sending email verification request to keycloak.");
+            await act.Should().ThrowAsync<CustomException>()
+                .Where(e => e.ErrorCode == (int)ErrorCodesEnum.UserNotFound);
         }
 
         [Fact]
-        public async Task SendVerificationEmailAsync_ShouldThrowException_WhenAdminTokenIsNullOrEmpty()
+        public async Task EnableDisableUserAsync_ShouldUpdateIsActive_WhenUserExists()
         {
             // Arrange
             var userId = Guid.NewGuid();
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync(string.Empty);
+            var user = new ApplicationUser { Id = userId.ToString(), IsActive = true };
+            _userManagerMock.Setup(x => x.FindByIdAsync(userId.ToString())).ReturnsAsync(user);
+            _userManagerMock.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+
+            var model = new UserModel { UserId = userId, Enabled = false };
 
             // Act
-            Func<Task> act = async () => await _userService.SendVerificationEmailAsync(userId);
+            await _userService.EnableDisableUserAsync(model);
 
             // Assert
-            await act.Should().ThrowAsync<Exception>().WithMessage("Failed to retrieve admin token.");
+            user.IsActive.Should().BeFalse();
         }
     }
 }

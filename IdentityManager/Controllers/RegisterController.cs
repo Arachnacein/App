@@ -1,24 +1,25 @@
-﻿using IdentityManager.Models;
+using IdentityManager.Models;
 using IdentityManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityManager.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class RegisterController : ControllerBase
+    [Route("api/register")]
+    public class AccountController : ControllerBase
     {
-        private readonly IRegisterService _registerService;
-        public RegisterController(IRegisterService registerService)
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
         {
-            _registerService = registerService;
+            _accountService = accountService;
         }
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<IActionResult> Register([FromForm] RegistrationModel model)
+        public async Task<IActionResult> Register([FromForm] RegistrationModel model, CancellationToken ct)
         {
-            var result = await _registerService.RegisterAsync(model);
+            await _accountService.RegisterAsync(model, ct);
             return Ok();
         }
     }

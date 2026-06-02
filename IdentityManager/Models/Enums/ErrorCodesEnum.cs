@@ -1,4 +1,4 @@
-﻿namespace IdentityManager.Models.Enums
+namespace IdentityManager.Models.Enums
 {
     public enum ErrorCodesEnum
     {
@@ -8,7 +8,10 @@
         UserNotFound = 1000,
         UsernameAlreadyExists = 1001,
         EmailAlreadyExists = 1002,
+        InvalidCredentials = 1003,
+        UserNotActive = 1004,
+        RegistrationFailed = 1005,
 
-        AdminTokenFetchFailed = 2000
+        InvalidRefreshToken = 2001,
     }
 }

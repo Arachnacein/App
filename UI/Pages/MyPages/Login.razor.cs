@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
@@ -26,7 +26,7 @@ namespace UI.Pages.MyPages
         private async Task LogIn()
         {
             isLoading = true;
-            var requestBody = new FormUrlEncodedContent(new[] //keycloak needs x-www-form-urlencoded format
+            var requestBody = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("username", Username),
                 new KeyValuePair<string, string>("password", Password)
@@ -47,7 +47,7 @@ namespace UI.Pages.MyPages
 
                 var roles = jwtToken.GetUserRolesFromToken();
                 var name = jwtToken.Claims.FirstOrDefault(x => x.Type == "given_name")?.Value;
-                var surname = jwtToken.Claims.FirstOrDefault(x => x.Type == "surname")?.Value;
+                var surname = jwtToken.Claims.FirstOrDefault(x => x.Type == "family_name")?.Value;
                 var username = jwtToken.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
                 var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
                 var userId = Guid.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "userId")?.Value);
@@ -73,7 +73,7 @@ namespace UI.Pages.MyPages
             }
             else
             {
-                isLoading = false;  
+                isLoading = false;
                 snackbar.Add(Localizer["LogInError"], Severity.Warning);
             }
         }
@@ -86,13 +86,13 @@ namespace UI.Pages.MyPages
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if(firstRender)
+            if (firstRender)
                 await usernameTextField.FocusAsync();
         }
         private async Task HandleEnterDown(KeyboardEventArgs e)
         {
-                if (e.Key == "Enter")
-                    await LogIn();
+            if (e.Key == "Enter")
+                await LogIn();
         }
     }
 }
