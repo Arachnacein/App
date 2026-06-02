@@ -1,176 +1,103 @@
-﻿using IdentityManager.Exceptions;
+using FluentAssertions;
+using IdentityManager.Exceptions;
 using IdentityManager.Models;
+using IdentityManager.Models.Enums;
 using IdentityManager.Services;
+using Microsoft.AspNetCore.Identity;
 using Moq;
-using Moq.Protected;
-using System.Net;
-using System.Text;
-using System.Text.Json;
 
 namespace ServicesTests.cs
 {
-    public class RegisterServiceTests
+    public class AccountServiceTests
     {
-        private readonly Mock<HttpMessageHandler> _httpMessageHandlerMock;
-        private readonly Mock<ITokenService> _tokenServiceMock;
-        private readonly RegisterService _registerService;
-        private readonly HttpClient _httpClient;
+        private readonly Mock<UserManager<ApplicationUser>> _userManagerMock;
+        private readonly AccountService _accountService;
 
-        public RegisterServiceTests()
+        public AccountServiceTests()
         {
-            _httpMessageHandlerMock = new Mock<HttpMessageHandler>();
-            _tokenServiceMock = new Mock<ITokenService>();
-            _httpClient = new HttpClient(_httpMessageHandlerMock.Object);
-            _registerService = new RegisterService(_httpClient, _tokenServiceMock.Object);
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            _userManagerMock = new Mock<UserManager<ApplicationUser>>(
+                store.Object, null, null, null, null, null, null, null, null);
+            _accountService = new AccountService(_userManagerMock.Object);
         }
 
         [Fact]
-        public async Task RegisterAsync_ShouldReturnFalse_WhenAdminTokenIsEmpty()
+        public async Task RegisterAsync_ShouldThrowCustomException_WhenUsernameAlreadyExists()
         {
             // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync(string.Empty);
-            var model = new RegistrationModel();
+            var existingUser = new ApplicationUser { UserName = "existingUser" };
+            _userManagerMock.Setup(x => x.FindByNameAsync("existingUser")).ReturnsAsync(existingUser);
+
+            var model = new RegistrationModel { Username = "existingUser", Email = "new@example.com", Password = "Pass@word1" };
 
             // Act
-            var result = await _registerService.RegisterAsync(model);
+            Func<Task> act = async () => await _accountService.RegisterAsync(model);
 
             // Assert
-            Assert.False(result);
+            await act.Should().ThrowAsync<CustomException>()
+                .Where(e => e.ErrorCode == (int)ErrorCodesEnum.UsernameAlreadyExists);
         }
 
         [Fact]
-        public async Task RegisterAsync_ShouldThrowException_WhenUsernameExists()
+        public async Task RegisterAsync_ShouldThrowCustomException_WhenEmailAlreadyExists()
         {
             // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("adminToken");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(new List<object> { new { } }), Encoding.UTF8, "application/json")
-                });
-            var model = new RegistrationModel { Username = "existingUser" };
+            var existingUser = new ApplicationUser { Email = "existing@example.com" };
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync((ApplicationUser?)null);
+            _userManagerMock.Setup(x => x.FindByEmailAsync("existing@example.com")).ReturnsAsync(existingUser);
 
-            // Act & Assert
-            await Assert.ThrowsAsync<CustomException>(() => _registerService.RegisterAsync(model));
-        }
-
-        [Fact]
-        public async Task RegisterAsync_ShouldThrowException_WhenEmailExists()
-        {
-            // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("adminToken");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(new List<object> { new { } }), Encoding.UTF8, "application/json")
-                });
-            var model = new RegistrationModel { Email = "existingEmail@example.com" };
-
-            // Act & Assert
-            await Assert.ThrowsAsync<CustomException>(() => _registerService.RegisterAsync(model));
-        }
-
-        [Fact]
-        public async Task RegisterAsync_ShouldReturnTrue_WhenRegistrationIsSuccessful()
-        {
-            // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("adminToken");
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.Created)
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(new List<object>()), Encoding.UTF8, "application/json")
-                });
-            var model = new RegistrationModel { Username = "newUser", Email = "newEmail@example.com", Password = "password" };
+            var model = new RegistrationModel { Username = "newuser", Email = "existing@example.com", Password = "Pass@word1" };
 
             // Act
-            var result = await _registerService.RegisterAsync(model);
+            Func<Task> act = async () => await _accountService.RegisterAsync(model);
 
             // Assert
-            Assert.True(result);
+            await act.Should().ThrowAsync<CustomException>()
+                .Where(e => e.ErrorCode == (int)ErrorCodesEnum.EmailAlreadyExists);
         }
 
         [Fact]
-        public async Task UsernameExistsAsync_ShouldReturnFalse_WhenAdminTokenIsEmpty()
+        public async Task RegisterAsync_ShouldSucceed_WhenUserIsNew()
         {
             // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync(string.Empty);
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync((ApplicationUser?)null);
+            _userManagerMock.Setup(x => x.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync((ApplicationUser?)null);
+            _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Success);
 
-            // Act
-            var result = await _registerService.UsernameExistsAsync("username");
-
-            // Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public async Task UsernameExistsAsync_ShouldReturnTrue_WhenUsernameExists()
-        {
-            // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("adminToken");
-            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+            var model = new RegistrationModel
             {
-                Content = new StringContent(JsonSerializer.Serialize(new List<object> { new { } }), Encoding.UTF8, "application/json")
+                Username = "newuser",
+                Email = "new@example.com",
+                Password = "Pass@word1",
+                FirstName = "Jan",
+                LastName = "Kowalski"
             };
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
 
             // Act
-            var result = await _registerService.UsernameExistsAsync("existingUser");
+            Func<Task> act = async () => await _accountService.RegisterAsync(model);
 
             // Assert
-            Assert.True(result);
+            await act.Should().NotThrowAsync();
         }
 
         [Fact]
-        public async Task EmailExistsAsync_ShouldReturnFalse_WhenAdminTokenIsEmpty()
+        public async Task RegisterAsync_ShouldThrowCustomException_WhenIdentityCreateFails()
         {
             // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync(string.Empty);
+            _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>())).ReturnsAsync((ApplicationUser?)null);
+            _userManagerMock.Setup(x => x.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync((ApplicationUser?)null);
+            _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Failed(new IdentityError { Description = "Password too weak." }));
+
+            var model = new RegistrationModel { Username = "user", Email = "user@example.com", Password = "weak" };
 
             // Act
-            var result = await _registerService.EmailExistsAsync("email@example.com");
+            Func<Task> act = async () => await _accountService.RegisterAsync(model);
 
             // Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public async Task EmailExistsAsync_ShouldReturnTrue_WhenEmailExists()
-        {
-            // Arrange
-            _tokenServiceMock.Setup(x => x.GetAdminTokenAsync()).ReturnsAsync("adminToken");
-            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(JsonSerializer.Serialize(new List<object> { new { } }), Encoding.UTF8, "application/json")
-            };
-            _httpMessageHandlerMock.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            // Act
-            var result = await _registerService.EmailExistsAsync("existingEmail@example.com");
-
-            // Assert
-            Assert.True(result);
+            await act.Should().ThrowAsync<CustomException>()
+                .Where(e => e.ErrorCode == (int)ErrorCodesEnum.RegistrationFailed);
         }
     }
 }

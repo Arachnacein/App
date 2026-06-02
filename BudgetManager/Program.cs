@@ -2,6 +2,7 @@ using BudgetManager.Data;
 using BudgetManager.Installers;
 using BudgetManager.Utils;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<BudgetDbContext>();
-    //db.Database.Migrate();
+    db.Database.Migrate();
 }
 
 // Configure the HTTP request pipeline.

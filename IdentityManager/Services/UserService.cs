@@ -1,142 +1,138 @@
-﻿using IdentityManager.Models;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
+using IdentityManager.Exceptions;
+using IdentityManager.Models;
+using IdentityManager.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityManager.Services
 {
     public class UserService : IUserService
     {
-        private readonly HttpClient _httpClient;
-        private readonly ITokenService _tokenService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(HttpClient httpClient, ITokenService tokenService)
+        public UserService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _httpClient = httpClient;
-            _tokenService = tokenService;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public async Task<bool> UpdateUserPropertiesAsync(UserModel model)
+        public async Task<UserModel> GetUserDataAsync(Guid userId, CancellationToken ct = default)
         {
-            //check token
-            var adminToken = await _tokenService.GetAdminTokenAsync();
-            var payload = new
-            {
-                username = model.Username,
-                email = model.Email,
-                firstName = model.FirstName,
-                lastName = model.LastName,
-                enabled = model.Enabled
-            };
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-            var serializedContent = new StringContent(JsonSerializer.Serialize(payload, options), Encoding.UTF8, "application/json");
-
-            var request = new HttpRequestMessage(HttpMethod.Put, $"http://keycloak:8080/admin/realms/AppRealm/users/{model.UserId}")
-            {
-                Content = serializedContent
-            };
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-
-            var response = await _httpClient.SendAsync(request);
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<UserModel> GetUserDataAsync(Guid userId)
-        {
-            var adminToken = await _tokenService.GetAdminTokenAsync();
-            if (string.IsNullOrEmpty(adminToken))
-                throw new Exception("Failed to retrieve admin token.");
-
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://keycloak:8080/admin/realms/AppRealm/users/{userId}");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-
-            var responseData = await response.Content.ReadAsStringAsync();
-            var user = JsonSerializer.Deserialize<UserModel>(responseData, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
-                throw new Exception($"User not found. ID: {userId}");
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {userId}");
 
-            return user;
+            var roles = await _userManager.GetRolesAsync(user);
+            return MapToUserModel(user, roles);
         }
 
-        public async Task SendVerificationEmailAsync(Guid userId)
+        public async Task<List<UserModel>> GetUsersAsync(CancellationToken ct = default)
         {
-            var adminToken = await _tokenService.GetAdminTokenAsync();
-            if (string.IsNullOrEmpty(adminToken))
-                throw new Exception("Failed to retrieve admin token.");
-
-            var request = new HttpRequestMessage(HttpMethod.Put,
-                                                 $"http://keycloak:8080/admin/realms/AppRealm/users/{userId}/send-verify-email");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-
-            var response = await _httpClient.SendAsync(request);
-            if (!response.IsSuccessStatusCode)
-                throw new Exception("Error while sending email verification request to keycloak.");
+            var users = _userManager.Users.ToList();
+            var result = new List<UserModel>();
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                result.Add(MapToUserModel(user, roles));
+            }
+            return result;
         }
 
-        public async Task<List<UserModel>> GetUsersAsync()
+        public async Task UpdateUserPropertiesAsync(UserModel model, CancellationToken ct = default)
         {
-            var adminToken = await _tokenService.GetAdminTokenAsync();
-            if (string.IsNullOrEmpty(adminToken))
-                throw new Exception("Failed to retrieve admin token.");
+            var user = await _userManager.FindByIdAsync(model.UserId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {model.UserId}");
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://keycloak:8080/admin/realms/AppRealm/users");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.UserName = model.Username;
+            user.Email = model.Email;
+            user.UpdatedAt = DateTime.UtcNow;
 
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-
-            var responseData = await response.Content.ReadAsStringAsync();
-            var users = JsonSerializer.Deserialize<List<UserModel>>(responseData, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            if (users == null)
-                throw new Exception("Failed to retrieve users.");
-
-            return users;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                throw new CustomException((int)ErrorCodesEnum.GeneralError,
+                    string.Join("; ", result.Errors.Select(e => e.Description)));
         }
 
-        public async Task<bool> EnableDisableUserAsync(UserModel model)
+        public async Task EnableDisableUserAsync(UserModel model, CancellationToken ct = default)
         {
-            //check token
-            var adminToken = await _tokenService.GetAdminTokenAsync();
-            var payload = new
-            {
-                enabled = model.Enabled
-            };
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-            var serializedContent = new StringContent(JsonSerializer.Serialize(payload, options), Encoding.UTF8, "application/json");
+            var user = await _userManager.FindByIdAsync(model.UserId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {model.UserId}");
 
-            var request = new HttpRequestMessage(HttpMethod.Put, $"http://keycloak:8080/admin/realms/AppRealm/users/{model.UserId}")
-            {
-                Content = serializedContent
-            };
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", adminToken);
-
-            var response = await _httpClient.SendAsync(request);
-            return response.IsSuccessStatusCode;
+            user.IsActive = model.Enabled;
+            user.UpdatedAt = DateTime.UtcNow;
+            await _userManager.UpdateAsync(user);
         }
+
+        public async Task SendVerificationEmailAsync(Guid userId, CancellationToken ct = default)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {userId}");
+
+            // Generates confirmation token - wire up IEmailSender to send the actual email
+            _ = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task ChangePasswordAsync(ChangePasswordModel model, CancellationToken ct = default)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {model.UserId}");
+
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+                throw new CustomException((int)ErrorCodesEnum.GeneralError,
+                    string.Join("; ", result.Errors.Select(e => e.Description)));
+        }
+
+        public async Task AssignRoleAsync(Guid userId, string role, CancellationToken ct = default)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {userId}");
+
+            if (!await _roleManager.RoleExistsAsync(role))
+                await _roleManager.CreateAsync(new IdentityRole(role));
+
+            await _userManager.AddToRoleAsync(user, role);
+        }
+
+        public async Task RemoveRoleAsync(Guid userId, string role, CancellationToken ct = default)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                throw new CustomException((int)ErrorCodesEnum.UserNotFound, $"User not found. ID: {userId}");
+
+            await _userManager.RemoveFromRoleAsync(user, role);
+        }
+
+        private static UserModel MapToUserModel(ApplicationUser user, IList<string> roles) => new()
+        {
+            UserId = Guid.Parse(user.Id),
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.UserName ?? string.Empty,
+            Email = user.Email ?? string.Empty,
+            AccountCreatedDate = user.CreatedAt,
+            Roles = roles.ToList(),
+            Enabled = user.IsActive,
+            EmailVerified = user.EmailConfirmed
+        };
     }
+
     public interface IUserService
     {
-        Task<bool> UpdateUserPropertiesAsync(UserModel model);
-        Task<UserModel> GetUserDataAsync(Guid userId);
-        Task SendVerificationEmailAsync(Guid userId);
-        Task<List<UserModel>> GetUsersAsync();
-        Task<bool> EnableDisableUserAsync(UserModel model);
+        Task<UserModel> GetUserDataAsync(Guid userId, CancellationToken ct = default);
+        Task<List<UserModel>> GetUsersAsync(CancellationToken ct = default);
+        Task UpdateUserPropertiesAsync(UserModel model, CancellationToken ct = default);
+        Task EnableDisableUserAsync(UserModel model, CancellationToken ct = default);
+        Task SendVerificationEmailAsync(Guid userId, CancellationToken ct = default);
+        Task ChangePasswordAsync(ChangePasswordModel model, CancellationToken ct = default);
+        Task AssignRoleAsync(Guid userId, string role, CancellationToken ct = default);
+        Task RemoveRoleAsync(Guid userId, string role, CancellationToken ct = default);
     }
 }
