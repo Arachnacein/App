@@ -138,6 +138,12 @@
   <data name="FailAddSnackbar" xml:space="preserve">
     <value>Coś poszło nie tak</value>
   </data>
+  <data name="FailAddSnackbarDuplicate" xml:space="preserve">
+    <value>Wzór o takiej nazwie lub parametrach już istnieje</value>
+  </data>
+  <data name="FailAddSnackbarInvalidValues" xml:space="preserve">
+    <value>Podane wartości są nieprawidłowe. Upewnij się, że suma wynosi 100%</value>
+  </data>
   <data name="Fees" xml:space="preserve">
     <value>Wydatki codzienne</value>
   </data>
@@ -170,6 +176,27 @@
   </data>
   <data name="SuccessAddSnackbar" xml:space="preserve">
     <value>Pomyślnie dodano nowy wzór</value>
+  </data>
+  <data name="SuccessDeleteSnackbar" xml:space="preserve">
+    <value>Pomyślnie usunięto wzór</value>
+  </data>
+  <data name="FailDeleteSnackbarInUse" xml:space="preserve">
+    <value>Wzór jest używany i nie może zostać usunięty</value>
+  </data>
+  <data name="FailDeleteSnackbar" xml:space="preserve">
+    <value>Coś poszło nie tak podczas usuwania</value>
+  </data>
+  <data name="PatternsListHeader" xml:space="preserve">
+    <value>Twoje wzory</value>
+  </data>
+  <data name="DeleteConfirmTitle" xml:space="preserve">
+    <value>Usuń wzór</value>
+  </data>
+  <data name="DeleteConfirmYes" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="DeleteConfirmCancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Wzory</value>

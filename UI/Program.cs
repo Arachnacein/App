@@ -20,6 +20,7 @@ builder.Services.AddTransient<TransactionViewModelValidator>();
 builder.Services.AddTransient<RegistrationViewModelValidator>();
 builder.Services.AddTransient<UserDetailsViewModelValidator>();
 builder.Services.AddTransient<RecurringTransactionViewModelValidator>();
+builder.Services.AddTransient<PatternViewModelValidator>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://apigateway:8080") });

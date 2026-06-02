@@ -138,6 +138,12 @@
   <data name="FailAddSnackbar" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="FailAddSnackbarDuplicate" xml:space="preserve">
+    <value>Pattern with that name or values already exists</value>
+  </data>
+  <data name="FailAddSnackbarInvalidValues" xml:space="preserve">
+    <value>Invalid values. Make sure the total equals 100%</value>
+  </data>
   <data name="Fees" xml:space="preserve">
     <value>Fees</value>
   </data>
@@ -170,6 +176,27 @@
   </data>
   <data name="SuccessAddSnackbar" xml:space="preserve">
     <value>Successfully added new pattern</value>
+  </data>
+  <data name="SuccessDeleteSnackbar" xml:space="preserve">
+    <value>Successfully deleted pattern</value>
+  </data>
+  <data name="FailDeleteSnackbarInUse" xml:space="preserve">
+    <value>Pattern is in use and cannot be deleted</value>
+  </data>
+  <data name="FailDeleteSnackbar" xml:space="preserve">
+    <value>Something went wrong during deletion</value>
+  </data>
+  <data name="PatternsListHeader" xml:space="preserve">
+    <value>Your patterns</value>
+  </data>
+  <data name="DeleteConfirmTitle" xml:space="preserve">
+    <value>Delete pattern</value>
+  </data>
+  <data name="DeleteConfirmYes" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteConfirmCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Patterns</value>

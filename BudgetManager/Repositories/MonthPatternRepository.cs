@@ -46,19 +46,29 @@ namespace BudgetManager.Repositories
 
         public async Task<MonthPattern> GetAsync(MonthYearModel model, Guid userId)
         {
-            var result = await _dbCotntext.MonthPatterns.FirstOrDefaultAsync(x => x.Date.Month == model.Month &&
-                                                                       x.Date.Year == model.Year &&
-                                                                       x.UserId == userId);
+            var result = await _dbCotntext.MonthPatterns
+                .FirstOrDefaultAsync(x => x.Date.Month == model.Month && 
+                                          x.Date.Year == model.Year && 
+                                          x.UserId == userId);
             return result;
         }
 
         public async Task<int> CheckExistsAsync(MonthYearModel model, Guid userId)
         {
-            var result = await _dbCotntext.MonthPatterns.Where(x => x.Date.Month == model.Month &&
-                                                              x.Date.Year == model.Year && 
-                                                              x.UserId == userId)
-                                                  .CountAsync();
+            var result = await _dbCotntext.MonthPatterns
+                .Where(x => x.Date.Month == model.Month &&
+                            x.Date.Year == model.Year &&
+                            x.UserId == userId)
+                .CountAsync();
             return result;
+        }
+
+        public async Task<int> CountByPatternIdAsync(int patternId, Guid userId)
+        {
+            return await _dbCotntext.MonthPatterns
+                .AsNoTracking()
+                .Where(x => x.PatternId == patternId && x.UserId == userId)
+                .CountAsync();
         }
     }
     public interface IMonthPatternRepository
@@ -66,6 +76,7 @@ namespace BudgetManager.Repositories
         Task<MonthPattern> GetAsync(int id, Guid userId);
         Task<MonthPattern> GetAsync(MonthYearModel model, Guid userId);
         Task<int> CheckExistsAsync(MonthYearModel model, Guid userId);
+        Task<int> CountByPatternIdAsync(int patternId, Guid userId);
         Task<IEnumerable<MonthPattern>> GetAllAsync(Guid userId);
         Task<MonthPattern> AddAsync(MonthPattern pattern);
         Task UpdateAsync(MonthPattern pattern);
