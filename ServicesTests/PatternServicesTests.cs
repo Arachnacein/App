@@ -13,6 +13,7 @@ namespace ServicesTests
     public class PatternServicesTests
     {
         private readonly Mock<IPatternRepository> _patternRepositoryMock;
+        private readonly Mock<IMonthPatternRepository> _monthPatternRepositoryMock;
         private readonly Mock<IPatternMapper> _patternMapperMock;
         private readonly PatternService _patternService;
 
@@ -20,7 +21,8 @@ namespace ServicesTests
         {
             _patternMapperMock = new Mock<IPatternMapper>();
             _patternRepositoryMock = new Mock<IPatternRepository>();
-            _patternService = new PatternService(_patternRepositoryMock.Object, _patternMapperMock.Object);
+            _monthPatternRepositoryMock = new Mock<IMonthPatternRepository>();
+            _patternService = new PatternService(_patternRepositoryMock.Object, _monthPatternRepositoryMock.Object, _patternMapperMock.Object);
         }
 
         [Fact]
@@ -253,6 +255,56 @@ namespace ServicesTests
 
             _patternMapperMock.Verify(mapper => mapper.Map(pattern), Times.Once);
             _patternRepositoryMock.Verify(repo => repo.GetAsync(1, userId), Times.Once);
+        }
+
+        [Fact]
+        public async Task AddPatternAsync_ShouldThrowPatternAlreadyExistsException_WhenNameIsDuplicated()
+        {
+            //arrange
+            var userId = Guid.NewGuid();
+            var addPatternDto = new AddPatternDto
+            {
+                UserId = userId,
+                Name = "ExistingName",
+                Value_Saves = 30,
+                Value_Fees = 30,
+                Value_Entertainment = 40
+            };
+
+            _patternRepositoryMock.Setup(repo => repo.ExistsWithNameAsync(addPatternDto.Name, userId))
+                .ReturnsAsync(true);
+
+            //act & assert
+            await _patternService
+                .Invoking(async service => await service.AddPatternAsync(addPatternDto))
+                .Should()
+                .ThrowAsync<PatternAlreadyExistsException>();
+        }
+
+        [Fact]
+        public async Task AddPatternAsync_ShouldThrowPatternAlreadyExistsException_WhenValuesAreDuplicated()
+        {
+            //arrange
+            var userId = Guid.NewGuid();
+            var addPatternDto = new AddPatternDto
+            {
+                UserId = userId,
+                Name = "UniqueName",
+                Value_Saves = 30,
+                Value_Fees = 30,
+                Value_Entertainment = 40
+            };
+
+            _patternRepositoryMock.Setup(repo => repo.ExistsWithNameAsync(addPatternDto.Name, userId))
+                .ReturnsAsync(false);
+            _patternRepositoryMock.Setup(repo => repo.ExistsWithValuesAsync(30, 30, 40, userId))
+                .ReturnsAsync(true);
+
+            //act & assert
+            await _patternService
+                .Invoking(async service => await service.AddPatternAsync(addPatternDto))
+                .Should()
+                .ThrowAsync<PatternAlreadyExistsException>();
         }
 
         [Fact]
@@ -493,7 +545,7 @@ namespace ServicesTests
 
         [Fact]
         public async Task DeletePatternAsync_ShouldCallRepositoryTwice_WhenCalled()
-        {            
+        {
             //arrange
             var userId = Guid.NewGuid();
             var pattern = new Pattern
@@ -508,6 +560,8 @@ namespace ServicesTests
 
             _patternRepositoryMock.Setup(repo => repo.GetAsync(1, userId))
                 .ReturnsAsync(pattern);
+            _monthPatternRepositoryMock.Setup(repo => repo.CountByPatternIdAsync(1, userId))
+                .ReturnsAsync(0);
             _patternRepositoryMock.Setup(repo => repo.DeleteAsync(1, userId));
 
             //act
@@ -543,8 +597,8 @@ namespace ServicesTests
                 .Should()
                 .ThrowAsync<PatternNotFoundException>()
                 .WithMessage($"Pattern not found. Id:{1}");
-        }        
-        
+        }
+
         [Fact]
         public async Task DeletePatternAsync_ShouldThrowPatternNotFoundException_WhenIdIsInValidAndUserIdIsValid()
         {
@@ -573,7 +627,7 @@ namespace ServicesTests
         }
 
         [Fact]
-        public async Task DeletePatternAsync_ShouldDeletePattern_WhenDataIsValid ()
+        public async Task DeletePatternAsync_ShouldThrowPatternInUseException_WhenPatternIsAssignedToMonth()
         {
             //arrange
             var userId = Guid.NewGuid();
@@ -589,6 +643,35 @@ namespace ServicesTests
 
             _patternRepositoryMock.Setup(repo => repo.GetAsync(1, userId))
                 .ReturnsAsync(pattern);
+            _monthPatternRepositoryMock.Setup(repo => repo.CountByPatternIdAsync(1, userId))
+                .ReturnsAsync(2);
+
+            //act & assert
+            await _patternService
+                .Invoking(async service => await service.DeletePatternAsync(1, userId))
+                .Should()
+                .ThrowAsync<PatternInUseException>();
+        }
+
+        [Fact]
+        public async Task DeletePatternAsync_ShouldDeletePattern_WhenDataIsValid()
+        {
+            //arrange
+            var userId = Guid.NewGuid();
+            var pattern = new Pattern
+            {
+                Id = 1,
+                UserId = userId,
+                Name = "Pattern1",
+                Value_Saves = 30,
+                Value_Fees = 30,
+                Value_Entertainment = 40
+            };
+
+            _patternRepositoryMock.Setup(repo => repo.GetAsync(1, userId))
+                .ReturnsAsync(pattern);
+            _monthPatternRepositoryMock.Setup(repo => repo.CountByPatternIdAsync(1, userId))
+                .ReturnsAsync(0);
             _patternRepositoryMock.Setup(repo => repo.DeleteAsync(1, userId));
 
             //act

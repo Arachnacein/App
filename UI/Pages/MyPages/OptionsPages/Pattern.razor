@@ -55,8 +55,28 @@ else
                             <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=Model.Value_Entertainment></MudTextField>
                         </MudStack>
                     </MudStack>
-                <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2">@Localizer["ButtonSubmit"]</MudButton>
+                    <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2">@Localizer["ButtonSubmit"]</MudButton>
                 </MudPaper>
+                <MudText Typo="Typo.h6" Class="mt-4 mb-2">@Localizer["PatternsListHeader"]</MudText>
+                <MudTable T="PatternViewModel" Items="@patternsList" Dense="true" Striped="true">
+                    <HeaderContent>
+                        <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
+                        <MudTh Style="text-align:center">@Localizer["Saves%"]</MudTh>
+                        <MudTh Style="text-align:center">@Localizer["Fees%"]</MudTh>
+                        <MudTh Style="text-align:center">@Localizer["Entertainment%"]</MudTh>
+                        <MudTh Style="text-align:center">@Localizer["Options"]</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="@Localizer["Name"]">@context.Name</MudTd>
+                        <MudTd DataLabel="@Localizer["Saves%"]" Style="text-align:center">@context.Value_Saves</MudTd>
+                        <MudTd DataLabel="@Localizer["Fees%"]" Style="text-align:center">@context.Value_Fees</MudTd>
+                        <MudTd DataLabel="@Localizer["Entertainment%"]" Style="text-align:center">@context.Value_Entertainment</MudTd>
+                        <MudTd DataLabel="@Localizer["Options"]" Style="text-align:center">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"
+                                           OnClick="@(async () => await DeletePattern(context))" />
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
             </MudTabPanel>
         </MudTabs>
     </MudPaper>

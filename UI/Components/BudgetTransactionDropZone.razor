@@ -30,7 +30,7 @@
                                        Rounded="true" Size="Size.Medium" Class="rounded-progress"
                                        Style="height: 100%;width: 100%;" Color="@TitleColor" />
                     <MudText Style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
-                        @ActualValue / @TotalValue
+                        @($"{ActualValue:F2}") / @($"{TotalValue:F2}")
                     </MudText>
                 </MudPaper>
             </MudText>

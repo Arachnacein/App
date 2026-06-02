@@ -10,10 +10,12 @@ namespace BudgetManager.Services
     public class PatternService : IPatternService
     {
         private readonly IPatternRepository _patternRepository;
+        private readonly IMonthPatternRepository _monthPatternRepository;
         private readonly IPatternMapper _patternMapper;
-        public PatternService(IPatternRepository patternRepository, IPatternMapper patternMapper)
+        public PatternService(IPatternRepository patternRepository, IMonthPatternRepository monthPatternRepository, IPatternMapper patternMapper)
         {
             _patternRepository = patternRepository;
+            _monthPatternRepository = monthPatternRepository;
             _patternMapper = patternMapper;
         }
       
@@ -49,6 +51,11 @@ namespace BudgetManager.Services
             if (sum != 100d)
                 throw new BadValueException($"Value_Fees + Value_Saves + Value_Entertainment Should be 100%. Current is {sum}.");
 
+            if (await _patternRepository.ExistsWithNameAsync(dto.Name, dto.UserId))
+                throw new PatternAlreadyExistsException($"Pattern with name '{dto.Name}' already exists.");
+            if (await _patternRepository.ExistsWithValuesAsync(dto.Value_Saves, dto.Value_Fees, dto.Value_Entertainment, dto.UserId))
+                throw new PatternAlreadyExistsException($"Pattern with the same values already exists.");
+
             Pattern mappedPattern = _patternMapper.Map(dto);
             await _patternRepository.AddAsync(mappedPattern);
             return _patternMapper.Map(mappedPattern);
@@ -59,6 +66,11 @@ namespace BudgetManager.Services
             var pattern = await _patternRepository.GetAsync(id, userId);
             if (pattern == null)
                 throw new PatternNotFoundException($"Pattern not found. Id:{id}");
+
+            var usageCount = await _monthPatternRepository.CountByPatternIdAsync(id, userId);
+            if (usageCount > 0)
+                throw new PatternInUseException($"Pattern is in use in {usageCount} month(s). Id:{id}");
+
             await _patternRepository.DeleteAsync(id, userId);
         }
     }

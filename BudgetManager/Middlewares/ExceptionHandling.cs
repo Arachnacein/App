@@ -66,6 +66,14 @@ namespace BudgetManager.Utils
                         statusCode = StatusCodes.Status409Conflict;
                         message = "Month pattern already exists.";
                     break;
+                case PatternInUseException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "Pattern is in use.";
+                    break;
+                case PatternAlreadyExistsException:
+                        statusCode = StatusCodes.Status422UnprocessableEntity;
+                        message = "Pattern already exists.";
+                    break;
                 default:
                         statusCode = StatusCodes.Status500InternalServerError;
                         message = "An unexpected error occurred.";
