@@ -10,6 +10,8 @@ namespace UI.Pages.MyPages.OptionsPages
         [Inject] private ISnackbar snackbar { get; set; }
         [Inject] private IDialogService dialogService { get; set; }
         [Inject] private HttpClient httpClient { get; set; }
+        [Inject] private PatternViewModelValidator PatternValidator { get; set; }
+        private MudForm Form;
         private PatternViewModel Model = new PatternViewModel();
         private List<MonthPatternViewModel> patterns = new List<MonthPatternViewModel>();
         private List<PatternViewModel> patternsList = new List<PatternViewModel>();
@@ -33,6 +35,16 @@ namespace UI.Pages.MyPages.OptionsPages
         {
             if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
                 return;
+
+            await Form.Validate();
+            if (!Form.IsValid)
+                return;
+
+            if (Model.Value_Saves + Model.Value_Fees + Model.Value_Entertainment != 100)
+            {
+                snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
+                return;
+            }
 
             Model.UserId = UserSessionService.UserId;
             var request = await httpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", Model);
