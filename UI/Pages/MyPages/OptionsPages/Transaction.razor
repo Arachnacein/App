@@ -29,7 +29,7 @@ else
         </MudStack>
 
         <MudTable T="TransactionViewModel" Items="@filteredTransactions" FixedHeader="true"
-                  FixedFooter="true" Dense="true" Striped="true">
+                  FixedFooter="true" Dense="true" Striped="true" Class="options-table">
             <HeaderContent>
                 <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
                 <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>

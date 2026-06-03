@@ -2,8 +2,9 @@
 @using UI.Models.ViewModels
 @inject ISnackbar Snackbar
 <PageTitle>@Localizer["RegisterTitle"]</PageTitle>
-<MudContainer Class="d-flex align-items-center justify-center" Style="min-height: 100vh; padding-top: 50px;">
-    <MudPaper Class="ma-auto pa-6 d-flex flex-column align-items-center justify-center" Elevation="25" Style="width: 350px;">
+<div class="login-container">
+    <MudPaper Class="glass-panel pa-6 d-flex flex-column align-items-center" Elevation="0" Style="width: min(400px, 95vw);">
+        <MudText Typo="Typo.h5" Class="gradient-text mb-1" Align="Align.Center">◆ BudgetApp</MudText>
         <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center">@Localizer["SignUp"]</MudText>
 
         <MudForm Model="RegistrationModel" @ref="Form" Validation="RegistrationModelValidator.ValidateValue()" ValidationDelay="0">
@@ -36,6 +37,6 @@
             <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ma-2 mt-4 px-6">@Localizer["SignUp"]</MudButton>
         </MudForm>
     </MudPaper>
-</MudContainer>
+</div>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

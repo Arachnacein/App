@@ -29,21 +29,21 @@
         </MudStack>
     </MudPaper>
         <MudStack Style="width:100%;" Justify="Justify.Center" AlignItems="AlignItems.Center">
-            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-                <h3>@Localizer["Motivation"]</h3>
+            <MudPaper Class="pa-6 ma-3 shadow fade-in" Style="width:90%;">
+                <h3 class="gradient-text">@Localizer["Motivation"]</h3>
                 <MudDivider Class="my-3" Style="width:25%;" />
                 <MudText Style="text-indent:30px;" Class="ma-5">
                     <img src="/Images/notes.jpg" width="30%;" height="30%;" style="float:right;margin-left:15px;border-radius:15px;"/>
                     @Localizer["motivation_1st"]
                 </MudText>
                 <MudSpacer/>
-            <MudText Style="text-indent:30px;" Class="ma-5">
+                <MudText Style="text-indent:30px;" Class="ma-5">
                     @Localizer["motivation_2nd"]
                 </MudText>
             </MudPaper>
 
-            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-            <h3>@Localizer["Architecture"]</h3>
+            <MudPaper Class="pa-6 ma-3 shadow fade-in" Style="width:90%;">
+                <h3 class="gradient-text">@Localizer["Architecture"]</h3>
                 <MudDivider Class="my-3" Style="width:30%;"/>
                 <MudText Style="text-indent:30px;">
                     <img src="/Images/microservices.jpg" width="15%;" height="15%;" style="float:right;margin-left:15px;border-radius:15px;" />
@@ -52,20 +52,19 @@
                 <MudText Style="text-indent:30px;">
                     @Localizer["architecture_2nd"]
                 </MudText>
-
             </MudPaper>
 
-            <MudPaper Class="pa-6 ma-3 shadow" Style="width:90%;">
-                <h3>@Localizer["ToolsFrameworks"]</h3>
+            <MudPaper Class="pa-6 ma-3 shadow fade-in" Style="width:90%;">
+                <h3 class="gradient-text">@Localizer["ToolsFrameworks"]</h3>
                 <MudDivider Class="my-3" Style="width:40%;"/>
-                <MudList T="string" >
-                <MudListItem>Visual Studio</MudListItem>
-                <MudListItem>Docker Desctop</MudListItem>
-                    <MudListItem> Sql Server Management Studio</MudListItem>
-                    <MudListItem> Postman</MudListItem>
+                <MudList T="string">
+                    <MudListItem>Visual Studio</MudListItem>
+                    <MudListItem>Docker Desktop</MudListItem>
+                    <MudListItem>Sql Server Management Studio</MudListItem>
+                    <MudListItem>Postman</MudListItem>
                 </MudList>
                 <MudList T="string">
-                    <MudListItem> Mudblazor</MudListItem>
+                    <MudListItem>MudBlazor</MudListItem>
                     <MudListItem>Entity Framework</MudListItem>
                 </MudList>
                 <MudList T="string">

@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject GlobalInfoClass _globalClass;
 
-<MudThemeProvider IsDarkMode="_globalClass.IsDarkMode" />
+<MudThemeProvider Theme="AppTheme.Theme" IsDarkMode="_globalClass.IsDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider 
     FullWidth="true"
@@ -15,7 +15,7 @@
 
 <div class="page">
     <MudLayout>
-        <MudAppBar Elevation="35" Dense="true" Style="background-image: linear-gradient( 109.6deg,  rgba(43, 87, 173,1) 11.2%, rgba(102,51,153,1) 91.1% );">
+        <MudAppBar Elevation="0" Dense="true">
             <NavMenu />
         </MudAppBar>
         <MudMainContent>

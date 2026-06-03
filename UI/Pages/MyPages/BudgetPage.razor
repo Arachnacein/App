@@ -3,7 +3,7 @@
 @using UI.Models.ViewModels
 
 <PageTitle>@Localizer["Title"]</PageTitle>
-<MudTabs Class="pa-4 ma-4" Elevation="5" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true" >
+<MudTabs Class="budget-tabs pa-2 ma-2" Elevation="0" Rounded="false" ApplyEffectsToContainer="false" PanelClass="pa-4 pt-3" Centered="true">
     <MudTabPanel Text="@Localizer["Transactions"]" >
         <MudStack  AlignItems="AlignItems.End">
             <MudStack Row="true">
@@ -52,9 +52,42 @@
 
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-1 pa-1 mt-2">
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowLeft" OnClick="PreviousMonth" Size="Size.Large"></MudIconButton>
-            @CurrentDate.GetMonthName() @CurrentDate.Year
+            <MudText Typo="Typo.h6" Class="mx-2">@CurrentDate.GetMonthName() @CurrentDate.Year</MudText>
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" OnClick="NextMonth" Size="Size.Large"></MudIconButton>
         </MudStack>
+
+        <MudGrid Class="mb-2 px-1" Spacing="2">
+            <MudItem xs="12" md="4">
+                <MudPaper Class="kpi-card kpi-card-saves pa-4 pb-0" Elevation="0">
+                    <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["Saves"]</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueSaves:F2}") zł</MudText>
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueSaves:F2}") zł</MudText>
+                    <MudProgressLinear Value="@patternValuesModel.ActualValueSaves"
+                                       Max="@(patternValuesModel.TotalValueSaves == 0 ? 1 : patternValuesModel.TotalValueSaves)"
+                                       Color="Color.Success" Class="kpi-bottom-bar" />
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" md="4">
+                <MudPaper Class="kpi-card kpi-card-fees pa-4 pb-0" Elevation="0">
+                    <MudText Typo="Typo.overline" Color="Color.Error">@Localizer["Fees"]</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Error" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueFees:F2}") zł</MudText>
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueFees:F2}") zł</MudText>
+                    <MudProgressLinear Value="@patternValuesModel.ActualValueFees"
+                                       Max="@(patternValuesModel.TotalValueFees == 0 ? 1 : patternValuesModel.TotalValueFees)"
+                                       Color="Color.Error" Class="kpi-bottom-bar" />
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" md="4">
+                <MudPaper Class="kpi-card kpi-card-entert pa-4 pb-0" Elevation="0">
+                    <MudText Typo="Typo.overline" Color="Color.Info">@Localizer["Entertainment"]</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Info" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueEntertainment:F2}") zł</MudText>
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueEntertainment:F2}") zł</MudText>
+                    <MudProgressLinear Value="@patternValuesModel.ActualValueEntertainment"
+                                       Max="@(patternValuesModel.TotalValueEntertainment == 0 ? 1 : patternValuesModel.TotalValueEntertainment)"
+                                       Color="Color.Info" Class="kpi-bottom-bar" />
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
 
         <MudDropContainer T="TransactionViewModel"
                           Items="transactions"
@@ -84,9 +117,9 @@
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
-                        <MudPaper Elevation="25" Class="pa-2 my-2"
-                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px groove lightgreen;" : 
-                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px dotted white;" : null)"
+                        <MudPaper Elevation="0" Class="transaction-card pa-2 my-2"
+                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px solid #10B981 !important;" :
+                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px dashed rgba(167,139,250,0.5) !important;" : null)"
                                   @onclick="() => EditDeleteTransaction(context)">
                             <MudGrid Class="flex-nowrap">
                                 <MudItem xs="8" md="6" Class="text-align-center">

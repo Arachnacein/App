@@ -5,27 +5,13 @@
 
 <PageTitle> @Localizer["PageTitle"] </PageTitle>
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-2" Elevation="5">
+<MudPaper Class="ma-1 pa-4" Elevation="5">
     <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
-    <MudDivider/>
-    <MudGrid>
-        <MudItem xs="6" class="d-flex align-items-center justify-content-end">
-            <MudText>@Localizer["Theme"]</MudText>
-        </MudItem>
-        <MudItem xs="6" class="d-flex align-items-center justify-content-start">
-            <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary" Class="ma-4"
-                       T="bool" Label="@Localizer["ToggleTextTheme"]" @onclick="Refresh"/>
-        </MudItem>
-    </MudGrid>
-    <MudGrid>
-@*         <MudItem xs="6" class="d-flex align-items-center justify-content-end">
-            <MudText>@Localizer["ShowLogoutTimer"]</MudText>
-        </MudItem>
-        <MudItem xs="6" class="d-flex align-items-center justify-content-start">
-            <MudSwitch @bind-Value="_globalClass.ShowLogoutTimer" Color="Color.Primary" Class="ma-4"
-                       T="bool" Label="@Localizer["ToggleTextTimer"]" @onclick="Refresh" Disabled="@(!UserSessionService.IsUserLoggedIn())"/>
-        </MudItem> *@
-    </MudGrid>
+    <MudDivider Class="mb-6"/>
+    <MudStack AlignItems="AlignItems.Center" Class="mb-6">
+        <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary"
+                   T="bool" Label="Ciemny motyw" @onclick="Refresh"/>
+    </MudStack>
 </MudPaper>
 
 @code{

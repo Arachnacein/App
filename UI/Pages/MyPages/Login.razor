@@ -1,24 +1,26 @@
 ﻿@page "/login"
 <PageTitle>@Localizer["LoginTitle"]</PageTitle>
-<MudPaper Class="ma-auto pa-4 d-flex flex-column align-items-center justify-center" Elevation="25" Style="width: 550px;">
-   <MudStack Justify="Justify.Center">
-        <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center">@Localizer["LogIn"]</MudText>
-        <MudTextField @bind-Value="Username" Label="@Localizer["username"]" Variant="Variant.Outlined" Class="ma-2 pa-1" 
-                                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" 
-                                 OnKeyUp="HandleEnterDown" @ref="usernameTextField" FullWidth="true" Style="width:90%;"/>
+<div class="login-container">
+    <MudPaper Class="glass-panel pa-6 d-flex flex-column align-items-center" Elevation="0" Style="width: min(520px, 95vw);">
+        <MudText Typo="Typo.h5" Class="gradient-text mb-1" Align="Align.Center">◆ BudgetApp</MudText>
+        <MudText Typo="Typo.subtitle1" Class="mb-5" Align="Align.Center">@Localizer["LogIn"]</MudText>
+
+        <MudTextField @bind-Value="Username" Label="@Localizer["username"]" Variant="Variant.Outlined" Class="ma-2 pa-1"
+                      Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person"
+                      OnKeyUp="HandleEnterDown" @ref="usernameTextField" FullWidth="true" Style="width:92%;"/>
         <MudTextField @bind-Value="Password" Label="@Localizer["password"]" InputType="@PasswordInput"
-                                 Variant="Variant.Outlined" Class="ma-2 pa-1" Adornment="Adornment.End"
-                                 AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword"
-                                 OnKeyUp="HandleEnterDown" FullWidth="true" Style="width:90%;" />
-   </MudStack>
-    @if(isLoading)
-    {
-        <MudProgressCircular Size="Size.Medium" Indeterminate="true" Class="mt-4" />
-    }
+                      Variant="Variant.Outlined" Class="ma-2 pa-1" Adornment="Adornment.End"
+                      AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword"
+                      OnKeyUp="HandleEnterDown" FullWidth="true" Style="width:92%;"/>
 
-    <MudStack Row="true" Justify="Justify.Center" Spacing="2" Class="mt-4 mb-2">
-        <MudButton OnClick="LogIn" Variant="Variant.Filled" Color="Color.Primary" Class="px-6">@Localizer["LogIn"]</MudButton>
-        <MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Secondary" Class="px-6">@Localizer["Register"]</MudButton>
-    </MudStack>
+        @if(isLoading)
+        {
+            <MudProgressCircular Size="Size.Medium" Indeterminate="true" Class="mt-4" />
+        }
 
-</MudPaper>
+        <MudStack Row="true" Justify="Justify.Center" Spacing="2" Class="mt-5 mb-2">
+            <MudButton OnClick="LogIn" Variant="Variant.Filled" Color="Color.Primary" Class="px-8" Size="Size.Large">@Localizer["LogIn"]</MudButton>
+            <MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Primary" Class="px-6" Size="Size.Large">@Localizer["Register"]</MudButton>
+        </MudStack>
+    </MudPaper>
+</div>
