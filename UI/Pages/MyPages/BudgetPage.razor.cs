@@ -19,6 +19,7 @@ public partial class BudgetPage
     private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
     private PatternValuesModel patternValuesModel = new PatternValuesModel();
     private bool IsLoadingTransactions = true;
+    private double TotalIncome => incomes?.Sum(x => x.Amount) ?? 0;
     protected override async Task OnInitializedAsync()
     {
         CurrentDate = DateTime.Now;
@@ -199,6 +200,20 @@ public partial class BudgetPage
                     default:
                         break;
                 }
+
+                if (x.IsRecurring && x.IsApproved)
+                    switch (x.Category)
+                    {
+                        case TransactionCategoryEnum.Saves:
+                            patternValuesModel.RecurringValueSaves += x.Price;
+                            break;
+                        case TransactionCategoryEnum.Fees:
+                            patternValuesModel.RecurringValueFees += x.Price;
+                            break;
+                        case TransactionCategoryEnum.Entertainment:
+                            patternValuesModel.RecurringValueEntertainment += x.Price;
+                            break;
+                    }
             });
         }
     }
@@ -210,6 +225,9 @@ public partial class BudgetPage
         model.TotalValueSaves = 0;
         model.TotalValueFees = 0;
         model.TotalValueEntertainment = 0;
+        model.RecurringValueSaves = 0;
+        model.RecurringValueFees = 0;
+        model.RecurringValueEntertainment = 0;
 
         if(patternViewModel != null)
         {

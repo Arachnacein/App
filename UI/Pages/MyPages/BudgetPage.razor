@@ -55,13 +55,26 @@
             <MudText Typo="Typo.h6" Class="mx-2">@CurrentDate.GetMonthName() @CurrentDate.Year</MudText>
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" OnClick="NextMonth" Size="Size.Large"></MudIconButton>
         </MudStack>
+        <MudStack AlignItems="AlignItems.Center" Class="mb-1">
+            <MudText Typo="Typo.body1">@Localizer["MonthlyBudget"]: @($"{TotalIncome:F2}") zł</MudText>
+        </MudStack>
 
         <MudGrid Class="mb-2 px-1" Spacing="2">
             <MudItem xs="12" md="4">
                 <MudPaper Class="kpi-card kpi-card-saves pa-4 pb-0" Elevation="0">
                     <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["Saves"]</MudText>
-                    <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueSaves:F2}") zł</MudText>
-                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueSaves:F2}") zł</MudText>
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueSaves:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueSaves:F2}") zł</MudText>
+                        </MudStack>
+                        <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
+                            <MudStack AlignItems="AlignItems.End" Spacing="0">
+                                <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueSaves:F2}") zł</MudText>
+                            </MudStack>
+                        </MudTooltip>
+                    </MudStack>
                     <MudProgressLinear Value="@patternValuesModel.ActualValueSaves"
                                        Max="@(patternValuesModel.TotalValueSaves == 0 ? 1 : patternValuesModel.TotalValueSaves)"
                                        Color="Color.Success" Class="kpi-bottom-bar" />
@@ -70,8 +83,18 @@
             <MudItem xs="12" md="4">
                 <MudPaper Class="kpi-card kpi-card-fees pa-4 pb-0" Elevation="0">
                     <MudText Typo="Typo.overline" Color="Color.Error">@Localizer["Fees"]</MudText>
-                    <MudText Typo="Typo.h5" Color="Color.Error" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueFees:F2}") zł</MudText>
-                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueFees:F2}") zł</MudText>
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.h5" Color="Color.Error" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueFees:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueFees:F2}") zł</MudText>
+                        </MudStack>
+                        <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
+                            <MudStack AlignItems="AlignItems.End" Spacing="0">
+                                <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueFees:F2}") zł</MudText>
+                            </MudStack>
+                        </MudTooltip>
+                    </MudStack>
                     <MudProgressLinear Value="@patternValuesModel.ActualValueFees"
                                        Max="@(patternValuesModel.TotalValueFees == 0 ? 1 : patternValuesModel.TotalValueFees)"
                                        Color="Color.Error" Class="kpi-bottom-bar" />
@@ -80,8 +103,18 @@
             <MudItem xs="12" md="4">
                 <MudPaper Class="kpi-card kpi-card-entert pa-4 pb-0" Elevation="0">
                     <MudText Typo="Typo.overline" Color="Color.Info">@Localizer["Entertainment"]</MudText>
-                    <MudText Typo="Typo.h5" Color="Color.Info" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueEntertainment:F2}") zł</MudText>
-                    <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueEntertainment:F2}") zł</MudText>
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.h5" Color="Color.Info" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueEntertainment:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueEntertainment:F2}") zł</MudText>
+                        </MudStack>
+                        <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
+                            <MudStack AlignItems="AlignItems.End" Spacing="0">
+                                <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueEntertainment:F2}") zł</MudText>
+                            </MudStack>
+                        </MudTooltip>
+                    </MudStack>
                     <MudProgressLinear Value="@patternValuesModel.ActualValueEntertainment"
                                        Max="@(patternValuesModel.TotalValueEntertainment == 0 ? 1 : patternValuesModel.TotalValueEntertainment)"
                                        Color="Color.Info" Class="kpi-bottom-bar" />

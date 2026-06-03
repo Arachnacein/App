@@ -8,5 +8,8 @@ public class PatternValuesModel
     public double TotalValueSaves { get; set; }
     public double TotalValueFees { get; set; }
     public double TotalValueEntertainment { get; set; }
+    public double RecurringValueSaves { get; set; }
+    public double RecurringValueFees { get; set; }
+    public double RecurringValueEntertainment { get; set; }
 
 }

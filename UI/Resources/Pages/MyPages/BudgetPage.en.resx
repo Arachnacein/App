@@ -171,4 +171,10 @@
   <data name="Transactions" xml:space="preserve">
     <value>Transactions</value>
   </data>
+  <data name="MonthlyBudget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="RecurringSum" xml:space="preserve">
+    <value>Recurring transactions total</value>
+  </data>
 </root>
