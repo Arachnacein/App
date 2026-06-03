@@ -1,9 +1,3 @@
-using BudgetManager.Dto.Income;
-using BudgetManager.Features.Incomes.Commands;
-using BudgetManager.Features.Incomes.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace BudgetManager.Controllers;
 
 [ApiController]

@@ -1,6 +1,3 @@
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.MonthPatterns.Commands;
 
 public record DeleteMonthPatternCommand : IRequest

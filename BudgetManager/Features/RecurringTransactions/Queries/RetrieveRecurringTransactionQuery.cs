@@ -1,9 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.RecurringTransaction;
-using BudgetManager.Models;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.RecurringTransactions.Queries;
 
 public record RetrieveRecurringTransactionQuery : IRequest<RecurringTransactionDto>

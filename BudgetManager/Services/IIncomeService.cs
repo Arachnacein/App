@@ -1,5 +1,3 @@
-using BudgetManager.Dto.Income;
-
 namespace BudgetManager.Services;
 
 public interface IIncomeService

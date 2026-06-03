@@ -1,10 +1,3 @@
-using BudgetManager.Dto.Pattern;
-using BudgetManager.Exceptions;
-using BudgetManager.Exceptions.PatternExceptions;
-using BudgetManager.Mappers;
-using BudgetManager.Models;
-using BudgetManager.Repositories;
-
 namespace BudgetManager.Services;
 
 public class PatternService : IPatternService

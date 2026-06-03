@@ -1,7 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Repositories;
 
 public class RecurringTransactionRepository : IRecurringTransactionRepository

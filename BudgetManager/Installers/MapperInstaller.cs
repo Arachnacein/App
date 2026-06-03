@@ -1,5 +1,3 @@
-using BudgetManager.Mappers;
-
 namespace BudgetManager.Installers;
 
 public class MapperInstaller : IInstaller

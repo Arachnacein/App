@@ -1,8 +1,3 @@
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Mappers;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.MonthPatterns.Commands;
 
 public record SaveMonthPatternCommand : IRequest<MonthPatternDto>

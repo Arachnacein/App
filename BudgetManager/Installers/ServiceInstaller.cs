@@ -1,6 +1,3 @@
-using BudgetManager.Repositories;
-using BudgetManager.Services;
-
 namespace BudgetManager.Installers;
 
 public class ServiceInstaller : IInstaller

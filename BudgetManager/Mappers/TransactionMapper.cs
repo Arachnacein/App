@@ -1,7 +1,3 @@
-using BudgetManager.Dto.Transaction;
-using BudgetManager.Features.Transactions.Commands;
-using BudgetManager.Models;
-
 namespace BudgetManager.Mappers;
 
 public interface ITransactionMapper

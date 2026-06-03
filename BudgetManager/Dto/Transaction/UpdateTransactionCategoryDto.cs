@@ -1,5 +1,3 @@
-using BudgetManager.Models;
-
 namespace BudgetManager.Dto.Transaction;
 
 public class UpdateTransactionCategoryDto

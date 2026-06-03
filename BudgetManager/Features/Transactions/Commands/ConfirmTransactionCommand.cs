@@ -1,7 +1,3 @@
-using BudgetManager.Mappers;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.Transactions.Commands;
 
 public record ConfirmTransactionCommand : IRequest

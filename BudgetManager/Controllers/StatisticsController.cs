@@ -1,7 +1,3 @@
-using BudgetManager.Features.Statistics.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace BudgetManager.Controllers;
 
 [Route("api/[controller]")]

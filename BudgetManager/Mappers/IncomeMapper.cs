@@ -1,7 +1,3 @@
-using BudgetManager.Dto.Income;
-using BudgetManager.Features.Incomes.Commands;
-using BudgetManager.Models;
-
 namespace BudgetManager.Mappers;
 
 public interface IIncomeMapper

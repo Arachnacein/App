@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace BudgetManager.Models;
 
 public class MonthPattern

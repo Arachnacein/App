@@ -1,10 +1,3 @@
-using BudgetManager.Dto;
-using BudgetManager.Dto.Income;
-using BudgetManager.Exceptions;
-using BudgetManager.Exceptions.IncomeExceptions;
-using BudgetManager.Mappers;
-using BudgetManager.Repositories;
-
 namespace BudgetManager.Services;
 
 public class IncomeService : IIncomeService

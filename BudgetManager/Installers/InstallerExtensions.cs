@@ -1,5 +1,3 @@
-using System;
-
 namespace BudgetManager.Installers;
 
 public static class InstallerExtensions

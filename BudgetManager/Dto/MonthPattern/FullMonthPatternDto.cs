@@ -1,5 +1,3 @@
-using BudgetManager.Dto.Pattern;
-
 namespace BudgetManager.Dto.MonthPattern;
 
 public class FullMonthPatternDto

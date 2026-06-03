@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.Pattern;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.Patterns.Queries;
 
 public record RetrievePatternsQuery : IRequest<IEnumerable<PatternDto>>

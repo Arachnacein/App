@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.Income;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.Incomes.Queries;
 
 public record RetrieveIncomeQuery : IRequest<IncomeDto>

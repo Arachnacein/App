@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.Transaction;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.Transactions.Queries;
 
 public record RetrieveTransactionsQuery : IRequest<IEnumerable<TransactionDto>>

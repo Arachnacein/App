@@ -1,8 +1,3 @@
-using BudgetManager.Dto.Pattern;
-using BudgetManager.Mappers;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.Patterns.Commands;
 
 public record SavePatternCommand : IRequest<PatternDto>

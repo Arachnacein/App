@@ -1,7 +1,3 @@
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Features.MonthPatterns.Commands;
-using BudgetManager.Models;
-
 namespace BudgetManager.Mappers;
 
 public interface IMonthPatternMapper

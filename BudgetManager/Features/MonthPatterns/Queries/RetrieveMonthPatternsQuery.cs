@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.MonthPattern;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.MonthPatterns.Queries;
 
 public record RetrieveMonthPatternsQuery : IRequest<IEnumerable<MonthPatternDto>>

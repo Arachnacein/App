@@ -1,6 +1,3 @@
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Dto.Pattern;
-
 namespace BudgetManager.Services;
 
 public interface IMonthPatternService

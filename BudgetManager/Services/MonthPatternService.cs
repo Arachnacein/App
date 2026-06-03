@@ -1,10 +1,3 @@
-using BudgetManager.Dto;
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Dto.Pattern;
-using BudgetManager.Exceptions.PatternExceptions;
-using BudgetManager.Mappers;
-using BudgetManager.Repositories;
-
 namespace BudgetManager.Services;
 
 public class MonthPatternService : IMonthPatternService

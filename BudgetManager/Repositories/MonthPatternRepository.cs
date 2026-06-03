@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto;
-using BudgetManager.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Repositories;
 
 public class MonthPatternRepository : IMonthPatternRepository

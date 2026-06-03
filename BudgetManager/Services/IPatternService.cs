@@ -1,5 +1,3 @@
-using BudgetManager.Dto.Pattern;
-
 namespace BudgetManager.Services;
 
 public interface IPatternService

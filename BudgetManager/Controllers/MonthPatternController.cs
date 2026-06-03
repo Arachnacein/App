@@ -1,9 +1,3 @@
-using BudgetManager.Dto.MonthPattern;
-using BudgetManager.Features.MonthPatterns.Commands;
-using BudgetManager.Features.MonthPatterns.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
 namespace BudgetManager.Controllers;
 
 [ApiController]

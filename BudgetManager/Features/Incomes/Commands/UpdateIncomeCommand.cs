@@ -1,7 +1,3 @@
-using BudgetManager.Mappers;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.Incomes.Commands;
 
 public record UpdateIncomeCommand : IRequest

@@ -1,5 +1,3 @@
-using BudgetManager.Dto.Transaction;
-
 namespace BudgetManager.Services;
 
 public interface ITransactionService

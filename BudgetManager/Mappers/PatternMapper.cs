@@ -1,7 +1,3 @@
-using BudgetManager.Dto.Pattern;
-using BudgetManager.Features.Patterns.Commands;
-using BudgetManager.Models;
-
 namespace BudgetManager.Mappers;
 
 public interface IPatternMapper

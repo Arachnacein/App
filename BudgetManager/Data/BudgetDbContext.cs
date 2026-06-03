@@ -1,6 +1,3 @@
-using BudgetManager.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Data;
 
 public class BudgetDbContext : DbContext

@@ -1,5 +1,3 @@
-using BudgetManager.Dto.RecurringTransaction;
-
 namespace BudgetManager.Services;
 
 public interface IRecurringTransactionService

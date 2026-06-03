@@ -1,7 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Models;
-using MediatR;
-
 namespace BudgetManager.Features.Statistics.Queries;
 
 public record RetrieveMonthlyCategoriesDistributionQuery : IRequest<List<MonthlyCategoriesModel>>

@@ -1,8 +1,5 @@
-using BudgetManager.Data;
 using BudgetManager.Installers;
 using BudgetManager.Utils;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

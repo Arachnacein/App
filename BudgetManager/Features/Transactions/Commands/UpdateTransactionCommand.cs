@@ -1,8 +1,3 @@
-using BudgetManager.Mappers;
-using BudgetManager.Models;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.Transactions.Commands;
 
 public record UpdateTransactionCommand : IRequest    

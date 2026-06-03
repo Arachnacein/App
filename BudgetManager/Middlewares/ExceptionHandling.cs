@@ -1,7 +1,3 @@
-using BudgetManager.Exceptions;
-using BudgetManager.Exceptions.IncomeExceptions;
-using BudgetManager.Exceptions.PatternExceptions;
-using BudgetManager.Exceptions.TransactionExceptions;
 using System.Text.Json;
 
 namespace BudgetManager.Utils;

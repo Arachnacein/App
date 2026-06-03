@@ -1,7 +1,3 @@
-using BudgetManager.Data;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.Statistics.Queries;
 
 public record RetrieveAverageExpensesQuery : IRequest<double>

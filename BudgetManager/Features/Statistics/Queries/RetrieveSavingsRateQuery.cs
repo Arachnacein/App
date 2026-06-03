@@ -1,8 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Models;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.Statistics.Queries;
 
 public record RetrieveSavingsRateQuery : IRequest<double>

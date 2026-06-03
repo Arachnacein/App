@@ -1,7 +1,3 @@
-
-using BudgetManager.Data;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Installers;
 
 public class DbContextInstaller : IInstaller

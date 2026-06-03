@@ -1,5 +1,3 @@
-using BudgetManager.Models;
-
 namespace BudgetManager.Dto.RecurringTransaction;
 
 public class UpdateRecurringTransactionDto

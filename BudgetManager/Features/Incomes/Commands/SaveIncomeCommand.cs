@@ -1,8 +1,3 @@
-using BudgetManager.Dto.Income;
-using BudgetManager.Mappers;
-using BudgetManager.Services;
-using MediatR;
-
 namespace BudgetManager.Features.Incomes.Commands;
 
 public record SaveIncomeCommand : IRequest<IncomeDto>

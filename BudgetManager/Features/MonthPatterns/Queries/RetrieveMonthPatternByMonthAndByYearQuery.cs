@@ -1,9 +1,3 @@
-using BudgetManager.Data;
-using BudgetManager.Dto.Pattern;
-using BudgetManager.Exceptions.PatternExceptions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 namespace BudgetManager.Features.MonthPatterns.Queries;
 
 public record RetrieveMonthPatternByMonthAndByYearQuery : IRequest<PatternDto>
