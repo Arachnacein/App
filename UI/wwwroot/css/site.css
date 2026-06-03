@@ -79,9 +79,28 @@ body::before {
     box-shadow: 0 8px 28px rgba(124, 58, 237, 0.18) !important;
 }
 
-.kpi-card-saves  { border-left: 3px solid #10B981 !important; border-color: rgba(124,58,237,0.25) !important; border-left-color: #10B981 !important; }
-.kpi-card-fees   { border-left: 3px solid #EF4444 !important; border-color: rgba(124,58,237,0.25) !important; border-left-color: #EF4444 !important; }
-.kpi-card-entert { border-left: 3px solid #06B6D4 !important; border-color: rgba(124,58,237,0.25) !important; border-left-color: #06B6D4 !important; }
+.kpi-card-saves   { border-left: 4px solid #10B981 !important; border-color: rgba(16,185,129,0.2) !important; border-left-color: #10B981 !important; }
+.kpi-card-fees    { border-left: 4px solid #EF4444 !important; border-color: rgba(239,68,68,0.2) !important; border-left-color: #EF4444 !important; }
+.kpi-card-entert  { border-left: 4px solid #06B6D4 !important; border-color: rgba(6,182,212,0.2) !important; border-left-color: #06B6D4 !important; }
+.kpi-card-neutral { border-left: 4px solid #7C3AED !important; border-color: rgba(124,58,237,0.2) !important; border-left-color: #7C3AED !important; }
+
+.chart-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding-left: 4px;
+    border-left: 3px solid var(--mud-palette-primary);
+}
+
+.savings-rate-info-icon {
+    font-size: 14px !important;
+    opacity: 0.55;
+    cursor: help;
+    transition: opacity 0.2s ease;
+}
+.savings-rate-info-icon:hover {
+    opacity: 1;
+}
 
 /* Pasek postępu jako dolna krawędź KPI card */
 .kpi-bottom-bar {

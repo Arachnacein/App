@@ -150,4 +150,25 @@
   <data name="TotalSaves" xml:space="preserve">
     <value>Total saves</value>
   </data>
+  <data name="AllHistory" xml:space="preserve">
+    <value>All history</value>
+  </data>
+  <data name="StatsRange" xml:space="preserve">
+    <value>Statistics range</value>
+  </data>
+  <data name="SavingsRate" xml:space="preserve">
+    <value>Savings rate</value>
+  </data>
+  <data name="SavingsRateTooltip" xml:space="preserve">
+    <value>Share of savings in the total value of all transactions. The higher the value, the more you save relative to your spending.</value>
+  </data>
+  <data name="TransactionCountByCategory" xml:space="preserve">
+    <value>Transactions by category</value>
+  </data>
+  <data name="CategoriesDistributionTitle" xml:space="preserve">
+    <value>Category distribution</value>
+  </data>
+  <data name="MonthlyDistributionTitle" xml:space="preserve">
+    <value>Monthly distribution</value>
+  </data>
 </root>

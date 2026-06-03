@@ -78,5 +78,37 @@ namespace BudgetManager.Controllers
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+
+        [HttpGet("GetSavingsRate")]
+        public async Task<IActionResult> GetSavingsRate([FromQuery] Guid userId)
+        {
+            var query = new RetrieveSavingsRateQuery(userId);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet("GetTransactionCountByCategory")]
+        public async Task<IActionResult> GetTransactionCountByCategory([FromQuery] Guid userId)
+        {
+            var query = new RetrieveTransactionCountByCategoryQuery(userId);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet("GetAvailableYears")]
+        public async Task<IActionResult> GetAvailableYears([FromQuery] Guid userId)
+        {
+            var query = new RetrieveAvailableYearsQuery(userId);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet("GetFilteredStatistics")]
+        public async Task<IActionResult> GetFilteredStatistics([FromQuery] Guid userId, [FromQuery] int? year)
+        {
+            var query = new RetrieveFilteredStatisticsQuery(userId, year);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }

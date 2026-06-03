@@ -14,14 +14,6 @@ services:
         networks:
             - frontendnetwork
 
-    uiangular:
-        build:
-            context: /UIAngular
-        ports:
-            - 8012:80
-        networks:
-            - frontendnetwork
-
     apigateway:
         build:
             context: /ApiGateway
