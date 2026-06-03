@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35219.272
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11801.241 oobstable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4FE69F5B-415F-4652-AD84-2297772FDB4D}"
 EndProject
@@ -32,8 +32,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesTests.cs", "ServicesTests.cs\ServicesTests.cs.csproj", "{B5BD9B5A-025E-44C7-922A-976A06D91ACD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareTests", "MiddlewareTests\MiddlewareTests.csproj", "{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}"
-EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UIAngular", "UIAngular\UIAngular.esproj", "{29D930BB-C019-4707-B6AA-C3AA396697E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,12 +79,6 @@ Global
 		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29D930BB-C019-4707-B6AA-C3AA396697E9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,7 +97,6 @@ Global
 		{5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1} = {611D8730-F64C-4100-8136-867C86FEF0C1}
 		{B5BD9B5A-025E-44C7-922A-976A06D91ACD} = {5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1}
 		{40F4F87C-E4B8-4245-A8E6-B171F4C12DE3} = {5A18F193-D402-4AAC-BC8F-BE8EC8AE46C1}
-		{29D930BB-C019-4707-B6AA-C3AA396697E9} = {4FE69F5B-415F-4652-AD84-2297772FDB4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CC4BEBA-048E-467D-9CA9-DB90775B49C9}

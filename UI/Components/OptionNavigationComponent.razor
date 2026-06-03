@@ -1,9 +1,9 @@
 ﻿@inject IStringLocalizer<OptionNavigationComponent> Localizer
-<MudDrawer Open="true" Anchor="Anchor.Left" Elevation="2" Variant="DrawerVariant.Mini">
+<MudDrawer Open="true" Anchor="Anchor.Left" Elevation="3" Variant="DrawerVariant.Mini" Class="drawer-options">
     <MudNavMenu>
         @if(UserSessionService.IsAdmin)
         {
-            <MudNavGroup Title="@Localizer["AdminPanel"]" Icon="@Icons.Material.Filled.AdminPanelSettings" 
+            <MudNavGroup Title="@Localizer["AdminPanel"]" Icon="@Icons.Material.Filled.AdminPanelSettings"
                          Expanded="true" Style="@($"color:{Colors.Yellow.Darken1}")">
                 <MudNavLink Href="/options/adminPanel/users" Icon="@Icons.Material.Filled.People">
                     @Localizer["Users"]
@@ -12,23 +12,23 @@
                     @Localizer["HealthChecks"]
                 </MudNavLink>
             </MudNavGroup>
-            <MudDivider Class="my-2" />
+            <MudDivider Class="my-2" Style="border-color: rgba(124,58,237,0.3);" />
         }
         <MudNavLink Href="/options/account" Icon="@Icons.Material.Filled.Person">
             @Localizer["Account"]
         </MudNavLink>
-        <MudNavLink Href="/options/income" Icon="@Icons.Material.Filled.ViewList">
+        <MudNavLink Href="/options/income" Icon="@Icons.Material.Filled.AttachMoney">
             @Localizer["Incomes"]
         </MudNavLink>
-        <MudNavLink Href="/options/transaction" Icon="@Icons.Material.Filled.ViewList">
+        <MudNavLink Href="/options/transaction" Icon="@Icons.Material.Filled.Receipt">
             @Localizer["Transactions"]
-        </MudNavLink>        
+        </MudNavLink>
         <MudNavLink Href="/options/recurringTransaction" Icon="@Icons.Material.Filled.Recycling">
             @Localizer["RecurringTransactions"]
         </MudNavLink>
-        <MudNavLink Href="/options/pattern" Icon="@Icons.Material.Filled.ViewList">
+        <MudNavLink Href="/options/pattern" Icon="@Icons.Material.Filled.BarChart">
             @Localizer["Patterns"]
-        </MudNavLink>        
+        </MudNavLink>
         <MudNavLink Href="/options/settings" Icon="@Icons.Material.Filled.Settings">
             @Localizer["Settings"]
         </MudNavLink>
