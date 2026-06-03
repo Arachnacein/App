@@ -1,12 +1,9 @@
-﻿using BudgetManager.Dto.Pattern;
+namespace BudgetManager.Dto.MonthPattern;
 
-namespace BudgetManager.Dto.MonthPattern
+public class FullMonthPatternDto
 {
-    public class FullMonthPatternDto
-    {
-        public int Id { get; set; }
-        public Guid UserId { get; set; }
-        public DateTime Date { get; set; }
-        public PatternDto Pattern { get; set; }
-    }
+    public int Id { get; set; }
+    public Guid UserId { get; set; }
+    public DateTime Date { get; set; }
+    public PatternDto Pattern { get; set; }
 }

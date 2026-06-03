@@ -171,4 +171,10 @@
   <data name="Transactions" xml:space="preserve">
     <value>Wydatki</value>
   </data>
+  <data name="MonthlyBudget" xml:space="preserve">
+    <value>Budżet</value>
+  </data>
+  <data name="RecurringSum" xml:space="preserve">
+    <value>Suma wydatków cyklicznych</value>
+  </data>
 </root>

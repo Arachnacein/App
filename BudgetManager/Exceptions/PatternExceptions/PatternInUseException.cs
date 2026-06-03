@@ -1,7 +1,6 @@
-namespace BudgetManager.Exceptions.PatternExceptions
+namespace BudgetManager.Exceptions.PatternExceptions;
+
+public class PatternInUseException : Exception
 {
-    public class PatternInUseException : Exception
-    {
-        public PatternInUseException(string msg) : base(msg) { }
-    }
+    public PatternInUseException(string msg) : base(msg) { }
 }

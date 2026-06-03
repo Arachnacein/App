@@ -150,4 +150,25 @@
   <data name="TotalSaves" xml:space="preserve">
     <value>Łączne oszczędności</value>
   </data>
+  <data name="AllHistory" xml:space="preserve">
+    <value>Cała historia</value>
+  </data>
+  <data name="StatsRange" xml:space="preserve">
+    <value>Zakres statystyk</value>
+  </data>
+  <data name="SavingsRate" xml:space="preserve">
+    <value>Wskaźnik oszczędności</value>
+  </data>
+  <data name="SavingsRateTooltip" xml:space="preserve">
+    <value>Udział oszczędności w łącznej wartości wszystkich transakcji. Im wyższa wartość, tym więcej odkładasz w stosunku do wydatków.</value>
+  </data>
+  <data name="TransactionCountByCategory" xml:space="preserve">
+    <value>Transakcje per kategoria</value>
+  </data>
+  <data name="CategoriesDistributionTitle" xml:space="preserve">
+    <value>Rozkład kategorii</value>
+  </data>
+  <data name="MonthlyDistributionTitle" xml:space="preserve">
+    <value>Rozkład miesięczny</value>
+  </data>
 </root>

@@ -1,52 +1,46 @@
-﻿using BudgetManager.Mappers;
-using BudgetManager.Models;
-using BudgetManager.Services;
-using MediatR;
+namespace BudgetManager.Features.Transactions.Commands;
 
-namespace BudgetManager.Features.Transactions.Commands
+public record UpdateTransactionCommand : IRequest    
 {
-    public record UpdateTransactionCommand : IRequest    
-    {
-        public int Id { get; init; }
-        public Guid UserId { get; init; }
-        public string Name { get; init; }
-        public string? Description { get; init; }
-        public DateTime Date { get; init; }
-        public double Price { get; init; }
-        public TransactionCategoryEnum Category { get; set; }
-        public bool IsRecurring { get; init; }
-        public bool IsApproved { get; set; }
+    public int Id { get; init; }
+    public Guid UserId { get; init; }
+    public string Name { get; init; }
+    public string? Description { get; init; }
+    public DateTime Date { get; init; }
+    public double Price { get; init; }
+    public TransactionCategoryEnum Category { get; set; }
+    public bool IsRecurring { get; init; }
+    public bool IsApproved { get; set; }
 
-        public UpdateTransactionCommand(int id, Guid userId, string name, string? description, DateTime date, double price, TransactionCategoryEnum category, bool isRecurring, bool approved)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-            Date = date;
-            Price = price;
-            Category = category;
-            UserId = userId;
-            IsRecurring = isRecurring;
-            IsApproved = approved;
-        }
+    public UpdateTransactionCommand(int id, Guid userId, string name, string? description, DateTime date, double price, TransactionCategoryEnum category, bool isRecurring, bool approved)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        Date = date;
+        Price = price;
+        Category = category;
+        UserId = userId;
+        IsRecurring = isRecurring;
+        IsApproved = approved;
     }
+}
 
-    public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand>
+public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand>
+{
+    private readonly ITransactionService _transactionService;
+    private readonly ITransactionMapper _transactionMapper;
+
+    public UpdateTransactionCommandHandler(ITransactionService transactionService, ITransactionMapper transactionMapper)
     {
-        private readonly ITransactionService _transactionService;
-        private readonly ITransactionMapper _transactionMapper;
+        _transactionService = transactionService;
+        _transactionMapper = transactionMapper;
+    }
+    public async Task Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
+    {
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
 
-        public UpdateTransactionCommandHandler(ITransactionService transactionService, ITransactionMapper transactionMapper)
-        {
-            _transactionService = transactionService;
-            _transactionMapper = transactionMapper;
-        }
-        public async Task Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
-        {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
-            await _transactionService.UpdateTransactionAsync(_transactionMapper.Map(request));
-        }
+        await _transactionService.UpdateTransactionAsync(_transactionMapper.Map(request));
     }
 }

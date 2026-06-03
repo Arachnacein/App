@@ -1,263 +1,262 @@
-﻿using BudgetManager.Data;
+using BudgetManager.Data;
 using BudgetManager.Models;
 using BudgetManager.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
-namespace RepositoriesTests
+namespace RepositoriesTests;
+
+public class PatternRepositoryTests
 {
-    public class PatternRepositoryTests
+    private BudgetDbContext CreateInMemoryDbContext()
     {
-        private BudgetDbContext CreateInMemoryDbContext()
+        var options = new DbContextOptionsBuilder<BudgetDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        return new BudgetDbContext(options);
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturnPattern_WhenIdAndUserIdAreValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern
         {
-            var options = new DbContextOptionsBuilder<BudgetDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+            Id = 1,
+            UserId = userId,
+            Name = "testPattern",
+            Value_Saves = 30,
+            Value_Entertainment = 30,
+            Value_Fees = 40
+        };
+        dbContext.Add(newPattern);
+        await dbContext.SaveChangesAsync();
 
-            return new BudgetDbContext(options);
-        }
+        var patternRepository = new PatternRepository(dbContext);
 
-        [Fact]
-        public async Task GetAsync_ShouldReturnPattern_WhenIdAndUserIdAreValid()
+        //act
+        var result = await patternRepository.GetAsync(1, userId);
+
+        //assert
+        result.Should().NotBeNull();
+        result.Should().BeOfType<Pattern>();
+        result.Should().Be(newPattern);
+    }
+    
+    [Fact]
+    public async Task GetAsync_ShouldReturnNull_WhenPatternDoesNotExists()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var patternRepository = new PatternRepository(dbContext);
+
+        //act
+        var result = await patternRepository.GetAsync(1, Guid.NewGuid());
+
+        //assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturnNull_WhenIdIsValidAndUserIdIsInValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern
-            {
-                Id = 1,
-                UserId = userId,
-                Name = "testPattern",
-                Value_Saves = 30,
-                Value_Entertainment = 30,
-                Value_Fees = 40
-            };
-            dbContext.Add(newPattern);
-            await dbContext.SaveChangesAsync();
+            Id = 1,
+            UserId = userId,
+            Name = "testPattern",
+            Value_Saves = 30,
+            Value_Entertainment = 30,
+            Value_Fees = 40
+        };
+        dbContext.Add(newPattern);
+        await dbContext.SaveChangesAsync();
 
-            var patternRepository = new PatternRepository(dbContext);
+        var patternRepository = new PatternRepository(dbContext);
 
-            //act
-            var result = await patternRepository.GetAsync(1, userId);
+        //act
+        var result = await patternRepository.GetAsync(1, Guid.Empty);
 
-            //assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType<Pattern>();
-            result.Should().Be(newPattern);
-        }
-        
-        [Fact]
-        public async Task GetAsync_ShouldReturnNull_WhenPatternDoesNotExists()
+        //assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetAsync_ShouldReturnNull_WhenIdIsInValidAndUserIdIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var patternRepository = new PatternRepository(dbContext);
+            Id = 1,
+            UserId = userId,
+            Name = "testPattern",
+            Value_Saves = 30,
+            Value_Entertainment = 30,
+            Value_Fees = 40
+        };
+        dbContext.Add(newPattern);
+        await dbContext.SaveChangesAsync();
 
-            //act
-            var result = await patternRepository.GetAsync(1, Guid.NewGuid());
+        var patternRepository = new PatternRepository(dbContext);
 
-            //assert
-            result.Should().BeNull();
-        }
+        //act
+        var result = await patternRepository.GetAsync(21, userId);
 
-        [Fact]
-        public async Task GetAsync_ShouldReturnNull_WhenIdIsValidAndUserIdIsInValid()
+        //assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ShouldReturnAllPatterns_WhenDataIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPatternList = new List<Pattern>
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern
-            {
-                Id = 1,
-                UserId = userId,
-                Name = "testPattern",
-                Value_Saves = 30,
-                Value_Entertainment = 30,
-                Value_Fees = 40
-            };
-            dbContext.Add(newPattern);
-            await dbContext.SaveChangesAsync();
+            new Pattern { Id = 1, UserId = userId,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
+            new Pattern { Id = 2, UserId = Guid.Empty,  Name = "testPattern2", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
+            new Pattern { Id = 3, UserId = userId,  Name = "testPattern3", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 }
+        };
+        dbContext.AddRange(newPatternList);
+        await dbContext.SaveChangesAsync();
 
-            var patternRepository = new PatternRepository(dbContext);
+        var patternRepository = new PatternRepository(dbContext);
 
-            //act
-            var result = await patternRepository.GetAsync(1, Guid.Empty);
+        //act
+        var result = await patternRepository.GetAllAsync(userId);
 
-            //assert
-            result.Should().BeNull();
-        }
+        //assert
+        result.Should().HaveCount(2);
+    }
 
-        [Fact]
-        public async Task GetAsync_ShouldReturnNull_WhenIdIsInValidAndUserIdIsValid()
+    [Fact]
+    public async Task GetAsync_ShouldReturnEmptyList_WhenPatternsWithUserIdNotFound()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPatternList = new List<Pattern>
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern
-            {
-                Id = 1,
-                UserId = userId,
-                Name = "testPattern",
-                Value_Saves = 30,
-                Value_Entertainment = 30,
-                Value_Fees = 40
-            };
-            dbContext.Add(newPattern);
-            await dbContext.SaveChangesAsync();
+            new Pattern { Id = 1, UserId = userId,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
+            new Pattern { Id = 2, UserId = Guid.Empty,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 }
+        };
+        dbContext.AddRange(newPatternList);
+        await dbContext.SaveChangesAsync();
 
-            var patternRepository = new PatternRepository(dbContext);
+        var patternRepository = new PatternRepository(dbContext);
 
-            //act
-            var result = await patternRepository.GetAsync(21, userId);
+        //act
+        var result = await patternRepository.GetAllAsync(Guid.NewGuid());
 
-            //assert
-            result.Should().BeNull();
-        }
+        //assert
+        result.Should().HaveCount(0);
+    }
 
-        [Fact]
-        public async Task GetAllAsync_ShouldReturnAllPatterns_WhenDataIsValid()
+    [Fact]
+    public async Task AddAsync_ShouldAddNewPattern_WhenDataIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var newPattern = new Pattern
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPatternList = new List<Pattern>
-            {
-                new Pattern { Id = 1, UserId = userId,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
-                new Pattern { Id = 2, UserId = Guid.Empty,  Name = "testPattern2", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
-                new Pattern { Id = 3, UserId = userId,  Name = "testPattern3", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 }
-            };
-            dbContext.AddRange(newPatternList);
-            await dbContext.SaveChangesAsync();
+            Id = 1,
+            UserId = Guid.NewGuid(),
+            Name = "testPattern",
+            Value_Saves = 30,
+            Value_Entertainment = 30,
+            Value_Fees = 40
+        };
+        var patternRepository = new PatternRepository(dbContext);
 
-            var patternRepository = new PatternRepository(dbContext);
+        //act
+        await patternRepository.AddAsync(newPattern);
 
-            //act
-            var result = await patternRepository.GetAllAsync(userId);
+        //assert
+        dbContext.Patterns.Should().HaveCount(1);
+    }
 
-            //assert
-            result.Should().HaveCount(2);
-        }
-
-        [Fact]
-        public async Task GetAsync_ShouldReturnEmptyList_WhenPatternsWithUserIdNotFound()
+    [Fact]
+    public async Task AddAsync_ShouldReturnNewPattern_WhenDataIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var newPattern = new Pattern
         {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPatternList = new List<Pattern>
-            {
-                new Pattern { Id = 1, UserId = userId,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 },
-                new Pattern { Id = 2, UserId = Guid.Empty,  Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 }
-            };
-            dbContext.AddRange(newPatternList);
-            await dbContext.SaveChangesAsync();
+            Id = 1,
+            UserId = Guid.NewGuid(),
+            Name = "testPattern",
+            Value_Saves = 30,
+            Value_Entertainment = 30,
+            Value_Fees = 40
+        };
+        var patternRepository = new PatternRepository(dbContext);
 
-            var patternRepository = new PatternRepository(dbContext);
+        //act
+        var result = await patternRepository.AddAsync(newPattern);
 
-            //act
-            var result = await patternRepository.GetAllAsync(Guid.NewGuid());
+        //assert
+        result.Should().BeOfType<Pattern>();
+        result.Should().NotBeNull();
+    }
 
-            //assert
-            result.Should().HaveCount(0);
-        }
+    [Fact]
+    public async Task DeleteAsync_ShouldRemovePattern_WhenDataIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
+        await dbContext.AddAsync(newPattern);
+        await dbContext.SaveChangesAsync();
+        var patternRepository = new PatternRepository(dbContext);
 
-        [Fact]
-        public async Task AddAsync_ShouldAddNewPattern_WhenDataIsValid()
-        {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var newPattern = new Pattern
-            {
-                Id = 1,
-                UserId = Guid.NewGuid(),
-                Name = "testPattern",
-                Value_Saves = 30,
-                Value_Entertainment = 30,
-                Value_Fees = 40
-            };
-            var patternRepository = new PatternRepository(dbContext);
+        //act
+        await patternRepository.DeleteAsync(1, userId);
 
-            //act
-            await patternRepository.AddAsync(newPattern);
+        //assert
+        dbContext.Patterns.Should().HaveCount(0);
+    }
 
-            //assert
-            dbContext.Patterns.Should().HaveCount(1);
-        }
+    [Fact]
+    public async Task DeleteAsync_ShouldNotRemovePattern_WhenIdIsInValidAndUserIdIsValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
+        await dbContext.AddAsync(newPattern);
+        await dbContext.SaveChangesAsync();
+        var patternRepository = new PatternRepository(dbContext);
 
-        [Fact]
-        public async Task AddAsync_ShouldReturnNewPattern_WhenDataIsValid()
-        {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var newPattern = new Pattern
-            {
-                Id = 1,
-                UserId = Guid.NewGuid(),
-                Name = "testPattern",
-                Value_Saves = 30,
-                Value_Entertainment = 30,
-                Value_Fees = 40
-            };
-            var patternRepository = new PatternRepository(dbContext);
+        //act & assert
+        await patternRepository.Invoking(async x => await x.DeleteAsync(2, userId))
+            .Should()
+            .ThrowAsync<ArgumentNullException>();
+    }
 
-            //act
-            var result = await patternRepository.AddAsync(newPattern);
+    [Fact]
+    public async Task DeleteAsync_ShouldNotRemovePattern_WhenIdIsValidAndUserIdIsInValid()
+    {
+        //arrange
+        var dbContext = CreateInMemoryDbContext();
+        var userId = Guid.NewGuid();
+        var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
+        await dbContext.AddAsync(newPattern);
+        await dbContext.SaveChangesAsync();
+        var patternRepository = new PatternRepository(dbContext);
 
-            //assert
-            result.Should().BeOfType<Pattern>();
-            result.Should().NotBeNull();
-        }
-
-        [Fact]
-        public async Task DeleteAsync_ShouldRemovePattern_WhenDataIsValid()
-        {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
-            await dbContext.AddAsync(newPattern);
-            await dbContext.SaveChangesAsync();
-            var patternRepository = new PatternRepository(dbContext);
-
-            //act
-            await patternRepository.DeleteAsync(1, userId);
-
-            //assert
-            dbContext.Patterns.Should().HaveCount(0);
-        }
-
-        [Fact]
-        public async Task DeleteAsync_ShouldNotRemovePattern_WhenIdIsInValidAndUserIdIsValid()
-        {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
-            await dbContext.AddAsync(newPattern);
-            await dbContext.SaveChangesAsync();
-            var patternRepository = new PatternRepository(dbContext);
-
-            //act & assert
-            await patternRepository.Invoking(async x => await x.DeleteAsync(2, userId))
-                .Should()
-                .ThrowAsync<ArgumentNullException>();
-        }
-
-        [Fact]
-        public async Task DeleteAsync_ShouldNotRemovePattern_WhenIdIsValidAndUserIdIsInValid()
-        {
-            //arrange
-            var dbContext = CreateInMemoryDbContext();
-            var userId = Guid.NewGuid();
-            var newPattern = new Pattern { Id = 1, UserId = userId, Name = "testPattern", Value_Saves = 30, Value_Entertainment = 30, Value_Fees = 40 };
-            await dbContext.AddAsync(newPattern);
-            await dbContext.SaveChangesAsync();
-            var patternRepository = new PatternRepository(dbContext);
-
-            //act & assert
-            await patternRepository.Invoking(async x => await x.DeleteAsync(1, Guid.Empty))
-                .Should()
-                .ThrowAsync<ArgumentNullException>();
-        }
+        //act & assert
+        await patternRepository.Invoking(async x => await x.DeleteAsync(1, Guid.Empty))
+            .Should()
+            .ThrowAsync<ArgumentNullException>();
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace IdentityManager.Exceptions
+namespace IdentityManager.Exceptions;
+
+public class CustomException : Exception
 {
-    public class CustomException : Exception
+    public int ErrorCode { get; }
+    public CustomException(int errorCode, string msg) : base(msg)
     {
-        public int ErrorCode { get; }
-        public CustomException(int errorCode, string msg) : base(msg)
-        {
-            ErrorCode = errorCode;
-        }
+        ErrorCode = errorCode;
     }
 }

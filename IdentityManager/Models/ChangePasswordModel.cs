@@ -1,9 +1,8 @@
-namespace IdentityManager.Models
+namespace IdentityManager.Models;
+
+public class ChangePasswordModel
 {
-    public class ChangePasswordModel
-    {
-        public Guid UserId { get; set; }
-        public string CurrentPassword { get; set; } = string.Empty;
-        public string NewPassword { get; set; } = string.Empty;
-    }
+    public Guid UserId { get; set; }
+    public string CurrentPassword { get; set; } = string.Empty;
+    public string NewPassword { get; set; } = string.Empty;
 }

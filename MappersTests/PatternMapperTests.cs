@@ -1,147 +1,146 @@
-﻿using BudgetManager.Dto.Pattern;
+using BudgetManager.Dto.Pattern;
 using BudgetManager.Features.Patterns.Commands;
 using BudgetManager.Mappers;
 using BudgetManager.Models;
 using FluentAssertions;
 
-namespace MappersTests
+namespace MappersTests;
+
+public class PatternMapperTests
 {
-    public class PatternMapperTests
+    private readonly IPatternMapper _mapper;
+    public PatternMapperTests()
     {
-        private readonly IPatternMapper _mapper;
-        public PatternMapperTests()
+        _mapper = new PatternMapper();
+    }
+    [Fact]
+    public void Map_PatternToPatternDto_ShouldReturnPatternDto_WhenCalled()
+    {
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var pattern = new Pattern
         {
-            _mapper = new PatternMapper();
-        }
-        [Fact]
-        public void Map_PatternToPatternDto_ShouldReturnPatternDto_WhenCalled()
+            Id = 1,
+            UserId = userId,
+            Name = "Name",
+            Value_Entertainment = 30,
+            Value_Fees = 30,
+            Value_Saves = 30,
+            MonthPatterns = new List<MonthPattern>()
+        };
+
+        //act
+        var mappedPattern = _mapper.Map(pattern);
+
+        //assert
+        mappedPattern.Should().NotBeNull();
+        mappedPattern.Should().BeOfType<PatternDto>();
+        mappedPattern.Should().BeEquivalentTo(pattern, options => options.Excluding(x => x.MonthPatterns));
+    }
+    [Fact]
+    public void Map_PatternDtoToPattern_ShouldReturnPattern_WhenCalled()
+    {
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var patternDto = new PatternDto
         {
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var pattern = new Pattern
-            {
-                Id = 1,
-                UserId = userId,
-                Name = "Name",
-                Value_Entertainment = 30,
-                Value_Fees = 30,
-                Value_Saves = 30,
-                MonthPatterns = new List<MonthPattern>()
-            };
+            Id = 1,
+            UserId = userId,
+            Name = "Name",
+            Value_Entertainment = 30,
+            Value_Fees = 30,
+            Value_Saves = 30
+        };
 
-            //act
-            var mappedPattern = _mapper.Map(pattern);
+        //act
+        var mappedPattern = _mapper.Map(patternDto);
 
-            //assert
-            mappedPattern.Should().NotBeNull();
-            mappedPattern.Should().BeOfType<PatternDto>();
-            mappedPattern.Should().BeEquivalentTo(pattern, options => options.Excluding(x => x.MonthPatterns));
-        }
-        [Fact]
-        public void Map_PatternDtoToPattern_ShouldReturnPattern_WhenCalled()
+        //assert
+        mappedPattern.Should().NotBeNull();
+        mappedPattern.Should().BeOfType<Pattern>();
+        mappedPattern.Should().BeEquivalentTo(patternDto);
+    }
+    [Fact]
+    public void Map_AddPatternDtoToPattern_ShouldReturnPattern_WhenCalled()
+    {            
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var patternDto = new AddPatternDto
         {
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var patternDto = new PatternDto
-            {
-                Id = 1,
-                UserId = userId,
-                Name = "Name",
-                Value_Entertainment = 30,
-                Value_Fees = 30,
-                Value_Saves = 30
-            };
+            UserId = userId,
+            Name = "Name",
+            Value_Entertainment = 30,
+            Value_Fees = 30,
+            Value_Saves = 30
+        };
 
-            //act
-            var mappedPattern = _mapper.Map(patternDto);
+        //act
+        var mappedPattern = _mapper.Map(patternDto);
 
-            //assert
-            mappedPattern.Should().NotBeNull();
-            mappedPattern.Should().BeOfType<Pattern>();
-            mappedPattern.Should().BeEquivalentTo(patternDto);
-        }
-        [Fact]
-        public void Map_AddPatternDtoToPattern_ShouldReturnPattern_WhenCalled()
-        {            
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var patternDto = new AddPatternDto
-            {
-                UserId = userId,
-                Name = "Name",
-                Value_Entertainment = 30,
-                Value_Fees = 30,
-                Value_Saves = 30
-            };
+        //assert
+        mappedPattern.Should().NotBeNull();
+        mappedPattern.Should().BeOfType<Pattern>();
+        mappedPattern.Should().BeEquivalentTo(patternDto);
+    }
+    [Fact]
+    public void Map_SavePatternCommandToAddPatternDto_ShouldReturnAddPatternDto_WhenCalled()
+    {
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var savePatternCommand = new SavePatternCommand(userId, "Name", 30, 30, 40);
 
-            //act
-            var mappedPattern = _mapper.Map(patternDto);
+        //act
+        var mappedPattern = _mapper.Map(savePatternCommand);
 
-            //assert
-            mappedPattern.Should().NotBeNull();
-            mappedPattern.Should().BeOfType<Pattern>();
-            mappedPattern.Should().BeEquivalentTo(patternDto);
-        }
-        [Fact]
-        public void Map_SavePatternCommandToAddPatternDto_ShouldReturnAddPatternDto_WhenCalled()
+        //assert
+        mappedPattern.Should().NotBeNull();
+        mappedPattern.Should().BeOfType<AddPatternDto>();
+        mappedPattern.Should().BeEquivalentTo(savePatternCommand);
+    }
+    [Fact]
+    public void MapElements_PatternListToPatternDtoList_ShouldReturnPatternDtoList_WhenCalled()
+    {
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var patternList = new List<Pattern>
         {
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var savePatternCommand = new SavePatternCommand(userId, "Name", 30, 30, 40);
+            new Pattern{ Id = 1,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
+            new Pattern{ Id = 2,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
+            new Pattern{ Id = 3,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40}
+        };
 
-            //act
-            var mappedPattern = _mapper.Map(savePatternCommand);
+        //act
+        var mappedPatternsList = _mapper.MapElements(patternList);
 
-            //assert
-            mappedPattern.Should().NotBeNull();
-            mappedPattern.Should().BeOfType<AddPatternDto>();
-            mappedPattern.Should().BeEquivalentTo(savePatternCommand);
-        }
-        [Fact]
-        public void MapElements_PatternListToPatternDtoList_ShouldReturnPatternDtoList_WhenCalled()
+        //assert
+        mappedPatternsList.Should().NotBeNull();
+        mappedPatternsList.Should().BeOfType<List<PatternDto>>();
+        mappedPatternsList.Should().BeEquivalentTo(patternList, options => options.ExcludingMissingMembers());
+    }
+    [Fact]
+    public void MapElements_PatternDtoListToPatternList_ShouldReturnPatternList_WhenCalled()
+    {
+        //arrange
+        var userId = Guid.NewGuid();
+        var date = DateTime.UtcNow;
+        var patternDtoList = new List<PatternDto>
         {
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var patternList = new List<Pattern>
-            {
-                new Pattern{ Id = 1,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
-                new Pattern{ Id = 2,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
-                new Pattern{ Id = 3,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40}
-            };
+            new PatternDto { Id = 1,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
+            new PatternDto { Id = 2,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
+            new PatternDto { Id = 3,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40}
+        };
 
-            //act
-            var mappedPatternsList = _mapper.MapElements(patternList);
+        //act
+        var mappedPatternsList = _mapper.MapElements(patternDtoList);
 
-            //assert
-            mappedPatternsList.Should().NotBeNull();
-            mappedPatternsList.Should().BeOfType<List<PatternDto>>();
-            mappedPatternsList.Should().BeEquivalentTo(patternList, options => options.ExcludingMissingMembers());
-        }
-        [Fact]
-        public void MapElements_PatternDtoListToPatternList_ShouldReturnPatternList_WhenCalled()
-        {
-            //arrange
-            var userId = Guid.NewGuid();
-            var date = DateTime.UtcNow;
-            var patternDtoList = new List<PatternDto>
-            {
-                new PatternDto { Id = 1,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
-                new PatternDto { Id = 2,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40},
-                new PatternDto { Id = 3,UserId = userId,Name = "Name",Value_Entertainment = 30,Value_Fees = 30,Value_Saves = 40}
-            };
-
-            //act
-            var mappedPatternsList = _mapper.MapElements(patternDtoList);
-
-            //assert
-            mappedPatternsList.Should().NotBeNull();
-            mappedPatternsList.Should().BeOfType<List<Pattern>>();
-            mappedPatternsList.Should().BeEquivalentTo(patternDtoList, options => options.ExcludingMissingMembers());
-        }
+        //assert
+        mappedPatternsList.Should().NotBeNull();
+        mappedPatternsList.Should().BeOfType<List<Pattern>>();
+        mappedPatternsList.Should().BeEquivalentTo(patternDtoList, options => options.ExcludingMissingMembers());
     }
 }

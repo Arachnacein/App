@@ -1,9 +1,8 @@
-﻿namespace BudgetManager.Exceptions.IncomeExceptions
+namespace BudgetManager.Exceptions.IncomeExceptions;
+
+public class IncomeNotFoundException : Exception
 {
-    public class IncomeNotFoundException : Exception
+    public IncomeNotFoundException(string msg) : base(msg)
     {
-        public IncomeNotFoundException(string msg) : base(msg)
-        {
-        }
     }
 }

@@ -1,7 +1,6 @@
-namespace BudgetManager.Exceptions.PatternExceptions
+namespace BudgetManager.Exceptions.PatternExceptions;
+
+public class PatternAlreadyExistsException : Exception
 {
-    public class PatternAlreadyExistsException : Exception
-    {
-        public PatternAlreadyExistsException(string msg) : base(msg) { }
-    }
+    public PatternAlreadyExistsException(string msg) : base(msg) { }
 }

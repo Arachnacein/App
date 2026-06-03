@@ -1,8 +1,7 @@
-﻿namespace BudgetManager.Dto.Transaction
+namespace BudgetManager.Dto.Transaction;
+
+public class ConfirmTransactionDto
 {
-    public class ConfirmTransactionDto
-    {
-        public int Id { get; set; }
-        public Guid UserId { get; set; }
-    }
+    public int Id { get; set; }
+    public Guid UserId { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
                 <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustLogIn"]</MudText>
@@ -7,54 +7,130 @@
 else
 {
     <MudGrid Spacing="2" Class="mb-4 px-2">
-        <MudItem xs="12" sm="6" md="3">
-            <MudPaper Class="kpi-card kpi-card-saves pa-4" Elevation="0">
-                <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["TotalSaves"]</MudText>
+
+        @* ── Górny rząd — wyższe kafelki (pa-4, overline, h5) ── *@
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-saves pa-4" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.Savings" Color="Color.Success" Size="Size.Small" />
+                    <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["TotalSaves"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold">@TotalSaves</MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudPaper Class="kpi-card kpi-card-fees pa-4" Elevation="0">
-                <MudText Typo="Typo.overline" Color="Color.Secondary">@Localizer["TotalExpenses"]</MudText>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-fees pa-4" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" Size="Size.Small" />
+                    <MudText Typo="Typo.overline" Color="Color.Secondary">@Localizer["TotalExpenses"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h5" Color="Color.Secondary" Class="font-weight-bold">@TotalExpenses</MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudPaper Class="kpi-card kpi-card-saves pa-4" Elevation="0">
-                <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["AverageSaves"]</MudText>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-saves pa-4" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Color="Color.Success" Size="Size.Small" />
+                    <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["AverageSaves"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold">@AverageSaves</MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudPaper Class="kpi-card kpi-card-fees pa-4" Elevation="0">
-                <MudText Typo="Typo.overline" Color="Color.Secondary">@Localizer["AverageExpenses"]</MudText>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-fees pa-4" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.TrendingDown" Color="Color.Secondary" Size="Size.Small" />
+                    <MudText Typo="Typo.overline" Color="Color.Secondary">@Localizer["AverageExpenses"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h5" Color="Color.Secondary" Class="font-weight-bold">@AverageExpenses</MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Class="kpi-card kpi-card-saves pa-3" Elevation="0">
-                <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Total3MonthsSaves"]</MudText>
+
+        @* ── Dolny rząd — niższe kafelki (pa-3, caption, h6) ── *@
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-saves pa-3" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.DateRange" Color="Color.Success" Size="Size.Small" />
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Total3MonthsSaves"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h6" Color="Color.Success">@Total3MonthsSaves</MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Class="kpi-card kpi-card-fees pa-3" Elevation="0">
-                <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Total3MonthsExpenses"]</MudText>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-fees pa-3" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.DateRange" Color="Color.Secondary" Size="Size.Small" />
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Total3MonthsExpenses"]</MudText>
+                </MudStack>
                 <MudText Typo="Typo.h6" Color="Color.Secondary">@Total3MonthsExpenses</MudText>
             </MudPaper>
         </MudItem>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-saves pa-3" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.Percent" Color="Color.Success" Size="Size.Small" />
+                    <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["SavingsRate"]</MudText>
+                    <MudTooltip Text="@Localizer["SavingsRateTooltip"]" Placement="Placement.Top"
+                                Arrow="true" Delay="0" Duration="600" Color="Color.Dark">
+                        <MudIcon Icon="@Icons.Material.Outlined.Info" Size="Size.Small"
+                                 Class="mud-text-secondary savings-rate-info-icon" />
+                    </MudTooltip>
+                </MudStack>
+                <MudText Typo="Typo.h6" Color="Color.Success">@SavingsRate%</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3" Style="display: flex;">
+            <MudPaper Class="kpi-card kpi-card-neutral pa-3" Elevation="0" Style="height: 100%; width: 100%;">
+                <MudStack Row="true" Justify="Justify.SpaceAround" AlignItems="AlignItems.Center">
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudIcon Icon="@Icons.Material.Filled.Savings" Color="Color.Success" Size="Size.Small" />
+                        <MudText Typo="Typo.h6" Color="Color.Success">@TransactionCountByCategory.Saves</MudText>
+                        <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Saves"]</MudText>
+                    </MudStack>
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" Size="Size.Small" />
+                        <MudText Typo="Typo.h6" Color="Color.Secondary">@TransactionCountByCategory.Fees</MudText>
+                        <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Fees"]</MudText>
+                    </MudStack>
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudIcon Icon="@Icons.Material.Filled.TheaterComedy" Color="Color.Info" Size="Size.Small" />
+                        <MudText Typo="Typo.h6" Color="Color.Info">@TransactionCountByCategory.Entertainment</MudText>
+                        <MudText Typo="Typo.caption" Class="mud-text-secondary">@Localizer["Entertainment"]</MudText>
+                    </MudStack>
+                </MudStack>
+            </MudPaper>
+        </MudItem>
+
     </MudGrid>
 
-    <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-2" Style="flex-wrap: wrap;">
-        <MudPaper Class="kpi-card pa-2" Elevation="0" Style="width: min(28%, 300px); min-width: 200px;">
+    <MudStack AlignItems="AlignItems.Center" Class="mb-2 mx-2">
+        <MudPaper Class="kpi-card px-4 py-2" Elevation="0" Style="display: inline-flex; align-items: center; gap: 12px;">
+            <MudText Typo="Typo.caption" Class="mud-text-secondary" Style="white-space: nowrap;">@Localizer["StatsRange"]</MudText>
+            <MudSelect T="int?" Value="SelectedYear" ValueChanged="OnYearChanged"
+                       Dense="true" Margin="Margin.Dense" Variant="Variant.Text"
+                       Style="min-width: 160px; max-width: 200px;"
+                       ToStringFunc="@(v => v.HasValue ? v.Value.ToString() : Localizer["AllHistory"])">
+                <MudSelectItem T="int?" Value="@((int?)null)">@Localizer["AllHistory"]</MudSelectItem>
+                @foreach (var year in AvailableYears)
+                {
+                    <MudSelectItem T="int?" Value="@((int?)year)">@year</MudSelectItem>
+                }
+            </MudSelect>
+        </MudPaper>
+    </MudStack>
+
+    <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Stretch" Justify="Justify.Center" Class="ma-2" Style="flex-wrap: wrap;">
+        <MudPaper Class="kpi-card pa-3" Elevation="0" Style="width: min(30%, 320px); min-width: 220px;">
+            <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["CategoriesDistributionTitle"]</MudText>
             <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()"
                       InputLabels="@CategoriesDistribution.GetPropertyNames(Localizer)"
-                      Width="100%" Height="280px" LegendPosition="Position.Bottom" Class="mt-2" />
+                      Width="100%" Height="270px" LegendPosition="Position.Bottom" Class="mt-1" />
         </MudPaper>
 
-        <MudPaper Class="kpi-card pa-2" Elevation="0" Style="flex: 1; min-width: 300px;">
+        <MudPaper Class="kpi-card pa-3" Elevation="0" Style="flex: 1; min-width: 300px;">
+            <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["MonthlyDistributionTitle"]</MudText>
             <MudChart ChartType="ChartType.StackedBar" ChartSeries="@Series" XAxisLabels="@XaxisLabels"
-                      Width="100%" Height="300px" LegendPosition="Position.Right" Class="pa-2"/>
+                      Width="100%" Height="290px" LegendPosition="Position.Right" Class="pa-1"/>
         </MudPaper>
     </MudStack>
 

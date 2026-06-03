@@ -1,15 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 
-namespace UI.Extensions
+namespace UI.Extensions;
+
+public static class TokenExtensions
 {
-    public static class TokenExtensions
+    public static List<string> GetUserRolesFromToken(this JwtSecurityToken token)
     {
-        public static List<string> GetUserRolesFromToken(this JwtSecurityToken token)
-        {
-            return token.Claims
-                .Where(x => x.Type == "role")
-                .Select(x => x.Value)
-                .ToList()!;
-        }
+        return token.Claims
+            .Where(x => x.Type == "role")
+            .Select(x => x.Value)
+            .ToList()!;
     }
 }
