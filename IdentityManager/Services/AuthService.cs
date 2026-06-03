@@ -1,10 +1,3 @@
-using IdentityManager.Data;
-using IdentityManager.Exceptions;
-using IdentityManager.Models;
-using IdentityManager.Models.Enums;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace IdentityManager.Services;
 
 public class AuthService : IAuthService

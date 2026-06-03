@@ -1,8 +1,3 @@
-using IdentityManager.Exceptions;
-using IdentityManager.Models;
-using IdentityManager.Models.Enums;
-using Microsoft.AspNetCore.Identity;
-
 namespace IdentityManager.Services;
 
 public class AccountService : IAccountService

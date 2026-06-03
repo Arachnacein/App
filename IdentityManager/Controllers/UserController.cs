@@ -1,7 +1,3 @@
-using IdentityManager.Models;
-using IdentityManager.Services;
-using Microsoft.AspNetCore.Mvc;
-
 namespace IdentityManager.Controllers;
 
 [ApiController]
