@@ -139,14 +139,34 @@ body::before {
     box-shadow: 0 6px 20px rgba(124, 58, 237, 0.18) !important;
 }
 
+/* ─── Tab slide animation ───────────────────────────────── */
+@keyframes tabSlideInRight {
+    from { opacity: 0; transform: translateX(28px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tabSlideInLeft {
+    from { opacity: 0; transform: translateX(-28px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.budget-tabs .mud-tab-panel.tab-slide-right {
+    animation: tabSlideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.budget-tabs .mud-tab-panel.tab-slide-left {
+    animation: tabSlideInLeft 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* ─── Budget tabs — przezroczyste tło, tylko dolna krawędź ─ */
 .budget-tabs.mud-paper {
     background: transparent !important;
     box-shadow: none !important;
 }
 
-.budget-tabs .mud-tabs-header {
-    background: transparent !important;
+.budget-tabs .mud-tabs-tabbar {
+    background-color: transparent !important;
+    box-shadow: none !important;
     border-bottom: 1px solid var(--mud-palette-divider);
 }
 
