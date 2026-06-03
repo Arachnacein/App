@@ -1,6 +1,5 @@
-﻿namespace UI.Pages.MyPages
+namespace UI.Pages.MyPages;
+
+public partial class OptionPage
 {
-    public partial class OptionPage
-    {
-    }
 }

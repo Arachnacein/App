@@ -1,9 +1,8 @@
-﻿namespace UI.Models.ViewModels
+namespace UI.Models.ViewModels;
+
+public class MonthPatternViewModel
 {
-    public class MonthPatternViewModel
-    {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public PatternViewModel Pattern { get; set; }
-    }
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+    public PatternViewModel Pattern { get; set; }
 }

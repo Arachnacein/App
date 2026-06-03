@@ -1,10 +1,9 @@
-﻿namespace BudgetManager.Exceptions.PatternExceptions
+namespace BudgetManager.Exceptions.PatternExceptions;
+
+public class MonthPatternNotFoundException : Exception
 {
-    public class MonthPatternNotFoundException : Exception
+    public MonthPatternNotFoundException(string msg) : base(msg)
     {
-        public MonthPatternNotFoundException(string msg) : base(msg)
-        {
-            
-        }
+        
     }
 }

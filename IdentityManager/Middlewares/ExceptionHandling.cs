@@ -1,62 +1,61 @@
-﻿using IdentityManager.Exceptions;
+using IdentityManager.Exceptions;
 using IdentityManager.Models;
 using System.Text.Json;
 
-namespace IdentityManager.Middlewares
+namespace IdentityManager.Middlewares;
+
+public class ExceptionHandling
 {
-    public class ExceptionHandling
+    private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionHandling> _logger;
+
+    public ExceptionHandling(RequestDelegate next, ILogger<ExceptionHandling> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionHandling> _logger;
+        _next = next;
+        _logger = logger;
+    }
 
-        public ExceptionHandling(RequestDelegate next, ILogger<ExceptionHandling> logger)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            _next = next;
-            _logger = logger;
+            await _next(context);
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (CustomException ex)
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (CustomException ex)
-            {
-                _logger.LogError($"Exception: {ex.Message}");
-                await HandleCustomExceptionAsync(context, ex);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Unexpected exception: {ex.Message}");
-                await HandleGeneralExceptionAsync(context, ex);
-            }
+            _logger.LogError($"Exception: {ex.Message}");
+            await HandleCustomExceptionAsync(context, ex);
         }
-
-        private Task HandleCustomExceptionAsync(HttpContext context, CustomException ex)
+        catch (Exception ex)
         {
-            var errorResponse = new ErrorResponse
-            {
-                ErrorCode = ex.ErrorCode,
-                Message = ex.Message
-            };
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+            _logger.LogError($"Unexpected exception: {ex.Message}");
+            await HandleGeneralExceptionAsync(context, ex);
         }
+    }
 
-        private Task HandleGeneralExceptionAsync(HttpContext context, Exception ex)
+    private Task HandleCustomExceptionAsync(HttpContext context, CustomException ex)
+    {
+        var errorResponse = new ErrorResponse
         {
-            var errorResponse = new ErrorResponse
-            {
-                ErrorCode = 409,
-                Message = "Conflict"
-            };
+            ErrorCode = ex.ErrorCode,
+            Message = ex.Message
+        };
 
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status409Conflict;
-            return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-        }
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+        return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+    }
+
+    private Task HandleGeneralExceptionAsync(HttpContext context, Exception ex)
+    {
+        var errorResponse = new ErrorResponse
+        {
+            ErrorCode = 409,
+            Message = "Conflict"
+        };
+
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status409Conflict;
+        return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
     }
 }

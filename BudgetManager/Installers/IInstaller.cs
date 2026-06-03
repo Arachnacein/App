@@ -1,7 +1,6 @@
-﻿namespace BudgetManager.Installers
+namespace BudgetManager.Installers;
+
+public interface IInstaller
 {
-    public interface IInstaller
-    {
-        void InstallServices(IServiceCollection services, IConfiguration Configuration);
-    }
+    void InstallServices(IServiceCollection services, IConfiguration Configuration);
 }

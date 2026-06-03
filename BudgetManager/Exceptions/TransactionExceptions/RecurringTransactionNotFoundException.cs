@@ -1,9 +1,8 @@
-﻿namespace BudgetManager.Exceptions.TransactionExceptions
+namespace BudgetManager.Exceptions.TransactionExceptions;
+
+public class RecurringTransactionNotFoundException : Exception
 {
-    public class RecurringTransactionNotFoundException : Exception
+    public RecurringTransactionNotFoundException(string? message) : base(message)
     {
-        public RecurringTransactionNotFoundException(string? message) : base(message)
-        {
-        }
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace BudgetManager.Exceptions
+namespace BudgetManager.Exceptions;
+
+public class NullPointerException : Exception
 {
-    public class NullPointerException : Exception
+    public NullPointerException(string msg) : base(msg)
     {
-        public NullPointerException(string msg) : base(msg)
-        {
-            
-        }
+        
     }
 }

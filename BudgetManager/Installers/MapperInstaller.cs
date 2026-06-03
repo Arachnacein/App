@@ -1,16 +1,15 @@
-﻿using BudgetManager.Mappers;
+using BudgetManager.Mappers;
 
-namespace BudgetManager.Installers
+namespace BudgetManager.Installers;
+
+public class MapperInstaller : IInstaller
 {
-    public class MapperInstaller : IInstaller
+    public void InstallServices(IServiceCollection services, IConfiguration Configuration)
     {
-        public void InstallServices(IServiceCollection services, IConfiguration Configuration)
-        {
-            services.AddScoped<ITransactionMapper, TransactionMapper>();
-            services.AddScoped<IPatternMapper, PatternMapper>();
-            services.AddScoped<IIncomeMapper, IncomeMapper>();
-            services.AddScoped<IMonthPatternMapper, MonthPatternMapper>();
-            services.AddScoped<IRecurringTransactionMapper, RecurringTransactionMapper>();
-        }
+        services.AddScoped<ITransactionMapper, TransactionMapper>();
+        services.AddScoped<IPatternMapper, PatternMapper>();
+        services.AddScoped<IIncomeMapper, IncomeMapper>();
+        services.AddScoped<IMonthPatternMapper, MonthPatternMapper>();
+        services.AddScoped<IRecurringTransactionMapper, RecurringTransactionMapper>();
     }
 }

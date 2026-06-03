@@ -1,8 +1,7 @@
-﻿namespace BudgetManager.Dto
+namespace BudgetManager.Dto;
+
+public class MonthYearModel
 {
-    public class MonthYearModel
-    {
-        public int Month { get; set; }
-        public int Year { get; set; }
-    }
+    public int Month { get; set; }
+    public int Year { get; set; }
 }

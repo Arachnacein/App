@@ -1,7 +1,6 @@
-﻿namespace BudgetManager.Exceptions.PatternExceptions
+namespace BudgetManager.Exceptions.PatternExceptions;
+
+public class PatternNotFoundException : Exception
 {
-    public class PatternNotFoundException : Exception
-    {
-        public PatternNotFoundException(string msg) : base(msg) { }
-    }
+    public PatternNotFoundException(string msg) : base(msg) { }
 }

@@ -1,9 +1,8 @@
-﻿namespace UI.Models
+namespace UI.Models;
+
+public class CaptchaResult
 {
-    public class CaptchaResult
-    {
-        public bool Success { get; set; }
-        public string ChallengeTs { get; set; }
-        public string Hostname { get; set; }
-    }
+    public bool Success { get; set; }
+    public string ChallengeTs { get; set; }
+    public string Hostname { get; set; }
 }

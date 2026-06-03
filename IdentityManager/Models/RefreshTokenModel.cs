@@ -1,7 +1,6 @@
-namespace IdentityManager.Models
+namespace IdentityManager.Models;
+
+public class RefreshTokenModel
 {
-    public class RefreshTokenModel
-    {
-        public string Token { get; set; } = string.Empty;
-    }
+    public string Token { get; set; } = string.Empty;
 }
