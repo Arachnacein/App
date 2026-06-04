@@ -24,7 +24,7 @@
                 <MudGrid>
                     <MudItem xs="4">
                         <MudNumericField @bind-Value="Model.Interval" For="@(() => Model.Interval)" T="int" Required="true" 
-                            Margin="Margin.Normal" FullWidth="true" Type="MudBlazor.InputType.Number"/>
+                            Margin="Margin.Normal" FullWidth="true"/>
                     </MudItem>
                     <MudItem xs="8">
                         <MudSelect @bind-Value="Model.Frequency" T="FrequencyEnum" Required="true" Margin="Margin.Normal" FullWidth="true">
@@ -64,3 +64,4 @@
         <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
     </DialogActions>
 </MudDialog>
+

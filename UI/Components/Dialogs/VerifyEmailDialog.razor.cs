@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Text.Json;
@@ -8,7 +8,7 @@ namespace UI.Components.Dialogs;
 
 public partial class VerifyEmailDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public EventCallback OnDialogClose { get; set; }
     [Inject] private IStringLocalizer<VerifyEmailDialog> Localizer { get; set; }
     [Inject] private HttpClient httpClient { get; set; }

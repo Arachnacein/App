@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
@@ -7,7 +7,7 @@ namespace UI.Components.Dialogs;
 
 public partial class PatternDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialogInstance { get; set; }
+    [CascadingParameter] private IMudDialogInstance IMudDialogInstance { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
     [Parameter] public IncomeViewModel DialogModel { get; set; }
     [Inject] private IStringLocalizer<PatternDialog> Localizer { get; set; }
@@ -59,7 +59,7 @@ public partial class PatternDialog
         else
         {
             snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
-            MudDialogInstance.Close();
+            IMudDialogInstance.Close();
         }
     }
 }

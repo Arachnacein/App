@@ -66,7 +66,7 @@ public partial class Transaction
         parameters["Refresh"] = new Func<Task>(LoadTransactions);
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
-        dialogService.Show<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
+        await dialogService.ShowAsync<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
 
     }
 }

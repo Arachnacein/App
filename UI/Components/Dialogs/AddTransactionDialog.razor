@@ -1,7 +1,7 @@
 ﻿<MudDialog style="padding-bottom:7px;">
     <DialogContent>
     <MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
-        <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1"/> <MudError />
+        <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1"/>
         <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />
         <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" Style="width:90%;">
             <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Net;
@@ -9,8 +9,8 @@ namespace UI.Components.Dialogs;
 
 public partial class CustomOptionsRecurringTransactionDialog
 {
-    [CascadingParameter] public MudDialogInstance MudDialog { get; set; }
-    [Parameter] public MudDialogInstance PreviousDialogInstance { get; set; }
+    [CascadingParameter] public IMudDialogInstance MudDialog { get; set; }
+    [Parameter] public IMudDialogInstance PreviousDialogInstance { get; set; }
     [Parameter] public RecurringTransactionViewModel Model { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private IStringLocalizer<CustomOptionsRecurringTransactionDialog> Localizer { get; set; }

@@ -25,8 +25,8 @@ public partial class NavMenu
         }
     }
 
-    private async void SetPolish() => await SetCulture("pl-PL");
-    private async void SetEnglish() => await SetCulture("en-UK");
+    private async Task SetPolish() => await SetCulture("pl-PL");
+    private async Task SetEnglish() => await SetCulture("en-UK");
     private async Task Register() => Navigation.NavigateTo("/register", false);
     private async Task LogIn() => Navigation.NavigateTo("/login", false);
     private async Task SetCulture(string culture)

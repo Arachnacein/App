@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
@@ -7,7 +7,7 @@ namespace UI.Components.Dialogs;
 
 public partial class AddIncomeDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
     [Inject] private IDialogService dialogService { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }

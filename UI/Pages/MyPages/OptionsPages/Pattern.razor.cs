@@ -63,7 +63,7 @@ public partial class Pattern
 
     private async Task DeletePattern(PatternViewModel pattern)
     {
-        var confirmed = await dialogService.ShowMessageBox(
+        var confirmed = await dialogService.ShowMessageBoxAsync(
             Localizer["DeleteConfirmTitle"],
             $"{pattern.Name}?",
             yesText: Localizer["DeleteConfirmYes"],
@@ -100,6 +100,6 @@ public partial class Pattern
         parameters["Refresh"] = new Func<Task>(LoadMonthPatterns);
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
-        dialogService.Show<EditMonthPatternDialog>(Localizer["EditPatternDialogHeader", contextModel.Date.Month, contextModel.Date.Year], parameters, options);
+        await dialogService.ShowAsync<EditMonthPatternDialog>(Localizer["EditPatternDialogHeader", contextModel.Date.Month, contextModel.Date.Year], parameters, options);
     }
 }

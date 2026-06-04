@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
@@ -7,7 +7,7 @@ namespace UI.Components.Dialogs;
 
 public partial class EditIncomeDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialogInstance { get; set; }
+    [CascadingParameter] private IMudDialogInstance IMudDialogInstance { get; set; }
     [Parameter] public IncomeViewModel model { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
@@ -38,14 +38,14 @@ public partial class EditIncomeDialog
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
             snackbar.Add(Localizer["SuccessUpdateSnackbar"], Severity.Success);
-            MudDialogInstance.Cancel();
+            IMudDialogInstance.Cancel();
             if(Refresh != null) 
                 await Refresh.Invoke();
         }
         else
             snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
     }
-    private async Task Cancel() => MudDialogInstance.Cancel();
+    private async Task Cancel() => IMudDialogInstance.Cancel();
     private async Task Delete()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -58,7 +58,7 @@ public partial class EditIncomeDialog
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
             snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
-            MudDialogInstance.Cancel();
+            IMudDialogInstance.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }

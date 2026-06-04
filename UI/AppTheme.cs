@@ -8,7 +8,7 @@ public static class AppTheme
     {
         Typography = new Typography
         {
-            Default = new Default { FontFamily = new[] { "Roboto", "sans-serif" } }
+            Default = new DefaultTypography { FontFamily = new[] { "Roboto", "sans-serif" } }
         },
         PaletteLight = new PaletteLight
         {
