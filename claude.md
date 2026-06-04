@@ -4,14 +4,14 @@ ASP.NET Core 8 Web API, Blazor .NET 7 UI. Domena: System zarządzania budżetem.
 
 ## Stack
 
-- .NET 7 dla UI i .NET8 dla WebAPI, C# 12
+- .NET 10 dla UI i .NET8 dla WebAPI, C# 12
 - EF Core 8.0.8
-- MediatR 12.4.6 (CQRS)
-- FluentValidation
-- MudBlazor 7.15.0
+- MediatR 12.4.1 (CQRS)
+- FluentValidation 12.1.1
+- MudBlazor 9.5.0
 - xUnit 2.5.3 + FluentAssertions 7 + Moq 4.20
-- Keycloak 1.0.18
 - Ocelot 23.4.0
+- Microsoft.AspNetCore.Authentication.JwtBearer 8.0.10
 
 ## Struktura
 
@@ -64,6 +64,7 @@ Feature = folder `/Features/<Moduł>/(Commands|Queries)/<NazwaFeature>/` z plika
 - **Testy**: `<NazwaMetody>_When<warunek>_Should<oczekiwanie>`
 - **Async**: wszystkie publiczne metody zwracające I/O są async, z `CancellationToken` jako ostatni parametr
 - **Read-only queries w EF Core**: ZAWSZE `AsNoTracking()`
+- **file-scoped namespaces*: wszystkie nowo utworzone klasy powinny być file-scoped  
 
 ## Używamy
 
@@ -89,3 +90,4 @@ Feature = folder `/Features/<Moduł>/(Commands|Queries)/<NazwaFeature>/` z plika
 - Po każdej serii zmian: uruchom `dotnet build` i odpowiednie testy — pokaż wynik
 - Nigdy nie commituj sekretów (connection strings, API keys) — sprawdź diff przed commitem
 - Przed zmianami w migracjach EF Core: pokaż diff wygenerowanej migracji do review
+- Dodawaj usingi do globalusings.cs tylko, jeśli używane są conajmniej dwa razy

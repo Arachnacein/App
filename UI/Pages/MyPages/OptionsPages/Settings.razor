@@ -1,19 +1,108 @@
-﻿@page "/options/settings"
-@inject GlobalInfoClass _globalClass;
-@inject NavigationManager Navigation
-@inject IStringLocalizer<Settings> Localizer
+@page "/options/settings"
 
 <PageTitle> @Localizer["PageTitle"] </PageTitle>
 <UI.Components.OptionNavigationComponent />
-<MudPaper Class="ma-1 pa-4" Elevation="5">
-    <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
-    <MudDivider Class="mb-6"/>
-    <MudStack AlignItems="AlignItems.Center" Class="mb-6">
-        <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary"
-                   T="bool" Label="Ciemny motyw" @onclick="Refresh"/>
-    </MudStack>
-</MudPaper>
 
-@code{
-     private void Refresh() => Navigation.NavigateTo("/options/settings");
+@if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
+{
+    <MudPaper Class="ma-7 pa-7" Elevation="30">
+        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["MustSignIn"]</MudText>
+    </MudPaper>
 }
+else
+{
+    <MudPaper Class="ma-1 pa-4" Elevation="5">
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
+        <MudDivider Class="mb-6"/>
+        <MudStack AlignItems="AlignItems.Center" Class="mb-6">
+            <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary"
+                       T="bool" Label="@Localizer["DarkMode"]" @onclick="Refresh"/>
+        </MudStack>
+
+        <MudDivider Class="mb-4"/>
+
+        <MudStack AlignItems="AlignItems.Center" Class="mt-4 mb-4">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="6">
+            <MudText Typo="Typo.h6" Style="min-width:220px;">@Localizer["RecurringTransactionTheme"]</MudText>
+
+            <MudRadioGroup Value="_globalClass.RecurringTheme"
+                           ValueChanged="@((RecurringTransactionTheme t) => OnThemeChanged(t))"
+                           T="RecurringTransactionTheme">
+                <MudStack Spacing="0">
+                    <MudRadio Value="RecurringTransactionTheme.Border" Color="Color.Primary">@Localizer["ThemeBorder"]</MudRadio>
+                    <MudRadio Value="RecurringTransactionTheme.RightBar" Color="Color.Primary">@Localizer["ThemeRightBar"]</MudRadio>
+                    <MudRadio Value="RecurringTransactionTheme.Icons" Color="Color.Primary">@Localizer["ThemeIcons"]</MudRadio>
+                </MudStack>
+            </MudRadioGroup>
+
+            <MudStack Spacing="2" Style="min-width:320px;">
+                @if (_globalClass.RecurringTheme == RecurringTransactionTheme.Border)
+                {
+                    <div style="border:1px dashed rgba(167,139,250,0.5);border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                    <div style="border:1px solid #10B981;border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                }
+                else if (_globalClass.RecurringTheme == RecurringTransactionTheme.RightBar)
+                {
+                    <div style="border:1px solid var(--mud-palette-lines-default);border-color:rgba(167,139,250,0.2);border-right:4px solid rgba(167,139,250,0.8);border-right-color:rgba(167,139,250,0.8);border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                    <div style="border:1px solid var(--mud-palette-lines-default);border-color:rgba(16,185,129,0.2);border-right:4px solid #10B981;border-right-color:#10B981;border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div style="border:1px solid var(--mud-palette-lines-default);border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span style="display:flex;gap:2px;">
+                            <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                            <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Small" Class="mud-text-secondary" />
+                        </span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                    <div style="border:1px solid var(--mud-palette-lines-default);border-radius:12px;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;">
+                        <span>@Localizer["PreviewItemName"]</span>
+                        <span style="display:flex;gap:2px;">
+                            <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                        </span>
+                        <span>86,92 zł</span>
+                        <span style="display:flex;align-items:center;gap:2px;color:var(--mud-palette-text-secondary);font-size:0.75rem;">
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" />
+                            @_previewDate
+                        </span>
+                    </div>
+                }
+            </MudStack>
+        </MudStack>
+        </MudStack>
+    </MudPaper>
+}
+

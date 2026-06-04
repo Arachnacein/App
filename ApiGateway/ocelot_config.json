@@ -656,6 +656,25 @@
         "PeriodTimespan": 1,
         "Limit": 5
       }
+    },
+    // UserPreferences
+    {
+      "UpstreamPathTemplate": "/api/userpreference",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 8080
+        }
+      ],
+      "DownstreamPathTemplate": "/api/userpreference",
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
     }
   ],
   "GlobalConfiguration": {

@@ -13,7 +13,7 @@ builder.Services.AddRazorPages()
                     .AddDataAnnotationsLocalization();
 builder.Services.AddMudServices();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<GlobalInfoClass>();
+builder.Services.AddScoped<GlobalInfoClass>();
 builder.Services.AddSingleton<UserSessionService>();
 builder.Services.AddTransient<IncomeViewModelValidator>();
 builder.Services.AddTransient<TransactionViewModelValidator>();

@@ -124,6 +124,7 @@ body::before {
 
 /* ─── Transaction cards ─────────────────────────────────── */
 .transaction-card {
+    position: relative;
     background: var(--mud-palette-surface) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -137,6 +138,18 @@ body::before {
     transform: translateY(-2px);
     border-color: var(--mud-palette-primary) !important;
     box-shadow: 0 6px 20px rgba(124, 58, 237, 0.18) !important;
+}
+
+.transaction-card.recurring-bar-pending {
+    border-color: rgba(167, 139, 250, 0.2) !important;
+    border-right: 4px solid rgba(167, 139, 250, 0.8) !important;
+    border-right-color: rgba(167, 139, 250, 0.8) !important;
+}
+
+.transaction-card.recurring-bar-approved {
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    border-right: 4px solid #10B981 !important;
+    border-right-color: #10B981 !important;
 }
 
 /* ─── Tab slide animation ───────────────────────────────── */

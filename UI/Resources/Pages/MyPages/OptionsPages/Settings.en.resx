@@ -138,4 +138,25 @@
   <data name="ToggleTextTimer" xml:space="preserve">
     <value>Show timer / Hide timer</value>
   </data>
+  <data name="DarkMode" xml:space="preserve">
+    <value>Dark mode</value>
+  </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Sign in to access this page</value>
+  </data>
+  <data name="RecurringTransactionTheme" xml:space="preserve">
+    <value>Recurring expenses theme</value>
+  </data>
+  <data name="ThemeBorder" xml:space="preserve">
+    <value>Border</value>
+  </data>
+  <data name="ThemeRightBar" xml:space="preserve">
+    <value>Right edge</value>
+  </data>
+  <data name="ThemeIcons" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="PreviewItemName" xml:space="preserve">
+    <value>Fuel</value>
+  </data>
 </root>

@@ -150,23 +150,52 @@
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
                     <ChildContent>
-                        <MudPaper Elevation="0" Class="transaction-card pa-2 my-2"
-                                  Style="@((context.IsRecurring == true && context.IsApproved == true) ? "border: 1px solid #10B981 !important;" :
-                                            (context.IsRecurring == true && context.IsApproved == false) ? "border: 1px dashed rgba(167,139,250,0.5) !important;" : null)"
+                        <MudPaper Elevation="0"
+                                  Class="@($"transaction-card pa-2 my-2{GetBarClass(context)}")"
+                                  Style="@GetBorderStyle(context)"
                                   @onclick="() => EditDeleteTransaction(context)">
                             <MudGrid Class="flex-nowrap">
-                                <MudItem xs="8" md="6" Class="text-align-center">
-                                    <MudText Typo="Typo.body1">@context.Name</MudText>
-                                </MudItem>
-                                <MudItem xs="4" md="3" Class="text-align-center">
-                                    <MudText Typo="Typo.body1">@context.Price</MudText>
-                                </MudItem>       
-                                <MudItem xs="0" md="3" Class="text-align-center hide-on-small date-column">
-                                    <MudText Typo="Typo.body1">
-                                        <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="vertical-align: middle; margin-right: 4px;" />
-                                        @context.Date.FormatDM()
-                                    </MudText>
-                                </MudItem>
+                                @if (_globalInfo.RecurringTheme == RecurringTransactionTheme.Icons)
+                                {
+                                    <MudItem xs="6" md="5" Class="text-align-center">
+                                        <MudText Typo="Typo.body1">@context.Name</MudText>
+                                    </MudItem>
+                                    <MudItem xs="2" md="2" Class="d-flex align-center justify-center">
+                                        @if (context.IsRecurring == true && context.IsApproved == false)
+                                        {
+                                            <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                                            <MudIcon Icon="@Icons.Material.Filled.HourglassEmpty" Size="Size.Small" Class="mud-text-secondary" />
+                                        }
+                                        else if (context.IsRecurring == true && context.IsApproved == true)
+                                        {
+                                            <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
+                                        }
+                                    </MudItem>
+                                    <MudItem xs="4" md="2" Class="text-align-center">
+                                        <MudText Typo="Typo.body1">@context.Price</MudText>
+                                    </MudItem>
+                                    <MudItem xs="0" md="3" Class="text-align-center hide-on-small date-column">
+                                        <MudText Typo="Typo.body1">
+                                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="vertical-align: middle; margin-right: 4px;" />
+                                            @context.Date.FormatDM()
+                                        </MudText>
+                                    </MudItem>
+                                }
+                                else
+                                {
+                                    <MudItem xs="8" md="6" Class="text-align-center">
+                                        <MudText Typo="Typo.body1">@context.Name</MudText>
+                                    </MudItem>
+                                    <MudItem xs="4" md="3" Class="text-align-center">
+                                        <MudText Typo="Typo.body1">@context.Price</MudText>
+                                    </MudItem>
+                                    <MudItem xs="0" md="3" Class="text-align-center hide-on-small date-column">
+                                        <MudText Typo="Typo.body1">
+                                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="vertical-align: middle; margin-right: 4px;" />
+                                            @context.Date.FormatDM()
+                                        </MudText>
+                                    </MudItem>
+                                }
                             </MudGrid>
                         </MudPaper>
                     </ChildContent>

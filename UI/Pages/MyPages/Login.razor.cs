@@ -6,6 +6,7 @@ using MudBlazor;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
 using UI.Extensions;
+using UI.Models.ViewModels;
 
 namespace UI.Pages.MyPages;
 
@@ -15,6 +16,7 @@ public partial class Login
     [Inject] private IStringLocalizer<Login> Localizer { get; set; }
     [Inject] protected ProtectedLocalStorage localStorage { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private GlobalInfoClass _globalInfo { get; set; }
     private MudTextField<string> usernameTextField;
     private string Username { get; set; }
     private string Password { get; set; }
@@ -67,6 +69,8 @@ public partial class Login
 
             UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate, createdAt, emailVerified);
 
+            await LoadUserPreferences(userId);
+
             isLoading = false;
             snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
             Navigation.NavigateTo("/", false);
@@ -77,6 +81,24 @@ public partial class Login
             snackbar.Add(Localizer["LogInError"], Severity.Warning);
         }
     }
+    private async Task LoadUserPreferences(Guid userId)
+    {
+        try
+        {
+            var prefs = await httpClient.GetFromJsonAsync<UserPreferenceViewModel>(
+                $"/api/userpreference?userId={userId}");
+            if (prefs is not null)
+            {
+                _globalInfo.IsDarkMode = prefs.IsDarkMode;
+                _globalInfo.RecurringTheme = (RecurringTransactionTheme)prefs.RecurringTransactionTheme;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load user preferences: {ex.Message}");
+        }
+    }
+
     private void ShowPassword()
     {
         isShow = !isShow;

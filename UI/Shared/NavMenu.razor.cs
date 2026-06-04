@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using MudBlazor;
+using UI.Models.ViewModels;
 
 namespace UI.Shared;
 
@@ -13,6 +14,7 @@ public partial class NavMenu
     [Inject] private IJSRuntime JSRuntime { get; set; }
     [Inject] private IStringLocalizer<NavMenu> Localizer { get; set; }
     [Inject] private GlobalInfoClass _globalInfo { get; set; }
+    [Inject] private HttpClient httpClient { get; set; }
     private string remainingTime;
     private Timer Timer { get; set; }
 
@@ -21,7 +23,26 @@ public partial class NavMenu
         if(UserSessionService.IsUserLoggedIn())
         {
             remainingTime = UserSessionService.GetRemainingTime();
-            Timer = new Timer(UpdateRemainingTime, null, 0, 1000); 
+            Timer = new Timer(UpdateRemainingTime, null, 0, 1000);
+            await LoadUserPreferences();
+        }
+    }
+
+    private async Task LoadUserPreferences()
+    {
+        try
+        {
+            var prefs = await httpClient.GetFromJsonAsync<UserPreferenceViewModel>(
+                $"/api/userpreference?userId={UserSessionService.UserId}");
+            if (prefs is not null)
+            {
+                _globalInfo.IsDarkMode = prefs.IsDarkMode;
+                _globalInfo.RecurringTheme = (RecurringTransactionTheme)prefs.RecurringTransactionTheme;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load user preferences: {ex.Message}");
         }
     }
 

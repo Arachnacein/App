@@ -138,4 +138,25 @@
   <data name="ToggleTextTimer" xml:space="preserve">
     <value>Pokaż  / Ukryj</value>
   </data>
+  <data name="DarkMode" xml:space="preserve">
+    <value>Ciemny motyw</value>
+  </data>
+  <data name="MustSignIn" xml:space="preserve">
+    <value>Zaloguj się, by uzyskać dostęp do tej strony</value>
+  </data>
+  <data name="RecurringTransactionTheme" xml:space="preserve">
+    <value>Motyw wydatków cyklicznych</value>
+  </data>
+  <data name="ThemeBorder" xml:space="preserve">
+    <value>Obramowanie</value>
+  </data>
+  <data name="ThemeRightBar" xml:space="preserve">
+    <value>Prawa krawędź</value>
+  </data>
+  <data name="ThemeIcons" xml:space="preserve">
+    <value>Ikonki</value>
+  </data>
+  <data name="PreviewItemName" xml:space="preserve">
+    <value>Paliwo</value>
+  </data>
 </root>
