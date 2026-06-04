@@ -122,14 +122,14 @@ else
     <MudStack Row="true" Spacing="3" AlignItems="AlignItems.Stretch" Justify="Justify.Center" Class="ma-2" Style="flex-wrap: wrap;">
         <MudPaper Class="kpi-card pa-3" Elevation="0" Style="width: min(30%, 320px); min-width: 220px;">
             <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["CategoriesDistributionTitle"]</MudText>
-            <MudChart ChartType="ChartType.Pie" InputData="@CategoriesDistribution.ToArray()"
-                      InputLabels="@CategoriesDistribution.GetPropertyNames(Localizer)"
+            <MudChart T="double" ChartType="ChartType.Pie"
+                      ChartSeries="@CategoriesDistribution.ToPieChartSeries(Localizer)"
                       Width="100%" Height="270px" LegendPosition="Position.Bottom" Class="mt-1" />
         </MudPaper>
 
         <MudPaper Class="kpi-card pa-3" Elevation="0" Style="flex: 1; min-width: 300px;">
             <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["MonthlyDistributionTitle"]</MudText>
-            <MudChart ChartType="ChartType.StackedBar" ChartSeries="@Series" XAxisLabels="@XaxisLabels"
+            <MudChart T="double" ChartType="ChartType.StackedBar" ChartSeries="@Series" ChartLabels="@XaxisLabels"
                       Width="100%" Height="290px" LegendPosition="Position.Right" Class="pa-1"/>
         </MudPaper>
     </MudStack>

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using UI.Models.ViewModels;
 
@@ -6,7 +6,7 @@ namespace UI.Components.Dialogs;
 
 public partial class EditTransactionDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public TransactionViewModel model { get; set;}
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }

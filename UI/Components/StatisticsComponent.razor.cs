@@ -12,7 +12,7 @@ public partial class StatisticsComponent
     [Inject] private HttpClient httpClient { get; set; }
     private CategoriesDistributionModel CategoriesDistribution { get; set; }
     private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
-    private List<ChartSeries> Series = new List<ChartSeries>();
+    private List<ChartSeries<double>> Series = new List<ChartSeries<double>>();
     private string[] XaxisLabels = { };
     private double TotalExpenses { get; set; }
     private double TotalSaves { get; set; }
@@ -119,19 +119,19 @@ public partial class StatisticsComponent
                             .ToString("MM-yyyy", CultureInfo.CurrentCulture))
                         .ToArray();
 
-        Series = new List<ChartSeries>
+        Series = new List<ChartSeries<double>>
         {
-            new ChartSeries{
+            new ChartSeries<double>{
                 Name = Localizer["Saves"],
                 Data = MonthlyCategoriesDistributionList
                             .Select(item => item.Saves).ToArray()
             },
-            new ChartSeries{
+            new ChartSeries<double>{
                 Name = Localizer["Fees"],
                 Data = MonthlyCategoriesDistributionList
                             .Select(item => item.Fees).ToArray()
             },
-            new ChartSeries{
+            new ChartSeries<double>{
                 Name = Localizer["Entertainment"],
                 Data = MonthlyCategoriesDistributionList
                             .Select(item => item.Entertainment).ToArray()

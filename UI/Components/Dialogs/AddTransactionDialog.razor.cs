@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Net;
@@ -8,7 +8,7 @@ namespace UI.Components.Dialogs;
 
 public partial class AddTransactionDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<AddTransactionDialog> Localizer { get; set; }

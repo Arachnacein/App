@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
@@ -8,7 +8,7 @@ namespace UI.Components.Dialogs;
 
 public partial class EditUserPropertiesDialog
 {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public string Property { get; set; }
     [Parameter] public UserDetailsViewModel UserDetails { get; set; }
     [Parameter] public EventCallback OnDialogClose { get; set; }

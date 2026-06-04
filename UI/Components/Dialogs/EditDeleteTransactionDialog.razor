@@ -1,7 +1,7 @@
 ﻿<MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog Style="height:515px;">
         <DialogContent>
-            <MudTabs Class="ma-2 pa-2" Elevation="5" ApplyEffectsToContainer="true" PanelClass="pa-6" Centered="true">
+            <MudTabs Class="ma-2 pa-2" Elevation="5" ApplyEffectsToContainer="true" TabPanelsClass="pa-6" Centered="true">
                 @if(DialogModel.IsRecurring == true && DialogModel.IsApproved == false)
                 {
                     <MudTabPanel Text="@Localizer["TabPanelConfirmTransaction"]">

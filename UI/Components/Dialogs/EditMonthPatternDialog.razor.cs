@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using UI.Models.ViewModels;
@@ -7,7 +7,7 @@ namespace UI.Components.Dialogs;
 
 public partial class EditMonthPatternDialog
 {
-    [CascadingParameter] private MudDialogInstance DialogInstance { get; set; }
+    [CascadingParameter] private IMudDialogInstance DialogInstance { get; set; }
     [Parameter] public MonthPatternViewModel contextModel { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }

@@ -10,7 +10,7 @@ services:
         build:
             context: /UI
         ports:
-            - 8011:80
+            - 8011:8080
         networks:
             - frontendnetwork
 
