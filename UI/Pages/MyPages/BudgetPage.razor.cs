@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using MudBlazor;
 using UI.Components.Dialogs;
 using UI.Models;
@@ -13,6 +14,8 @@ public partial class BudgetPage
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<BudgetPage> Localizer { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private IJSRuntime JSRuntime { get; set; }
+    [Inject] private GlobalInfoClass _globalInfo { get; set; }
     private DateTime CurrentDate;
     private PatternViewModel patternViewModel;
     private List<IncomeViewModel> incomes;
@@ -141,12 +144,22 @@ public partial class BudgetPage
     {
         CurrentDate = CurrentDate.AddMonths(-1);
         await RefreshData();
+        await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
     private async Task NextMonth()
     {
         CurrentDate = CurrentDate.AddMonths(1);
         await RefreshData();
+        await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
+    private string GetBarClass(TransactionViewModel t)
+        => _globalInfo.RecurringTheme != RecurringTransactionTheme.RightBar ? "" :
+           t.IsRecurring && !t.IsApproved ? " recurring-bar-pending" :
+           t.IsRecurring && t.IsApproved  ? " recurring-bar-approved" : "";
+    private string? GetBorderStyle(TransactionViewModel t)
+        => _globalInfo.RecurringTheme != RecurringTransactionTheme.Border ? null :
+           t.IsRecurring && !t.IsApproved ? "border:1px dashed rgba(167,139,250,0.5)!important;" :
+           t.IsRecurring && t.IsApproved  ? "border:1px solid #10B981!important;" : null;
     private async Task LoadMonthPatterns()
     {
         var patternResponse = await httpClient

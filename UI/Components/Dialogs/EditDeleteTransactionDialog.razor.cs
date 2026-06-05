@@ -85,5 +85,4 @@ public partial class EditDeleteTransactionDialog
         else
             snackbar.Add(Localizer["FailAcceptTransactionSnackbar"], Severity.Error);
     }
-    private async Task Cancel() => MudDialog.Cancel();
 }

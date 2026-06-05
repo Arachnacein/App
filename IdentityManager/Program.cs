@@ -1,10 +1,5 @@
-using IdentityManager.Data;
 using IdentityManager.Middlewares;
-using IdentityManager.Models;
-using IdentityManager.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -50,6 +45,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserPreferenceService, UserPreferenceService>();
 
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
