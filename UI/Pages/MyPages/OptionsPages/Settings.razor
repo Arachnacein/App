@@ -15,8 +15,8 @@ else
         <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
         <MudDivider Class="mb-6"/>
         <MudStack AlignItems="AlignItems.Center" Class="mb-6">
-            <MudSwitch @bind-Value="_globalClass.IsDarkMode" Color="Color.Primary"
-                       T="bool" Label="@Localizer["DarkMode"]" @onclick="Refresh"/>
+            <MudSwitch @bind-Value="_globalClass.IsDarkMode" @bind-Value:after="Refresh" Color="Color.Primary"
+                       T="bool" Label="@Localizer["DarkMode"]" />
         </MudStack>
 
         <MudDivider Class="mb-4"/>
