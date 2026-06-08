@@ -17,7 +17,7 @@ else
 
         <MudTabs Rounded="true" ApplyEffectsToContainer="true" TabPanelsClass="pa-4" Centered="true">
             <MudTabPanel Text="@Localizer["OverwiewHeader"]" >
-                <MudTable T="MonthPatternViewModel" Items="@patterns" FixedHeader="true"
+                <MudTable T="MonthPatternViewModel" Items="@_patterns" FixedHeader="true"
                           FixedFooter="true" Dense="true" Striped="true" Class="options-table">
                     <HeaderContent>
                         <MudTh Style="text-align:center">@Localizer["Date"]</MudTh>
@@ -42,19 +42,19 @@ else
                 </MudTable>
             </MudTabPanel>
             <MudTabPanel Text="@Localizer["AddPattern"]">
-                <MudForm Model="@Model" @ref="@Form" Validation="PatternValidator.ValidateValue()" ValidationDelay="0">
+                <MudForm Model="@_model" @ref="@_form" Validation="PatternValidator.ValidateValue()" ValidationDelay="0">
                 <MudPaper>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-                        <MudTextField T="string" Label="@Localizer["Name"]" @bind-Value=Model.Name For="@(() => Model.Name)" Class="ma-2"></MudTextField>
-                        <MudTextField T="double" Label="@Localizer["Saves"]" @bind-Value=Model.Value_Saves For="@(() => Model.Value_Saves)" Class="ma-2"></MudTextField>
-                        <MudTextField T="double" Label="@Localizer["Fees"]" @bind-Value=Model.Value_Fees For="@(() => Model.Value_Fees)" Class="ma-2"></MudTextField>
-                        <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=Model.Value_Entertainment For="@(() => Model.Value_Entertainment)" Class="ma-2"></MudTextField>
+                        <MudTextField T="string" Label="@Localizer["Name"]" @bind-Value=_model.Name For="@(() => _model.Name)" Class="ma-2"></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Saves"]" @bind-Value=_model.Value_Saves For="@(() => _model.Value_Saves)" Class="ma-2"></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Fees"]" @bind-Value=_model.Value_Fees For="@(() => _model.Value_Fees)" Class="ma-2"></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Entertainment"]" @bind-Value=_model.Value_Entertainment For="@(() => _model.Value_Entertainment)" Class="ma-2"></MudTextField>
                     </MudStack>
                     <MudButton OnClick="AddPattern" Color="Color.Secondary" Variant="Variant.Filled" Class="ma-2 pa-2">@Localizer["ButtonSubmit"]</MudButton>
                 </MudPaper>
                 </MudForm>
                 <MudText Typo="Typo.h6" Class="mt-4 mb-2">@Localizer["PatternsListHeader"]</MudText>
-                <MudTable T="PatternViewModel" Items="@patternsList" Dense="true" Striped="true" Class="options-table">
+                <MudTable T="PatternViewModel" Items="@_patternsList" Dense="true" Striped="true" Class="options-table">
                     <HeaderContent>
                         <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
                         <MudTh Style="text-align:center">@Localizer["Saves%"]</MudTh>

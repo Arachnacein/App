@@ -1,16 +1,15 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class EditMonthPatternDialog
 {
     [CascadingParameter] private IMudDialogInstance DialogInstance { get; set; }
-    [Parameter] public MonthPatternViewModel contextModel { get; set; }
+    [Parameter] public MonthPatternViewModel ContextModel { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<EditMonthPatternDialog> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    private PatternViewModel patternModel = new PatternViewModel();
-    private List<PatternViewModel> patterns = new List<PatternViewModel>();
-    
+    [Inject] private HttpClient HttpClient { get; set; }
+    private PatternViewModel _patternModel = new PatternViewModel();
+    private List<PatternViewModel> _patterns = new List<PatternViewModel>();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -25,10 +24,10 @@ public partial class EditMonthPatternDialog
             return;
         }
 
-        patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
-        
-        if (patterns == null)
-            snackbar.Add(Localizer["GettingPatternsError"], Severity.Error);
+        _patterns = await HttpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
+
+        if (_patterns == null)
+            Snackbar.Add(Localizer["GettingPatternsError"], Severity.Error);
     }
 
     private async Task Submit()
@@ -40,22 +39,22 @@ public partial class EditMonthPatternDialog
         }
         var updateModel = new
         {
-            Id = contextModel.Id,
+            Id = ContextModel.Id,
             UserId = UserSessionService.UserId,
-            Date = contextModel.Date,
-            PatternId = patternModel.Id
+            Date = ContextModel.Date,
+            PatternId = _patternModel.Id
         };
 
-        var request = await httpClient.PutAsJsonAsync("/api/monthpattern", updateModel);
+        var request = await HttpClient.PutAsJsonAsync("/api/monthpattern", updateModel);
         if(request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessEditSnackbar", contextModel.Date.Month, contextModel.Date.Year], Severity.Success);
+            Snackbar.Add(Localizer["SuccessEditSnackbar", ContextModel.Date.Month, ContextModel.Date.Year], Severity.Success);
             DialogInstance.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
     }
     private async Task Cancel() => DialogInstance.Cancel();
 }

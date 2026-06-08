@@ -1,4 +1,4 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class CustomOptionsRecurringTransactionDialog
 {
@@ -7,7 +7,7 @@ public partial class CustomOptionsRecurringTransactionDialog
     [Parameter] public RecurringTransactionViewModel Model { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private IStringLocalizer<CustomOptionsRecurringTransactionDialog> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     private bool CheckBoxMonday { get; set; } = false;
     private bool CheckBoxTuesday { get; set; } = false;
     private bool CheckBoxWednesday { get; set; } = false;
@@ -49,7 +49,7 @@ public partial class CustomOptionsRecurringTransactionDialog
         if(Model.Frequency == FrequencyEnum.Weekly)
             GetWeeklyDays();
 
-        var result = await httpClient
+        var result = await HttpClient
                     .PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction/Custom", Model);
 
         if (result.StatusCode == HttpStatusCode.Created)

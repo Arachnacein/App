@@ -23,15 +23,15 @@ else
 
         <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
             <MudStack>
-                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @usersCounter</MudText>
+                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @UsersCounter</MudText>
             </MudStack>
             <MudStack>
-                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
+                <MudTextField @bind-Value="SearchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
                               AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
                               Variant="Variant.Outlined" style="width:250px;" />
             </MudStack>
         </MudStack>
-        <MudTable Items="filteredUsers" Hover="true">
+        <MudTable Items="_filteredUsers" Hover="true">
             <HeaderContent>
                 <MudTh>@Localizer["UserName"]</MudTh>
                 <MudTh>@Localizer["UserSurname"]</MudTh>

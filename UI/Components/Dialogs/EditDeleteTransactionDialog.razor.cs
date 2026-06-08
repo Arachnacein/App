@@ -1,20 +1,19 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class EditDeleteTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Parameter] public TransactionViewModel ParameterModel { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private TransactionViewModelValidator TransactionValidator { get; set; }
     [Inject] private IStringLocalizer<EditDeleteTransactionDialog> Localizer { get; set; }
-    private TransactionViewModel DialogModel = new TransactionViewModel();
-    private MudForm Form;
+    private TransactionViewModel _dialogModel = new TransactionViewModel();
+    private MudForm _form;
 
     protected override Task OnInitializedAsync()
     {
-        DialogModel = ParameterModel;
+        _dialogModel = ParameterModel;
         return base.OnInitializedAsync();
     }
     private async Task Delete()
@@ -25,21 +24,21 @@ public partial class EditDeleteTransactionDialog
             return;
         }
 
-        var request = await httpClient.DeleteAsync($"/api/transaction/{DialogModel.Id}/user/{UserSessionService.UserId}");
+        var request = await HttpClient.DeleteAsync($"/api/transaction/{_dialogModel.Id}/user/{UserSessionService.UserId}");
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
             MudDialog.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);
     }
     private async Task Edit()
     {
-        await Form.ValidateAsync();
-        if (!Form.IsValid)
+        await _form.ValidateAsync();
+        if (!_form.IsValid)
             return;
 
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -48,18 +47,18 @@ public partial class EditDeleteTransactionDialog
             return;
         }
 
-        DialogModel.UserId = UserSessionService.UserId;
-        var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction", DialogModel);
-        
+        _dialogModel.UserId = UserSessionService.UserId;
+        var request = await HttpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction", _dialogModel);
+
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessEditSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessEditSnackbar"], Severity.Success);
             MudDialog.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
     }
     private async Task AcceptTransaction()
     {
@@ -69,15 +68,15 @@ public partial class EditDeleteTransactionDialog
             return;
         }
 
-        var request = await httpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction/ConfirmTransaction", DialogModel);
+        var request = await HttpClient.PutAsJsonAsync<TransactionViewModel>($"/api/transaction/ConfirmTransaction", _dialogModel);
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessAcceptTransactionSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessAcceptTransactionSnackbar"], Severity.Success);
             MudDialog.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailAcceptTransactionSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailAcceptTransactionSnackbar"], Severity.Error);
     }
 }

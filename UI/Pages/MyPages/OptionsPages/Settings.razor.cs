@@ -4,9 +4,9 @@ public partial class Settings
 {
     [Inject] private GlobalInfoClass GlobalClass { get; set; }
     [Inject] private IStringLocalizer<Settings> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
 
-    private string PreviewDate = DateTime.Now.ToString("dd.MM");
+    private string _previewDate = DateTime.Now.ToString("dd.MM");
 
     private async Task Refresh()
     {
@@ -25,7 +25,7 @@ public partial class Settings
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        await httpClient.PutAsJsonAsync("/api/userpreference", new UserPreferenceViewModel
+        await HttpClient.PutAsJsonAsync("/api/userpreference", new UserPreferenceViewModel
         {
             UserId = UserSessionService.UserId,
             IsDarkMode = GlobalClass.IsDarkMode,

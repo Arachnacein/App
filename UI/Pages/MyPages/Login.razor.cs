@@ -2,29 +2,28 @@ namespace UI.Pages.MyPages;
 
 public partial class Login
 {
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<Login> Localizer { get; set; }
-    [Inject] protected ProtectedLocalStorage localStorage { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    [Inject] private GlobalInfoClass _globalInfo { get; set; }
-    private MudTextField<string> usernameTextField;
+    [Inject] protected ProtectedLocalStorage LocalStorage { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
+    [Inject] private GlobalInfoClass GlobalInfo { get; set; }
+    private MudTextField<string> _usernameTextField;
     private string Username { get; set; }
     private string Password { get; set; }
-    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-    private InputType PasswordInput = InputType.Password;
-    private bool isShow = false;
-    private bool isLoading = false;
+    private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+    private InputType _passwordInput = InputType.Password;
+    private bool _isShow = false;
+    private bool _isLoading = false;
 
     private async Task LogIn()
     {
-        isLoading = true;
+        _isLoading = true;
         var requestBody = new FormUrlEncodedContent(new[]
         {
             new KeyValuePair<string, string>("username", Username),
             new KeyValuePair<string, string>("password", Password)
         });
 
-        var response = await httpClient.PostAsync("/api/login", requestBody);
+        var response = await HttpClient.PostAsync("/api/login", requestBody);
 
         if (response.IsSuccessStatusCode)
         {
@@ -32,7 +31,7 @@ public partial class Login
             var json = JsonDocument.Parse(responseData);
             var token = json.RootElement.GetProperty("access_token").GetString();
 
-            await localStorage.SetAsync("access_token", token);
+            await LocalStorage.SetAsync("access_token", token);
 
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
@@ -61,14 +60,14 @@ public partial class Login
 
             await LoadUserPreferences(userId);
 
-            isLoading = false;
-            snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
+            _isLoading = false;
+            Snackbar.Add(Localizer["LogInSuccess"], Severity.Success);
             Navigation.NavigateTo("/", false);
         }
         else
         {
-            isLoading = false;
-            snackbar.Add(Localizer["LogInError"], Severity.Warning);
+            _isLoading = false;
+            Snackbar.Add(Localizer["LogInError"], Severity.Warning);
         }
     }
 
@@ -76,13 +75,13 @@ public partial class Login
     {
         try
         {
-            var prefs = await httpClient.GetFromJsonAsync<UserPreferenceViewModel>
+            var prefs = await HttpClient.GetFromJsonAsync<UserPreferenceViewModel>
                 ($"/api/userpreference?userId={userId}");
 
             if (prefs is not null)
             {
-                _globalInfo.IsDarkMode = prefs.IsDarkMode;
-                _globalInfo.RecurringTheme = (RecurringTransactionTheme)prefs.RecurringTransactionTheme;
+                GlobalInfo.IsDarkMode = prefs.IsDarkMode;
+                GlobalInfo.RecurringTheme = (RecurringTransactionTheme)prefs.RecurringTransactionTheme;
             }
         }
         catch (Exception ex)
@@ -93,15 +92,15 @@ public partial class Login
 
     private void ShowPassword()
     {
-        isShow = !isShow;
-        PasswordInputIcon = isShow ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
-        PasswordInput = isShow ? InputType.Text : InputType.Password;
+        _isShow = !_isShow;
+        _passwordInputIcon = _isShow ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+        _passwordInput = _isShow ? InputType.Text : InputType.Password;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            await usernameTextField.FocusAsync();
+            await _usernameTextField.FocusAsync();
     }
 
     private async Task HandleEnterDown(KeyboardEventArgs e)

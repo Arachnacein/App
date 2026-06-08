@@ -2,30 +2,30 @@ namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Transaction
 {
-    [Inject] private IDialogService dialogService { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
-    private List<TransactionViewModel> filteredTransactions = new List<TransactionViewModel>();
-    private string SearchPhrase = string.Empty;
+    [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
+    private List<TransactionViewModel> _transactions = new List<TransactionViewModel>();
+    private List<TransactionViewModel> _filteredTransactions = new List<TransactionViewModel>();
+    private string _searchPhrase = string.Empty;
 
-    public string searchPhrase //This is for dynamic filtering
+    public string SearchPhrase //This is for dynamic filtering
     {
-        get => SearchPhrase;
+        get => _searchPhrase;
         set
         {
-            if (SearchPhrase != value)
+            if (_searchPhrase != value)
             {
-                SearchPhrase = value;
-                FilterTransactions(); 
+                _searchPhrase = value;
+                FilterTransactions();
             }
         }
     }
-    private int transactionCounter { get; set; } = 0;
+    private int TransactionCounter { get; set; } = 0;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadTransactions();
-        transactionCounter = transactions.Count();
+        TransactionCounter = _transactions.Count();
     }
 
     private async Task LoadTransactions()
@@ -33,26 +33,26 @@ public partial class Transaction
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
-        filteredTransactions = transactions;
+        _transactions = await HttpClient.GetFromJsonAsync<List<TransactionViewModel>>($"/api/transaction?userId={UserSessionService.UserId}");
+        _filteredTransactions = _transactions;
         StateHasChanged();
     }
 
     private void FilterTransactions()
     {
-        if (string.IsNullOrWhiteSpace(searchPhrase) || searchPhrase.Length < 3)
-            filteredTransactions = transactions;
+        if (string.IsNullOrWhiteSpace(SearchPhrase) || SearchPhrase.Length < 3)
+            _filteredTransactions = _transactions;
         else
         {
-            filteredTransactions = transactions.Where(x =>
-                (x.Name?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.Description?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.Category.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
-                (x.Price.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
-                (x.Date.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+            _filteredTransactions = _transactions.Where(x =>
+                (x.Name?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.Description?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.Category.ToString().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)) ||
+                (x.Price.ToString().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)) ||
+                (x.Date.FormatMY().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase))
             ).ToList();
         }
-        transactionCounter = filteredTransactions.Count();
+        TransactionCounter = _filteredTransactions.Count();
         StateHasChanged();
     }
     private async Task EditOptions(TransactionViewModel model)
@@ -62,7 +62,7 @@ public partial class Transaction
         parameters["Refresh"] = new Func<Task>(LoadTransactions);
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
-        await dialogService.ShowAsync<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
+        await DialogService.ShowAsync<EditDeleteTransactionDialog>(Localizer["Options"], parameters, options);
 
     }
 }

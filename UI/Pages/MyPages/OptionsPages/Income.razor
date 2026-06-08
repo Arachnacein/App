@@ -19,12 +19,12 @@ else
                 <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @IncomesCounter</MudText>
             </MudStack>
             <MudStack>
-                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
+                <MudTextField @bind-Value="SearchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
                               AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true"
                               Variant="Variant.Outlined" style="width:250px;" />
             </MudStack>
         </MudStack>
-        <MudTable T="IncomeViewModel" Items="@filteredIncomes" Dense="true" Striped="true" Class="options-table">
+        <MudTable T="IncomeViewModel" Items="@_filteredIncomes" Dense="true" Striped="true" Class="options-table">
             <HeaderContent>
                 <MudTh> @Localizer["Name"] </MudTh>
                 <MudTh Style="text-align:center"> @Localizer["Amount"] </MudTh>

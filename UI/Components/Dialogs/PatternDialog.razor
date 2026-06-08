@@ -1,9 +1,9 @@
 ﻿<MudDialog>
     <DialogContent>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-            <MudSelect T="PatternViewModel" @bind-Value="model" ToStringFunc="(x => x.Name)" 
+            <MudSelect T="PatternViewModel" @bind-Value="_model" ToStringFunc="(x => x.Name)"
                        Placeholder="@Localizer["Placeholder"]" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
-                @foreach (var item in patterns)
+                @foreach (var item in _patterns)
                 {
                     <MudSelectItem T="PatternViewModel" Value="@item">@Localizer[item.Name] (@item.Value_Saves/@item.Value_Fees/@item.Value_Entertainment)</MudSelectItem>
                 }

@@ -1,15 +1,14 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class PatternDialog
 {
-    [CascadingParameter] private IMudDialogInstance IMudDialogInstance { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
     [Parameter] public IncomeViewModel ParameterModel { get; set; }
     [Inject] private IStringLocalizer<PatternDialog> Localizer { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    private PatternViewModel model = new PatternViewModel();
-    private List<PatternViewModel> patterns  = new List<PatternViewModel>();
+    [Inject] private HttpClient HttpClient { get; set; }
+    private PatternViewModel _model = new PatternViewModel();
+    private List<PatternViewModel> _patterns = new List<PatternViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,10 +23,10 @@ public partial class PatternDialog
             return;
         }
 
-        patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
+        _patterns = await HttpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
 
-        if (patterns == null)
-            snackbar.Add(Localizer["ErrorGettingPatterns"], Severity.Error);
+        if (_patterns == null)
+            Snackbar.Add(Localizer["ErrorGettingPatterns"], Severity.Error);
     }
 
     private async Task AcceptPattern()
@@ -41,23 +40,23 @@ public partial class PatternDialog
         {
             UserId = UserSessionService.UserId,
             Date = new DateTime(ParameterModel.Date.Value.Year, ParameterModel.Date.Value.Month, ParameterModel.Date.Value.Day),
-            PatternId = model.Id
+            PatternId = _model.Id
         };
 
-        if (model.Id == null)
+        if (_model.Id == null)
         {
-            snackbar.Add(Localizer["PleaseChoosePattern"], Severity.Warning);
+            Snackbar.Add(Localizer["PleaseChoosePattern"], Severity.Warning);
             return;
         }
 
-        var addPatternRequest = await httpClient.PostAsJsonAsync("/api/monthpattern",requestBody);
+        var addPatternRequest = await HttpClient.PostAsJsonAsync("/api/monthpattern",requestBody);
 
         if (addPatternRequest.StatusCode != HttpStatusCode.Created)
-            snackbar.Add(Localizer["FailSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailSnackbar"], Severity.Error);
         else
         {
-            snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
-            IMudDialogInstance.Close();
+            Snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
+            MudDialog.Close();
         }
     }
 }

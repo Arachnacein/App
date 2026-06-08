@@ -2,13 +2,13 @@ namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Income
 {
-    [Inject] private IDialogService dialogService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
     [Inject] private IStringLocalizer<Income> Localizer { get; set; }
-    [Inject] private HttpClient httpClient {  get; set; }
-    private List<IncomeViewModel> incomes = new List<IncomeViewModel>();
-    private List<IncomeViewModel> filteredIncomes = new List<IncomeViewModel>();
+    [Inject] private HttpClient HttpClient { get; set; }
+    private List<IncomeViewModel> _incomes = new List<IncomeViewModel>();
+    private List<IncomeViewModel> _filteredIncomes = new List<IncomeViewModel>();
     private string _searchPhrase = string.Empty;
-    public string searchPhrase 
+    public string SearchPhrase
     {
         get => _searchPhrase;
         set                     //for dynamic filtering
@@ -25,7 +25,7 @@ public partial class Income
     protected override async Task OnInitializedAsync()
     {
         await LoadIncomes();
-        IncomesCounter = incomes.Count();
+        IncomesCounter = _incomes.Count();
     }
 
     private async Task LoadIncomes()
@@ -33,8 +33,8 @@ public partial class Income
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        incomes = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income?userId={UserSessionService.UserId}");
-        filteredIncomes = incomes;
+        _incomes = await HttpClient.GetFromJsonAsync<List<IncomeViewModel>>($"/api/income?userId={UserSessionService.UserId}");
+        _filteredIncomes = _incomes;
         StateHasChanged();
     }
 
@@ -45,22 +45,22 @@ public partial class Income
         parameters[nameof(model)] = model;
         parameters["Refresh"] = new Func<Task>(LoadIncomes);
 
-        await dialogService.ShowAsync<EditIncomeDialog>(Localizer["EditTitle"], parameters, options);
+        await DialogService.ShowAsync<EditIncomeDialog>(Localizer["EditTitle"], parameters, options);
     }
 
     private void FilterIncomes()
     {
-        if (string.IsNullOrWhiteSpace(searchPhrase) || searchPhrase.Length < 3)
-            filteredIncomes = incomes;
+        if (string.IsNullOrWhiteSpace(SearchPhrase) || SearchPhrase.Length < 3)
+            _filteredIncomes = _incomes;
         else
         {
-            filteredIncomes = incomes.Where(x =>
-                (x.Name?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.Amount.ToString().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase)) ||
-                (x.Date.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+            _filteredIncomes = _incomes.Where(x =>
+                (x.Name?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.Amount.ToString().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)) ||
+                (x.Date.FormatMY().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase))
             ).ToList();
         }
-        IncomesCounter = filteredIncomes.Count();
+        IncomesCounter = _filteredIncomes.Count();
         StateHasChanged();
     }
 }

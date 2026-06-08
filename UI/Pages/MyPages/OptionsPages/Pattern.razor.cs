@@ -2,14 +2,13 @@ namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Pattern
 {
-    [Inject] private ISnackbar snackbar { get; set; }
-    [Inject] private IDialogService dialogService { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private PatternViewModelValidator PatternValidator { get; set; }
-    private MudForm Form;
-    private PatternViewModel Model = new PatternViewModel();
-    private List<MonthPatternViewModel> patterns = new List<MonthPatternViewModel>();
-    private List<PatternViewModel> patternsList = new List<PatternViewModel>();
+    private MudForm _form;
+    private PatternViewModel _model = new PatternViewModel();
+    private List<MonthPatternViewModel> _patterns = new List<MonthPatternViewModel>();
+    private List<PatternViewModel> _patternsList = new List<PatternViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -22,7 +21,7 @@ public partial class Pattern
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        patternsList = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
+        _patternsList = await HttpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
         StateHasChanged();
     }
 
@@ -31,35 +30,35 @@ public partial class Pattern
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        await Form.ValidateAsync();
+        await _form.ValidateAsync();
 
-        if (!Form.IsValid)
+        if (!_form.IsValid)
             return;
 
-        if (Model.Value_Saves + Model.Value_Fees + Model.Value_Entertainment != 100)
+        if (_model.Value_Saves + _model.Value_Fees + _model.Value_Entertainment != 100)
         {
-            snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
+            Snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
             return;
         }
 
-        Model.UserId = UserSessionService.UserId;
-        var request = await httpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", Model);
+        _model.UserId = UserSessionService.UserId;
+        var request = await HttpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", _model);
         if (request.StatusCode == HttpStatusCode.Created)
         {
-            snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
             await LoadPatterns();
         }
         else if (request.StatusCode == HttpStatusCode.UnprocessableEntity)
-            snackbar.Add(Localizer["FailAddSnackbarDuplicate"], Severity.Warning);
+            Snackbar.Add(Localizer["FailAddSnackbarDuplicate"], Severity.Warning);
         else if (request.StatusCode == HttpStatusCode.Conflict)
-            snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
+            Snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
         else
-            snackbar.Add(Localizer["FailAddSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailAddSnackbar"], Severity.Error);
     }
 
     private async Task DeletePattern(PatternViewModel pattern)
     {
-        var confirmed = await dialogService.ShowMessageBoxAsync(
+        var confirmed = await DialogService.ShowMessageBoxAsync(
             Localizer["DeleteConfirmTitle"],
             $"{pattern.Name}?",
             yesText: Localizer["DeleteConfirmYes"],
@@ -68,16 +67,16 @@ public partial class Pattern
         if (confirmed != true)
             return;
 
-        var request = await httpClient.DeleteAsync($"/api/pattern/{pattern.Id}/user/{UserSessionService.UserId}");
+        var request = await HttpClient.DeleteAsync($"/api/pattern/{pattern.Id}/user/{UserSessionService.UserId}");
         if (request.IsSuccessStatusCode)
         {
-            snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
             await LoadPatterns();
         }
         else if (request.StatusCode == HttpStatusCode.Conflict)
-            snackbar.Add(Localizer["FailDeleteSnackbarInUse"], Severity.Warning);
+            Snackbar.Add(Localizer["FailDeleteSnackbarInUse"], Severity.Warning);
         else
-            snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);
     }
 
     private async Task LoadMonthPatterns()
@@ -85,7 +84,7 @@ public partial class Pattern
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        patterns = await httpClient.GetFromJsonAsync<List<MonthPatternViewModel>>($"/api/monthpattern/GetAllWithPattern?userId={UserSessionService.UserId}");
+        _patterns = await HttpClient.GetFromJsonAsync<List<MonthPatternViewModel>>($"/api/monthpattern/GetAllWithPattern?userId={UserSessionService.UserId}");
         StateHasChanged();
     }
 
@@ -96,6 +95,6 @@ public partial class Pattern
         parameters["Refresh"] = new Func<Task>(LoadMonthPatterns);
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
-        await dialogService.ShowAsync<EditMonthPatternDialog>(Localizer["EditPatternDialogHeader", contextModel.Date.Month, contextModel.Date.Year], parameters, options);
+        await DialogService.ShowAsync<EditMonthPatternDialog>(Localizer["EditPatternDialogHeader", contextModel.Date.Month, contextModel.Date.Year], parameters, options);
     }
 }

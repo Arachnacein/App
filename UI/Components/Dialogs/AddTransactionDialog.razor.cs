@@ -1,25 +1,24 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class AddTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<AddTransactionDialog> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private TransactionViewModelValidator TransactionValidator { get; set; }
-    private MudForm Form;
-    private TransactionViewModel DialogModel = new TransactionViewModel();
+    private MudForm _form;
+    private TransactionViewModel _dialogModel = new TransactionViewModel();
 
     protected override async Task OnInitializedAsync()
     {
-        DialogModel.Date = DateTime.Now;
+        _dialogModel.Date = DateTime.Now;
     }
 
     private async Task Submit()
     {
-        await Form.ValidateAsync();
-        if (!Form.IsValid)
+        await _form.ValidateAsync();
+        if (!_form.IsValid)
             return;
 
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -28,18 +27,18 @@ public partial class AddTransactionDialog
             return;
         }
 
-        DialogModel.UserId = UserSessionService.UserId;
-        var request = await httpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
+        _dialogModel.UserId = UserSessionService.UserId;
+        var request = await HttpClient.PostAsJsonAsync<TransactionViewModel>("/api/transaction", _dialogModel);
         if (request.StatusCode == HttpStatusCode.Created)
         {
-            snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
+            Snackbar.Add(Localizer["SuccessSnackbar"], Severity.Success);
 
             MudDialog.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailedSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailedSnackbar"], Severity.Error);
     }
     private async Task Cancel() => MudDialog.Cancel();
 }

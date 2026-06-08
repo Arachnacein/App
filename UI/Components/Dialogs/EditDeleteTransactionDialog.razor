@@ -1,28 +1,28 @@
-﻿<MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
+﻿<MudForm Model="@_dialogModel" @ref="@_form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog Style="height:460px;">
         <DialogContent>
             <MudTabs Class="ma-2 pa-2" Elevation="5" ApplyEffectsToContainer="true" TabPanelsClass="pa-6" Centered="true">
-                @if(DialogModel.IsRecurring == true && DialogModel.IsApproved == false)
+                @if(_dialogModel.IsRecurring == true && _dialogModel.IsApproved == false)
                 {
                     <MudTabPanel Text="@Localizer["TabPanelConfirmTransaction"]">
                         <MudStack Justify="Justify.Center">
-                            <MudText Class="pa-1">@Localizer["Name"]: @DialogModel.Name</MudText>
-                            <MudText Class="pa-1">@Localizer["Description"]: @DialogModel.Description</MudText>
-                            <MudText Class="pa-1">@Localizer["Date"]: @DialogModel.Date.FormatDMY()</MudText>
+                            <MudText Class="pa-1">@Localizer["Name"]: @_dialogModel.Name</MudText>
+                            <MudText Class="pa-1">@Localizer["Description"]: @_dialogModel.Description</MudText>
+                            <MudText Class="pa-1">@Localizer["Date"]: @_dialogModel.Date.FormatDMY()</MudText>
                             <MudButton OnClick="AcceptTransaction" Variant="Variant.Filled" Color="Color.Primary" style="height:80%;" >@Localizer["Confirm"]</MudButton>
                         </MudStack>
                     </MudTabPanel>
                 }
                 <MudTabPanel Text="@Localizer["TabPanelEdit"]">
-                    <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" 
-                                  For="@(() => DialogModel.Name)" Class="ma-1 pa-1" />
-                    <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" 
-                                  For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />
-                    <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" 
+                    <MudTextField Label="@Localizer["Name"]" @bind-Value="_dialogModel.Name" 
+                                  For="@(() => _dialogModel.Name)" Class="ma-1 pa-1" />
+                    <MudTextField Label="@Localizer["Description"]" @bind-Value="_dialogModel.Description" 
+                                  For="@(() => _dialogModel.Description)" Class="ma-1 pa-1" />
+                    <MudDatePicker Label="@Localizer["Date"]" @bind-Date="_dialogModel.Date" 
                                    ShowToolbar="false" Class="ma-1 pa-1" />
                     <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center">
-                        <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="DialogModel.Price" 
-                                      For="@(() => DialogModel.Price)" Class="ma-1 pa-1"></MudTextField>
+                        <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="_dialogModel.Price" 
+                                      For="@(() => _dialogModel.Price)" Class="ma-1 pa-1"></MudTextField>
                         <MudButton OnClick="Edit" Variant="Variant.Filled" Color="Color.Primary" 
                                    style="height:80%;">@Localizer["Confirm"]</MudButton>
                     </MudStack>
@@ -30,9 +30,9 @@
                 <MudTabPanel Text="@Localizer["TabPanelDelete"]">
                     <MudStack Justify="Justify.Center">
                         <MudText Class="pa-1">@Localizer["DeleteQuestion"]</MudText>
-                        <MudText Class="pa-1"> @Localizer["Name"]: @DialogModel.Name</MudText>
-                        <MudText Class="pa-1"> @Localizer["Date"]: @DialogModel.Date.FormatDMY()</MudText>
-                        <MudText Class="pa-1"> @Localizer["Price"]: @DialogModel.Price</MudText>
+                        <MudText Class="pa-1"> @Localizer["Name"]: @_dialogModel.Name</MudText>
+                        <MudText Class="pa-1"> @Localizer["Date"]: @_dialogModel.Date.FormatDMY()</MudText>
+                        <MudText Class="pa-1"> @Localizer["Price"]: @_dialogModel.Price</MudText>
                         <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" style="height:80%;">@Localizer["Delete"]</MudButton>
                     </MudStack>
                 </MudTabPanel>

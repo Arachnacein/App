@@ -1,4 +1,4 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class EditUserPropertiesDialog
 {
@@ -8,22 +8,22 @@ public partial class EditUserPropertiesDialog
     [Parameter] public EventCallback OnDialogClose { get; set; }
     [Inject] public IStringLocalizer<EditUserPropertiesDialog> Localizer { get; set; }
     [Inject] private UserDetailsViewModelValidator UserDetailsValidator { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    [Inject] protected ProtectedLocalStorage localStorage { get; set; }
-    private UserDetailsViewModel DialogModel = new UserDetailsViewModel();
-    private MudForm Form;
+    [Inject] private HttpClient HttpClient { get; set; }
+    [Inject] protected ProtectedLocalStorage LocalStorage { get; set; }
+    private UserDetailsViewModel _dialogModel = new UserDetailsViewModel();
+    private MudForm _form;
 
     protected override Task OnInitializedAsync()
     {
-        DialogModel = UserDetails;
+        _dialogModel = UserDetails;
         return base.OnInitializedAsync();
     }
 
     private async Task Submit()
     {
-        await Form.ValidateAsync();
+        await _form.ValidateAsync();
 
-        if (!Form.IsValid)
+        if (!_form.IsValid)
             return;
 
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -32,14 +32,14 @@ public partial class EditUserPropertiesDialog
             return;
         }
 
-        var responseEditUserProperties = await httpClient.PutAsJsonAsync<UserDetailsViewModel>($"/api/User/editUser", DialogModel);
+        var responseEditUserProperties = await HttpClient.PutAsJsonAsync<UserDetailsViewModel>($"/api/User/editUser", _dialogModel);
         if (responseEditUserProperties.StatusCode != System.Net.HttpStatusCode.NoContent)
         {
             Snackbar.Add(Localizer["FailEditSnackbar"], Severity.Error);
             return;
         }
 
-        var refreshedUserData = await httpClient.GetFromJsonAsync<UserDetailsViewModel>($"/api/User/getUserData?userId={UserSessionService.UserId}");
+        var refreshedUserData = await HttpClient.GetFromJsonAsync<UserDetailsViewModel>($"/api/User/getUserData?userId={UserSessionService.UserId}");
         UserDetails.FirstName = refreshedUserData.FirstName;
         UserDetails.LastName = refreshedUserData.LastName;
         UserDetails.Username = refreshedUserData.Username;

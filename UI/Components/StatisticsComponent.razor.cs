@@ -3,13 +3,13 @@ namespace UI.Components;
 public partial class StatisticsComponent
 {
     [Inject] private IStringLocalizer<StatisticsComponent> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     private CategoriesDistributionModel CategoriesDistribution { get; set; }
     private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
-    private List<ChartSeries<double>> Series = new List<ChartSeries<double>>();
-    private string[] XaxisLabels = { };
+    private List<ChartSeries<double>> _series = new List<ChartSeries<double>>();
+    private string[] _xaxisLabels = { };
     private const int MonthsWindowSize = 20;
-    private static readonly string[] CategoryChartPalette = { "#2979FF", "#C0504D", "#FFC400" };
+    private static readonly string[] _categoryChartPalette = { "#2979FF", "#C0504D", "#FFC400" };
     private StackedBarChartOptions BarChartOptions { get; } = new()
     {
         XAxisLabelRotation = 90,
@@ -17,11 +17,11 @@ public partial class StatisticsComponent
         Justify = Justify.Center,
         YAxisSuggestedMax = 100,
         FixedBarWidth = 20,
-        ChartPalette = CategoryChartPalette
+        ChartPalette = _categoryChartPalette
     };
     private ChartOptions PieChartOptions { get; } = new()
     {
-        ChartPalette = CategoryChartPalette
+        ChartPalette = _categoryChartPalette
     };
     private double TotalExpenses { get; set; }
     private double TotalSaves { get; set; }
@@ -56,7 +56,7 @@ public partial class StatisticsComponent
     {
         try
         {
-            var result = await httpClient.GetFromJsonAsync<List<int>>
+            var result = await HttpClient.GetFromJsonAsync<List<int>>
                 ($"/api/statistics/GetAvailableYears?userId={UserSessionService.UserId}");
 
             if (result != null)
@@ -75,7 +75,7 @@ public partial class StatisticsComponent
             if (year.HasValue)
                 url += $"&year={year.Value}";
 
-            var result = await httpClient.GetFromJsonAsync<FilteredStatisticsModel>(url);
+            var result = await HttpClient.GetFromJsonAsync<FilteredStatisticsModel>(url);
 
             if (result != null)
             {
@@ -126,7 +126,7 @@ public partial class StatisticsComponent
 
     private async Task GetThreeMonthsSaves()
     {
-        Total3MonthsSaves = await httpClient.GetFromJsonAsync<double>
+        Total3MonthsSaves = await HttpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsSaves?userId={UserSessionService.UserId}");
 
         StateHasChanged();
@@ -134,7 +134,7 @@ public partial class StatisticsComponent
 
     private async Task GetThreeMonthsExpenses()
     {
-        Total3MonthsExpenses = await httpClient.GetFromJsonAsync<double>
+        Total3MonthsExpenses = await HttpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsExpenses?userId={UserSessionService.UserId}");
 
         StateHasChanged();
@@ -142,7 +142,7 @@ public partial class StatisticsComponent
 
     private async Task GetCategoriesDistribution()
     {
-        CategoriesDistribution = await httpClient.GetFromJsonAsync<CategoriesDistributionModel>
+        CategoriesDistribution = await HttpClient.GetFromJsonAsync<CategoriesDistributionModel>
             ($"/api/statistics/GetCategoriesDistribution?userId={UserSessionService.UserId}");
 
         StateHasChanged();
@@ -155,7 +155,7 @@ public partial class StatisticsComponent
         if (year.HasValue)
             url += $"&year={year.Value}";
 
-        MonthlyCategoriesDistributionList = await httpClient.GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
+        MonthlyCategoriesDistributionList = await HttpClient.GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
 
         WindowStartIndex = MaxWindowStartIndex;
         UpdateChartSeries();
@@ -167,11 +167,11 @@ public partial class StatisticsComponent
             ? MonthlyCategoriesDistributionList
             : MonthlyCategoriesDistributionList.Skip(WindowStartIndex).Take(MonthsWindowSize).ToList();
 
-        XaxisLabels = displayedMonths
+        _xaxisLabels = displayedMonths
                         .Select(x => $"{x.Month:D2}'{x.Year % 100:D2}")
                         .ToArray();
 
-        Series = new List<ChartSeries<double>>
+        _series = new List<ChartSeries<double>>
         {
             new ChartSeries<double>{
                 Name = Localizer["Saves"],

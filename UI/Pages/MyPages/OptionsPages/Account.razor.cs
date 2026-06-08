@@ -3,8 +3,8 @@ namespace UI.Pages.MyPages.OptionsPages;
 public partial class Account
 {
     [Inject] private IStringLocalizer<Account> Localizer {  get; set; }
-    [Inject] private IDialogService dialogService { get; set; }
-    private UserDetailsViewModel UserDetails = new UserDetailsViewModel();
+    [Inject] private IDialogService DialogService { get; set; }
+    private UserDetailsViewModel _userDetails = new UserDetailsViewModel();
 
     protected override async Task OnInitializedAsync()
     {
@@ -13,35 +13,35 @@ public partial class Account
 
     private async Task LoadDataToUserDetailsModel()
     {
-        UserDetails.UserId = UserSessionService.UserId;
-        UserDetails.FirstName = UserSessionService.Name;
-        UserDetails.LastName = UserSessionService.Surname;
-        UserDetails.Username = UserSessionService.Username;
-        UserDetails.Email = UserSessionService.Email;
-        UserDetails.Roles = UserSessionService.Roles
+        _userDetails.UserId = UserSessionService.UserId;
+        _userDetails.FirstName = UserSessionService.Name;
+        _userDetails.LastName = UserSessionService.Surname;
+        _userDetails.Username = UserSessionService.Username;
+        _userDetails.Email = UserSessionService.Email;
+        _userDetails.Roles = UserSessionService.Roles
                                 .Where(role => role.Contains("user") || role.Contains("admin"))
                                 .ToList() ?? new List<string>();
-        UserDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
-        UserDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
-        UserDetails.EmailVerified = UserSessionService.EmailVerified;
+        _userDetails.AccountCreatedDate = UserSessionService.AccountCreatedDate;
+        _userDetails.SessionExpiryDate = UserSessionService.TokenExpiryDate;
+        _userDetails.EmailVerified = UserSessionService.EmailVerified;
 
     }
     private async Task EditData(string variableName)
     {
         switch (variableName)
         {
-            case nameof(UserDetails.FirstName):
-                await OpenDialog(nameof(UserDetails.FirstName));
-                break;                
-            case nameof(UserDetails.LastName):
-                await OpenDialog(nameof(UserDetails.LastName));
-                break;                
-            case nameof(UserDetails.Username):
-                await OpenDialog(nameof(UserDetails.Username));
-                break;                
-            case nameof(UserDetails.Email):
-                await OpenDialog(nameof(UserDetails.Email));
-                break;                
+            case nameof(_userDetails.FirstName):
+                await OpenDialog(nameof(_userDetails.FirstName));
+                break;
+            case nameof(_userDetails.LastName):
+                await OpenDialog(nameof(_userDetails.LastName));
+                break;
+            case nameof(_userDetails.Username):
+                await OpenDialog(nameof(_userDetails.Username));
+                break;
+            case nameof(_userDetails.Email):
+                await OpenDialog(nameof(_userDetails.Email));
+                break;
             default:
                 break;
         }
@@ -53,10 +53,10 @@ public partial class Account
 
         var parameters = new DialogParameters();
         parameters[nameof(property)] = property;
-        parameters[nameof(UserDetails)] = UserDetails;
+        parameters["UserDetails"] = _userDetails;
         parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
-        await dialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
+        await DialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
     }
 
     private async Task VerifyEmail()
@@ -66,7 +66,7 @@ public partial class Account
         var parameters = new DialogParameters();
         parameters[nameof(OnDialogClose)] = EventCallback.Factory.Create(this, OnDialogClose);
 
-        await dialogService.ShowAsync<VerifyEmailDialog>(String.Empty, parameters, options);
+        await DialogService.ShowAsync<VerifyEmailDialog>(String.Empty, parameters, options);
 
     }
 

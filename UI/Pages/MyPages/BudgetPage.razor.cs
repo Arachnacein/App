@@ -2,23 +2,23 @@ namespace UI.Pages.MyPages;
 
 public partial class BudgetPage
 {
-    [Inject] private IDialogService dialogService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
     [Inject] private IStringLocalizer<BudgetPage> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private IJSRuntime JSRuntime { get; set; }
-    [Inject] private GlobalInfoClass _globalInfo { get; set; }
-    private DateTime CurrentDate;
-    private PatternViewModel patternViewModel;
-    private List<IncomeViewModel> incomes;
-    private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
-    private PatternValuesModel patternValuesModel = new PatternValuesModel();
-    private bool IsLoadingTransactions = true;
-    private double TotalIncome => incomes?.Sum(x => x.Amount) ?? 0;
+    [Inject] private GlobalInfoClass GlobalInfo { get; set; }
+    private DateTime _currentDate;
+    private PatternViewModel _patternViewModel;
+    private List<IncomeViewModel> _incomes;
+    private List<TransactionViewModel> _transactions = new List<TransactionViewModel>();
+    private PatternValuesModel _patternValuesModel = new PatternValuesModel();
+    private bool _isLoadingTransactions = true;
+    private double TotalIncome => _incomes?.Sum(x => x.Amount) ?? 0;
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentDate = DateTime.Now;
-        IsLoadingTransactions = true;
+        _currentDate = DateTime.Now;
+        _isLoadingTransactions = true;
         await base.OnInitializedAsync();
         await RefreshData();
     }
@@ -27,12 +27,12 @@ public partial class BudgetPage
     {
         if (UserSessionService != null && UserSessionService.UserId != Guid.Empty)
         {
-            await ResetModel(patternValuesModel);
+            await ResetModel(_patternValuesModel);
             await LoadTransactions();
             await LoadMonthPatterns();
             await LoadMonthIncome();
             await CalculatePatternValues();
-            IsLoadingTransactions = false;
+            _isLoadingTransactions = false;
             StateHasChanged();
         }
     }
@@ -40,12 +40,12 @@ public partial class BudgetPage
     {
         try
         {
-            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>
+            _transactions = await HttpClient.GetFromJsonAsync<List<TransactionViewModel>>
                 ($"/api/transaction?userId={UserSessionService.UserId}");
 
-            transactions = transactions.OrderByDescending(x => x.Date)
-                                   .Where(x => x.Date.Value.Month == CurrentDate.Month && 
-                                               x.Date.Value.Year == CurrentDate.Year)
+            _transactions = _transactions.OrderByDescending(x => x.Date)
+                                   .Where(x => x.Date.Value.Month == _currentDate.Month &&
+                                               x.Date.Value.Year == _currentDate.Year)
                                    .ToList();
             StateHasChanged();
         }
@@ -70,7 +70,7 @@ public partial class BudgetPage
         var parameters = new DialogParameters();
         parameters["Refresh"] = new Func<Task>(RefreshData);
 
-        await dialogService.ShowAsync<AddTransactionDialog>(Localizer["AddNewTransaction"], parameters, options);
+        await DialogService.ShowAsync<AddTransactionDialog>(Localizer["AddNewTransaction"], parameters, options);
     }
     private async Task AddRecurringTransaction()
     {
@@ -84,7 +84,7 @@ public partial class BudgetPage
         var parameters = new DialogParameters();
         parameters["Refresh"] = new Func<Task>(RefreshData);
 
-        await dialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"],parameters, options);
+        await DialogService.ShowAsync<AddRecurringTransactionDialog>(Localizer["AddRecurringTransaction"],parameters, options);
     }
     private async Task AddIncome()
     {
@@ -97,7 +97,7 @@ public partial class BudgetPage
 
         var parameters = new DialogParameters();
         parameters["Refresh"] = new Func<Task>(RefreshData);
-        await dialogService.ShowAsync<AddIncomeDialog>(Localizer["AddNewIncome"], parameters, options);
+        await DialogService.ShowAsync<AddIncomeDialog>(Localizer["AddNewIncome"], parameters, options);
     }
     private async Task EditDeleteTransaction(TransactionViewModel model)
     {
@@ -106,13 +106,13 @@ public partial class BudgetPage
         parameters[nameof(model)] = model;
         parameters["Refresh"] = new Func<Task>(RefreshData);
 
-        await dialogService.ShowAsync<EditDeleteTransactionDialog>($"{model.Name}", parameters, options);
-    } 
+        await DialogService.ShowAsync<EditDeleteTransactionDialog>($"{model.Name}", parameters, options);
+    }
     private async Task ItemUpdated(MudItemDropInfo<TransactionViewModel> dropItem)
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
-        
+
         //parses string into enum
         var droppedItem = (TransactionCategoryEnum)Enum.
             Parse(typeof(TransactionCategoryEnum), dropItem.DropzoneIdentifier);
@@ -121,48 +121,48 @@ public partial class BudgetPage
             return;
 
         dropItem.Item.Category = droppedItem;
-        await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>
-            ("/api/transaction/UpdateCategory", 
-                new UpdateTransactionCategoryViewModel 
+        await HttpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>
+            ("/api/transaction/UpdateCategory",
+                new UpdateTransactionCategoryViewModel
                 {
-                    Id = dropItem.Item.Id, 
-                    UserId = UserSessionService.UserId, 
-                    Category = dropItem.Item.Category 
+                    Id = dropItem.Item.Id,
+                    UserId = UserSessionService.UserId,
+                    Category = dropItem.Item.Category
                 });
         await RefreshData();
     }
 
     private async Task PreviousMonth()
     {
-        CurrentDate = CurrentDate.AddMonths(-1);
+        _currentDate = _currentDate.AddMonths(-1);
         await RefreshData();
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
 
     private async Task NextMonth()
     {
-        CurrentDate = CurrentDate.AddMonths(1);
+        _currentDate = _currentDate.AddMonths(1);
         await RefreshData();
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
 
     private string GetBarClass(TransactionViewModel t)
-        => _globalInfo.RecurringTheme != RecurringTransactionTheme.RightBar ? "" :
+        => GlobalInfo.RecurringTheme != RecurringTransactionTheme.RightBar ? "" :
            t.IsRecurring && !t.IsApproved ? " recurring-bar-pending" :
            t.IsRecurring && t.IsApproved  ? " recurring-bar-approved" : "";
 
     private string? GetBorderStyle(TransactionViewModel t)
-        => _globalInfo.RecurringTheme != RecurringTransactionTheme.Border ? null :
+        => GlobalInfo.RecurringTheme != RecurringTransactionTheme.Border ? null :
            t.IsRecurring && !t.IsApproved ? "border:1px dashed rgba(167,139,250,0.5)!important;" :
            t.IsRecurring && t.IsApproved  ? "border:1px solid #10B981!important;" : null;
 
     private async Task LoadMonthPatterns()
     {
-        var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>
-            ($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
+        var patternResponse = await HttpClient.GetFromJsonAsync<PatternViewModel>
+            ($"/api/monthpattern/GetMonthPattern?month={_currentDate.Month}&year={_currentDate.Year}&userId={UserSessionService.UserId}");
         if (patternResponse == null || patternResponse.Id == -1)
         {
-            patternViewModel = new PatternViewModel
+            _patternViewModel = new PatternViewModel
             {
                 Id = 0,
                 Name = string.Empty,
@@ -172,39 +172,39 @@ public partial class BudgetPage
             };
             return;
         }
-        
-        patternViewModel = patternResponse;
+
+        _patternViewModel = patternResponse;
     }
 
     private async Task LoadMonthIncome()
     {
-        var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>
-            ($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
-        incomes = incomeList;
+        var incomeList = await HttpClient.GetFromJsonAsync<List<IncomeViewModel>>
+            ($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={_currentDate.Month}&year={_currentDate.Year}");
+        _incomes = incomeList;
     }
 
     private async Task CalculatePatternValues()
     {
-        if(patternViewModel != null)
+        if(_patternViewModel != null)
         {
-            var incomesTotal = incomes.Sum(x => x.Amount);
-            patternValuesModel.TotalValueSaves = incomesTotal * patternViewModel.Value_Saves * 0.01d;
-            patternValuesModel.TotalValueFees = incomesTotal * patternViewModel.Value_Fees * 0.01d;
-            patternValuesModel.TotalValueEntertainment = incomesTotal * patternViewModel.Value_Entertainment * 0.01d;
+            var incomesTotal = _incomes.Sum(x => x.Amount);
+            _patternValuesModel.TotalValueSaves = incomesTotal * _patternViewModel.Value_Saves * 0.01d;
+            _patternValuesModel.TotalValueFees = incomesTotal * _patternViewModel.Value_Fees * 0.01d;
+            _patternValuesModel.TotalValueEntertainment = incomesTotal * _patternViewModel.Value_Entertainment * 0.01d;
 
-            transactions.ForEach(x =>
+            _transactions.ForEach(x =>
             {
                 if(!x.IsRecurring || (x.IsRecurring && x.IsApproved))
                 switch (x.Category)
                 {
                     case TransactionCategoryEnum.Saves:
-                        patternValuesModel.ActualValueSaves += x.Price;
+                        _patternValuesModel.ActualValueSaves += x.Price;
                         break;
                     case TransactionCategoryEnum.Fees:
-                        patternValuesModel.ActualValueFees += x.Price;
+                        _patternValuesModel.ActualValueFees += x.Price;
                         break;
                     case TransactionCategoryEnum.Entertainment:
-                        patternValuesModel.ActualValueEntertainment += x.Price;
+                        _patternValuesModel.ActualValueEntertainment += x.Price;
                         break;
                     default:
                         break;
@@ -214,13 +214,13 @@ public partial class BudgetPage
                     switch (x.Category)
                     {
                         case TransactionCategoryEnum.Saves:
-                            patternValuesModel.RecurringValueSaves += x.Price;
+                            _patternValuesModel.RecurringValueSaves += x.Price;
                             break;
                         case TransactionCategoryEnum.Fees:
-                            patternValuesModel.RecurringValueFees += x.Price;
+                            _patternValuesModel.RecurringValueFees += x.Price;
                             break;
                         case TransactionCategoryEnum.Entertainment:
-                            patternValuesModel.RecurringValueEntertainment += x.Price;
+                            _patternValuesModel.RecurringValueEntertainment += x.Price;
                             break;
                     }
             });
@@ -238,13 +238,13 @@ public partial class BudgetPage
         model.RecurringValueFees = 0;
         model.RecurringValueEntertainment = 0;
 
-        if(patternViewModel != null)
+        if(_patternViewModel != null)
         {
-            patternViewModel.Id = 0;
-            patternViewModel.Name = "";
-            patternViewModel.Value_Saves = 0;
-            patternViewModel.Value_Fees = 0;
-            patternViewModel.Value_Entertainment = 0;
+            _patternViewModel.Id = 0;
+            _patternViewModel.Name = "";
+            _patternViewModel.Value_Saves = 0;
+            _patternViewModel.Value_Fees = 0;
+            _patternViewModel.Value_Entertainment = 0;
         }
     }
 }

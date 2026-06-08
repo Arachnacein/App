@@ -129,7 +129,7 @@ else
         <MudPaper Class="kpi-card pa-3" Elevation="0" Style="width: fit-content; overflow: hidden;">
             <MudStack AlignItems="AlignItems.Center" Spacing="1">
                 <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1" Align="Align.Center">@Localizer["MonthlyDistributionTitle"]</MudText>
-                <MudChart T="double" ChartType="ChartType.StackedBar" ChartSeries="@Series" ChartLabels="@XaxisLabels"
+                <MudChart T="double" ChartType="ChartType.StackedBar" ChartSeries="@_series" ChartLabels="@_xaxisLabels"
                           ChartOptions="@BarChartOptions"
                           Width="650px" Height="290px" LegendPosition="Position.Bottom" Class="pa-1"/>
                 @if (ShowMonthsNavigator)

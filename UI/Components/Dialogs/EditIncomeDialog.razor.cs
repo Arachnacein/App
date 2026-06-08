@@ -1,27 +1,25 @@
-﻿namespace UI.Components.Dialogs;
+namespace UI.Components.Dialogs;
 
 public partial class EditIncomeDialog
 {
-    [CascadingParameter] private IMudDialogInstance IMudDialogInstance { get; set; }
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public IncomeViewModel ParameterModel { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
-    [Inject] private HttpClient httpClient {  get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private IncomeViewModelValidator IncomeValidator { get; set; }
-    private IncomeViewModel Model = new IncomeViewModel();
-
-    private MudForm Form;
+    private IncomeViewModel _model = new IncomeViewModel();
+    private MudForm _form;
 
     protected override async Task OnInitializedAsync()
     {
-        Model = ParameterModel;
+        _model = ParameterModel;
     }
 
     private async Task Submit()
     {
-        await Form.ValidateAsync();
-        if (!Form.IsValid)
+        await _form.ValidateAsync();
+        if (!_form.IsValid)
             return;
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
         {
@@ -29,20 +27,20 @@ public partial class EditIncomeDialog
             return;
         }
 
-        Model.UserId = UserSessionService.UserId;
-        var request = await httpClient.PutAsJsonAsync<IncomeViewModel>("/api/income",Model);
+        _model.UserId = UserSessionService.UserId;
+        var request = await HttpClient.PutAsJsonAsync<IncomeViewModel>("/api/income",_model);
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessUpdateSnackbar"], Severity.Success);
-            IMudDialogInstance.Cancel();
-            if(Refresh != null) 
+            Snackbar.Add(Localizer["SuccessUpdateSnackbar"], Severity.Success);
+            MudDialog.Cancel();
+            if(Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
     }
 
-    private async Task Cancel() => IMudDialogInstance.Cancel();
+    private async Task Cancel() => MudDialog.Cancel();
 
     private async Task Delete()
     {
@@ -52,15 +50,15 @@ public partial class EditIncomeDialog
             return;
         }
 
-        var request = await httpClient.DeleteAsync($"/api/income/{Model.Id}/user/{UserSessionService.UserId}");
+        var request = await HttpClient.DeleteAsync($"/api/income/{_model.Id}/user/{UserSessionService.UserId}");
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
-            IMudDialogInstance.Cancel();
+            Snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
+            MudDialog.Cancel();
             if (Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
+            Snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
     }
 }

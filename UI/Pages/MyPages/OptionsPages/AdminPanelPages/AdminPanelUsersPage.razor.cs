@@ -3,12 +3,12 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages;
 public partial class AdminPanelUsersPage
 {
     [Inject] private IStringLocalizer<AdminPanel> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
 
-    private List<UserDetailsViewModel> users = new List<UserDetailsViewModel>();
-    private List<UserDetailsViewModel> filteredUsers = new List<UserDetailsViewModel>();
+    private List<UserDetailsViewModel> _users = new List<UserDetailsViewModel>();
+    private List<UserDetailsViewModel> _filteredUsers = new List<UserDetailsViewModel>();
     private string _searchPhrase = string.Empty;
-    public string searchPhrase // dynamic filtering
+    public string SearchPhrase // dynamic filtering
     {
         get => _searchPhrase;
         set
@@ -20,7 +20,7 @@ public partial class AdminPanelUsersPage
             }
         }
     }
-    public int usersCounter { get; set; }
+    public int UsersCounter { get; set; }
     protected override async Task OnInitializedAsync()
     {
         if (UserSessionService != null && UserSessionService.IsAdmin)
@@ -29,29 +29,29 @@ public partial class AdminPanelUsersPage
 
     private async Task FetchUsersAsync()
     {
-        users = await httpClient.GetFromJsonAsync<List<UserDetailsViewModel>>("api/User");
-        filteredUsers = users;
+        _users = await HttpClient.GetFromJsonAsync<List<UserDetailsViewModel>>("api/User");
+        _filteredUsers = _users;
         StateHasChanged();
     }
     private void FilterUsers()
     {
-        if (string.IsNullOrWhiteSpace(searchPhrase) || searchPhrase.Length < 3)
-            filteredUsers = users;
+        if (string.IsNullOrWhiteSpace(SearchPhrase) || SearchPhrase.Length < 3)
+            _filteredUsers = _users;
         else
         {
-            filteredUsers = users.Where(x =>
-                (x.FirstName?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.LastName?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.Email?.Contains(searchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (x.AccountCreatedDate.FormatMY().Contains(searchPhrase, StringComparison.OrdinalIgnoreCase))
+            _filteredUsers = _users.Where(x =>
+                (x.FirstName?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.LastName?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.Email?.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (x.AccountCreatedDate.FormatMY().Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase))
             ).ToList();
         }
-        usersCounter = filteredUsers.Count();
+        UsersCounter = _filteredUsers.Count();
         StateHasChanged();
     }
     private async Task Enable(UserDetailsViewModel model)
     {
         model.Enabled = !model.Enabled;
-        await httpClient.PutAsJsonAsync("api/User/enableUser", model);
+        await HttpClient.PutAsJsonAsync("api/User/enableUser", model);
     }
 }
