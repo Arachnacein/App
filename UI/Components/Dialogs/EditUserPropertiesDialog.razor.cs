@@ -21,7 +21,7 @@ public partial class EditUserPropertiesDialog
 
     private async Task Submit()
     {
-        await Form.Validate();
+        await Form.ValidateAsync();
 
         if (!Form.IsValid)
             return;

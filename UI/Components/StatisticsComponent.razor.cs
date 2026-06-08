@@ -75,7 +75,7 @@ public partial class StatisticsComponent
             if (year.HasValue)
                 url += $"&year={year.Value}";
 
-            var result = await httpClients.GetFromJsonAsync<FilteredStatisticsModel>(url);
+            var result = await httpClient.GetFromJsonAsync<FilteredStatisticsModel>(url);
 
             if (result != null)
             {

@@ -38,7 +38,7 @@ public partial class EditDeleteTransactionDialog
     }
     private async Task Edit()
     {
-        await Form.Validate();
+        await Form.ValidateAsync();
         if (!Form.IsValid)
             return;
 

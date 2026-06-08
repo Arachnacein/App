@@ -20,7 +20,7 @@ public partial class EditIncomeDialog
 
     private async Task Submit()
     {
-        await Form.Validate();
+        await Form.ValidateAsync();
         if (!Form.IsValid)
             return;
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)

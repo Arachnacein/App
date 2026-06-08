@@ -14,8 +14,8 @@ public partial class Register
 
     private async Task Submit()
     {
-        await Form.Validate();
-        
+        await Form.ValidateAsync();
+
         var recaptchaResponse = await JSRuntime.InvokeAsync<string>("grecaptcha.getResponse");
         if (string.IsNullOrEmpty(recaptchaResponse))
         {

@@ -31,7 +31,7 @@ public partial class Pattern
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
 
-        await Form.Validate();
+        await Form.ValidateAsync();
 
         if (!Form.IsValid)
             return;
