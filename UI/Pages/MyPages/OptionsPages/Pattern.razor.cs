@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using UI.Components.Dialogs;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Pattern
@@ -37,6 +32,7 @@ public partial class Pattern
             return;
 
         await Form.Validate();
+
         if (!Form.IsValid)
             return;
 
@@ -48,14 +44,14 @@ public partial class Pattern
 
         Model.UserId = UserSessionService.UserId;
         var request = await httpClient.PostAsJsonAsync<PatternViewModel>($"/api/pattern?userId={UserSessionService.UserId}", Model);
-        if (request.StatusCode == System.Net.HttpStatusCode.Created)
+        if (request.StatusCode == HttpStatusCode.Created)
         {
             snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
             await LoadPatterns();
         }
-        else if (request.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
+        else if (request.StatusCode == HttpStatusCode.UnprocessableEntity)
             snackbar.Add(Localizer["FailAddSnackbarDuplicate"], Severity.Warning);
-        else if (request.StatusCode == System.Net.HttpStatusCode.Conflict)
+        else if (request.StatusCode == HttpStatusCode.Conflict)
             snackbar.Add(Localizer["FailAddSnackbarInvalidValues"], Severity.Warning);
         else
             snackbar.Add(Localizer["FailAddSnackbar"], Severity.Error);
@@ -78,7 +74,7 @@ public partial class Pattern
             snackbar.Add(Localizer["SuccessDeleteSnackbar"], Severity.Success);
             await LoadPatterns();
         }
-        else if (request.StatusCode == System.Net.HttpStatusCode.Conflict)
+        else if (request.StatusCode == HttpStatusCode.Conflict)
             snackbar.Add(Localizer["FailDeleteSnackbarInUse"], Severity.Warning);
         else
             snackbar.Add(Localizer["FailDeleteSnackbar"], Severity.Error);

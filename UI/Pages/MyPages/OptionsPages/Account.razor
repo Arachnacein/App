@@ -1,6 +1,4 @@
 @page "/options/account"
-@using UI.Models;
-@using UI.Models.ViewModels
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <UI.Components.OptionNavigationComponent />
@@ -21,7 +19,7 @@ else
         </MudStack>
         <MudDivider Class="mb-4" />
 
-        <!-- Edytowalne dane -->
+        <!-- Editable data -->
         <MudGrid Spacing="0">
             <MudItem xs="12" sm="4" Class="account-label-cell">
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["LabelUserName"]</MudText>
@@ -85,7 +83,7 @@ else
 
         <MudDivider Class="my-5" />
 
-        <!-- Dane tylko do odczytu -->
+        <!-- Readonly data -->
         <MudGrid Spacing="0">
             <MudItem xs="12" sm="4" Class="account-label-cell">
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">Roles</MudText>

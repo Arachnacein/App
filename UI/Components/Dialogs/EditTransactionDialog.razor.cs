@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class EditTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
-    [Parameter] public TransactionViewModel model { get; set;}
+    [Parameter] public TransactionViewModel ParameterModel { get; set;}
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
@@ -15,8 +11,9 @@ public partial class EditTransactionDialog
 
     protected override async Task OnInitializedAsync()
     {
-        DialogModel = model;
+        DialogModel = ParameterModel;
     }
+
     private async Task Submit()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -36,5 +33,6 @@ public partial class EditTransactionDialog
         else
             snackbar.Add("Something went wrong", Severity.Error);
     }
+
     private async Task Cancel() => MudDialog.Cancel();
 }

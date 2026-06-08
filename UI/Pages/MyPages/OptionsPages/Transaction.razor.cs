@@ -1,27 +1,21 @@
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using UI.Components.Dialogs;
-using UI.Extensions;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Transaction
 {
     [Inject] private IDialogService dialogService { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
     private List<TransactionViewModel> transactions = new List<TransactionViewModel>();
     private List<TransactionViewModel> filteredTransactions = new List<TransactionViewModel>();
-    private string _searchPhrase = string.Empty;
+    private string SearchPhrase = string.Empty;
+
     public string searchPhrase //This is for dynamic filtering
     {
-        get => _searchPhrase;
+        get => SearchPhrase;
         set
         {
-            if (_searchPhrase != value)
+            if (SearchPhrase != value)
             {
-                _searchPhrase = value;
+                SearchPhrase = value;
                 FilterTransactions(); 
             }
         }
@@ -33,6 +27,7 @@ public partial class Transaction
         await LoadTransactions();
         transactionCounter = transactions.Count();
     }
+
     private async Task LoadTransactions()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -42,6 +37,7 @@ public partial class Transaction
         filteredTransactions = transactions;
         StateHasChanged();
     }
+
     private void FilterTransactions()
     {
         if (string.IsNullOrWhiteSpace(searchPhrase) || searchPhrase.Length < 3)

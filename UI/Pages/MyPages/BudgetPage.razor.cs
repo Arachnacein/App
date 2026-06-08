@@ -1,17 +1,8 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using MudBlazor;
-using UI.Components.Dialogs;
-using UI.Models;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages;
 
 public partial class BudgetPage
 {
     [Inject] private IDialogService dialogService { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<BudgetPage> Localizer { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
     [Inject] private IJSRuntime JSRuntime { get; set; }
@@ -23,6 +14,7 @@ public partial class BudgetPage
     private PatternValuesModel patternValuesModel = new PatternValuesModel();
     private bool IsLoadingTransactions = true;
     private double TotalIncome => incomes?.Sum(x => x.Amount) ?? 0;
+
     protected override async Task OnInitializedAsync()
     {
         CurrentDate = DateTime.Now;
@@ -48,9 +40,9 @@ public partial class BudgetPage
     {
         try
         {
-            transactions = await httpClient
-                .GetFromJsonAsync<List<TransactionViewModel>>
+            transactions = await httpClient.GetFromJsonAsync<List<TransactionViewModel>>
                 ($"/api/transaction?userId={UserSessionService.UserId}");
+
             transactions = transactions.OrderByDescending(x => x.Date)
                                    .Where(x => x.Date.Value.Month == CurrentDate.Month && 
                                                x.Date.Value.Year == CurrentDate.Year)
@@ -129,8 +121,7 @@ public partial class BudgetPage
             return;
 
         dropItem.Item.Category = droppedItem;
-        await httpClient
-            .PutAsJsonAsync<UpdateTransactionCategoryViewModel>
+        await httpClient.PutAsJsonAsync<UpdateTransactionCategoryViewModel>
             ("/api/transaction/UpdateCategory", 
                 new UpdateTransactionCategoryViewModel 
                 {
@@ -140,30 +131,34 @@ public partial class BudgetPage
                 });
         await RefreshData();
     }
+
     private async Task PreviousMonth()
     {
         CurrentDate = CurrentDate.AddMonths(-1);
         await RefreshData();
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
+
     private async Task NextMonth()
     {
         CurrentDate = CurrentDate.AddMonths(1);
         await RefreshData();
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
     }
+
     private string GetBarClass(TransactionViewModel t)
         => _globalInfo.RecurringTheme != RecurringTransactionTheme.RightBar ? "" :
            t.IsRecurring && !t.IsApproved ? " recurring-bar-pending" :
            t.IsRecurring && t.IsApproved  ? " recurring-bar-approved" : "";
+
     private string? GetBorderStyle(TransactionViewModel t)
         => _globalInfo.RecurringTheme != RecurringTransactionTheme.Border ? null :
            t.IsRecurring && !t.IsApproved ? "border:1px dashed rgba(167,139,250,0.5)!important;" :
            t.IsRecurring && t.IsApproved  ? "border:1px solid #10B981!important;" : null;
+
     private async Task LoadMonthPatterns()
     {
-        var patternResponse = await httpClient
-            .GetFromJsonAsync<PatternViewModel>
+        var patternResponse = await httpClient.GetFromJsonAsync<PatternViewModel>
             ($"/api/monthpattern/GetMonthPattern?month={CurrentDate.Month}&year={CurrentDate.Year}&userId={UserSessionService.UserId}");
         if (patternResponse == null || patternResponse.Id == -1)
         {
@@ -180,13 +175,14 @@ public partial class BudgetPage
         
         patternViewModel = patternResponse;
     }
+
     private async Task LoadMonthIncome()
     {
-        var incomeList = await httpClient
-            .GetFromJsonAsync<List<IncomeViewModel>>
+        var incomeList = await httpClient.GetFromJsonAsync<List<IncomeViewModel>>
             ($"/api/income/GetIncome?userId={UserSessionService.UserId}&month={CurrentDate.Month}&year={CurrentDate.Year}");
         incomes = incomeList;
     }
+
     private async Task CalculatePatternValues()
     {
         if(patternViewModel != null)
@@ -198,7 +194,7 @@ public partial class BudgetPage
 
             transactions.ForEach(x =>
             {
-                if(!x.IsRecurring || (x.IsRecurring && x.IsApproved)) // exclude unaccepted transactions from calculations
+                if(!x.IsRecurring || (x.IsRecurring && x.IsApproved))
                 switch (x.Category)
                 {
                     case TransactionCategoryEnum.Saves:

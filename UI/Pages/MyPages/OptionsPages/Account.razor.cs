@@ -1,10 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Components.Dialogs;
-using UI.Models.ViewModels;
-using UI.Services;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Account
@@ -53,6 +46,7 @@ public partial class Account
                 break;
         }
     }
+
     private async Task OpenDialog(string property)
     {
         var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
@@ -64,6 +58,7 @@ public partial class Account
 
         await dialogService.ShowAsync<EditUserPropertiesDialog>(Localizer["EditUserProperty", Localizer[property]], parameters, options);
     }
+
     private async Task VerifyEmail()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
@@ -74,6 +69,7 @@ public partial class Account
         await dialogService.ShowAsync<VerifyEmailDialog>(String.Empty, parameters, options);
 
     }
+
     private async Task OnDialogClose()
     {
         await LoadDataToUserDetailsModel();

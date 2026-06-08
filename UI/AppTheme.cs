@@ -1,5 +1,3 @@
-using MudBlazor;
-
 namespace UI;
 
 public static class AppTheme

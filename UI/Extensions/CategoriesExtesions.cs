@@ -1,11 +1,14 @@
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models;
-
 namespace UI.Extensions;
 
 public static class CategoriesExtesions
 {
+    /// <summary>
+    ///     Converts a CategoriesDistributionModel to a list of ChartSeries<double> for use in a pie chart. 
+    ///     If the model is null, it returns a default series indicating invalid data.
+    /// </summary>
+    /// <param name="model">The categories distribution model.</param>
+    /// <param name="localizer">The string localizer.</param>
+    /// <returns>The list of chart series.</returns>
     public static List<ChartSeries<double>> ToPieChartSeries(this CategoriesDistributionModel model, IStringLocalizer localizer)
     {
         if (model != null)
@@ -20,6 +23,13 @@ public static class CategoriesExtesions
             };
     }
 
+    /// <summary>
+    ///    Generates labels for a pie chart based on the categories distribution model. 
+    ///    Each label includes the category name and its corresponding percentage value.
+    /// </summary>
+    /// <param name="model">The categories distribution model.</param>
+    /// <param name="localizer">The string localizer.</param>
+    /// <returns>The array of pie chart labels.</returns>
     public static string[] GetPieChartLabels(this CategoriesDistributionModel model, IStringLocalizer localizer)
     {
         if (model != null)

@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class EditIncomeDialog
 {
     [CascadingParameter] private IMudDialogInstance IMudDialogInstance { get; set; }
-    [Parameter] public IncomeViewModel model { get; set; }
+    [Parameter] public IncomeViewModel ParameterModel { get; set; }
     [Parameter] public Func<Task> Refresh {  get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<EditIncomeDialog> Localizer { get; set; }
@@ -20,8 +15,9 @@ public partial class EditIncomeDialog
 
     protected override async Task OnInitializedAsync()
     {
-        Model = model;
+        Model = ParameterModel;
     }
+
     private async Task Submit()
     {
         await Form.Validate();
@@ -45,7 +41,9 @@ public partial class EditIncomeDialog
         else
             snackbar.Add(Localizer["FailUpdateSnackbar"], Severity.Error);
     }
+
     private async Task Cancel() => IMudDialogInstance.Cancel();
+
     private async Task Delete()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)

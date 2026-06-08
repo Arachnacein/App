@@ -1,6 +1,3 @@
-using FluentValidation;
-using Microsoft.Extensions.Localization;
-
 namespace UI.Models.ViewModels;
 
 public class IncomeViewModel

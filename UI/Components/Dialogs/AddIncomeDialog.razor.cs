@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class AddIncomeDialog
 {
@@ -65,7 +60,7 @@ public partial class AddIncomeDialog
             {
                 DialogModel.UserId = UserSessionService.UserId;
                 var request = await httpClient.PostAsJsonAsync<IncomeViewModel>("/api/income", DialogModel);
-                if (request.StatusCode == System.Net.HttpStatusCode.Created)
+                if (request.StatusCode == HttpStatusCode.Created)
                 {
                     snackbar.Add(Localizer["SuccessAddSnackbar"], Severity.Success);
                     MudDialog.Cancel();

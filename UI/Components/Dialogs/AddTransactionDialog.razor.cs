@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.Net;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class AddTransactionDialog
 {

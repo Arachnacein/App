@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.Globalization;
-using UI.Models;
-
 namespace UI.Components;
 
 public partial class StatisticsComponent
@@ -16,7 +10,6 @@ public partial class StatisticsComponent
     private string[] XaxisLabels = { };
     private const int MonthsWindowSize = 20;
     private static readonly string[] CategoryChartPalette = { "#2979FF", "#C0504D", "#FFC400" };
-
     private StackedBarChartOptions BarChartOptions { get; } = new()
     {
         XAxisLabelRotation = 90,
@@ -26,7 +19,6 @@ public partial class StatisticsComponent
         FixedBarWidth = 20,
         ChartPalette = CategoryChartPalette
     };
-
     private ChartOptions PieChartOptions { get; } = new()
     {
         ChartPalette = CategoryChartPalette
@@ -42,15 +34,9 @@ public partial class StatisticsComponent
     private List<int> AvailableYears { get; set; } = new();
     private int? SelectedYear { get; set; }
     private int WindowStartIndex { get; set; }
-
-    private int MaxWindowStartIndex =>
-        Math.Max(0, (MonthlyCategoriesDistributionList?.Count ?? 0) - MonthsWindowSize);
-
-    private bool ShowMonthsNavigator =>
-        SelectedYear == null && (MonthlyCategoriesDistributionList?.Count ?? 0) > MonthsWindowSize;
-
+    private int MaxWindowStartIndex => Math.Max(0, (MonthlyCategoriesDistributionList?.Count ?? 0) - MonthsWindowSize);
+    private bool ShowMonthsNavigator =>  SelectedYear == null && (MonthlyCategoriesDistributionList?.Count ?? 0) > MonthsWindowSize;
     private int? MinNavigatorYear => MonthlyCategoriesDistributionList?.FirstOrDefault()?.Year;
-
     private int? MaxNavigatorYear => MonthlyCategoriesDistributionList?.LastOrDefault()?.Year;
 
     protected override async Task OnInitializedAsync()
@@ -70,9 +56,9 @@ public partial class StatisticsComponent
     {
         try
         {
-            var result = await httpClient
-                .GetFromJsonAsync<List<int>>
+            var result = await httpClient.GetFromJsonAsync<List<int>>
                 ($"/api/statistics/GetAvailableYears?userId={UserSessionService.UserId}");
+
             if (result != null)
                 AvailableYears = result;
         }
@@ -85,19 +71,20 @@ public partial class StatisticsComponent
         try
         {
             var url = $"/api/statistics/GetFilteredStatistics?userId={UserSessionService.UserId}";
+
             if (year.HasValue)
                 url += $"&year={year.Value}";
 
-            var result = await httpClient
-                .GetFromJsonAsync<FilteredStatisticsModel>(url);
+            var result = await httpClients.GetFromJsonAsync<FilteredStatisticsModel>(url);
 
             if (result != null)
             {
-                TotalSaves      = result.TotalSaves;
-                TotalExpenses   = result.TotalExpenses;
-                AverageSaves    = result.AverageSaves;
+                TotalSaves = result.TotalSaves;
+                TotalExpenses = result.TotalExpenses;
+                AverageSaves = result.AverageSaves;
                 AverageExpenses = result.AverageExpenses;
-                SavingsRate     = result.SavingsRate;
+                SavingsRate = result.SavingsRate;
+
                 if (result.TransactionCount != null)
                     TransactionCountByCategory = result.TransactionCount;
             }
@@ -139,36 +126,36 @@ public partial class StatisticsComponent
 
     private async Task GetThreeMonthsSaves()
     {
-        Total3MonthsSaves = await httpClient
-            .GetFromJsonAsync<double>
+        Total3MonthsSaves = await httpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsSaves?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
     private async Task GetThreeMonthsExpenses()
     {
-        Total3MonthsExpenses = await httpClient
-            .GetFromJsonAsync<double>
+        Total3MonthsExpenses = await httpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsExpenses?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
     private async Task GetCategoriesDistribution()
     {
-        CategoriesDistribution = await httpClient
-            .GetFromJsonAsync<CategoriesDistributionModel>
+        CategoriesDistribution = await httpClient.GetFromJsonAsync<CategoriesDistributionModel>
             ($"/api/statistics/GetCategoriesDistribution?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
     private async Task GetMonthlyCategoriesDistribution(int? year = null)
     {
         var url = $"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}";
+
         if (year.HasValue)
             url += $"&year={year.Value}";
 
-        MonthlyCategoriesDistributionList = await httpClient
-            .GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
+        MonthlyCategoriesDistributionList = await httpClient.GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
 
         WindowStartIndex = MaxWindowStartIndex;
         UpdateChartSeries();

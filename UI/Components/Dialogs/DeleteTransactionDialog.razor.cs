@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class DeleteTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
-    [Parameter] public TransactionViewModel model { get; set; }
+    [Parameter] public TransactionViewModel ParameterModel { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private IStringLocalizer<DeleteTransactionDialog> Localizer { get; set; }
@@ -17,9 +12,10 @@ public partial class DeleteTransactionDialog
 
     protected override Task OnInitializedAsync()
     {
-        DialogModel = model;
+        DialogModel = ParameterModel;
         return base.OnInitializedAsync();
     }
+
     private async Task Submit()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)

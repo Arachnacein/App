@@ -1,6 +1,4 @@
-﻿@using UI.Models
-@using UI.Models.ViewModels
-<MudDialog>
+﻿<MudDialog>
     <DialogContent>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
             <MudSelect T="PatternViewModel" @bind-Value="model" ToStringFunc="(x => x.Name)" 

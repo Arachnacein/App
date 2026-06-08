@@ -1,10 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using MudBlazor;
-using UI.Models.ViewModels;
-
 namespace UI.Shared;
 
 public partial class NavMenu
@@ -50,12 +43,14 @@ public partial class NavMenu
     private async Task SetEnglish() => await SetCulture("en-UK");
     private async Task Register() => Navigation.NavigateTo("/register", false);
     private async Task LogIn() => Navigation.NavigateTo("/login", false);
+
     private async Task SetCulture(string culture)
     {
         var uri = $"{NavManager.Uri}?culture={culture}";
         await JSRuntime.InvokeVoidAsync("blazorCulture.set", culture);
         NavManager.NavigateTo(uri, forceLoad: true);
     }
+
     private async Task LogOut()
     {
         UserSessionService.ClearUserSession();
@@ -63,6 +58,7 @@ public partial class NavMenu
         Snackbar.Add(Localizer["LogOutSuccess"], Severity.Success);
         Navigation.NavigateTo("/", false);
     }
+
     private void UpdateRemainingTime(object state)
     {
         remainingTime = UserSessionService.GetRemainingTime();

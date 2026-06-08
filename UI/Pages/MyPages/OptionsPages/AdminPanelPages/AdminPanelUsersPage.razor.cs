@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using UI.Extensions;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages;
 
 public partial class AdminPanelUsersPage

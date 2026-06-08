@@ -1,10 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Components.Dialogs;
-using UI.Extensions;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Income
@@ -44,6 +37,7 @@ public partial class Income
         filteredIncomes = incomes;
         StateHasChanged();
     }
+
     private async Task EditIncome(IncomeViewModel model)
     {
         DialogOptions options = new DialogOptions{ CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall };
@@ -53,6 +47,7 @@ public partial class Income
 
         await dialogService.ShowAsync<EditIncomeDialog>(Localizer["EditTitle"], parameters, options);
     }
+
     private void FilterIncomes()
     {
         if (string.IsNullOrWhiteSpace(searchPhrase) || searchPhrase.Length < 3)

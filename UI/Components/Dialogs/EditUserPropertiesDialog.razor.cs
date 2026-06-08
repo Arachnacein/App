@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class EditUserPropertiesDialog
 {
@@ -28,8 +22,10 @@ public partial class EditUserPropertiesDialog
     private async Task Submit()
     {
         await Form.Validate();
+
         if (!Form.IsValid)
             return;
+
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
         {
             Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);

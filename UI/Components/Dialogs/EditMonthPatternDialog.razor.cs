@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class EditMonthPatternDialog
 {
@@ -31,9 +26,11 @@ public partial class EditMonthPatternDialog
         }
 
         patterns = await httpClient.GetFromJsonAsync<List<PatternViewModel>>($"/api/pattern?userId={UserSessionService.UserId}");
+        
         if (patterns == null)
             snackbar.Add(Localizer["GettingPatternsError"], Severity.Error);
     }
+
     private async Task Submit()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)

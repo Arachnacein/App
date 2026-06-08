@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class RecurringTransaction
@@ -10,7 +5,7 @@ public partial class RecurringTransaction
     [Inject] private IStringLocalizer<RecurringTransaction> Localizer { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
     private List<RecurringTransactionViewModel> recurringTransactions = new List<RecurringTransactionViewModel>();
-    private int RecurringTransactionsCounter { get; set; } = 0;
+
     protected override async Task OnInitializedAsync()
     {
         await LoadRecurringTransactions();
@@ -23,6 +18,7 @@ public partial class RecurringTransaction
         recurringTransactions = await httpClient.GetFromJsonAsync<List<RecurringTransactionViewModel>>($"/api/recurringTransaction/{UserSessionService.UserId}");
         StateHasChanged();
     }
+
     private async Task DeleteRecurringTransaction(RecurringTransactionViewModel model)
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)

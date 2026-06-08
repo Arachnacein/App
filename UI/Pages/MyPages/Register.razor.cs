@@ -1,11 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using MudBlazor;
-using System.Text.Json;
-using UI.Models;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages;
 
 public partial class Register
@@ -68,6 +60,7 @@ public partial class Register
         else
             Snackbar.Add(Localizer["InvalidForm"], Severity.Warning);
     }
+
     private async Task<bool> ValidateCaptcha(string recaptchaResponse)
     {
         var secretKey = "6LfCwL8qAAAAAMMPjvFljaGn8iMO7Jb6zSWN9Go3";
@@ -75,6 +68,7 @@ public partial class Register
         var captchaResult = await response.Content.ReadFromJsonAsync<CaptchaResult>();
         return captchaResult.Success;
     }
+
     private void ShowPassword()
     {
         if (isShow)

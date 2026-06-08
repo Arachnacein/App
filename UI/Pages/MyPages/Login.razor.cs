@@ -1,13 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
-using UI.Extensions;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages;
 
 public partial class Login
@@ -81,12 +71,14 @@ public partial class Login
             snackbar.Add(Localizer["LogInError"], Severity.Warning);
         }
     }
+
     private async Task LoadUserPreferences(Guid userId)
     {
         try
         {
-            var prefs = await httpClient.GetFromJsonAsync<UserPreferenceViewModel>(
-                $"/api/userpreference?userId={userId}");
+            var prefs = await httpClient.GetFromJsonAsync<UserPreferenceViewModel>
+                ($"/api/userpreference?userId={userId}");
+
             if (prefs is not null)
             {
                 _globalInfo.IsDarkMode = prefs.IsDarkMode;
@@ -111,6 +103,7 @@ public partial class Login
         if (firstRender)
             await usernameTextField.FocusAsync();
     }
+
     private async Task HandleEnterDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")

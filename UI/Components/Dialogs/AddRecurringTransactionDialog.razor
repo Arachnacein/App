@@ -1,7 +1,4 @@
-﻿@using UI.Models
-@using MudBlazor
-
-<MudDialog Class="pa-4">
+﻿<MudDialog Class="pa-4">
     <DialogContent>
         <MudForm @ref="@form" Model="@Model" Validation="RecurringTransactionValidator.ValidateValue()" ValidationDelay="0">
             <MudStack>
@@ -64,4 +61,3 @@
         <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>
     </DialogActions>
 </MudDialog>
-

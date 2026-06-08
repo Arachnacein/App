@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Razor;
 using MudBlazor.Services;
 using UI;
-using UI.Models.ViewModels;
-using UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

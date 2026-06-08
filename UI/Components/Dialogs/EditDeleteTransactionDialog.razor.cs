@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using UI.Models.ViewModels;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class EditDeleteTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
     [Parameter] public Func<Task> Refresh { get; set; }
-    [Parameter] public TransactionViewModel model { get; set; }
+    [Parameter] public TransactionViewModel ParameterModel { get; set; }
     [Inject] private ISnackbar snackbar { get; set; }
     [Inject] private HttpClient httpClient { get; set; }
     [Inject] private TransactionViewModelValidator TransactionValidator { get; set; }
@@ -19,7 +14,7 @@ public partial class EditDeleteTransactionDialog
 
     protected override Task OnInitializedAsync()
     {
-        DialogModel = model;
+        DialogModel = ParameterModel;
         return base.OnInitializedAsync();
     }
     private async Task Delete()
