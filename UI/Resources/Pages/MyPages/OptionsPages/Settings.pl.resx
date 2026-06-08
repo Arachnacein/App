@@ -141,7 +141,7 @@
   <data name="DarkMode" xml:space="preserve">
     <value>Ciemny motyw</value>
   </data>
-  <data name="MustSignIn" xml:space="preserve">
+  <data name="MustLogIn" xml:space="preserve">
     <value>Zaloguj się, by uzyskać dostęp do tej strony</value>
   </data>
   <data name="RecurringTransactionTheme" xml:space="preserve">

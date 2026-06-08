@@ -1,7 +1,6 @@
 ﻿@page "/options/recurringTransaction"
 
 <PageTitle>@Localizer["PageTitle"]</PageTitle>
-<UI.Components.OptionNavigationComponent />
 @if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">

@@ -1,9 +1,10 @@
 ﻿@inherits LayoutComponentBase
 @inject GlobalInfoClass _globalClass;
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider Theme="AppTheme.Theme" IsDarkMode="_globalClass.IsDarkMode" />
 <MudPopoverProvider />
-<MudDialogProvider 
+<MudDialogProvider
     FullWidth="true"
     MaxWidth="MaxWidth.Small"
     CloseButton="false"
@@ -18,6 +19,10 @@
         <MudAppBar Elevation="0" Dense="true">
             <NavMenu />
         </MudAppBar>
+        @if (IsOptionsPage)
+        {
+            <UI.Components.OptionNavigationComponent />
+        }
         <MudMainContent>
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pt-4">
                 @Body
@@ -25,3 +30,7 @@
         </MudMainContent>
     </MudLayout>
 </div>
+
+@code {
+    private bool IsOptionsPage => NavigationManager.Uri.Contains("/options");
+}
