@@ -14,6 +14,23 @@ public partial class StatisticsComponent
     private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
     private List<ChartSeries<double>> Series = new List<ChartSeries<double>>();
     private string[] XaxisLabels = { };
+    private const int MonthsWindowSize = 20;
+    private static readonly string[] CategoryChartPalette = { "#2979FF", "#C0504D", "#FFC400" };
+
+    private StackedBarChartOptions BarChartOptions { get; } = new()
+    {
+        XAxisLabelRotation = 90,
+        YAxisFormat = "F2",
+        Justify = Justify.Center,
+        YAxisSuggestedMax = 100,
+        FixedBarWidth = 20,
+        ChartPalette = CategoryChartPalette
+    };
+
+    private ChartOptions PieChartOptions { get; } = new()
+    {
+        ChartPalette = CategoryChartPalette
+    };
     private double TotalExpenses { get; set; }
     private double TotalSaves { get; set; }
     private double Total3MonthsExpenses { get; set; }
@@ -24,6 +41,17 @@ public partial class StatisticsComponent
     private TransactionCountModel TransactionCountByCategory { get; set; } = new();
     private List<int> AvailableYears { get; set; } = new();
     private int? SelectedYear { get; set; }
+    private int WindowStartIndex { get; set; }
+
+    private int MaxWindowStartIndex =>
+        Math.Max(0, (MonthlyCategoriesDistributionList?.Count ?? 0) - MonthsWindowSize);
+
+    private bool ShowMonthsNavigator =>
+        SelectedYear == null && (MonthlyCategoriesDistributionList?.Count ?? 0) > MonthsWindowSize;
+
+    private int? MinNavigatorYear => MonthlyCategoriesDistributionList?.FirstOrDefault()?.Year;
+
+    private int? MaxNavigatorYear => MonthlyCategoriesDistributionList?.LastOrDefault()?.Year;
 
     protected override async Task OnInitializedAsync()
     {
@@ -78,10 +106,35 @@ public partial class StatisticsComponent
         StateHasChanged();
     }
 
+    private void OnMonthsWindowChanged(int newStartIndex)
+    {
+        WindowStartIndex = newStartIndex;
+        UpdateChartSeries();
+    }
+
+    private void MoveWindowBackward()
+    {
+        if (WindowStartIndex <= 0)
+            return;
+
+        WindowStartIndex--;
+        UpdateChartSeries();
+    }
+
+    private void MoveWindowForward()
+    {
+        if (WindowStartIndex >= MaxWindowStartIndex)
+            return;
+
+        WindowStartIndex++;
+        UpdateChartSeries();
+    }
+
     private async Task OnYearChanged(int? year)
     {
         SelectedYear = year;
         await GetFilteredStatistics(year);
+        await GetMonthlyCategoriesDistribution(year);
     }
 
     private async Task GetThreeMonthsSaves()
@@ -108,33 +161,50 @@ public partial class StatisticsComponent
         StateHasChanged();
     }
 
-    private async Task GetMonthlyCategoriesDistribution()
+    private async Task GetMonthlyCategoriesDistribution(int? year = null)
     {
-        MonthlyCategoriesDistributionList = await httpClient
-            .GetFromJsonAsync<List<MonthlyCategoriesDistribution>>
-            ($"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}");
+        var url = $"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}";
+        if (year.HasValue)
+            url += $"&year={year.Value}";
 
-        XaxisLabels = MonthlyCategoriesDistributionList
-                        .Select(x => new DateTime(x.Year, x.Month, 1)
-                            .ToString("MM-yyyy", CultureInfo.CurrentCulture))
+        MonthlyCategoriesDistributionList = await httpClient
+            .GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
+
+        WindowStartIndex = MaxWindowStartIndex;
+        UpdateChartSeries();
+    }
+
+    private void UpdateChartSeries()
+    {
+        var displayedMonths = SelectedYear.HasValue
+            ? MonthlyCategoriesDistributionList
+            : MonthlyCategoriesDistributionList.Skip(WindowStartIndex).Take(MonthsWindowSize).ToList();
+
+        XaxisLabels = displayedMonths
+                        .Select(x => $"{x.Month:D2}'{x.Year % 100:D2}")
                         .ToArray();
 
         Series = new List<ChartSeries<double>>
         {
             new ChartSeries<double>{
                 Name = Localizer["Saves"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Saves).ToArray()
+                Data = displayedMonths
+                            .Select(item => Math.Round(item.Saves, 2)).ToArray()
             },
             new ChartSeries<double>{
                 Name = Localizer["Fees"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Fees).ToArray()
+                Data = displayedMonths
+                            .Select(item => Math.Round(item.Fees, 2)).ToArray()
             },
             new ChartSeries<double>{
                 Name = Localizer["Entertainment"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Entertainment).ToArray()
+                Data = displayedMonths
+                            .Select(item =>
+                            {
+                                var saves = Math.Round(item.Saves, 2);
+                                var fees  = Math.Round(item.Fees, 2);
+                                return Math.Round(100.0 - saves - fees, 2);
+                            }).ToArray()
             }
         };
         StateHasChanged();

@@ -68,9 +68,9 @@ public class StatisticsController : ControllerBase
     }
     
     [HttpGet("GetMonthlyCategoriesDistribution")]
-    public async Task<IActionResult> GetMonthlyCategoriesDistribution([FromQuery] Guid userId)
+    public async Task<IActionResult> GetMonthlyCategoriesDistribution([FromQuery] Guid userId, [FromQuery] int? year = null)
     {
-        var query = new RetrieveMonthlyCategoriesDistributionQuery(userId);
+        var query = new RetrieveMonthlyCategoriesDistributionQuery(userId, year);
         var response = await _mediator.Send(query);
         return Ok(response);
     }

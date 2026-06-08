@@ -171,4 +171,10 @@
   <data name="MonthlyDistributionTitle" xml:space="preserve">
     <value>Rozkład miesięczny</value>
   </data>
+  <data name="MonthsRangeNavigatorPreviousTooltip" xml:space="preserve">
+    <value>Przesuń wykres o miesiąc wstecz</value>
+  </data>
+  <data name="MonthsRangeNavigatorNextTooltip" xml:space="preserve">
+    <value>Przesuń wykres o miesiąc do przodu</value>
+  </data>
 </root>
