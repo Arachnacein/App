@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.Text.Json;
-using System.Text;
-
-namespace UI.Components.Dialogs;
+﻿namespace UI.Components.Dialogs;
 
 public partial class VerifyEmailDialog
 {
@@ -27,12 +21,10 @@ public partial class VerifyEmailDialog
         );
 
         var response = await httpClient.PostAsync($"/api/User/verifyEmail", requestBody);
+
         if(response.IsSuccessStatusCode)
             Snackbar.Add(Localizer["EmailSent"], Severity.Success);
         else
             Snackbar.Add(Localizer["EmailNotSent"], Severity.Warning);
-        //update user session service.verifyemail 
-        //wait 2 seconds
-        //cancel dialog
     }
 }

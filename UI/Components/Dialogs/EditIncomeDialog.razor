@@ -1,9 +1,9 @@
-﻿<MudForm Model="@Model" @ref="@Form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
+﻿<MudForm _model="@_model" @ref="@_form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog>
         <DialogContent>
-            <MudTextField Label="@Localizer["Name"]" @bind-Value="@Model.Name" For="@(() => Model.Name)" Class="ma-2 pa-2"></MudTextField>
-            <MudTextField Label="@Localizer["Amount"]"  @bind-Value="@Model.Amount" For="@(() => Model.Amount)" Class="ma-2 pa-2"></MudTextField>
-            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="@Model.Date" Class="ma-2 pa-2"/>
+            <MudTextField Label="@Localizer["Name"]" @bind-Value="@_model.Name" For="@(() => _model.Name)" Class="ma-2 pa-2"></MudTextField>
+            <MudTextField Label="@Localizer["Amount"]"  @bind-Value="@_model.Amount" For="@(() => _model.Amount)" Class="ma-2 pa-2"></MudTextField>
+            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="@_model.Date" Class="ma-2 pa-2"/>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Primary" Class="mr-10 ma-2 pa-2">@Localizer["Delete"]</MudButton>

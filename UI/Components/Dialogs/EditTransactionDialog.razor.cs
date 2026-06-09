@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using UI.Models.ViewModels;
-
 namespace UI.Components.Dialogs;
 
 public partial class EditTransactionDialog
 {
     [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
-    [Parameter] public TransactionViewModel model { get; set;}
+    [Parameter] public TransactionViewModel ParameterModel { get; set;}
     [Parameter] public Func<Task> Refresh { get; set; }
-    [Inject] private ISnackbar snackbar { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
-    private TransactionViewModel DialogModel = new TransactionViewModel();
+    [Inject] private HttpClient HttpClient { get; set; }
+    private TransactionViewModel _dialogModel = new TransactionViewModel();
 
     protected override async Task OnInitializedAsync()
     {
-        DialogModel = model;
+        _dialogModel = ParameterModel;
     }
+
     private async Task Submit()
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -25,16 +21,17 @@ public partial class EditTransactionDialog
             return;
         }
 
-        var request = await httpClient.PutAsJsonAsync<TransactionViewModel>("/api/transaction", DialogModel);
+        var request = await HttpClient.PutAsJsonAsync<TransactionViewModel>("/api/transaction", _dialogModel);
         if (request.StatusCode == System.Net.HttpStatusCode.NoContent)
         {
-            snackbar.Add("Transaction edited successfully", Severity.Success);
+            Snackbar.Add("Transaction edited successfully", Severity.Success);
             MudDialog.Cancel();
-            if(Refresh != null) 
+            if(Refresh != null)
                 await Refresh.Invoke();
         }
         else
-            snackbar.Add("Something went wrong", Severity.Error);
+            Snackbar.Add("Something went wrong", Severity.Error);
     }
+
     private async Task Cancel() => MudDialog.Cancel();
 }

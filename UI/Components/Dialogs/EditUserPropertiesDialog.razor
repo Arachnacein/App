@@ -1,24 +1,23 @@
-﻿@using UI.Models.ViewModels
-<MudForm Model="@DialogModel" @ref="@Form" Validation="UserDetailsValidator.ValidateValue()" ValidationDelay="0">
+﻿<MudForm Model="@_dialogModel" @ref="@_form" Validation="UserDetailsValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog style="padding-bottom:7px;">
         <DialogContent>
             <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:90%;">
                 @switch (Property)
                 {   
                     case "FirstName":
-                        <MudTextField Label="@Localizer["FirstName"]" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["FirstName"]" @bind-Value="_dialogModel.FirstName" For="@(() => _dialogModel.FirstName)" Class="ma-1 pa-1" />
                         break;                    
                     case "LastName":
-                        <MudTextField Label="@Localizer["LastName"]" @bind-Value="DialogModel.LastName" For="@(() => DialogModel.LastName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["LastName"]" @bind-Value="_dialogModel.LastName" For="@(() => _dialogModel.LastName)" Class="ma-1 pa-1" />
                         break;                   
                     case "Username":
-                        <MudTextField Label="@Localizer["Username"]" @bind-Value="DialogModel.Username" For="@(() => DialogModel.Username)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Username"]" @bind-Value="_dialogModel.Username" For="@(() => _dialogModel.Username)" Class="ma-1 pa-1" />
                         break;                   
                     case "Email":
-                        <MudTextField Label="@Localizer["Email"]" @bind-Value="DialogModel.Email" For="@(() => DialogModel.Email)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Email"]" @bind-Value="_dialogModel.Email" For="@(() => _dialogModel.Email)" Class="ma-1 pa-1" />
                         break;
                     default:
-                        <MudTextField Label="@Localizer["Default"]" @bind-Value="DialogModel.FirstName" For="@(() => DialogModel.FirstName)" Class="ma-1 pa-1" />
+                        <MudTextField Label="@Localizer["Default"]" @bind-Value="_dialogModel.FirstName" For="@(() => _dialogModel.FirstName)" Class="ma-1 pa-1" />
                         break;
                 }
 

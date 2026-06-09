@@ -1,36 +1,36 @@
 ﻿@page "/register"
-@using UI.Models.ViewModels
 @inject ISnackbar Snackbar
+
 <PageTitle>@Localizer["RegisterTitle"]</PageTitle>
 <div class="login-container">
     <MudPaper Class="glass-panel pa-6 d-flex flex-column align-items-center" Elevation="0" Style="width: min(400px, 95vw);">
         <MudText Typo="Typo.h5" Class="gradient-text mb-1" Align="Align.Center">◆ BudgetApp</MudText>
         <MudText Typo="Typo.h5" Class="mb-4" Align="Align.Center">@Localizer["SignUp"]</MudText>
 
-        <MudForm Model="RegistrationModel" @ref="Form" Validation="RegistrationModelValidator.ValidateValue()" ValidationDelay="0">
-            <MudTextField @bind-Value="RegistrationModel.FirstName" Label="@Localizer["FirstName"]" 
-                For="@(() => RegistrationModel.FirstName)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+        <MudForm Model="_registrationModel" @ref="_form" Validation="RegistrationModelValidator.ValidateValue()" ValidationDelay="0">
+            <MudTextField @bind-Value="_registrationModel.FirstName" Label="@Localizer["FirstName"]"
+                For="@(() => _registrationModel.FirstName)" Variant="Variant.Outlined" Class="ma-2 pa-1"
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
 
-            <MudTextField @bind-Value="RegistrationModel.LastName" Label="@Localizer["LastName"]"
-                For="@(() => RegistrationModel.LastName)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+            <MudTextField @bind-Value="_registrationModel.LastName" Label="@Localizer["LastName"]"
+                For="@(() => _registrationModel.LastName)" Variant="Variant.Outlined" Class="ma-2 pa-1"
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
 
-            <MudTextField @bind-Value="RegistrationModel.Username" Label="@Localizer["Username"]"
-                For="@(() => RegistrationModel.Username)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+            <MudTextField @bind-Value="_registrationModel.Username" Label="@Localizer["Username"]"
+                For="@(() => _registrationModel.Username)" Variant="Variant.Outlined" Class="ma-2 pa-1"
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Face" />
 
-            <MudTextField @bind-Value="RegistrationModel.Email" Label="@Localizer["Email"]"
-                For="@(() => RegistrationModel.Email)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
+            <MudTextField @bind-Value="_registrationModel.Email" Label="@Localizer["Email"]"
+                For="@(() => _registrationModel.Email)" Variant="Variant.Outlined" Class="ma-2 pa-1"
                 Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" />
 
-            <MudTextField @bind-Value="RegistrationModel.Password" Label="@Localizer["Password"]" InputType="@PasswordInput"
-                          For="@(() => RegistrationModel.Password)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
-                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" />
+            <MudTextField @bind-Value="_registrationModel.Password" Label="@Localizer["Password"]" InputType="@_passwordInput"
+                          For="@(() => _registrationModel.Password)" Variant="Variant.Outlined" Class="ma-2 pa-1"
+                Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ShowPassword" />
 
-            <MudTextField @bind-Value="RegistrationModel.ConfirmPassword" Label="@Localizer["ConfirmPassword"]" InputType="@PasswordInput"
-                          For="@(() => RegistrationModel.ConfirmPassword)" Variant="Variant.Outlined" Class="ma-2 pa-1" 
-                Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" />
+            <MudTextField @bind-Value="_registrationModel.ConfirmPassword" Label="@Localizer["ConfirmPassword"]" InputType="@_passwordInput"
+                          For="@(() => _registrationModel.ConfirmPassword)" Variant="Variant.Outlined" Class="ma-2 pa-1"
+                Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ShowPassword" />
 
             <div class="g-recaptcha" data-sitekey="6LfCwL8qAAAAAKWlogobXgEEWcGjhE93gQFKtEXP"></div>
 

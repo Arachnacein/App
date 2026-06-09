@@ -1,6 +1,4 @@
 ﻿@page "/budget"
-@using UI.Models;
-@using UI.Models.ViewModels
 
 <PageTitle>@Localizer["Title"]</PageTitle>
 <MudTabs Class="budget-tabs pa-2 ma-2" Elevation="0" Rounded="false" ApplyEffectsToContainer="false" TabPanelsClass="pa-4 pt-3" Centered="true">
@@ -34,16 +32,16 @@
                         {
                             <MudText Typo="Typo.body2">@Localizer["MustSignIn"]</MudText>
                         }
-                        else if (patternViewModel == null || patternViewModel.Id == 0)
+                        else if (_patternViewModel == null || _patternViewModel.Id == 0)
                         {
                             <MudText Typo="Typo.body2">@Localizer["NoPattern"]</MudText>
                         }
                         else
                         {
-                            <MudText Typo="Typo.body2">@Localizer["PatternText"]: @patternViewModel.Name</MudText>
-                            <MudText Typo="Typo.body2">@Localizer["SavesText"]: @patternViewModel.Value_Saves %</MudText>
-                            <MudText Typo="Typo.body2">@Localizer["FeesText"]: @patternViewModel.Value_Fees %</MudText>
-                            <MudText Typo="Typo.body2">@Localizer["EntertainmentText"]: @patternViewModel.Value_Entertainment %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["PatternText"]: @_patternViewModel.Name</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["SavesText"]: @_patternViewModel.Value_Saves %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["FeesText"]: @_patternViewModel.Value_Fees %</MudText>
+                            <MudText Typo="Typo.body2">@Localizer["EntertainmentText"]: @_patternViewModel.Value_Entertainment %</MudText>
                         }
                     </TooltipContent>
                 </MudTooltip>
@@ -52,7 +50,7 @@
 
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Class="ma-1 pa-1 mt-2">
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowLeft" OnClick="PreviousMonth" Size="Size.Large"></MudIconButton>
-            <MudText Typo="Typo.h6" Class="mx-2">@CurrentDate.GetMonthName() @CurrentDate.Year</MudText>
+            <MudText Typo="Typo.h6" Class="mx-2">@_currentDate.GetMonthName() @_currentDate.Year</MudText>
             <MudIconButton Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" OnClick="NextMonth" Size="Size.Large"></MudIconButton>
         </MudStack>
         <MudStack AlignItems="AlignItems.Center" Class="mb-1">
@@ -65,18 +63,18 @@
                     <MudText Typo="Typo.overline" Color="Color.Success">@Localizer["Saves"]</MudText>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                         <MudStack Spacing="0">
-                            <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueSaves:F2}") zł</MudText>
-                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueSaves:F2}") zł</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Success" Class="font-weight-bold mb-1">@($"{_patternValuesModel.ActualValueSaves:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{_patternValuesModel.TotalValueSaves:F2}") zł</MudText>
                         </MudStack>
                         <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
                             <MudStack AlignItems="AlignItems.End" Spacing="0">
                                 <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
-                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueSaves:F2}") zł</MudText>
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{_patternValuesModel.RecurringValueSaves:F2}") zł</MudText>
                             </MudStack>
                         </MudTooltip>
                     </MudStack>
-                    <MudProgressLinear Value="@patternValuesModel.ActualValueSaves"
-                                       Max="@(patternValuesModel.TotalValueSaves == 0 ? 1 : patternValuesModel.TotalValueSaves)"
+                    <MudProgressLinear Value="@_patternValuesModel.ActualValueSaves"
+                                       Max="@(_patternValuesModel.TotalValueSaves == 0 ? 1 : _patternValuesModel.TotalValueSaves)"
                                        Color="Color.Success" Class="kpi-bottom-bar" />
                 </MudPaper>
             </MudItem>
@@ -85,18 +83,18 @@
                     <MudText Typo="Typo.overline" Color="Color.Error">@Localizer["Fees"]</MudText>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                         <MudStack Spacing="0">
-                            <MudText Typo="Typo.h5" Color="Color.Error" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueFees:F2}") zł</MudText>
-                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueFees:F2}") zł</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Error" Class="font-weight-bold mb-1">@($"{_patternValuesModel.ActualValueFees:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{_patternValuesModel.TotalValueFees:F2}") zł</MudText>
                         </MudStack>
                         <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
                             <MudStack AlignItems="AlignItems.End" Spacing="0">
                                 <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
-                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueFees:F2}") zł</MudText>
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{_patternValuesModel.RecurringValueFees:F2}") zł</MudText>
                             </MudStack>
                         </MudTooltip>
                     </MudStack>
-                    <MudProgressLinear Value="@patternValuesModel.ActualValueFees"
-                                       Max="@(patternValuesModel.TotalValueFees == 0 ? 1 : patternValuesModel.TotalValueFees)"
+                    <MudProgressLinear Value="@_patternValuesModel.ActualValueFees"
+                                       Max="@(_patternValuesModel.TotalValueFees == 0 ? 1 : _patternValuesModel.TotalValueFees)"
                                        Color="Color.Error" Class="kpi-bottom-bar" />
                 </MudPaper>
             </MudItem>
@@ -105,47 +103,47 @@
                     <MudText Typo="Typo.overline" Color="Color.Info">@Localizer["Entertainment"]</MudText>
                     <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
                         <MudStack Spacing="0">
-                            <MudText Typo="Typo.h5" Color="Color.Info" Class="font-weight-bold mb-1">@($"{patternValuesModel.ActualValueEntertainment:F2}") zł</MudText>
-                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{patternValuesModel.TotalValueEntertainment:F2}") zł</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Info" Class="font-weight-bold mb-1">@($"{_patternValuesModel.ActualValueEntertainment:F2}") zł</MudText>
+                            <MudText Typo="Typo.caption" Class="mud-text-secondary">/ @($"{_patternValuesModel.TotalValueEntertainment:F2}") zł</MudText>
                         </MudStack>
                         <MudTooltip Text="@Localizer["RecurringSum"]" Placement="Placement.Top">
                             <MudStack AlignItems="AlignItems.End" Spacing="0">
                                 <MudIcon Icon="@Icons.Material.Filled.Repeat" Size="Size.Small" Class="mud-text-secondary" />
-                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{patternValuesModel.RecurringValueEntertainment:F2}") zł</MudText>
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">@($"{_patternValuesModel.RecurringValueEntertainment:F2}") zł</MudText>
                             </MudStack>
                         </MudTooltip>
                     </MudStack>
-                    <MudProgressLinear Value="@patternValuesModel.ActualValueEntertainment"
-                                       Max="@(patternValuesModel.TotalValueEntertainment == 0 ? 1 : patternValuesModel.TotalValueEntertainment)"
+                    <MudProgressLinear Value="@_patternValuesModel.ActualValueEntertainment"
+                                       Max="@(_patternValuesModel.TotalValueEntertainment == 0 ? 1 : _patternValuesModel.TotalValueEntertainment)"
                                        Color="Color.Info" Class="kpi-bottom-bar" />
                 </MudPaper>
             </MudItem>
         </MudGrid>
 
         <MudDropContainer T="TransactionViewModel"
-                          Items="transactions"
+                          Items="_transactions"
                           ItemsSelector="@((item,dropzone) => Enum.GetName(typeof(TransactionCategoryEnum), item.Category) == dropzone)"
                           ItemDropped="ItemUpdated"
                           Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
                 <UI.Components.BudgetTransactionDropZone 
                                 Title="@Localizer["Saves"]" Identifier="Saves"
-                                ActualValue="patternValuesModel.ActualValueSaves"
-                                TotalValue="patternValuesModel.TotalValueSaves"
+                                ActualValue="_patternValuesModel.ActualValueSaves"
+                                TotalValue="_patternValuesModel.TotalValueSaves"
                                 TitleColor="Color.Success" Color="forestgreen"
-                                IsLoading="IsLoadingTransactions"/>        
+                                IsLoading="_isLoadingTransactions"/>        
                 <UI.Components.BudgetTransactionDropZone 
                                 Title="@Localizer["Fees"]" Identifier="Fees"
-                                ActualValue="patternValuesModel.ActualValueFees"
-                                TotalValue="patternValuesModel.TotalValueFees"
+                                ActualValue="_patternValuesModel.ActualValueFees"
+                                TotalValue="_patternValuesModel.TotalValueFees"
                                 TitleColor="Color.Error" Color="darkred" 
-                                IsLoading="IsLoadingTransactions"/>            
+                                IsLoading="_isLoadingTransactions"/>            
                 <UI.Components.BudgetTransactionDropZone 
                                 Title="@Localizer["Entertainment"]" Identifier="Entertainment"
-                                ActualValue="patternValuesModel.ActualValueEntertainment"
-                                TotalValue="patternValuesModel.TotalValueEntertainment"
+                                ActualValue="_patternValuesModel.ActualValueEntertainment"
+                                TotalValue="_patternValuesModel.TotalValueEntertainment"
                                 TitleColor="Color.Info" Color="dodgerblue" 
-                                IsLoading="IsLoadingTransactions"/>
+                                IsLoading="_isLoadingTransactions"/>
             </ChildContent>
             <ItemRenderer>
                 <MudTooltip Placement="Placement.Bottom" ShowOnHover="true" Delay="150" Class="ma-4 pa-4" RootStyle="width: 100%;">
@@ -155,7 +153,7 @@
                                   Style="@GetBorderStyle(context)"
                                   @onclick="() => EditDeleteTransaction(context)">
                             <MudGrid Class="flex-nowrap">
-                                @if (_globalInfo.RecurringTheme == RecurringTransactionTheme.Icons)
+                                @if (GlobalInfo.RecurringTheme == RecurringTransactionTheme.Icons)
                                 {
                                     <MudItem xs="6" md="5" Class="text-align-center">
                                         <MudText Typo="Typo.body1">@context.Name</MudText>

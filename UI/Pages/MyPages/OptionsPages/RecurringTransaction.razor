@@ -1,9 +1,6 @@
 ﻿@page "/options/recurringTransaction"
-@using UI.Models;
-@using UI.Models.ViewModels
 
 <PageTitle>@Localizer["PageTitle"]</PageTitle>
-<UI.Components.OptionNavigationComponent />
 @if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
@@ -15,7 +12,7 @@ else
     <MudPaper Class="ma-1 pa-4" Elevation="5" style="text-align:center;">
         <MudText Typo="Typo.h4" Align="Align.Center" Class="pa-2 ma-2">@Localizer["Header"]</MudText>
         <MudDivider Class="mb-4" />
-        <MudTable T="RecurringTransactionViewModel" Items="@recurringTransactions" Dense="true" Striped="true" Class="options-table mt-2">
+        <MudTable T="RecurringTransactionViewModel" Items="@_recurringTransactions" Dense="true" Striped="true" Class="options-table mt-2">
             <HeaderContent>
                 <MudTh> @Localizer["Name"] </MudTh>
                 <MudTh> @Localizer["Description"] </MudTh>

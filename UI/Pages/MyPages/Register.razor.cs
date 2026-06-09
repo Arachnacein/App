@@ -1,29 +1,21 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using MudBlazor;
-using System.Text.Json;
-using UI.Models;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages;
 
 public partial class Register
 {
     [Inject] private IStringLocalizer<Register> Localizer {  get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private RegistrationViewModelValidator RegistrationModelValidator { get; set; }
     [Inject] private IJSRuntime JSRuntime { get; set; }
-    private RegistrationViewModel RegistrationModel = new RegistrationViewModel();
-    private MudForm Form;
-    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-    InputType PasswordInput = InputType.Password;
-    bool isShow;
+    private RegistrationViewModel _registrationModel = new RegistrationViewModel();
+    private MudForm _form;
+    private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+    private InputType _passwordInput = InputType.Password;
+    private bool _isShow;
 
     private async Task Submit()
     {
-        await Form.Validate();
-        
+        await _form.ValidateAsync();
+
         var recaptchaResponse = await JSRuntime.InvokeAsync<string>("grecaptcha.getResponse");
         if (string.IsNullOrEmpty(recaptchaResponse))
         {
@@ -38,20 +30,20 @@ public partial class Register
             return;
         }
 
-        if (Form.IsValid)
+        if (_form.IsValid)
         {
             var requestBody = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("firstname", RegistrationModel.FirstName),
-                new KeyValuePair<string, string>("lastname", RegistrationModel.LastName),
-                new KeyValuePair<string, string>("username", RegistrationModel.Username),
-                new KeyValuePair<string, string>("email", RegistrationModel.Email),
+                new KeyValuePair<string, string>("firstname", _registrationModel.FirstName),
+                new KeyValuePair<string, string>("lastname", _registrationModel.LastName),
+                new KeyValuePair<string, string>("username", _registrationModel.Username),
+                new KeyValuePair<string, string>("email", _registrationModel.Email),
                 new KeyValuePair<string, string>("enabled", "true"),
-                new KeyValuePair<string, string>("password", RegistrationModel.Password),
+                new KeyValuePair<string, string>("password", _registrationModel.Password),
             });
 
 
-            var response = await httpClient.PostAsync("/api/register", requestBody);
+            var response = await HttpClient.PostAsync("/api/register", requestBody);
 
             if (response.IsSuccessStatusCode)
             {
@@ -68,26 +60,28 @@ public partial class Register
         else
             Snackbar.Add(Localizer["InvalidForm"], Severity.Warning);
     }
+
     private async Task<bool> ValidateCaptcha(string recaptchaResponse)
     {
         var secretKey = "6LfCwL8qAAAAAMMPjvFljaGn8iMO7Jb6zSWN9Go3";
-        var response = await httpClient.PostAsJsonAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={recaptchaResponse}", new { });
+        var response = await HttpClient.PostAsJsonAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={recaptchaResponse}", new { });
         var captchaResult = await response.Content.ReadFromJsonAsync<CaptchaResult>();
         return captchaResult.Success;
     }
+
     private void ShowPassword()
     {
-        if (isShow)
+        if (_isShow)
         {
-            isShow = false;
-            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-            PasswordInput = InputType.Password;
+            _isShow = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInput = InputType.Password;
         }
         else
         {
-            isShow = true;
-            PasswordInputIcon = Icons.Material.Filled.Visibility;
-            PasswordInput = InputType.Text;
+            _isShow = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInput = InputType.Text;
         }
     }
 }

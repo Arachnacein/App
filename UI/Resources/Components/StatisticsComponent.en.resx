@@ -171,4 +171,10 @@
   <data name="MonthlyDistributionTitle" xml:space="preserve">
     <value>Monthly distribution</value>
   </data>
+  <data name="MonthsRangeNavigatorPreviousTooltip" xml:space="preserve">
+    <value>Move the chart one month back</value>
+  </data>
+  <data name="MonthsRangeNavigatorNextTooltip" xml:space="preserve">
+    <value>Move the chart one month forward</value>
+  </data>
 </root>

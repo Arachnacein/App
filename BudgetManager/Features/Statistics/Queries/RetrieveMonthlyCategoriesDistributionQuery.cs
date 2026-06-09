@@ -3,9 +3,11 @@ namespace BudgetManager.Features.Statistics.Queries;
 public record RetrieveMonthlyCategoriesDistributionQuery : IRequest<List<MonthlyCategoriesModel>>
 {
     public Guid UserId { get; init; }
-    public RetrieveMonthlyCategoriesDistributionQuery(Guid userId)
+    public int? Year { get; init; }
+    public RetrieveMonthlyCategoriesDistributionQuery(Guid userId, int? year = null)
     {
         UserId = userId;
+        Year = year;
     }
 }
 public class RetrieveMonthlyCategoriesDistributionQueryHandler : IRequestHandler<RetrieveMonthlyCategoriesDistributionQuery, List<MonthlyCategoriesModel>>
@@ -19,6 +21,7 @@ public class RetrieveMonthlyCategoriesDistributionQueryHandler : IRequestHandler
     public async Task<List<MonthlyCategoriesModel>> Handle(RetrieveMonthlyCategoriesDistributionQuery request, CancellationToken cancellationToken)
     {
         var transactions = _dbContext.Transactions
+                           .AsNoTracking()
                            .Where(x => x.UserId == request.UserId);
 
         if (!transactions.Any())
@@ -33,9 +36,22 @@ public class RetrieveMonthlyCategoriesDistributionQueryHandler : IRequestHandler
                     Entertainment = 0
                 }
             };
-        
-        var minTransactionDate = transactions.Min(x => x.Date);
-        var maxTransactionDate = transactions.Max(x => x.Date);
+
+        DateTime minTransactionDate, maxTransactionDate;
+        if (request.Year.HasValue)
+        {
+            minTransactionDate = new DateTime(request.Year.Value, 1, 1);
+            maxTransactionDate = new DateTime(request.Year.Value, 12, 31);
+        }
+        else
+        {
+            minTransactionDate = transactions.Min(x => x.Date);
+            maxTransactionDate = transactions.Max(x => x.Date);
+
+            var currentMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            if (maxTransactionDate < currentMonthStart)
+                maxTransactionDate = currentMonthStart;
+        }
 
         var monthlyCategories = new List<MonthlyCategoriesModel>();
         
@@ -44,8 +60,9 @@ public class RetrieveMonthlyCategoriesDistributionQueryHandler : IRequestHandler
                  date = date.AddMonths(1))
         {
             var transactionsInMonth = _dbContext.Transactions
-                              .Where(t => t.Date.Year == date.Year && 
-                                          t.Date.Month == date.Month && 
+                              .AsNoTracking()
+                              .Where(t => t.Date.Year == date.Year &&
+                                          t.Date.Month == date.Month &&
                                           t.UserId == request.UserId)
                               .ToList();
 

@@ -1,4 +1,5 @@
 ﻿@page "/login"
+
 <PageTitle>@Localizer["LoginTitle"]</PageTitle>
 <div class="login-container">
     <MudPaper Class="glass-panel pa-6 d-flex flex-column align-items-center" Elevation="0" Style="width: min(520px, 95vw);">
@@ -7,13 +8,13 @@
 
         <MudTextField @bind-Value="Username" Label="@Localizer["username"]" Variant="Variant.Outlined" Class="ma-2 pa-1"
                       Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person"
-                      OnKeyUp="HandleEnterDown" @ref="usernameTextField" FullWidth="true" Style="width:92%;"/>
-        <MudTextField @bind-Value="Password" Label="@Localizer["password"]" InputType="@PasswordInput"
+                      OnKeyUp="HandleEnterDown" @ref="_usernameTextField" FullWidth="true" Style="width:92%;"/>
+        <MudTextField @bind-Value="Password" Label="@Localizer["password"]" InputType="@_passwordInput"
                       Variant="Variant.Outlined" Class="ma-2 pa-1" Adornment="Adornment.End"
-                      AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword"
+                      AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="ShowPassword"
                       OnKeyUp="HandleEnterDown" FullWidth="true" Style="width:92%;"/>
 
-        @if(isLoading)
+        @if(_isLoading)
         {
             <MudProgressCircular Size="Size.Medium" Indeterminate="true" Class="mt-4" />
         }

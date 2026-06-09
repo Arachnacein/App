@@ -1,9 +1,9 @@
 ﻿<MudDialog>
     <DialogContent>
         <MudText>@Localizer["HeaderQuestion"]</MudText>
-        <MudText>@Localizer["Name"]: @DialogModel.Name</MudText>
-        <MudText>@Localizer["Date"]: @DialogModel.Date</MudText>
-        <MudText>@Localizer["Price"]: @DialogModel.Price</MudText>
+        <MudText>@Localizer["Name"]: @_dialogModel.Name</MudText>
+        <MudText>@Localizer["Date"]: @_dialogModel.Date</MudText>
+        <MudText>@Localizer["Price"]: @_dialogModel.Price</MudText>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Submit"]</MudButton>

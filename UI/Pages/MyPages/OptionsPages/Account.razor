@@ -1,9 +1,6 @@
 @page "/options/account"
-@using UI.Models;
-@using UI.Models.ViewModels
 
 <PageTitle>@Localizer["Title"]</PageTitle>
-<UI.Components.OptionNavigationComponent />
 
 @if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
 {
@@ -21,17 +18,17 @@ else
         </MudStack>
         <MudDivider Class="mb-4" />
 
-        <!-- Edytowalne dane -->
+        <!-- Editable data -->
         <MudGrid Spacing="0">
             <MudItem xs="12" sm="4" Class="account-label-cell">
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["LabelUserName"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="6" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.Username</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.Username</MudText>
             </MudItem>
             <MudItem xs="12" sm="2" Class="account-action-cell">
                 <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
-                           OnClick="() => EditData(nameof(UserDetails.Username))">@Localizer["Edit"]</MudButton>
+                           OnClick="() => EditData(nameof(_userDetails.Username))">@Localizer["Edit"]</MudButton>
             </MudItem>
             <MudItem xs="12"><MudDivider Class="my-2" /></MudItem>
 
@@ -39,11 +36,11 @@ else
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["LabelFirstName"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="6" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.FirstName</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.FirstName</MudText>
             </MudItem>
             <MudItem xs="12" sm="2" Class="account-action-cell">
                 <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
-                           OnClick="() => EditData(nameof(UserDetails.FirstName))">@Localizer["Edit"]</MudButton>
+                           OnClick="() => EditData(nameof(_userDetails.FirstName))">@Localizer["Edit"]</MudButton>
             </MudItem>
             <MudItem xs="12"><MudDivider Class="my-2" /></MudItem>
 
@@ -51,11 +48,11 @@ else
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["LabelLastName"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="6" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.LastName</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.LastName</MudText>
             </MudItem>
             <MudItem xs="12" sm="2" Class="account-action-cell">
                 <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
-                           OnClick="() => EditData(nameof(UserDetails.LastName))">@Localizer["Edit"]</MudButton>
+                           OnClick="() => EditData(nameof(_userDetails.LastName))">@Localizer["Edit"]</MudButton>
             </MudItem>
             <MudItem xs="12"><MudDivider Class="my-2" /></MudItem>
 
@@ -63,11 +60,11 @@ else
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["LabelEmail"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="6" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.Email</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.Email</MudText>
             </MudItem>
             <MudItem xs="12" sm="2" Class="account-action-cell">
                 <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
-                           OnClick="() => EditData(nameof(UserDetails.Email))">@Localizer["Edit"]</MudButton>
+                           OnClick="() => EditData(nameof(_userDetails.Email))">@Localizer["Edit"]</MudButton>
             </MudItem>
 
             @if (!UserSessionService.EmailVerified)
@@ -85,13 +82,13 @@ else
 
         <MudDivider Class="my-5" />
 
-        <!-- Dane tylko do odczytu -->
+        <!-- Readonly data -->
         <MudGrid Spacing="0">
             <MudItem xs="12" sm="4" Class="account-label-cell">
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">Roles</MudText>
             </MudItem>
             <MudItem xs="12" sm="8" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@string.Join(", ", UserDetails.Roles)</MudText>
+                <MudText Typo="Typo.body1">@string.Join(", ", _userDetails.Roles)</MudText>
             </MudItem>
             <MudItem xs="12"><MudDivider Class="my-2" /></MudItem>
 
@@ -99,7 +96,7 @@ else
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["AccountCreated"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="8" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.AccountCreatedDate?.ToString("dd-MM-yyyy HH:mm")</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.AccountCreatedDate?.ToString("dd-MM-yyyy HH:mm")</MudText>
             </MudItem>
             <MudItem xs="12"><MudDivider Class="my-2" /></MudItem>
 
@@ -107,7 +104,7 @@ else
                 <MudText Typo="Typo.caption" Color="Color.Secondary" Class="account-field-label">@Localizer["SessionExpirations"]</MudText>
             </MudItem>
             <MudItem xs="12" sm="8" Class="account-value-cell">
-                <MudText Typo="Typo.body1">@UserDetails.SessionExpiryDate.ToString("dd-MM-yyyy HH:mm")</MudText>
+                <MudText Typo="Typo.body1">@_userDetails.SessionExpiryDate.ToString("dd-MM-yyyy HH:mm")</MudText>
             </MudItem>
         </MudGrid>
 

@@ -1,14 +1,14 @@
 ﻿<MudDialog style="padding-bottom:7px;">
     <DialogContent>
-    <MudForm Model="@DialogModel" @ref="@Form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
-        <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1"/>
-        <MudTextField Label="@Localizer["Description"]" @bind-Value="DialogModel.Description" For="@(() => DialogModel.Description)" Class="ma-1 pa-1" />
+    <MudForm Model="@_dialogModel" @ref="@_form" Validation="TransactionValidator.ValidateValue()" ValidationDelay="0">
+        <MudTextField Label="@Localizer["Name"]" @bind-Value="_dialogModel.Name" For="@(() => _dialogModel.Name)" Class="ma-1 pa-1"/>
+        <MudTextField Label="@Localizer["Description"]" @bind-Value="_dialogModel.Description" For="@(() => _dialogModel.Description)" Class="ma-1 pa-1" />
         <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" Style="width:90%;">
-            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+            <MudDatePicker Label="@Localizer["Date"]" @bind-Date="_dialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
         </MudStack>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center">
-            <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="DialogModel.Price" For="@(() => DialogModel.Price)" Class="ma-2 pa-2"></MudTextField>
-                <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="DialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
+            <MudTextField T="double" Label="@Localizer["Price"]" @bind-Value="_dialogModel.Price" For="@(() => _dialogModel.Price)" Class="ma-2 pa-2"></MudTextField>
+                <MudSelect T="Models.TransactionCategoryEnum" @bind-Value="_dialogModel.Category" Variant="Variant.Outlined" Class="ma-1 pa-1" Dense="true">
                     @foreach (var item in Enum.GetValues(typeof(Models.TransactionCategoryEnum)).Cast<Models.TransactionCategoryEnum>())
                     {
                         <MudSelectItem Value="@item">@Localizer[@item.ToString()]</MudSelectItem>

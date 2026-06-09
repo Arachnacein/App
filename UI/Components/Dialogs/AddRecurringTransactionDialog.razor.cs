@@ -1,10 +1,3 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.Net;
-using UI.Models;
-using UI.Models.ViewModels;
-
 namespace UI.Components.Dialogs;
 
 public partial class AddRecurringTransactionDialog
@@ -13,14 +6,14 @@ public partial class AddRecurringTransactionDialog
     [Parameter] public Func<Task> Refresh { get; set; }
     [Inject] private IDialogService DialogService { get; set; }
     [Inject] private IStringLocalizer<AddRecurringTransactionDialog> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     [Inject] private RecurringTransactionViewModelValidator RecurringTransactionValidator { get; set; }
-    private MudForm form;
-    private RecurringTransactionViewModel Model;
+    private MudForm _form;
+    private RecurringTransactionViewModel _model;
 
     protected override async Task OnInitializedAsync()
     {
-        Model = new RecurringTransactionViewModel
+        _model = new RecurringTransactionViewModel
         {
             UserId = UserSessionService.UserId,
             Name = String.Empty,
@@ -37,8 +30,8 @@ public partial class AddRecurringTransactionDialog
 
     private async Task Submit()
     {
-        await form.Validate();
-        if (!form.IsValid)
+        await _form.Validate();
+        if (!_form.IsValid)
             return;
 
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
@@ -46,8 +39,8 @@ public partial class AddRecurringTransactionDialog
             Snackbar.Add(Localizer["MustSignIn"], Severity.Warning);
             return;
         }
-        
-        var result = await httpClient.PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction", Model);
+
+        var result = await HttpClient.PostAsJsonAsync<RecurringTransactionViewModel>("/api/recurringTransaction", _model);
         if(result.StatusCode == HttpStatusCode.Created)
         {
             Snackbar.Add(Localizer["SuccessfullyAddRecurringTransaction"], Severity.Success);
@@ -62,10 +55,10 @@ public partial class AddRecurringTransactionDialog
 
     private async Task OpenCustomDialog()
     {
-        if (Model.Frequency == FrequencyEnum.Custom)
+        if (_model.Frequency == FrequencyEnum.Custom)
         {
             var parameters = new DialogParameters();
-            parameters["Model"] = Model;
+            parameters["Model"] = _model;
             parameters["Refresh"] = Refresh;
             parameters["PreviousDialogInstance"] = MudDialog;
 

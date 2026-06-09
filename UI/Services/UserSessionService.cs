@@ -28,6 +28,7 @@ public class UserSessionService
         EmailVerified = emailVerified;
         IsAdmin = roles.Contains("admin") ? true : false;
     }        
+
     public void SetUserSession(string name, string surname, string username, string email)
     {
         Name = name;
@@ -35,8 +36,8 @@ public class UserSessionService
         Username = username;
         this.Email = email;
     }
-    public void SetUserSession(bool emailVerified) => EmailVerified = emailVerified;
 
+    public void SetUserSession(bool emailVerified) => EmailVerified = emailVerified;
 
     public void ClearUserSession()
     {
@@ -52,10 +53,11 @@ public class UserSessionService
         EmailVerified = false;
         IsAdmin = false;
     }
+
     /// <summary>
-    /// Returns true if user is logged in, false otherwise.
+    /// Checks if the user is currently logged in by verifying if the authentication token is present and valid.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Returns true if user is logged in, false otherwise.</returns>
     public bool IsUserLoggedIn() => !string.IsNullOrEmpty(Token);
     public string GetRemainingTime()
     {

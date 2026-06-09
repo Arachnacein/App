@@ -1,11 +1,11 @@
-﻿<MudForm Model="@DialogModel" @ref="@Form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
+﻿<MudForm Model="@_dialogModel" @ref="@_form" Validation="IncomeValidator.ValidateValue()" ValidationDelay="0">
     <MudDialog style="padding-bottom:7px;">
         <DialogContent>
             <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="width:90%;">
-                <MudTextField Label="@Localizer["Name"]" @bind-Value="DialogModel.Name" For="@(() => DialogModel.Name)" Class="ma-1 pa-1" />
-                <MudTextField T="double" Label="@Localizer["Amount"]" @bind-Value="DialogModel.Amount" For="@(() => DialogModel.Amount)" Class="ma-2 pa-2" />
+                <MudTextField Label="@Localizer["Name"]" @bind-Value="_dialogModel.Name" For="@(() => _dialogModel.Name)" Class="ma-1 pa-1" />
+                <MudTextField T="double" Label="@Localizer["Amount"]" @bind-Value="_dialogModel.Amount" For="@(() => _dialogModel.Amount)" Class="ma-2 pa-2" />
                 <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" >
-                    <MudDatePicker Label="@Localizer["Date"]" @bind-Date="DialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
+                    <MudDatePicker Label="@Localizer["Date"]" @bind-Date="_dialogModel.Date" ShowToolbar="false" Class="ma-2 pa-2 ml-8" />
                 </MudStack>
             </MudStack>
         </DialogContent>

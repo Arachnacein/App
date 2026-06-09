@@ -1,14 +1,10 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using UI.Models.ViewModels;
-
 namespace UI.Pages.MyPages.OptionsPages;
 
 public partial class Settings
 {
-    [Inject] private GlobalInfoClass _globalClass { get; set; }
+    [Inject] private GlobalInfoClass GlobalClass { get; set; }
     [Inject] private IStringLocalizer<Settings> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
 
     private string _previewDate = DateTime.Now.ToString("dd.MM");
 
@@ -20,7 +16,7 @@ public partial class Settings
 
     private async Task OnThemeChanged(RecurringTransactionTheme theme)
     {
-        _globalClass.RecurringTheme = theme;
+        GlobalClass.RecurringTheme = theme;
         await SavePreferences();
     }
 
@@ -28,11 +24,12 @@ public partial class Settings
     {
         if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
             return;
-        await httpClient.PutAsJsonAsync("/api/userpreference", new UserPreferenceViewModel
+
+        await HttpClient.PutAsJsonAsync("/api/userpreference", new UserPreferenceViewModel
         {
             UserId = UserSessionService.UserId,
-            IsDarkMode = _globalClass.IsDarkMode,
-            RecurringTransactionTheme = (int)_globalClass.RecurringTheme
+            IsDarkMode = GlobalClass.IsDarkMode,
+            RecurringTransactionTheme = (int)GlobalClass.RecurringTheme
         });
     }
 }

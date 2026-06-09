@@ -1,19 +1,28 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using System.Globalization;
-using UI.Models;
-
 namespace UI.Components;
 
 public partial class StatisticsComponent
 {
     [Inject] private IStringLocalizer<StatisticsComponent> Localizer { get; set; }
-    [Inject] private HttpClient httpClient { get; set; }
+    [Inject] private HttpClient HttpClient { get; set; }
     private CategoriesDistributionModel CategoriesDistribution { get; set; }
     private List<MonthlyCategoriesDistribution> MonthlyCategoriesDistributionList { get; set; }
-    private List<ChartSeries<double>> Series = new List<ChartSeries<double>>();
-    private string[] XaxisLabels = { };
+    private List<ChartSeries<double>> _series = new List<ChartSeries<double>>();
+    private string[] _xaxisLabels = { };
+    private const int MonthsWindowSize = 20;
+    private static readonly string[] _categoryChartPalette = { "#2979FF", "#C0504D", "#FFC400" };
+    private StackedBarChartOptions BarChartOptions { get; } = new()
+    {
+        XAxisLabelRotation = 90,
+        YAxisFormat = "F2",
+        Justify = Justify.Center,
+        YAxisSuggestedMax = 100,
+        FixedBarWidth = 20,
+        ChartPalette = _categoryChartPalette
+    };
+    private ChartOptions PieChartOptions { get; } = new()
+    {
+        ChartPalette = _categoryChartPalette
+    };
     private double TotalExpenses { get; set; }
     private double TotalSaves { get; set; }
     private double Total3MonthsExpenses { get; set; }
@@ -24,6 +33,11 @@ public partial class StatisticsComponent
     private TransactionCountModel TransactionCountByCategory { get; set; } = new();
     private List<int> AvailableYears { get; set; } = new();
     private int? SelectedYear { get; set; }
+    private int WindowStartIndex { get; set; }
+    private int MaxWindowStartIndex => Math.Max(0, (MonthlyCategoriesDistributionList?.Count ?? 0) - MonthsWindowSize);
+    private bool ShowMonthsNavigator =>  SelectedYear == null && (MonthlyCategoriesDistributionList?.Count ?? 0) > MonthsWindowSize;
+    private int? MinNavigatorYear => MonthlyCategoriesDistributionList?.FirstOrDefault()?.Year;
+    private int? MaxNavigatorYear => MonthlyCategoriesDistributionList?.LastOrDefault()?.Year;
 
     protected override async Task OnInitializedAsync()
     {
@@ -42,9 +56,9 @@ public partial class StatisticsComponent
     {
         try
         {
-            var result = await httpClient
-                .GetFromJsonAsync<List<int>>
+            var result = await HttpClient.GetFromJsonAsync<List<int>>
                 ($"/api/statistics/GetAvailableYears?userId={UserSessionService.UserId}");
+
             if (result != null)
                 AvailableYears = result;
         }
@@ -57,19 +71,20 @@ public partial class StatisticsComponent
         try
         {
             var url = $"/api/statistics/GetFilteredStatistics?userId={UserSessionService.UserId}";
+
             if (year.HasValue)
                 url += $"&year={year.Value}";
 
-            var result = await httpClient
-                .GetFromJsonAsync<FilteredStatisticsModel>(url);
+            var result = await HttpClient.GetFromJsonAsync<FilteredStatisticsModel>(url);
 
             if (result != null)
             {
-                TotalSaves      = result.TotalSaves;
-                TotalExpenses   = result.TotalExpenses;
-                AverageSaves    = result.AverageSaves;
+                TotalSaves = result.TotalSaves;
+                TotalExpenses = result.TotalExpenses;
+                AverageSaves = result.AverageSaves;
                 AverageExpenses = result.AverageExpenses;
-                SavingsRate     = result.SavingsRate;
+                SavingsRate = result.SavingsRate;
+
                 if (result.TransactionCount != null)
                     TransactionCountByCategory = result.TransactionCount;
             }
@@ -78,63 +93,105 @@ public partial class StatisticsComponent
         StateHasChanged();
     }
 
+    private void OnMonthsWindowChanged(int newStartIndex)
+    {
+        WindowStartIndex = newStartIndex;
+        UpdateChartSeries();
+    }
+
+    private void MoveWindowBackward()
+    {
+        if (WindowStartIndex <= 0)
+            return;
+
+        WindowStartIndex--;
+        UpdateChartSeries();
+    }
+
+    private void MoveWindowForward()
+    {
+        if (WindowStartIndex >= MaxWindowStartIndex)
+            return;
+
+        WindowStartIndex++;
+        UpdateChartSeries();
+    }
+
     private async Task OnYearChanged(int? year)
     {
         SelectedYear = year;
         await GetFilteredStatistics(year);
+        await GetMonthlyCategoriesDistribution(year);
     }
 
     private async Task GetThreeMonthsSaves()
     {
-        Total3MonthsSaves = await httpClient
-            .GetFromJsonAsync<double>
+        Total3MonthsSaves = await HttpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsSaves?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
     private async Task GetThreeMonthsExpenses()
     {
-        Total3MonthsExpenses = await httpClient
-            .GetFromJsonAsync<double>
+        Total3MonthsExpenses = await HttpClient.GetFromJsonAsync<double>
             ($"/api/statistics/GetThreeMonthsExpenses?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
     private async Task GetCategoriesDistribution()
     {
-        CategoriesDistribution = await httpClient
-            .GetFromJsonAsync<CategoriesDistributionModel>
+        CategoriesDistribution = await HttpClient.GetFromJsonAsync<CategoriesDistributionModel>
             ($"/api/statistics/GetCategoriesDistribution?userId={UserSessionService.UserId}");
+
         StateHasChanged();
     }
 
-    private async Task GetMonthlyCategoriesDistribution()
+    private async Task GetMonthlyCategoriesDistribution(int? year = null)
     {
-        MonthlyCategoriesDistributionList = await httpClient
-            .GetFromJsonAsync<List<MonthlyCategoriesDistribution>>
-            ($"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}");
+        var url = $"/api/statistics/GetMonthlyCategoriesDistribution?userId={UserSessionService.UserId}";
 
-        XaxisLabels = MonthlyCategoriesDistributionList
-                        .Select(x => new DateTime(x.Year, x.Month, 1)
-                            .ToString("MM-yyyy", CultureInfo.CurrentCulture))
+        if (year.HasValue)
+            url += $"&year={year.Value}";
+
+        MonthlyCategoriesDistributionList = await HttpClient.GetFromJsonAsync<List<MonthlyCategoriesDistribution>>(url);
+
+        WindowStartIndex = MaxWindowStartIndex;
+        UpdateChartSeries();
+    }
+
+    private void UpdateChartSeries()
+    {
+        var displayedMonths = SelectedYear.HasValue
+            ? MonthlyCategoriesDistributionList
+            : MonthlyCategoriesDistributionList.Skip(WindowStartIndex).Take(MonthsWindowSize).ToList();
+
+        _xaxisLabels = displayedMonths
+                        .Select(x => $"{x.Month:D2}'{x.Year % 100:D2}")
                         .ToArray();
 
-        Series = new List<ChartSeries<double>>
+        _series = new List<ChartSeries<double>>
         {
             new ChartSeries<double>{
                 Name = Localizer["Saves"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Saves).ToArray()
+                Data = displayedMonths
+                            .Select(item => Math.Round(item.Saves, 2)).ToArray()
             },
             new ChartSeries<double>{
                 Name = Localizer["Fees"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Fees).ToArray()
+                Data = displayedMonths
+                            .Select(item => Math.Round(item.Fees, 2)).ToArray()
             },
             new ChartSeries<double>{
                 Name = Localizer["Entertainment"],
-                Data = MonthlyCategoriesDistributionList
-                            .Select(item => item.Entertainment).ToArray()
+                Data = displayedMonths
+                            .Select(item =>
+                            {
+                                var saves = Math.Round(item.Saves, 2);
+                                var fees  = Math.Round(item.Fees, 2);
+                                return Math.Round(100.0 - saves - fees, 2);
+                            }).ToArray()
             }
         };
         StateHasChanged();

@@ -7,8 +7,6 @@
 else
 {
     <MudGrid Spacing="2" Class="mb-4 px-2">
-
-        @* ── Górny rząd — wyższe kafelki (pa-4, overline, h5) ── *@
         <MudItem xs="12" sm="6" md="3" Style="display: flex;">
             <MudPaper Class="kpi-card kpi-card-saves pa-4" Elevation="0" Style="height: 100%; width: 100%;">
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
@@ -46,7 +44,6 @@ else
             </MudPaper>
         </MudItem>
 
-        @* ── Dolny rząd — niższe kafelki (pa-3, caption, h6) ── *@
         <MudItem xs="12" sm="6" md="3" Style="display: flex;">
             <MudPaper Class="kpi-card kpi-card-saves pa-3" Elevation="0" Style="height: 100%; width: 100%;">
                 <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mb-1">
@@ -124,14 +121,31 @@ else
             <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["CategoriesDistributionTitle"]</MudText>
             <MudChart T="double" ChartType="ChartType.Pie"
                       ChartSeries="@CategoriesDistribution.ToPieChartSeries(Localizer)"
+                      ChartLabels="@CategoriesDistribution.GetPieChartLabels(Localizer)"
+                      ChartOptions="@PieChartOptions"
                       Width="100%" Height="270px" LegendPosition="Position.Bottom" Class="mt-1" />
         </MudPaper>
 
-        <MudPaper Class="kpi-card pa-3" Elevation="0" Style="flex: 1; min-width: 300px;">
-            <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1">@Localizer["MonthlyDistributionTitle"]</MudText>
-            <MudChart T="double" ChartType="ChartType.StackedBar" ChartSeries="@Series" ChartLabels="@XaxisLabels"
-                      Width="100%" Height="290px" LegendPosition="Position.Right" Class="pa-1"/>
+        <MudPaper Class="kpi-card pa-3" Elevation="0" Style="width: fit-content; overflow: hidden;">
+            <MudStack AlignItems="AlignItems.Center" Spacing="1">
+                <MudText Typo="Typo.subtitle2" Class="chart-title mud-text-secondary mb-1" Align="Align.Center">@Localizer["MonthlyDistributionTitle"]</MudText>
+                <MudChart T="double" ChartType="ChartType.StackedBar" ChartSeries="@_series" ChartLabels="@_xaxisLabels"
+                          ChartOptions="@BarChartOptions"
+                          Width="650px" Height="290px" LegendPosition="Position.Bottom" Class="pa-1"/>
+                @if (ShowMonthsNavigator)
+                {
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="2" Style="width: 650px;">
+                        <MudText Typo="Typo.caption" Class="mud-text-secondary" Style="cursor: pointer; user-select: none;"
+                                 @onclick="MoveWindowBackward" title="@Localizer["MonthsRangeNavigatorPreviousTooltip"]">@MinNavigatorYear</MudText>
+                        <MudSlider T="int" Value="WindowStartIndex" ValueChanged="OnMonthsWindowChanged"
+                                   Min="0" Max="@MaxWindowStartIndex" Step="1" Color="Color.Primary"
+                                   Class="px-2" Style="width: 50%;">
+                        </MudSlider>
+                        <MudText Typo="Typo.caption" Class="mud-text-secondary" Style="cursor: pointer; user-select: none;"
+                                 @onclick="MoveWindowForward" title="@Localizer["MonthsRangeNavigatorNextTooltip"]">@MaxNavigatorYear</MudText>
+                    </MudStack>
+                }
+            </MudStack>
         </MudPaper>
     </MudStack>
-
 }

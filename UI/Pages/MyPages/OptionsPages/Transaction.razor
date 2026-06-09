@@ -1,10 +1,7 @@
 ﻿@page "/options/transaction"
-@using UI.Models;
-@using UI.Models.ViewModels
 @inject IStringLocalizer<Transaction> Localizer
 
 <PageTitle>@Localizer["Title"]</PageTitle>
-<UI.Components.OptionNavigationComponent />
 @if (UserSessionService == null || UserSessionService.UserId == Guid.Empty)
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
@@ -19,16 +16,16 @@ else
 
         <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
             <MudStack>
-                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @transactionCounter</MudText>
+                <MudText Class="text-body2" Style="font-size: 0.75rem;padding: 1;">@Localizer["Rows"]: @TransactionCounter</MudText>
             </MudStack>
             <MudStack>
-                <MudTextField @bind-Value="searchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End" 
+                <MudTextField @bind-Value="SearchPhrase" Label="@Localizer["Search"]" Adornment="Adornment.End"
                               AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" 
                               Variant="Variant.Outlined" style="width:250px;" />
             </MudStack>
         </MudStack>
 
-        <MudTable T="TransactionViewModel" Items="@filteredTransactions" FixedHeader="true"
+        <MudTable T="TransactionViewModel" Items="@_filteredTransactions" FixedHeader="true"
                   FixedFooter="true" Dense="true" Striped="true" Class="options-table">
             <HeaderContent>
                 <MudTh Style="text-align:center">@Localizer["Name"]</MudTh>
