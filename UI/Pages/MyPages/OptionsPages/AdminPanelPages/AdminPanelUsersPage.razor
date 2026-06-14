@@ -37,6 +37,7 @@ else
                 <MudTh>@Localizer["Email"]</MudTh>
                 <MudTh>@Localizer["EmailVerified"]</MudTh>
                 <MudTh>@Localizer["Enabled"]</MudTh>
+                <MudTh>@Localizer["Roles"]</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="@Localizer["UserName"]">@context.FirstName</MudTd>
@@ -48,6 +49,7 @@ else
                 <MudTd DataLabel="@Localizer["Enabled"]">
                     <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success" onclick="@(() => Enable(context))"/>
                 </MudTd>
+                <MudTd DataLabel="@Localizer["Roles"]">@string.Join(", ", context.Roles)</MudTd>
             </RowTemplate>
         </MudTable>
     </MudPaper>

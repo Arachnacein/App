@@ -11,6 +11,7 @@ namespace ServicesTests.cs;
 public class AccountServiceTests
 {
     private readonly Mock<UserManager<ApplicationUser>> _userManagerMock;
+    private readonly Mock<RoleManager<IdentityRole>> _roleManagerMock;
     private readonly AccountService _accountService;
 
     public AccountServiceTests()
@@ -18,7 +19,12 @@ public class AccountServiceTests
         var store = new Mock<IUserStore<ApplicationUser>>();
         _userManagerMock = new Mock<UserManager<ApplicationUser>>(
             store.Object, null, null, null, null, null, null, null, null);
-        _accountService = new AccountService(_userManagerMock.Object);
+
+        var roleStore = new Mock<IRoleStore<IdentityRole>>();
+        _roleManagerMock = new Mock<RoleManager<IdentityRole>>(
+            roleStore.Object, null, null, null, null);
+
+        _accountService = new AccountService(_userManagerMock.Object, _roleManagerMock.Object);
     }
 
     [Fact]

@@ -135,6 +135,9 @@
   <data name="MustLogIn" xml:space="preserve">
     <value>Musisz się zalogować, by mieć dostęp do tej strony.</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>Znaleziono</value>
   </data>
