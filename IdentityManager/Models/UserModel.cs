@@ -8,6 +8,7 @@ public class UserModel
     public string Username { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public DateTime AccountCreatedDate { get; set; }
+    public DateTime? LastLoginDate { get; set; }
     public List<string> Roles { get; set; } = new();
     public bool Enabled { get; set; }
     public bool EmailVerified { get; set; }

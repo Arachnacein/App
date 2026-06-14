@@ -113,6 +113,7 @@ public class UserService : IUserService
         Username = user.UserName ?? string.Empty,
         Email = user.Email ?? string.Empty,
         AccountCreatedDate = user.CreatedAt,
+        LastLoginDate = user.LastLoginDate,
         Roles = roles.ToList(),
         Enabled = user.IsActive,
         EmailVerified = user.EmailConfirmed

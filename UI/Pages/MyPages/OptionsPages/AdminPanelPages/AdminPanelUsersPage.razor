@@ -17,7 +17,7 @@ else if (!UserSessionService.IsAdmin)
 else
 {
     <MudPaper Class="ma-7 pa-7" Elevation="30">
-        <MudText Typo="Typo.h6" Align="Align.Center">@Localizer["AdminPanelUsers"]</MudText>       
+        <MudText Typo="Typo.h6" Align="Align.Center" Class="mb-3">@Localizer["AdminPanelUsers"]</MudText>
         <MudDivider />
 
         <MudStack Justify="Justify.FlexEnd" AlignItems="AlignItems.End" Style="width:100%;" Row="true" Class="ma-2 pa-2">
@@ -37,6 +37,9 @@ else
                 <MudTh>@Localizer["Email"]</MudTh>
                 <MudTh>@Localizer["EmailVerified"]</MudTh>
                 <MudTh>@Localizer["Enabled"]</MudTh>
+                <MudTh>@Localizer["LastLogin"]</MudTh>
+                <MudTh>@Localizer["Roles"]</MudTh>
+                <MudTh>@Localizer["Admin"]</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="@Localizer["UserName"]">@context.FirstName</MudTd>
@@ -47,6 +50,14 @@ else
                 </MudTd>
                 <MudTd DataLabel="@Localizer["Enabled"]">
                     <MudSwitch @bind-Value="@context.Enabled" Color="Color.Success" onclick="@(() => Enable(context))"/>
+                </MudTd>
+                <MudTd DataLabel="@Localizer["LastLogin"]">@(context.LastLoginDate?.ToString("dd-MM-yyyy HH:mm") ?? Localizer["Never"])</MudTd>
+                <MudTd DataLabel="@Localizer["Roles"]">@string.Join(", ", context.Roles)</MudTd>
+                <MudTd DataLabel="@Localizer["Admin"]">
+                    <MudSwitch Value="@context.Roles.Contains(AdminRole)"
+                               ValueChanged="@((bool value) => ToggleAdminRole(context, value))"
+                               Disabled="@(context.UserId == UserSessionService.UserId)"
+                               Color="Color.Primary" />
                 </MudTd>
             </RowTemplate>
         </MudTable>

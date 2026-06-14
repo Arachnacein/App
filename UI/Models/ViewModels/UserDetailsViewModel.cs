@@ -8,6 +8,7 @@ public class UserDetailsViewModel
     public string Username { get; set; }
     public string Email { get; set; }
     public DateTime? AccountCreatedDate { get; set; }
+    public DateTime? LastLoginDate { get; set; }
     public DateTime SessionExpiryDate { get; set; }
     public List<string> Roles { get; set; }
     public bool EmailVerified { get; set; }

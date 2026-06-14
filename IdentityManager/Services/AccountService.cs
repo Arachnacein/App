@@ -2,11 +2,15 @@ namespace IdentityManager.Services;
 
 public class AccountService : IAccountService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private const string DefaultRole = "user";
 
-    public AccountService(UserManager<ApplicationUser> userManager)
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+
+    public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     public async Task RegisterAsync(RegistrationModel model, CancellationToken ct = default)
@@ -32,6 +36,11 @@ public class AccountService : IAccountService
         if (!result.Succeeded)
             throw new CustomException((int)ErrorCodesEnum.RegistrationFailed,
                 string.Join("; ", result.Errors.Select(e => e.Description)));
+
+        if (!await _roleManager.RoleExistsAsync(DefaultRole))
+            await _roleManager.CreateAsync(new IdentityRole(DefaultRole));
+
+        await _userManager.AddToRoleAsync(user, DefaultRole);
     }
 }
 

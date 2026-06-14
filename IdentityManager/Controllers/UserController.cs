@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace IdentityManager.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -19,6 +22,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("enableUser")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> EnableUser([FromBody] UserModel model, CancellationToken ct)
     {
         await _userService.EnableDisableUserAsync(model, ct);
@@ -40,6 +44,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> GetUsers(CancellationToken ct)
     {
         var result = await _userService.GetUsersAsync(ct);
@@ -54,6 +59,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("roles/assign")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> AssignRole([FromQuery] Guid userId, [FromQuery] string role, CancellationToken ct)
     {
         await _userService.AssignRoleAsync(userId, role, ct);
@@ -61,6 +67,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("roles/remove")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> RemoveRole([FromQuery] Guid userId, [FromQuery] string role, CancellationToken ct)
     {
         await _userService.RemoveRoleAsync(userId, role, ct);

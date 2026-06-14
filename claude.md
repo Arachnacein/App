@@ -1,6 +1,6 @@
 # Project: App
 
-ASP.NET Core 8 Web API, Blazor .NET 7 UI. Domena: System zarządzania budżetem.
+ASP.NET Core 8 Web API, Blazor .NET 10 UI. Domena: System zarządzania budżetem.
 
 ## Stack
 

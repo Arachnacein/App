@@ -57,6 +57,7 @@ public partial class Login
                                                     : DateTime.MinValue;
 
             UserSessionService.SetUserSession(token, roles, name, surname, username, email, userId, expiryDate, createdAt, emailVerified);
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             await LoadUserPreferences(userId);
 

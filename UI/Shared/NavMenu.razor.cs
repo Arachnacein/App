@@ -15,6 +15,7 @@ public partial class NavMenu
     {
         if(UserSessionService.IsUserLoggedIn())
         {
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserSessionService.Token);
             _remainingTime = UserSessionService.GetRemainingTime();
             Timer = new Timer(UpdateRemainingTime, null, 0, 1000);
             await LoadUserPreferences();
@@ -54,6 +55,7 @@ public partial class NavMenu
     private async Task LogOut()
     {
         UserSessionService.ClearUserSession();
+        HttpClient.DefaultRequestHeaders.Authorization = null;
         await LocalStorage.DeleteAsync("access_token");
         Snackbar.Add(Localizer["LogOutSuccess"], Severity.Success);
         Navigation.NavigateTo("/", false);
