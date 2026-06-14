@@ -24,6 +24,9 @@ public class AuthService : IAuthService
         if (!user.IsActive)
             throw new CustomException((int)ErrorCodesEnum.UserNotActive, "Account is disabled.");
 
+        user.LastLoginDate = DateTime.UtcNow;
+        await _userManager.UpdateAsync(user);
+
         var roles = await _userManager.GetRolesAsync(user);
         var accessToken = _jwtService.GenerateAccessToken(user, roles);
         var refreshToken = _jwtService.GenerateRefreshToken(user.Id);

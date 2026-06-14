@@ -2,6 +2,8 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages;
 
 public partial class AdminPanelUsersPage
 {
+    private const string AdminRole = "admin";
+
     [Inject] private IStringLocalizer<AdminPanelUsersPage> Localizer { get; set; }
     [Inject] private HttpClient HttpClient { get; set; }
 
@@ -53,5 +55,20 @@ public partial class AdminPanelUsersPage
     {
         model.Enabled = !model.Enabled;
         await HttpClient.PutAsJsonAsync("api/User/enableUser", model);
+    }
+
+    private async Task ToggleAdminRole(UserDetailsViewModel model, bool isAdmin)
+    {
+        if (isAdmin)
+        {
+            await HttpClient.PostAsync($"api/User/roles/assign?userId={model.UserId}&role={AdminRole}", null);
+            model.Roles.Add(AdminRole);
+        }
+        else
+        {
+            await HttpClient.DeleteAsync($"api/User/roles/remove?userId={model.UserId}&role={AdminRole}");
+            model.Roles.Remove(AdminRole);
+        }
+        StateHasChanged();
     }
 }
