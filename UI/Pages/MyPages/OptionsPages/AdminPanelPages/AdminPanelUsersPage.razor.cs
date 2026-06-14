@@ -2,7 +2,7 @@ namespace UI.Pages.MyPages.OptionsPages.AdminPanelPages;
 
 public partial class AdminPanelUsersPage
 {
-    [Inject] private IStringLocalizer<AdminPanel> Localizer { get; set; }
+    [Inject] private IStringLocalizer<AdminPanelUsersPage> Localizer { get; set; }
     [Inject] private HttpClient HttpClient { get; set; }
 
     private List<UserDetailsViewModel> _users = new List<UserDetailsViewModel>();

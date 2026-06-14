@@ -120,6 +120,12 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Admin panel</value>
+  </data>
+  <data name="HealthChecks" xml:space="preserve">
+    <value>Health checks</value>
+  </data>
   <data name="Incomes" xml:space="preserve">
     <value>Incomes</value>
   </data>
@@ -134,5 +140,8 @@
   </data>
   <data name="Transactions" xml:space="preserve">
     <value>Transactions</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
   </data>
 </root>
