@@ -1,0 +1,3 @@
+[submodule "App.Shared"]
+	path = App.Shared
+	url = https://github.com/Arachnacein/App.Shared.git
