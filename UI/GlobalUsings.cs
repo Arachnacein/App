@@ -16,7 +16,13 @@ global using UI.Components.Dialogs;
 global using UI.Extensions;
 global using UI.Models;
 global using UI.Models.ViewModels;
-global using UI.Services;
+
+global using App.Shared.Components;
+global using App.Shared.Components.Dialogs;
+global using App.Shared.Extensions;
+global using App.Shared.Models;
+global using App.Shared.Models.ViewModels;
+global using App.Shared.Services;
 
 global using FluentValidation;
 global using Microsoft.AspNetCore.Components.Web;
