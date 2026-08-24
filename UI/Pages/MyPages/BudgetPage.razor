@@ -126,19 +126,19 @@
                           ItemDropped="ItemUpdated"
                           Class="d-flex flex-wrap flex-grow-1">
             <ChildContent>
-                <UI.Components.BudgetTransactionDropZone 
+                <BudgetTransactionDropZone 
                                 Title="@Localizer["Saves"]" Identifier="Saves"
                                 ActualValue="_patternValuesModel.ActualValueSaves"
                                 TotalValue="_patternValuesModel.TotalValueSaves"
                                 TitleColor="Color.Success" Color="forestgreen"
                                 IsLoading="_isLoadingTransactions"/>        
-                <UI.Components.BudgetTransactionDropZone 
+                <BudgetTransactionDropZone 
                                 Title="@Localizer["Fees"]" Identifier="Fees"
                                 ActualValue="_patternValuesModel.ActualValueFees"
                                 TotalValue="_patternValuesModel.TotalValueFees"
                                 TitleColor="Color.Error" Color="darkred" 
                                 IsLoading="_isLoadingTransactions"/>            
-                <UI.Components.BudgetTransactionDropZone 
+                <BudgetTransactionDropZone 
                                 Title="@Localizer["Entertainment"]" Identifier="Entertainment"
                                 ActualValue="_patternValuesModel.ActualValueEntertainment"
                                 TotalValue="_patternValuesModel.TotalValueEntertainment"
@@ -207,6 +207,6 @@
     </MudTabPanel>
 
     <MudTabPanel Text="@Localizer["Statistics"]"> 
-        <UI.Components.StatisticsComponent />
+        <StatisticsComponent />
     </MudTabPanel>
 </MudTabs>
